@@ -8,7 +8,7 @@ import {
 import { dispatchWindowEvent } from 'shared/helpers/CustomEventHelper';
 
 export const bubbleSVG =
-  'M240.808 240.808H122.123C56.6994 240.808 3.45695 187.562 3.45695 122.122C3.45695 56.7031 56.6994 3.45697 122.124 3.45697C187.566 3.45697 240.808 56.7031 240.808 122.122V240.808Z';
+  'M85.6 5H160A74.4 74.4 0 0 1 234.4 79.4V91.8A74.4 74.4 0 0 1 160 166.2H90.56L5 234.4L28.56 148.84A74.4 74.4 0 0 1 11.2 98V79.4A74.4 74.4 0 0 1 85.6 5ZM141.4 68.24a21.08 21.08 0 1 0 42.16 0a21.08 21.08 0 1 0-42.16 0Z';
 
 export const body = document.getElementsByTagName('body')[0];
 export const widgetHolder = document.createElement('div');
@@ -44,6 +44,7 @@ export const createBubbleIcon = ({ className, path, target }) => {
   );
   bubblePath.setAttributeNS(null, 'd', path);
   bubblePath.setAttributeNS(null, 'fill', '#FFFFFF');
+  bubblePath.setAttributeNS(null, 'fill-rule', 'evenodd');
 
   bubbleIcon.appendChild(bubblePath);
   target.appendChild(bubbleIcon);

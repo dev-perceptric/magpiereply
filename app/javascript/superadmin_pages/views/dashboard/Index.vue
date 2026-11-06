@@ -11,7 +11,7 @@ const props = defineProps({
   },
 });
 
-const CHART_COLOR = '#2781F6';
+const CHART_COLOR = '#0943b0';
 const CHART_HEIGHT = 300;
 const BAR_MAX_WIDTH = 28;
 const BAR_RADIUS = 6;
