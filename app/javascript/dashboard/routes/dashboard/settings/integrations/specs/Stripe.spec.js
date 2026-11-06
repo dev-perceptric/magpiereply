@@ -94,12 +94,12 @@ describe('Stripe integration settings', () => {
         },
       });
       await flushPromises();
-      const brand = installationName || 'Chatwoot';
+      const brand = installationName || 'MagpieReply';
       expect(wrapper.get('button').text()).toBe(`Disconnect from ${brand}`);
       expect(wrapper.text()).toContain(
         `Disconnecting removes the saved credentials from ${brand}.`
       );
-      if (installationName) expect(wrapper.text()).not.toContain('Chatwoot');
+      if (installationName) expect(wrapper.text()).not.toContain('MagpieReply');
     }
   );
 

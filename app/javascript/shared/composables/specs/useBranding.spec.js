@@ -82,6 +82,15 @@ describe('useBranding', () => {
       expect(result).toBe('Welcome to MyCompany, MyCompany and MyCompany');
     });
 
+    it('should replace "MagpieReply" with installation name', () => {
+      const { replaceInstallationName } = useBranding();
+      const result = replaceInstallationName(
+        'Welcome to MagpieReply, magpiereply and Chatwoot'
+      );
+
+      expect(result).toBe('Welcome to MyCompany, MyCompany and MyCompany');
+    });
+
     it('should handle special characters in installation name', () => {
       mockGlobalConfig.value = {
         installationName: 'My-Company & Co.',
