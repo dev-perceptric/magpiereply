@@ -1,0 +1,19 @@
+{
+  "GENERAL": {
+    "SHOWING_RESULTS": "显示第 {firstIndex} - {lastIndex} 项，共 {totalCount} 项",
+    "PHONE_INPUT": {
+      "PLACEHOLDER": "搜索",
+      "EMPTY_STATE": "没有检索到相关信息"
+    },
+    "CLOSE": "关闭",
+    "BETA": "测试版",
+    "BETA_DESCRIPTION": "此功能处于测试阶段，可能会随着我们的改进而发生变化。",
+    "ACCEPT": "确认",
+    "DISCARD": "丢弃",
+    "PREFERRED": "首选"
+  },
+  "CHOICE_TOGGLE": {
+    "YES": "是",
+    "NO": "否"
+  }
+}

@@ -1,0 +1,320 @@
+require 'rails_helper'
+
+RSpec.describe Article do
+  let!(:account) { create(:account) }
+  let(:user) { create(:user, account_ids: [account.id], role: :agent) }
+  let!(:portal_1) { create(:portal, account_id: account.id, config: { allowed_locales: %w[en es] }) }
+  let!(:category_1) { create(:category, slug: 'category_1', locale: 'en', portal_id: portal_1.id) }
+
+  context 'with validations' do
+    it { is_expected.to validate_presence_of(:account_id) }
+    it { is_expected.to validate_presence_of(:author_id) }
+    it { is_expected.to validate_presence_of(:title) }
+
+    it 'validates content presence only for published articles' do
+      article = build(:article, portal_id: portal_1.id, author_id: user.id, category_id: category_1.id,
+                                title: 'test', content: nil, status: :draft)
+      expect(article).to be_valid
+
+      article.status = :published
+      expect(article).not_to be_valid
+      expect(article.errors[:content]).to include("can't be blank")
+    end
+
+    it 'rejects reserved slugs that collide with help center routes' do
+      Article::RESERVED_SLUGS.each do |reserved_slug|
+        article = build(:article, portal_id: portal_1.id, author_id: user.id, category_id: category_1.id,
+                                  title: reserved_slug, slug: reserved_slug, content: 'content')
+        expect(article).not_to be_valid
+        expect(article.errors[:slug]).to include('is reserved')
+      end
+    end
+  end
+
+  describe 'translation families' do
+    let(:original) { create(:article, portal: portal_1, author: user, locale: 'en') }
+    let(:translation) { create(:article, portal: portal_1, author: user, locale: 'es', status: :draft, associated_article_id: original.id) }
+
+    %i[draft published].each do |status|
+      it "rejects a #{status} article in the original's locale" do
+        duplicate = build(:article, portal: portal_1, author: user, locale: 'en', status: status, associated_article_id: original.id)
+
+        expect(duplicate).not_to be_valid
+        expect(duplicate.errors[:locale]).to include('has already been taken')
+      end
+
+      it "rejects a #{status} article in an existing draft translation's locale" do
+        translation
+        duplicate = build(:article, portal: portal_1, author: user, locale: 'es', status: status, associated_article_id: original.id)
+
+        expect(duplicate).not_to be_valid
+        expect(duplicate.errors[:locale]).to include('has already been taken')
+      end
+    end
+
+    it 'rejects linking an original with translations to another family' do
+      translation
+      other_original = create(:article, portal: portal_1, author: user, locale: 'es')
+
+      expect(original.update(associated_article_id: other_original.id)).to be false
+      expect(original.errors[:associated_article_id]).to include('is invalid')
+      expect(original.reload.associated_article_id).to be_nil
+      expect(translation.reload.associated_article_id).to eq(original.id)
+    end
+
+    it 'rejects changing a translation to a category whose locale is already in the family' do
+      expect(translation.update(category: category_1)).to be false
+      expect(translation.errors[:locale]).to include('has already been taken')
+      expect(translation.reload.locale).to eq('es')
+    end
+
+    it 'allows unrelated originals in the same locale' do
+      original
+      other_original = build(:article, portal: portal_1, author: user, locale: 'en', status: :draft)
+
+      expect(other_original).to be_valid
+    end
+
+    it 'allows editing and publishing an existing translation' do
+      translation.update!(title: 'Updated translation', content: 'Updated content', status: :published)
+      translation.update!(draft_title: 'Unpublished title', draft_content: 'Unpublished content')
+
+      expect(translation.reload).to have_attributes(title: 'Updated translation', status: 'published',
+                                                    draft_title: 'Unpublished title', draft_content: 'Unpublished content')
+    end
+  end
+
+  describe 'associations' do
+    it { is_expected.to belong_to(:account) }
+    it { is_expected.to belong_to(:author) }
+  end
+
+  # This validation happens in ApplicationRecord
+  describe 'length validations' do
+    let(:article) do
+      create(:article, category_id: category_1.id, content: 'This is the content', description: 'this is the description',
+                       slug: 'this-is-title', title: 'this is title',
+                       portal_id: portal_1.id, author_id: user.id)
+    end
+
+    context 'when it validates content length' do
+      it 'valid when within limit' do
+        article.content = 'a' * 1000
+        expect(article.valid?).to be true
+      end
+
+      it 'invalid when crossed the limit' do
+        article.content = 'a' * 25_001
+        article.valid?
+        expect(article.errors[:content]).to include('is too long (maximum is 20000 characters)')
+      end
+    end
+  end
+
+  describe 'add_locale_to_article' do
+    let(:portal) { create(:portal, config: { allowed_locales: %w[en es pt], default_locale: 'es' }) }
+    let(:category) { create(:category, slug: 'category_1', locale: 'pt', portal_id: portal.id) }
+
+    it 'adds locale to article from category' do
+      article = create(:article, category_id: category.id, content: 'This is the content', description: 'this is the description',
+                                 slug: 'this-is-title', title: 'this is title',
+                                 portal_id: portal.id, author_id: user.id)
+      expect(article.locale).to eq(category.locale)
+    end
+
+    it 'adds locale to article from portal' do
+      article = create(:article, content: 'This is the content', description: 'this is the description',
+                                 slug: 'this-is-title', title: 'this is title',
+                                 portal_id: portal.id, author_id: user.id, locale: '')
+      expect(article.locale).to eq(portal.default_locale)
+    end
+  end
+
+  describe 'search' do
+    let!(:portal_2) { create(:portal, account_id: account.id, config: { allowed_locales: %w[en es] }) }
+    let!(:category_2) { create(:category, slug: 'category_2', locale: 'es', portal_id: portal_1.id) }
+    let!(:category_3) { create(:category, slug: 'category_3', locale: 'es', portal_id: portal_2.id) }
+
+    before do
+      create(:article, category_id: category_1.id, content: 'This is the content', description: 'this is the description',
+                       slug: 'this-is-title', title: 'this is title',
+                       portal_id: portal_1.id, author_id: user.id)
+      create(:article, category_id: category_1.id, slug: 'title-1', title: 'title 1', content: 'This is the content', portal_id: portal_1.id,
+                       author_id: user.id)
+      create(:article, category_id: category_2.id, slug: 'title-2', title: 'title 2', portal_id: portal_2.id, author_id: user.id)
+      create(:article, category_id: category_2.id, slug: 'title-3', title: 'title 3', portal_id: portal_1.id, author_id: user.id)
+      create(:article, category_id: category_3.id, slug: 'title-6', title: 'title 6', portal_id: portal_2.id, author_id: user.id, status: :published)
+      create(:article, category_id: category_2.id, slug: 'title-7', title: 'title 7', portal_id: portal_1.id, author_id: user.id, status: :published)
+    end
+
+    context 'when no parameters passed' do
+      it 'returns all the articles in portal' do
+        records = portal_1.articles.search({})
+        expect(records.count).to eq(portal_1.articles.count)
+
+        records = portal_2.articles.search({})
+        expect(records.count).to eq(portal_2.articles.count)
+      end
+    end
+
+    context 'when params passed' do
+      it 'returns all the articles with all the params filters' do
+        params = { query: 'title', locale: 'es', category_slug: 'category_3' }
+        records = portal_2.articles.search(params)
+        expect(records.count).to eq(1)
+
+        params = { query: 'this', locale: 'en', category_slug: 'category_1' }
+        records = portal_1.articles.search(params)
+        expect(records.count).to eq(2)
+
+        params = { status: 'published' }
+        records = portal_1.articles.search(params)
+        expect(records.count).to eq(portal_1.articles.published.size)
+      end
+    end
+
+    context 'when some params missing' do
+      it 'returns data with category slug' do
+        params = { category_slug: 'category_2' }
+        records = portal_1.articles.search(params)
+        expect(records.count).to eq(2)
+      end
+
+      it 'returns data with locale' do
+        params = { locale: 'es' }
+        records = portal_2.articles.search(params)
+        expect(records.count).to eq(2)
+
+        params = { locale: 'en' }
+        records = portal_1.articles.search(params)
+        expect(records.count).to eq(2)
+      end
+
+      it 'returns data with text_search query' do
+        params = { query: 'title' }
+        records = portal_2.articles.search(params)
+
+        expect(records.count).to eq(2)
+
+        params = { query: 'title' }
+        records = portal_1.articles.search(params)
+
+        expect(records.count).to eq(4)
+
+        params = { query: 'the content' }
+        records = portal_1.articles.search(params)
+
+        expect(records.count).to eq(2)
+      end
+
+      it 'returns data with text_search query and locale' do
+        params = { query: 'title', locale: 'es' }
+        records = portal_2.articles.search(params)
+        expect(records.count).to eq(2)
+      end
+
+      it 'returns records with locale and category_slug' do
+        params = { category_slug: 'category_2', locale: 'es' }
+        records = portal_1.articles.search(params)
+        expect(records.count).to eq(2)
+      end
+
+      it 'return records with category_slug and text_search query' do
+        params = { category_slug: 'category_2', query: 'title' }
+        records = portal_1.articles.search(params)
+        expect(records.count).to eq(2)
+      end
+
+      it 'returns records with author and category_slug' do
+        params = { category_slug: 'category_2', author_id: user.id }
+        records = portal_1.articles.search(params)
+        expect(records.count).to eq(2)
+      end
+
+      it 'auto saves article slug' do
+        article = create(:article, category_id: category_1.id, title: 'the awesome article 1', content: 'This is the content', portal_id: portal_1.id,
+                                   author_id: user.id)
+        expect(article.slug).to include('the-awesome-article-1')
+      end
+    end
+  end
+
+  describe '#to_llm_text' do
+    around { |example| with_modified_env(FRONTEND_URL: 'https://app.example.com') { example.run } }
+
+    it 'returns formatted article text' do
+      category = create(:category, name: 'Test Category', slug: 'test_category', portal_id: portal_1.id)
+      article = create(:article, title: 'Test Article', category_id: category.id, content: 'This is the content', portal_id: portal_1.id,
+                                 author_id: user.id)
+      expected_output = <<~TEXT
+        Title: #{article.title}
+        ID: #{article.id}
+        Status: #{article.status}
+        Public URL: https://app.example.com/hc/#{portal_1.slug}/articles/#{article.slug}
+        Category: #{category.name}
+        Author: #{user.name}
+        Views: #{article.views}
+        Created At: #{article.created_at}
+        Updated At: #{article.updated_at}
+        Content:
+        #{article.content}
+      TEXT
+
+      expect(article.to_llm_text).to eq(expected_output)
+    end
+  end
+
+  describe '.update_positions' do
+    let!(:article_a) { create(:article, portal: portal_1, category: category_1, author: user, position: 10) }
+    let!(:article_b) { create(:article, portal: portal_1, category: category_1, author: user, position: 11) }
+    let!(:article_c) { create(:article, portal: portal_1, category: category_1, author: user, position: 30) }
+
+    it 're-spaces the category to clean gaps and places a collided move after its tie' do
+      # Dropping C into the tight 10/11 gap gives a floored midpoint of 10, colliding with A
+      positions = described_class.update_positions(portal: portal_1, positions_hash: { article_c.id => 10 })
+
+      expect(article_a.reload.position).to eq(10)
+      expect(article_c.reload.position).to eq(20)
+      expect(article_b.reload.position).to eq(30)
+      expect(positions).to eq(article_a.id => 10, article_c.id => 20, article_b.id => 30)
+    end
+
+    it 'leaves a lone article untouched and returns nothing to sync' do
+      lone = create(:article, portal: portal_1, category: create(:category, portal_id: portal_1.id), author: user, position: 20)
+
+      positions = described_class.update_positions(portal: portal_1, positions_hash: { lone.id => 20 })
+
+      expect(lone.reload.position).to eq(20)
+      expect(positions).to be_empty
+    end
+  end
+
+  describe '#noindex?' do
+    let(:article) { build(:article, portal: portal_1, category: category_1, author: user, account: account) }
+
+    it 'is true only when meta noindex is true' do
+      expect(article.noindex?).to be(false)
+
+      article.meta = { 'noindex' => true }
+      expect(article.noindex?).to be(true)
+    end
+  end
+
+  describe 'noindex validation' do
+    let(:article) { build(:article, portal: portal_1, category: category_1, author: user, account: account) }
+
+    it 'accepts a boolean or a missing value' do
+      [true, false, nil].each do |value|
+        article.meta = { 'noindex' => value }
+        expect(article).to be_valid
+      end
+    end
+
+    it 'rejects non-boolean values' do
+      article.meta = { 'noindex' => 'true' }
+
+      expect(article).not_to be_valid
+      expect(article.errors[:meta]).to include('noindex must be true or false')
+    end
+  end
+end

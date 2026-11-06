@@ -1,0 +1,284 @@
+require 'rails_helper'
+
+RSpec.describe Conversation, type: :model do
+  describe 'associations' do
+    it { is_expected.to belong_to(:sla_policy).optional }
+  end
+
+  describe 'Captain assignment' do
+    let(:account) { create(:account, limits: { 'captain_responses' => 10 }) }
+    let(:inbox) { create(:inbox, account: account, enable_auto_assignment: false) }
+    let(:assistant) { create(:captain_assistant, account: account) }
+
+    before do
+      create(:captain_inbox, inbox: inbox, captain_assistant: assistant)
+    end
+
+    it 'does not assign Captain when the feature is disabled' do
+      conversation = create(:conversation, account: account, inbox: inbox)
+
+      expect(conversation).to have_attributes(status: 'open', ai_assignee: nil)
+    end
+
+    context 'with a Captain assignee' do
+      let(:conversation) { create(:conversation, account: account, inbox: inbox, status: :pending, ai_assignee: assistant) }
+
+      before { account.enable_features!('captain_integration') }
+
+      it 'clears Captain when the conversation opens' do
+        conversation.update!(status: :open)
+
+        expect(conversation.reload).to have_attributes(status: 'open', ai_assignee_type: nil, assignee_agent_bot_id: nil)
+        expect(inbox.conversations.unassigned).to include(conversation)
+      end
+
+      it 'keeps Captain on unrelated updates while pending' do
+        conversation.update!(priority: :high)
+
+        expect(conversation.reload).to have_attributes(status: 'pending', ai_assignee: assistant)
+      end
+
+      it 'clears Captain when the snooze expires' do
+        conversation.update!(status: :snoozed, snoozed_until: 1.minute.ago)
+
+        Conversations::ReopenSnoozedConversationsJob.perform_now
+
+        expect(conversation.reload).to have_attributes(status: 'open', ai_assignee: nil, ai_assignee_type: nil)
+        expect(inbox.conversations.unassigned).to include(conversation)
+      end
+
+      it 'clears Captain before legacy auto-assignment runs on snooze expiry' do
+        account.disable_features!('assignment_v2')
+        agent = create(:user, account: account, auto_offline: false)
+        create(:inbox_member, inbox: inbox, user: agent)
+        OnlineStatusTracker.set_status(account.id, agent.id, 'online')
+        conversation.update!(status: :snoozed, snoozed_until: 1.minute.ago)
+        inbox.update!(enable_auto_assignment: true)
+
+        Conversations::ReopenSnoozedConversationsJob.perform_now
+
+        expect(conversation.reload).to have_attributes(status: 'open', ai_assignee: nil, ai_assignee_type: nil, assignee: agent)
+      end
+    end
+  end
+
+  describe 'SLA policy updates' do
+    let(:conversation) { create(:conversation) }
+    let!(:sla_policy) { create(:sla_policy, account: conversation.account) }
+
+    before do
+      stub_request(:get, %r{\Ahttps://www\.gravatar\.com.*}).to_return(status: 404)
+      stub_request(:get, %r{\Ahttps://www\.google\.com/s2/favicons.*}).to_return(status: 404)
+    end
+
+    it 'generates an activity message when the SLA policy is updated' do
+      conversation.update!(sla_policy_id: sla_policy.id)
+
+      perform_enqueued_jobs
+
+      activity_message = conversation.messages.where(message_type: 'activity').last
+
+      expect(activity_message).not_to be_nil
+      expect(activity_message.message_type).to eq('activity')
+      expect(activity_message.content).to include('added SLA policy')
+    end
+
+    # TODO: Reenable this when we let the SLA policy be removed from a conversation
+    # it 'generates an activity message when the SLA policy is removed' do
+    #   conversation.update!(sla_policy_id: sla_policy.id)
+    #   conversation.update!(sla_policy_id: nil)
+
+    #   perform_enqueued_jobs
+
+    #   activity_message = conversation.messages.where(message_type: 'activity').last
+
+    #   expect(activity_message).not_to be_nil
+    #   expect(activity_message.message_type).to eq('activity')
+    #   expect(activity_message.content).to include('removed SLA policy')
+    # end
+  end
+
+  describe 'SLA completion' do
+    let(:applied_sla) { create(:applied_sla) }
+    let(:conversation) { applied_sla.conversation }
+
+    it 'records the completion time when the conversation is resolved' do
+      completion_time = Time.zone.parse('2026-07-15 10:00:00')
+
+      travel_to(completion_time) { conversation.update!(status: :resolved) }
+
+      expect(applied_sla.reload.completed_at).to eq(completion_time)
+    end
+
+    it 'records the completion time when SLA evaluation finishes during resolution' do
+      completion_time = Time.zone.parse('2026-07-15 10:00:00')
+      allow(conversation).to receive(:update_applied_sla_completion).and_wrap_original do |method|
+        applied_sla.update!(sla_status: :missed)
+        method.call
+      end
+
+      travel_to(completion_time) { conversation.update!(status: :resolved) }
+
+      expect(applied_sla.reload).to have_attributes(sla_status: 'missed', completed_at: completion_time)
+    end
+
+    it 'clears the completion time when a nonterminal SLA is reopened' do
+      conversation.update!(status: :resolved)
+
+      conversation.update!(status: :open)
+
+      expect(applied_sla.reload.completed_at).to be_nil
+    end
+
+    it 'preserves the completion time when a terminal SLA is reopened' do
+      conversation.update!(status: :resolved)
+      completed_at = applied_sla.reload.completed_at
+      applied_sla.update!(sla_status: :missed)
+
+      conversation.update!(status: :open)
+
+      expect(applied_sla.reload.completed_at).to eq(completed_at)
+    end
+  end
+
+  describe 'sla_policy' do
+    let(:account) { create(:account) }
+    let(:conversation) { create(:conversation, account: account) }
+    let(:sla_policy) { create(:sla_policy, account: account) }
+    let(:different_account_sla_policy) { create(:sla_policy) }
+
+    context 'when sla_policy is getting updated' do
+      it 'throws error if sla policy belongs to different account' do
+        conversation.sla_policy = different_account_sla_policy
+        expect(conversation.valid?).to be false
+        expect(conversation.errors[:sla_policy]).to include('sla policy account mismatch')
+      end
+
+      it 'creates applied sla record if sla policy is present' do
+        conversation.sla_policy = sla_policy
+        conversation.save!
+        expect(conversation.applied_sla.sla_policy_id).to eq(sla_policy.id)
+      end
+
+      it 'throws error if contact is blocked' do
+        conversation.contact.update!(blocked: true)
+        conversation.sla_policy = sla_policy
+
+        expect(conversation.valid?).to be false
+        expect(conversation.errors[:sla_policy]).to eq(['cannot be assigned to conversations with blocked contacts'])
+      end
+
+      it 'allows assigning sla after contact is unblocked' do
+        conversation.contact.update!(blocked: true)
+        conversation.contact.update!(blocked: false)
+        conversation.sla_policy = sla_policy
+
+        conversation.save!
+
+        expect(conversation.applied_sla.sla_policy_id).to eq(sla_policy.id)
+      end
+
+      it 'keeps existing behavior when contact is missing' do
+        conversation.update_columns(contact_id: nil, contact_inbox_id: nil) # rubocop:disable Rails/SkipsModelValidations
+
+        expect(conversation.reload.sla_applicable?).to be true
+      end
+    end
+
+    context 'when conversation already has a different sla' do
+      before do
+        conversation.update(sla_policy: create(:sla_policy, account: account))
+      end
+
+      it 'throws error if trying to assing a different sla' do
+        conversation.sla_policy = sla_policy
+        expect(conversation.valid?).to be false
+        expect(conversation.errors[:sla_policy]).to eq(['conversation already has a different sla'])
+      end
+
+      it 'throws error if trying to set sla to nil' do
+        conversation.sla_policy = nil
+        expect(conversation.valid?).to be false
+        expect(conversation.errors[:sla_policy]).to eq(['cannot remove sla policy from conversation'])
+      end
+    end
+  end
+
+  describe 'assignment capacity limits' do
+    describe 'team assignment with inbox auto-assignment disabled' do
+      let(:account) { create(:account) }
+      let(:inbox) { create(:inbox, account: account, enable_auto_assignment: false, auto_assignment_config: { max_assignment_limit: 1 }) }
+      let(:team) { create(:team, account: account, allow_auto_assign: true) }
+      let!(:agent1) { create(:user, account: account, role: :agent, auto_offline: false) }
+      let!(:agent2) { create(:user, account: account, role: :agent, auto_offline: false) }
+
+      before do
+        create(:inbox_member, inbox: inbox, user: agent1)
+        create(:inbox_member, inbox: inbox, user: agent2)
+        create(:team_member, team: team, user: agent1)
+        create(:team_member, team: team, user: agent2)
+        # Both agents are over the limit (simulate by assigning open conversations)
+        create_list(:conversation, 2, inbox: inbox, assignee: agent1, status: :open)
+        create_list(:conversation, 2, inbox: inbox, assignee: agent2, status: :open)
+      end
+
+      it 'does not enforce max_assignment_limit for team assignment when inbox auto-assignment is disabled' do
+        conversation = create(:conversation, inbox: inbox, account: account, assignee: nil, status: :open)
+
+        # Assign to team to trigger the assignment logic
+        conversation.update!(team: team)
+
+        # Should assign to a team member even if they are over the limit
+        expect(conversation.reload.assignee).to be_present
+        expect([agent1, agent2]).to include(conversation.reload.assignee)
+      end
+    end
+  end
+
+  describe 'activity messages for changes made through Copilot' do
+    let(:account) { create(:account) }
+    let(:agent) { create(:user, account: account, role: :administrator) }
+    let(:conversation) { create(:conversation, account: account) }
+    let(:label) { create(:label, account: account) }
+    let(:thread) { create(:captain_copilot_thread, account: account, user: agent) }
+    let(:message) { create(:captain_copilot_message, account: account, copilot_thread: thread) }
+    let(:turn) { CopilotRun::Turn.create!(account: account, user: agent, copilot_thread: thread, copilot_message: message) }
+    let(:tool_call) { turn.tool_calls.create!(call_id: 'act-1', name: 'act') }
+    let(:card) { thread.copilot_messages.create!(message_type: :assistant_approval, message: { approval: { status: 'approved', count: 1 } }) }
+    let(:run) do
+      CopilotRun::Action.create!(account: account, user: agent, copilot_thread: thread, copilot_tool_call: tool_call, status: :queued,
+                                 context: { action: 'add_labels', arguments: { labels: [label.title] }, target_ids: [conversation.id],
+                                            approval_message_id: card.id })
+    end
+
+    before { account.enable_features!('copilot_workflows') }
+
+    after { Current.reset }
+
+    it 'names the agent and says the label came through Copilot' do
+      run
+
+      expect { Captain::Copilot::ActionJob.perform_now(run.id) }
+        .to have_enqueued_job(Conversations::ActivityMessageJob)
+        .with(conversation, hash_including(content: "#{agent.name} added #{label.title} via Copilot"))
+      expect(conversation.reload.label_list).to contain_exactly(label.title)
+    end
+
+    it 'keeps the usual wording when the agent adds the label by hand' do
+      Current.user = agent
+
+      expect { conversation.add_labels([label.title]) }
+        .to have_enqueued_job(Conversations::ActivityMessageJob)
+        .with(conversation, hash_including(content: "#{agent.name} added #{label.title}"))
+    end
+
+    it 'still writes a status change made through Copilot' do
+      Current.user = agent
+      Current.executed_by = run
+
+      expect { conversation.resolved! }
+        .to have_enqueued_job(Conversations::ActivityMessageJob)
+        .with(conversation, hash_including(content: "Conversation was marked resolved by #{agent.name} via Copilot"))
+    end
+  end
+end

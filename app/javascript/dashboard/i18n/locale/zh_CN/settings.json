@@ -1,0 +1,1124 @@
+{
+  "PROFILE_SETTINGS": {
+    "LINK": "个人资料设置",
+    "TITLE": "个人资料设置",
+    "BTN_TEXT": "更新个人资料",
+    "DELETE_AVATAR": "删除头像",
+    "AVATAR_DELETE_SUCCESS": "头像已成功删除",
+    "AVATAR_DELETE_FAILED": "删除头像时出现错误，请重试",
+    "UPDATE_SUCCESS": "您的个人资料已更新成功",
+    "PASSWORD_UPDATE_SUCCESS": "您的密码已成功更改。",
+    "AFTER_EMAIL_CHANGED": "您的个人资料已成功更新，请在您的登录凭据更改后重新登录",
+    "FORM": {
+      "PICTURE": "个人资料图片",
+      "AVATAR": "头像",
+      "ERROR": "请修正表单错误",
+      "REMOVE_IMAGE": "删除",
+      "UPLOAD_IMAGE": "上传头像",
+      "UPDATE_IMAGE": "更新头像",
+      "PROFILE_SECTION": {
+        "TITLE": "个人信息",
+        "NOTE": "您的电子邮件地址是您的身份并用于登录。"
+      },
+      "SEND_MESSAGE": {
+        "TITLE": "发送消息的快捷键",
+        "NOTE": "您可以根据您的写入偏好选择一个快捷键 (输入或 Cmd/Ctrl+Enter)。",
+        "UPDATE_SUCCESS": "您的设置已经更新成功",
+        "CARD": {
+          "ENTER_KEY": {
+            "HEADING": "Enter (↵)",
+            "CONTENT": "按 Enter 键发送消息，而不是单击发送按钮。"
+          },
+          "CMD_ENTER_KEY": {
+            "HEADING": "Cmd/Ctrl + Enter (⌘ + ↵)",
+            "CONTENT": "按下 Cmd/Ctrl + Enter 发送消息，而不是点击发送按钮。"
+          }
+        }
+      },
+      "INTERFACE_SECTION": {
+        "TITLE": "界面",
+        "NOTE": "自定义您的 Chatwoot 仪表板的外观和感觉。",
+        "FONT_SIZE": {
+          "TITLE": "字体大小",
+          "NOTE": "根据您的偏好调整仪表板中的文本大小。",
+          "UPDATE_SUCCESS": "您的字体设置已成功更新",
+          "UPDATE_ERROR": "更新字体设置时出错，请重试",
+          "OPTIONS": {
+            "SMALLER": "较小",
+            "SMALL": "小",
+            "DEFAULT": "默认",
+            "LARGE": "大",
+            "LARGER": "较大",
+            "EXTRA_LARGE": "特大"
+          }
+        },
+        "LANGUAGE": {
+          "TITLE": "首选语言",
+          "NOTE": "选择您想要使用的语言。",
+          "UPDATE_SUCCESS": "您的语言设置已成功更新",
+          "UPDATE_ERROR": "更新语言设置时出错，请重试",
+          "USE_ACCOUNT_DEFAULT": "使用账户默认值"
+        }
+      },
+      "MESSAGE_SIGNATURE_SECTION": {
+        "TITLE": "个人消息签名",
+        "NOTE": "创建一个唯一的消息签名来显示在您从任何收件箱发送的消息的末尾。 您也可以包含一个内联图片，它支持在直播聊天、电子邮件和API收件箱中。",
+        "BTN_TEXT": "保存消息签名",
+        "API_ERROR": "无法保存签名！请重试",
+        "API_SUCCESS": "签名保存成功",
+        "IMAGE_UPLOAD_ERROR": "无法上传图片！请再试一次",
+        "IMAGE_UPLOAD_SUCCESS": "图片添加成功。请点击保存签名。",
+        "IMAGE_UPLOAD_SIZE_ERROR": "图片大小应该小于{size}MB",
+        "INLINE_IMAGE_WARNING": "粘贴的内联图片已被删除。请使用图片上传按钮将图片添加到您的签名。"
+      },
+      "MESSAGE_SIGNATURE": {
+        "LABEL": "消息签名",
+        "ERROR": "消息签名不能为空",
+        "PLACEHOLDER": "在此插入您的个人消息签名。"
+      },
+      "PASSWORD_SECTION": {
+        "TITLE": "密码",
+        "NOTE": "更新您的密码会在多个设备中重置您的登录信息。",
+        "BTN_TEXT": "更改密码"
+      },
+      "SECURITY_SECTION": {
+        "TITLE": "安全",
+        "NOTE": "管理您账户的额外安全功能。",
+        "MFA_BUTTON": "管理两步验证"
+      },
+      "SESSIONS_SECTION": {
+        "TITLE": "Active Sessions",
+        "NOTE": "These are the devices currently logged in to your account.",
+        "CURRENT": "Current session",
+        "REVOKE": "Revoke",
+        "REVOKE_SUCCESS": "Session revoked successfully",
+        "REVOKE_ERROR": "Unable to revoke session. Please try again.",
+        "FETCH_ERROR": "Unable to fetch sessions. Please try again.",
+        "LAST_ACTIVE": "Last active",
+        "UNKNOWN_DEVICE": "Unknown device"
+      },
+      "ACCESS_TOKEN": {
+        "TITLE": "访问令牌",
+        "NOTE": "如果您正在构建基于 API 的集成，这个令牌可以被使用",
+        "PAID_PLAN_NOTE": "付费方案支持 API 访问令牌。",
+        "COPY": "复制",
+        "RESET": "重置",
+        "CONFIRM_RESET": "您确定吗？",
+        "CONFIRM_HINT": "再次点击以确认",
+        "RESET_SUCCESS": "成功重新生成访问令牌",
+        "RESET_ERROR": "无法重新生成访问令牌。请重试"
+      },
+      "AUDIO_NOTIFICATIONS_SECTION": {
+        "TITLE": "音频提醒",
+        "NOTE": "在仪表板中为新消息和会话启用音频提醒。",
+        "PLAY": "播放声音",
+        "ALERT_TYPES": {
+          "NONE": "无",
+          "MINE": "分配给我的",
+          "ALL": "所有",
+          "ASSIGNED": "分配给我的会话",
+          "UNASSIGNED": "未分配的会话",
+          "NOTME": "分配给其他人的开放会话"
+        },
+        "ALERT_COMBINATIONS": {
+          "NONE": "您尚未选择任何选项，您不会收到任何音频提醒。",
+          "ASSIGNED": "您将收到分配给您的会话的提醒。",
+          "UNASSIGNED": "您将收到任何未分配会话的提醒。",
+          "NOTME": "您将收到分配给其他人的会话的提醒。",
+          "ASSIGNED+UNASSIGNED": "您将收到分配给您的会话和任何未处理会话的提醒。",
+          "ASSIGNED+NOTME": "您将收到分配给您的会话和分配给其他人的会话的提醒，但不会收到未分配会话的提醒。",
+          "NOTME+UNASSIGNED": "您将收到未处理会话和分配给其他人的会话的提醒。",
+          "ASSIGNED+NOTME+UNASSIGNED": "您将收到所有会话的提醒。"
+        },
+        "ALERT_TYPE": {
+          "TITLE": "会话提醒事件",
+          "NONE": "无",
+          "ASSIGNED": "分配会话",
+          "ALL_CONVERSATIONS": "所有会话"
+        },
+        "DEFAULT_TONE": {
+          "TITLE": "提醒音调："
+        },
+        "CONDITIONS": {
+          "TITLE": "提醒条件：",
+          "CONDITION_ONE": "仅在浏览器窗口未激活时发送音频提醒",
+          "CONDITION_TWO": "每30秒发送一次提醒，直到所有分配的会话被阅读"
+        },
+        "SOUND_PERMISSION_ERROR": "您的浏览器中禁用了自动播放。要自动听到提醒，请在浏览器设置中启用声音权限或与页面进行交互。",
+        "READ_MORE": "阅读更多"
+      },
+      "EMAIL_NOTIFICATIONS_SECTION": {
+        "TITLE": "电子邮件通知",
+        "NOTE": "在此更新您的电子邮件通知设置",
+        "CONVERSATION_ASSIGNMENT": "当对话分配给我时发送电子邮件通知",
+        "CONVERSATION_CREATION": "当对话分配给我时发送电子邮件通知",
+        "CONVERSATION_MENTION": "当您在会话中被提及时发送电子邮件通知",
+        "ASSIGNED_CONVERSATION_NEW_MESSAGE": "在已分配的会话中创建新消息时发送电子邮件通知",
+        "PARTICIPATING_CONVERSATION_NEW_MESSAGE": "当参与会话中创建新消息时发送电子邮件通知",
+        "SLA_MISSED_FIRST_RESPONSE": "当会话错过首次响应 SLA 时发送电子邮件通知",
+        "SLA_MISSED_NEXT_RESPONSE": "当会话错过下次响应 SLA 时发送电子邮件通知",
+        "SLA_MISSED_RESOLUTION": "当会话错过解决 SLA 时发送电子邮件通知",
+        "VOICE_CALL_MISSED": "Send email notifications when you miss a call"
+      },
+      "NOTIFICATIONS": {
+        "TITLE": "通知偏好",
+        "TYPE_TITLE": "通知类型",
+        "EMAIL": "电子邮件",
+        "PUSH": "推送通知",
+        "TYPES": {
+          "CONVERSATION_CREATED": "新会话已创建",
+          "CONVERSATION_ASSIGNED": "会话已分配给您",
+          "CONVERSATION_MENTION": "您在会话中被提及",
+          "ASSIGNED_CONVERSATION_NEW_MESSAGE": "在分配的会话中创建了新消息",
+          "PARTICIPATING_CONVERSATION_NEW_MESSAGE": "在参与的会话中创建了新消息",
+          "SLA_MISSED_FIRST_RESPONSE": "会话错过了首次响应 SLA",
+          "SLA_MISSED_NEXT_RESPONSE": "会话错过了下次响应 SLA",
+          "SLA_MISSED_RESOLUTION": "会话错过了解决 SLA",
+          "VOICE_CALL_MISSED": "You miss a call"
+        },
+        "BROWSER_PERMISSION": "为您的浏览器启用推送通知，以便您能够接收它们"
+      },
+      "API": {
+        "UPDATE_SUCCESS": "您的通知设置已成功更新",
+        "UPDATE_ERROR": "更新配置时出错，请再试一次"
+      },
+      "PUSH_NOTIFICATIONS_SECTION": {
+        "TITLE": "推送通知",
+        "NOTE": "在此更新您的推送通知设置",
+        "CONVERSATION_ASSIGNMENT": "当对话被分配给我时发送推送通知",
+        "CONVERSATION_CREATION": "创建新对话时发送推送通知",
+        "CONVERSATION_MENTION": "当您在会话中被提及时发送推送通知",
+        "ASSIGNED_CONVERSATION_NEW_MESSAGE": "在已分配的会话中创建新消息时发送推送通知",
+        "PARTICIPATING_CONVERSATION_NEW_MESSAGE": "当参与会话中创建新消息时发送推送通知",
+        "HAS_ENABLED_PUSH": "您已启用此浏览器的推送。",
+        "REQUEST_PUSH": "启用推送通知",
+        "SLA_MISSED_FIRST_RESPONSE": "当会话错过首次响应 SLA 时发送推送通知",
+        "SLA_MISSED_NEXT_RESPONSE": "当会话错过下次响应 SLA 时发送推送通知",
+        "SLA_MISSED_RESOLUTION": "当会话错过解决 SLA 时发送推送通知",
+        "VOICE_CALL_MISSED": "Send push notifications when you miss a call"
+      },
+      "PROFILE_IMAGE": {
+        "LABEL": "头像"
+      },
+      "NAME": {
+        "LABEL": "您的全名",
+        "ERROR": "请输入一个有效的全名",
+        "PLACEHOLDER": "请输入您的姓名"
+      },
+      "DISPLAY_NAME": {
+        "LABEL": "展示名",
+        "ERROR": "请输入一个有效的全名",
+        "PLACEHOLDER": "请输入显示名称，将会在对话中显示"
+      },
+      "AVAILABILITY": {
+        "LABEL": "有效的",
+        "STATUS": {
+          "ONLINE": "在线",
+          "BUSY": "忙碌中",
+          "OFFLINE": "离线"
+        },
+        "SET_AVAILABILITY_SUCCESS": "可用性已成功设置",
+        "SET_AVAILABILITY_ERROR": "无法设置可用性，请重试",
+        "IMPERSONATING_ERROR": "当您处于模拟用户状态时，无法更改其在线状态"
+      },
+      "EMAIL": {
+        "LABEL": "您的电子邮件地址",
+        "ERROR": "请输入一个有效的电子邮件",
+        "PLACEHOLDER": "请输入您的名字，这将会在对话中显示"
+      },
+      "CURRENT_PASSWORD": {
+        "LABEL": "当前密码",
+        "ERROR": "请输入当前密码",
+        "PLACEHOLDER": "请输入当前密码"
+      },
+      "PASSWORD": {
+        "LABEL": "新密码",
+        "ERROR": "请输入长度6或更长的密码",
+        "PLACEHOLDER": "请输入新密码"
+      },
+      "PASSWORD_CONFIRMATION": {
+        "LABEL": "重新输入一次密码",
+        "ERROR": "两次密码不一致",
+        "PLACEHOLDER": "请重新输入您的新密码"
+      }
+    }
+  },
+  "SIDEBAR_ITEMS": {
+    "CHANGE_AVAILABILITY_STATUS": "更改",
+    "CHANGE_ACCOUNTS": "切换账户",
+    "SWITCH_ACCOUNT": "切换账户",
+    "CONTACT_SUPPORT": "联系支持",
+    "SELECTOR_SUBTITLE": "从以下列表中选择一个账户",
+    "PROFILE_SETTINGS": "个人资料设置",
+    "YEAR_IN_REVIEW": "年度回顾",
+    "KEYBOARD_SHORTCUTS": "键盘快捷键",
+    "APPEARANCE": "更改外观",
+    "SUPER_ADMIN_CONSOLE": "超级管理员控制台",
+    "DOCS": "阅读文档",
+    "CHANGELOG": "更新日志",
+    "LOGOUT": "注销"
+  },
+  "APP_GLOBAL": {
+    "TRIAL_MESSAGE": "剩余试用期天数",
+    "TRAIL_BUTTON": "立即购买",
+    "DELETED_USER": "已删除用户",
+    "EMAIL_VERIFICATION_PENDING": "您似乎尚未验证您的电子邮件地址。请检查您的收件箱以获取验证邮件。",
+    "RESEND_VERIFICATION_MAIL": "重新发送验证邮件",
+    "EMAIL_VERIFICATION_SENT": "验证邮件已发送。请检查您的收件箱。",
+    "IMPERSONATION": {
+      "MESSAGE": "You are impersonating {name} ({email}). Any action you take will appear as this user.",
+      "STOP": "Stop impersonating"
+    },
+    "ACCOUNT_SUSPENDED": {
+      "TITLE": "账户已暂停",
+      "MESSAGE": "您的账户已被暂停。请联系支持团队以获取更多信息。",
+      "MANAGE_BILLING": "Manage billing"
+    },
+    "NO_ACCOUNTS": {
+      "TITLE": "未找到账户",
+      "MESSAGE_CLOUD": "您目前不属于任何账户。如果您认为这是错误，请联系我们的支持团队。",
+      "MESSAGE_SELF_HOSTED": "您目前不属于任何账户，请联系您的管理员。",
+      "LOGOUT": "注销"
+    }
+  },
+  "COMPONENTS": {
+    "CODE": {
+      "BUTTON_TEXT": "复制",
+      "CODEPEN": "在 CodePen 中打开",
+      "COPY_SUCCESSFUL": "已复制到剪贴板",
+      "COPY_ERROR": "Unable to copy to clipboard. Please try again."
+    },
+    "SHOW_MORE_BLOCK": {
+      "SHOW_MORE": "显示更多",
+      "SHOW_LESS": "显示更少"
+    },
+    "FILE_BUBBLE": {
+      "DOWNLOAD": "下载",
+      "UPLOADING": "上传中...",
+      "INSTAGRAM_STORY_UNAVAILABLE": "本信息不存在",
+      "INSTAGRAM_STORY_REPLY": "回复您的故事:"
+    },
+    "LOCATION_BUBBLE": {
+      "SEE_ON_MAP": "在地图上查看"
+    },
+    "FORM_BUBBLE": {
+      "SUBMIT": "提交"
+    },
+    "MEDIA": {
+      "IMAGE_UNAVAILABLE": "此图片不再可用。",
+      "LOADING_FAILED": "加载失败"
+    }
+  },
+  "CONFIRM_EMAIL": "正在验证...",
+  "SETTINGS": {
+    "INBOXES": {
+      "NEW_INBOX": "添加收件箱"
+    }
+  },
+  "SIDEBAR": {
+    "NO_ITEMS": "无项目",
+    "CURRENTLY_VIEWING_ACCOUNT": "当前查看：",
+    "SWITCH": "切换",
+    "INBOX_VIEW": "收件箱视图",
+    "CONVERSATIONS": "会话",
+    "INBOX": "我的收件箱",
+    "ALL_CONVERSATIONS": "所有会话",
+    "MENTIONED_CONVERSATIONS": "提及",
+    "PARTICIPATING_CONVERSATIONS": "参与者",
+    "UNATTENDED_CONVERSATIONS": "未处理",
+    "REPORTS": "报告",
+    "SETTINGS": "设置",
+    "CONTACTS": "联系人",
+    "ACTIVE": "状态",
+    "COMPANIES": "公司",
+    "ALL_COMPANIES": "所有公司",
+    "CAPTAIN": "Captain",
+    "CALLS": "Calls",
+    "CAPTAIN_ASSISTANTS": "助手",
+    "CAPTAIN_OVERVIEW": "概览",
+    "CAPTAIN_DOCUMENTS": "文档",
+    "CAPTAIN_RESPONSES": "常见问题",
+    "CAPTAIN_TOOLS": "工具",
+    "CAPTAIN_SCENARIOS": "场景",
+    "CAPTAIN_PLAYGROUND": "试验场",
+    "CAPTAIN_INBOXES": "收件箱",
+    "CAPTAIN_SETTINGS": "设置",
+    "HOME": "首页",
+    "AGENTS": "客服代理",
+    "AGENT_BOTS": "机器人",
+    "AUDIT_LOGS": "审计日志",
+    "INBOXES": "收件箱",
+    "WHATSAPP_TEMPLATES": "Templates",
+    "NOTIFICATIONS": "消息通知",
+    "CANNED_RESPONSES": "预设回复",
+    "INTEGRATIONS": "集成方式",
+    "DATA": "数据",
+    "PROFILE_SETTINGS": "个人资料设置",
+    "ACCOUNT_SETTINGS": "账户设置",
+    "APPLICATIONS": "应用程序",
+    "LABELS": "标签",
+    "CUSTOM_ATTRIBUTES": "自定义属性",
+    "AUTOMATION": "自动化",
+    "MACROS": "宏",
+    "TEAMS": "团队",
+    "BILLING": "计费",
+    "CUSTOM_VIEWS_FOLDER": "文件夹",
+    "CUSTOM_VIEWS_SEGMENTS": "分段",
+    "ALL_CONTACTS": "所有联系人",
+    "TAGGED_WITH": "标记为",
+    "NEW_LABEL": "新标签",
+    "NEW_TEAM": "新团队",
+    "NEW_INBOX": "新收件箱",
+    "REPORTS_CONVERSATION": "会话",
+    "CSAT": "客户满意度",
+    "LIVE_CHAT": "在线聊天",
+    "SMS": "短信",
+    "WHATSAPP": "WhatsApp",
+    "CAMPAIGNS": "活动",
+    "ONGOING": "进行中",
+    "ONE_OFF": "一次性",
+    "REPORTS_SLA": "SLA",
+    "REPORTS_BOT": "机器人",
+    "REPORTS_AGENT": "客服",
+    "REPORTS_LABEL": "标签",
+    "REPORTS_INBOX": "收件箱",
+    "REPORTS_TEAM": "团队",
+    "AGENT_ASSIGNMENT": "客服分配",
+    "SET_AVAILABILITY_TITLE": "将自己设置为",
+    "SET_YOUR_AVAILABILITY": "设置您的可用性",
+    "SLA": "SLA",
+    "CUSTOM_ROLES": "自定义角色",
+    "BETA": "测试版",
+    "REPORTS_OVERVIEW": "概览",
+    "REAUTHORIZE": "您的收件箱连接已过期，请重新连接以继续接收和发送消息",
+    "HELP_CENTER": {
+      "TITLE": "帮助中心",
+      "ARTICLES": "文章",
+      "CATEGORIES": "类别",
+      "LOCALES": "语言",
+      "SETTINGS": "设置"
+    },
+    "CHANNELS": "频道",
+    "SET_AUTO_OFFLINE": {
+      "TEXT": "自动标记离线状态",
+      "INFO_TEXT": "当您不使用应用程序或仪表板时，让系统自动标记您离线。",
+      "INFO_SHORT": "当您不使用应用程序时自动标记离线。"
+    },
+    "SORT_TOOLTIP": "排序",
+    "SORT_BY": "排序方式",
+    "SORT_GROUPS": {
+      "CREATED": "Sort by date of creation",
+      "ALPHABETICAL": "Sort in alphabetical order",
+      "UNREAD_COUNT": "Sort by unread count"
+    },
+    "SORT_OPTIONS": {
+      "CREATED_DESC": "Newest first",
+      "CREATED_ASC": "Oldest first",
+      "ALPHABETICAL_ASC": "Ascending (A - Z)",
+      "ALPHABETICAL_DESC": "Descending (Z - A)",
+      "UNREAD_COUNT_DESC": "Highest first",
+      "UNREAD_COUNT_ASC": "Lowest first"
+    },
+    "DOCS": "阅读文档",
+    "SECURITY": "安全",
+    "CAPTAIN_AI": "Captain",
+    "CONVERSATION_WORKFLOW": "对话工作流"
+  },
+  "DATA_IMPORTS": {
+    "HEADER": "数据",
+    "DESCRIPTION": "将其他客服支持工具中的现有联系人和历史对话导入此账户。每次导入都会在后台运行，您可以在导入期间继续工作、跟踪进度，并查看过程中被跳过的内容。",
+    "LOADING": "正在获取导入任务",
+    "DEFAULT_IMPORT_NAME": "Intercom 导入",
+    "DEFAULT_IMPORT_NAMES": {
+      "INTERCOM": "Intercom 导入",
+      "FRESHDESK": "Freshdesk 导入"
+    },
+    "TABS": {
+      "IMPORT": "导入",
+      "EXPORT": "导出"
+    },
+    "TYPES": {
+      "CONTACTS": "联系人",
+      "CONVERSATIONS": "会话",
+      "MESSAGES": "消息"
+    },
+    "DRAWER": {
+      "TITLE": "新建导入",
+      "SOURCE": "来源",
+      "NAME": "导入名称",
+      "NAME_PLACEHOLDER": "7 月 Intercom 迁移",
+      "ACCESS_KEY": "Intercom 访问密钥",
+      "ACCESS_KEY_PLACEHOLDER": "粘贴您的 Intercom 访问密钥",
+      "INTERCOM_ACCESS_KEY": "Intercom 访问密钥",
+      "INTERCOM_ACCESS_KEY_PLACEHOLDER": "粘贴您的 Intercom 访问密钥",
+      "FRESHDESK_API_KEY": "Freshdesk API 密钥",
+      "FRESHDESK_API_KEY_PLACEHOLDER": "粘贴您的 Freshdesk API 密钥",
+      "FRESHDESK_DOMAIN": "Freshdesk 域名",
+      "FRESHDESK_DOMAIN_PLACEHOLDER": "acme.freshdesk.com",
+      "DATA_TYPES": "要导入的数据",
+      "VALIDATING": "正在验证访问密钥...",
+      "VALID_KEY": "访问密钥验证成功。",
+      "INVALID_KEY": "无法验证此访问密钥。",
+      "ACTIVE_IMPORT": "请等待当前导入完成后再开始新的导入。",
+      "CANCEL": "取消",
+      "IMPORT": "导入"
+    },
+    "EXPORT": {
+      "TITLE": "导出功能即将推出",
+      "DESCRIPTION": "将此账户中的联系人和对话导出。此功能即将推出。",
+      "COMING_SOON": "即将推出"
+    },
+    "TABLE": {
+      "TITLE": "最近的导入",
+      "EMPTY": "暂无导入任务",
+      "EMPTY_DESCRIPTION": "开始导入，将现有客户历史记录迁移到此账户。",
+      "NEW_IMPORT": "导入",
+      "COUNT": "{count} 个导入任务",
+      "UNNAMED": "未命名的导入",
+      "IMPORTED_COUNT": "已导入 {count} 条",
+      "VIEW": "查看导入",
+      "NAME": "名称",
+      "TYPE": "类型",
+      "STATUS": "状态",
+      "IMPORTED": "已导入",
+      "CREATED": "创建时间",
+      "RETRY": "重试",
+      "ABANDON": "终止"
+    },
+    "DETAIL": {
+      "BACK": "返回导入列表",
+      "ERRORS": "错误",
+      "SKIP_LOGS": "跳过记录",
+      "SOURCE": "来源",
+      "IMPORT_TYPES": "导入类型",
+      "CREATED": "创建时间",
+      "DURATION": "持续时间",
+      "INITIATED_BY": "发起人",
+      "PROGRESS": "导入进度",
+      "PROGRESS_WITH_TOTAL": "已导入 {imported}/{total}",
+      "PROGRESS_WITHOUT_TOTAL": "已导入 {imported}",
+      "PROGRESS_OF_TOTAL": "共 {total} 条",
+      "PROGRESS_IMPORTED": "已导入",
+      "LAST_UPDATED_TOOLTIP": "最后更新于 {time}",
+      "NO_SKIP_LOGS": "没有跳过或失败的记录。",
+      "DOWNLOAD_SKIP_LOGS": "下载 CSV",
+      "DOWNLOAD_ERROR_LOGS": "下载 CSV",
+      "ALL_SKIP_LOGS": "所有的",
+      "KIND": "类型",
+      "NO_ERRORS": "没有错误记录。",
+      "ERROR_CODE": "代码",
+      "SOURCE_OBJECT": "来源对象",
+      "MESSAGE": "消息"
+    },
+    "MONITOR": {
+      "LIVE": "每 {seconds} 秒实时更新",
+      "LAST_UPDATED": "最后更新于 {time}",
+      "REFRESH": "刷新",
+      "REFRESHING": "正在刷新",
+      "STAGES": {
+        "unknown": "等待更新",
+        "queued": "已排队",
+        "contacts": "正在导入联系人",
+        "conversations": "正在导入对话",
+        "finalizing": "正在完成导入",
+        "completed": "已完成",
+        "completed_with_errors": "已完成，但存在错误",
+        "failed": "失败",
+        "abandoned": "已终止"
+      }
+    },
+    "ALERTS": {
+      "IMPORT_STARTED": "导入已开始。",
+      "IMPORT_RETRIED": "导入已加入恢复队列。",
+      "IMPORT_RETRY_FAILED": "无法重试导入。",
+      "IMPORT_ABANDONED": "导入已终止。",
+      "IMPORT_FAILED": "无法开始导入。"
+    }
+  },
+  "CAPTAIN_SETTINGS": {
+    "TITLE": "Captain 设置",
+    "DESCRIPTION": "配置 Captain 的 AI 模型和功能。Captain 采用积分计费，每次 Captain 执行操作都会根据所选模型扣除积分。",
+    "LOADING": "正在加载 Captain 配置...",
+    "LINK_TEXT": "了解更多关于 Captain 积分的信息",
+    "NOT_ENABLED": "您的账户未启用 Captain。请升级计划以访问 Captain 功能。",
+    "MODEL_CONFIG": {
+      "TITLE": "模型配置",
+      "DESCRIPTION": "为不同功能选择 AI 模型。",
+      "SELECT_MODEL": "选择模型",
+      "CREDITS_PER_MESSAGE": "每条消息 {credits} 积分",
+      "COMING_SOON": "即将推出",
+      "EDITOR": {
+        "TITLE": "编辑器功能",
+        "DESCRIPTION": "为消息编辑器提供智能撰写、语法纠错、语气调整和内容增强功能。"
+      },
+      "ASSISTANT": {
+        "TITLE": "助手",
+        "DESCRIPTION": "处理自动回复、对话摘要和智能回复建议，用于客户交互。"
+      },
+      "COPILOT": {
+        "TITLE": "Copilot",
+        "DESCRIPTION": "在对话中提供实时上下文建议、知识库推荐和主动洞察。"
+      }
+    },
+    "FEATURES": {
+      "TITLE": "特性",
+      "DESCRIPTION": "启用或禁用 AI 驱动的功能。",
+      "AUDIO_TRANSCRIPTION": {
+        "TITLE": "语音转录",
+        "DESCRIPTION": "自动将语音消息和通话录音转换为可搜索的文本记录。",
+        "MODEL_TITLE": "语音转录模型",
+        "MODEL_DESCRIPTION": "选择用于将语音消息转换为文本记录的 AI 模型"
+      },
+      "HELP_CENTER_SEARCH": {
+        "TITLE": "帮助中心搜索索引",
+        "DESCRIPTION": "使用 AI 在帮助中心文章中进行上下文感知搜索。"
+      }
+    },
+    "API": {
+      "SUCCESS": "Captain 设置更新成功。",
+      "ERROR": "更新 Captain 设置失败，请重试。"
+    }
+  },
+  "BILLING_SETTINGS": {
+    "PAYMENT_RECOVERY": {
+      "DESCRIPTION": "Your payment is past due. Update your payment method or pay the outstanding invoice in the billing portal to keep your subscription active.",
+      "ACTION": "Resolve payment"
+    },
+    "TITLE": "计费方式",
+    "DESCRIPTION": "在此管理您的订阅，升级您的计划并为您的团队获取更多功能。",
+    "CURRENT_PLAN": {
+      "TITLE": "当前计划",
+      "PLAN_NOTE": "您当前订阅的是 **{plan}** 计划，拥有 **{quantity}** 个许可证",
+      "SEAT_COUNT": "座位数",
+      "RENEWS_ON": "续订于",
+      "CANCELS_ON": "Cancels on",
+      "CURRENCY": "货币"
+    },
+    "CURRENCY": {
+      "SELECT": {
+        "TITLE": "选择计费货币",
+        "DESCRIPTION": "选择您希望用于计费的货币。订阅创建后将无法更改。"
+      },
+      "OPTIONS": {
+        "USD": "美元 (USD)",
+        "BRL": "巴西雷亚尔 (BRL)"
+      }
+    },
+    "VIEW_PRICING": "查看价格",
+    "MANAGE_SUBSCRIPTION": {
+      "TITLE": "管理您的订阅",
+      "DESCRIPTION": "查看您之前的发票，编辑您的账单详细信息或取消您的订阅。",
+      "BUTTON_TXT": "前往账单门户"
+    },
+    "CAPTAIN": {
+      "TITLE": "Captain",
+      "DESCRIPTION": "管理 Captain AI 的使用和积分。",
+      "BUTTON_TXT": "购买更多积分",
+      "DOCUMENTS": "文档",
+      "RESPONSES": "常见问题",
+      "UPGRADE": "Captain 在免费计划中不可用，立即升级以获取助手、Copilot 等更多功能。",
+      "REFRESH_CREDITS": "刷新"
+    },
+    "CHAT_WITH_US": {
+      "TITLE": "需要帮助吗？",
+      "DESCRIPTION": "您在计费方面遇到任何问题吗？我们在此为您提供帮助。",
+      "BUTTON_TXT": "联系我们"
+    },
+    "NO_BILLING_USER": "您的计费账户正在配置中。请刷新页面并重试。",
+    "SHOPIFY": {
+      "TITLE": "Billing through Shopify",
+      "DESCRIPTION": "Your Chatwoot subscription is billed and managed securely through Shopify.",
+      "UNAVAILABLE": "Shopify billing is unavailable right now. Please contact support if this continues.",
+      "LOADING": "Checking your Shopify subscription...",
+      "PLAN_TITLE": "Shopify subscription",
+      "PLAN_DESCRIPTION": "Choose or manage your Chatwoot plan securely in Shopify.",
+      "CURRENT_PLAN": "Current plan",
+      "SUBSCRIPTION_STATUS": "状态",
+      "PRICE": "Price",
+      "PER_MONTH": "{price} / month",
+      "PER_YEAR": "{price} / year",
+      "TRIAL_ENDS_ON": "Trial ends on",
+      "RENEWS_ON": "续订于",
+      "ACCESS_UNTIL": "Access until",
+      "LAST_VERIFIED": "Last verified",
+      "VIEW_PLANS": "View plans in Shopify",
+      "MANAGE_PLAN": "Manage in Shopify",
+      "RETRY": "Try again",
+      "ERROR_TITLE": "We could not verify your Shopify subscription",
+      "ERROR_DESCRIPTION": "Try again in a moment. Your last verified access has not been changed.",
+      "STALE_TITLE": "Showing your last verified subscription",
+      "STALE_DESCRIPTION": "Shopify could not be reached. Your access has not been changed.",
+      "STATUS": {
+        "PENDING": "等待中",
+        "ACTIVE": "状态",
+        "TRIALING": "Trial",
+        "CANCELLED": "Cancellation scheduled",
+        "EXPIRED": "Expired",
+        "MISSING": "No active plan"
+      }
+    },
+    "TOPUP": {
+      "BUY_CREDITS": "购买更多积分",
+      "MODAL_TITLE": "购买 AI 积分",
+      "MODAL_DESCRIPTION": "为 Captain AI 购买额外积分。",
+      "CREDITS": "积分",
+      "ONE_TIME": "一次性",
+      "POPULAR": "最受欢迎",
+      "NOTE_TITLE": "注意：",
+      "NOTE_DESCRIPTION": "积分立即添加，6 个月后过期。使用积分需要有效订阅。购买的积分在每月计划积分用完后才会消耗。",
+      "CANCEL": "取消",
+      "PURCHASE": "购买积分",
+      "LOADING": "正在加载选项...",
+      "FETCH_ERROR": "加载积分选项失败，请重试。",
+      "RETRY": "重试",
+      "PURCHASE_ERROR": "处理购买失败，请重试。",
+      "PURCHASE_SUCCESS": "已成功为您的账户添加 {credits} 积分",
+      "CONFIRM": {
+        "TITLE": "确认购买",
+        "DESCRIPTION": "您即将以 {amount} 购买 {credits} 积分。",
+        "INSTANT_DEDUCTION_NOTE": "确认后将立即向您保存的卡扣款。",
+        "GO_BACK": "返回",
+        "CONFIRM_PURCHASE": "确认购买"
+      }
+    }
+  },
+  "SECURITY_SETTINGS": {
+    "TITLE": "安全",
+    "DESCRIPTION": "管理您的账户安全设置。",
+    "LINK_TEXT": "了解更多关于 SAML SSO 的信息",
+    "SAML_DISABLED_MESSAGE": "SAML SSO 当前已禁用，请联系管理员启用此功能。",
+    "NO_SETTINGS_AVAILABLE": "No security settings are available for this installation. Configure MFA encryption keys to enable two-factor enforcement.",
+    "SAML": {
+      "TITLE": "SAML 单点登录",
+      "NOTE": "为您的账户配置 SAML 单点登录。用户将通过您的身份提供商进行身份验证，而非使用邮箱/密码。",
+      "ACS_URL": {
+        "LABEL": "ACS URL",
+        "TOOLTIP": "断言消费者服务 URL - 在您的 IdP 中将此 URL 配置为 SAML 响应的目标地址"
+      },
+      "SSO_URL": {
+        "LABEL": "SSO URL",
+        "HELP": "发送 SAML 身份验证请求的 URL",
+        "PLACEHOLDER": "https://your-idp.com/saml/sso"
+      },
+      "CERTIFICATE": {
+        "LABEL": "PEM 格式的签名证书",
+        "HELP": "来自身份提供商的公钥证书，用于验证 SAML 响应",
+        "PLACEHOLDER": "-----BEGIN CERTIFICATE-----\nMIIC..."
+      },
+      "FINGERPRINT": {
+        "LABEL": "指纹",
+        "TOOLTIP": "证书的 SHA-1 指纹 - 用于在 IdP 配置中验证证书"
+      },
+      "COPY_SUCCESS": "已复制到剪贴板",
+      "SP_ENTITY_ID": {
+        "LABEL": "SP 实体 ID",
+        "HELP": "此应用程序作为服务提供商的唯一标识符（自动生成）。",
+        "TOOLTIP": "Chatwoot 作为服务提供商的唯一标识符 - 在 IdP 设置中配置此项"
+      },
+      "IDP_ENTITY_ID": {
+        "LABEL": "身份提供商实体 ID",
+        "HELP": "您的身份提供商的唯一标识符（通常在 IdP 配置中找到）",
+        "PLACEHOLDER": "https://your-idp.com/saml"
+      },
+      "UPDATE_BUTTON": "更新 SAML 设置",
+      "API": {
+        "SUCCESS": "SAML 设置更新成功",
+        "ERROR": "更新 SAML 设置失败",
+        "ERROR_LOADING": "加载 SAML 设置失败",
+        "DISABLED": "SAML 设置已成功禁用"
+      },
+      "VALIDATION": {
+        "REQUIRED_FIELDS": "SSO URL、身份提供商实体 ID 和证书为必填项",
+        "SSO_URL_ERROR": "请输入有效的 SSO URL",
+        "CERTIFICATE_ERROR": "证书是必填项",
+        "IDP_ENTITY_ID_ERROR": "身份提供商实体 ID 是必填项"
+      },
+      "ENTERPRISE_PAYWALL": {
+        "AVAILABLE_ON": "SAML SSO 功能仅在企业版计划中可用。",
+        "UPGRADE_PROMPT": "升级到企业版计划以访问 SAML 单点登录和其他高级安全功能。",
+        "ASK_ADMIN": "请联系您的管理员进行升级。"
+      },
+      "PAYWALL": {
+        "TITLE": "升级以启用 SAML SSO",
+        "AVAILABLE_ON": "SAML SSO 功能仅在企业版计划中可用。",
+        "UPGRADE_PROMPT": "升级您的计划以获取 SAML 单点登录和其他高级功能。",
+        "UPGRADE_NOW": "立即升级",
+        "CANCEL_ANYTIME": "您可以随时更改或取消您的计划"
+      },
+      "ATTRIBUTE_MAPPING": {
+        "TITLE": "SAML 属性设置",
+        "DESCRIPTION": "以下属性映射必须在您的身份提供商中配置"
+      },
+      "INFO_SECTION": {
+        "TITLE": "服务提供商信息",
+        "TOOLTIP": "复制这些值并在您的身份提供商中进行配置以建立 SAML 连接"
+      }
+    }
+  },
+  "CONVERSATION_WORKFLOW": {
+    "INDEX": {
+      "HEADER": {
+        "TITLE": "对话工作流",
+        "DESCRIPTION": "配置对话解决的规则和必填字段。"
+      }
+    },
+    "REQUIRED_ATTRIBUTES": {
+      "TITLE": "解决时必填的属性",
+      "DESCRIPTION": "解决对话时，如果客服尚未填写这些属性，将提示其填写。",
+      "NO_ATTRIBUTES": "尚未添加属性",
+      "ADD": {
+        "TITLE": "添加属性",
+        "SEARCH_PLACEHOLDER": "搜索属性"
+      },
+      "SAVE": {
+        "SUCCESS": "必填属性已更新",
+        "ERROR": "无法更新必填属性，请重试"
+      },
+      "MODAL": {
+        "TITLE": "解决会话",
+        "DESCRIPTION": "请在解决此对话前填写以下自定义属性",
+        "ACTIONS": {
+          "RESOLVE": "解决会话",
+          "CANCEL": "取消"
+        },
+        "PLACEHOLDERS": {
+          "TEXT": "写下备注...",
+          "NUMBER": "输入数字",
+          "LINK": "添加链接",
+          "DATE": "选择日期",
+          "LIST": "选择选项"
+        },
+        "CHECKBOX": {
+          "YES": "是",
+          "NO": "否"
+        }
+      },
+      "PAYWALL": {
+        "TITLE": "升级以使用必填属性",
+        "AVAILABLE_ON": "必填对话属性功能在商务版和企业版计划中可用。",
+        "UPGRADE_PROMPT": "升级您的计划，以便在对话解决前提示客服填写必填属性。",
+        "UPGRADE_NOW": "立即升级",
+        "CANCEL_ANYTIME": "您可以随时更改或取消您的计划"
+      },
+      "ENTERPRISE_PAYWALL": {
+        "AVAILABLE_ON": "必填对话属性功能在付费计划中可用。",
+        "UPGRADE_PROMPT": "升级到付费计划以在对话解决前强制要求填写必填属性。",
+        "ASK_ADMIN": "请联系您的管理员进行升级。"
+      }
+    }
+  },
+  "CREATE_ACCOUNT": {
+    "NO_ACCOUNT_WARNING": "哦，糟糕！我们找不到任何 Chatwoot 账户。请创建一个新账户以继续。",
+    "NEW_ACCOUNT": "新账户",
+    "SELECTOR_SUBTITLE": "创建一个新账户",
+    "API": {
+      "SUCCESS_MESSAGE": "账户创建成功",
+      "EXIST_MESSAGE": "账户已存在",
+      "ERROR_MESSAGE": "无法连接服务器，请稍后再试"
+    },
+    "FORM": {
+      "NAME": {
+        "LABEL": "公司名称",
+        "PLACEHOLDER": "Wayne企业"
+      },
+      "SUBMIT": "提交",
+      "CANCEL": "取消"
+    }
+  },
+  "KEYBOARD_SHORTCUTS": {
+    "TOGGLE_MODAL": "查看所有快捷键",
+    "TITLE": {
+      "OPEN_CONVERSATION": "打开对话",
+      "RESOLVE_AND_NEXT": "解决并移动到下一个",
+      "NAVIGATE_DROPDOWN": "导航下拉项",
+      "RESOLVE_CONVERSATION": "解决对话",
+      "GO_TO_CONVERSATION_DASHBOARD": "前往对话仪表板",
+      "ADD_ATTACHMENT": "添加附件",
+      "GO_TO_CONTACTS_DASHBOARD": "前往联系人仪表板",
+      "TOGGLE_SIDEBAR": "切换侧边栏",
+      "GO_TO_REPORTS_SIDEBAR": "前往报告侧边栏",
+      "MOVE_TO_NEXT_TAB": "移动到对话列表中的下一个标签",
+      "GO_TO_SETTINGS": "前往设置",
+      "SWITCH_TO_PRIVATE_NOTE": "切换到私人笔记",
+      "SWITCH_TO_REPLY": "切换到回复",
+      "TOGGLE_SNOOZE_DROPDOWN": "切换暂停下拉菜单"
+    }
+  },
+  "ASSIGNMENT_POLICY": {
+    "INDEX": {
+      "HEADER": {
+        "TITLE": "客服分配",
+        "DESCRIPTION": "定义策略以根据收件箱和客服的需求有效管理工作量和路由对话。"
+      },
+      "ASSIGNMENT_POLICY": {
+        "TITLE": "分配策略",
+        "DESCRIPTION": "管理收件箱中对话的分配方式。",
+        "FEATURES": [
+          "Assign by conversations evenly or by available capacity",
+          "Add fair distribution rules to avoid overloading any agent",
+          "Add inboxes to a policy - one policy per inbox"
+        ]
+      },
+      "AGENT_CAPACITY_POLICY": {
+        "TITLE": "客服容量策略",
+        "DESCRIPTION": "管理客服的工作量。",
+        "FEATURES": [
+          "Define maximum conversations per inbox",
+          "Create exceptions based on labels and time",
+          "Add agents to a policy - one policy per agent"
+        ]
+      }
+    },
+    "AGENT_ASSIGNMENT_POLICY": {
+      "INDEX": {
+        "HEADER": {
+          "TITLE": "分配策略",
+          "CREATE_POLICY": "新策略"
+        },
+        "CARD": {
+          "ORDER": "排序",
+          "PRIORITY": "优先级",
+          "ACTIVE": "状态",
+          "INACTIVE": "未激活",
+          "POPOVER": "已添加收件箱",
+          "EDIT": "编辑"
+        },
+        "NO_RECORDS_FOUND": "未找到分配策略"
+      },
+      "CREATE": {
+        "HEADER": {
+          "TITLE": "创建分配策略"
+        },
+        "CREATE_BUTTON": "创建策略",
+        "API": {
+          "SUCCESS_MESSAGE": "分配策略创建成功",
+          "ERROR_MESSAGE": "创建分配策略失败",
+          "INBOX_LINKED": "收件箱已关联到策略"
+        }
+      },
+      "EDIT": {
+        "HEADER": {
+          "TITLE": "编辑分配策略"
+        },
+        "EDIT_BUTTON": "更新策略",
+        "CONFIRM_ADD_INBOX_DIALOG": {
+          "TITLE": "添加收件箱",
+          "DESCRIPTION": "{inboxName} 收件箱已关联到另一个策略。您确定要将其关联到此策略吗？它将从另一个策略中解除关联。",
+          "CONFIRM_BUTTON_LABEL": "继续",
+          "CANCEL_BUTTON_LABEL": "取消"
+        },
+        "INBOX_LINK_PROMPT": {
+          "TITLE": "将收件箱关联到策略",
+          "DESCRIPTION": "您想将此收件箱关联到分配策略吗？",
+          "LINK_BUTTON": "关联收件箱",
+          "CANCEL_BUTTON": "跳过"
+        },
+        "API": {
+          "SUCCESS_MESSAGE": "分配策略更新成功",
+          "ERROR_MESSAGE": "更新分配策略失败"
+        },
+        "INBOX_API": {
+          "ADD": {
+            "SUCCESS_MESSAGE": "收件箱已成功添加到策略",
+            "ERROR_MESSAGE": "将收件箱添加到策略失败"
+          },
+          "REMOVE": {
+            "SUCCESS_MESSAGE": "收件箱已成功从策略中移除",
+            "ERROR_MESSAGE": "从策略中移除收件箱失败"
+          }
+        }
+      },
+      "FORM": {
+        "NAME": {
+          "LABEL": "策略名称：",
+          "PLACEHOLDER": "输入策略名称"
+        },
+        "DESCRIPTION": {
+          "LABEL": "描述:",
+          "PLACEHOLDER": "输入描述"
+        },
+        "STATUS": {
+          "LABEL": "状态:",
+          "PLACEHOLDER": "选择状态",
+          "ACTIVE": "策略已激活",
+          "INACTIVE": "策略未激活"
+        },
+        "ASSIGNMENT_ORDER": {
+          "LABEL": "分配顺序",
+          "ROUND_ROBIN": {
+            "LABEL": "轮询",
+            "DESCRIPTION": "在客服之间均匀分配对话。"
+          },
+          "BALANCED": {
+            "LABEL": "均衡",
+            "DESCRIPTION": "根据可用容量分配对话。",
+            "PREMIUM_MESSAGE": "升级以访问均衡分配和客服容量管理。",
+            "PREMIUM_BADGE": "高级版"
+          }
+        },
+        "ASSIGNMENT_PRIORITY": {
+          "LABEL": "分配优先级",
+          "EARLIEST_CREATED": {
+            "LABEL": "最早创建",
+            "DESCRIPTION": "最先创建的对话最先分配。"
+          },
+          "LONGEST_WAITING": {
+            "LABEL": "等待最久",
+            "DESCRIPTION": "等待时间最长的对话最先分配。"
+          }
+        },
+        "FAIR_DISTRIBUTION": {
+          "LABEL": "公平分配策略",
+          "DESCRIPTION": "设置在时间窗口内每个客服可分配的最大对话数，以避免任何一个客服超负荷。此必填字段默认为每小时 100 个对话。",
+          "INPUT_MAX": "最大分配数",
+          "DURATION": "每位客服在每"
+        },
+        "EXCLUDE_OLDER_THAN": {
+          "LABEL": "跳过过期对话",
+          "DESCRIPTION": "跳过超过此时长仍未分配的对话。默认为 7 天；清空可禁用。"
+        },
+        "INBOXES": {
+          "LABEL": "已添加收件箱",
+          "DESCRIPTION": "添加此策略适用的收件箱。",
+          "ADD_BUTTON": "添加收件箱",
+          "DROPDOWN": {
+            "SEARCH_PLACEHOLDER": "搜索并选择要添加的收件箱",
+            "ADD_BUTTON": "添加"
+          },
+          "EMPTY_STATE": "此策略尚未添加收件箱，请添加收件箱以开始",
+          "API": {
+            "SUCCESS_MESSAGE": "收件箱已成功添加到策略",
+            "ERROR_MESSAGE": "将收件箱添加到策略失败"
+          }
+        }
+      },
+      "DELETE_POLICY": {
+        "SUCCESS_MESSAGE": "分配策略删除成功",
+        "ERROR_MESSAGE": "删除分配策略失败"
+      }
+    },
+    "AGENT_CAPACITY_POLICY": {
+      "INDEX": {
+        "HEADER": {
+          "TITLE": "客服容量",
+          "CREATE_POLICY": "新策略"
+        },
+        "CARD": {
+          "POPOVER": "已添加客服",
+          "EDIT": "编辑"
+        },
+        "NO_RECORDS_FOUND": "未找到客服容量策略"
+      },
+      "CREATE": {
+        "HEADER": {
+          "TITLE": "创建客服容量策略"
+        },
+        "CREATE_BUTTON": "创建策略",
+        "API": {
+          "SUCCESS_MESSAGE": "客服容量策略创建成功",
+          "ERROR_MESSAGE": "创建客服容量策略失败"
+        }
+      },
+      "EDIT": {
+        "HEADER": {
+          "TITLE": "编辑客服容量策略"
+        },
+        "EDIT_BUTTON": "更新策略",
+        "CONFIRM_ADD_AGENT_DIALOG": {
+          "TITLE": "添加客服",
+          "DESCRIPTION": "{agentName} 已关联到另一个策略。您确定要将其关联到此策略吗？它将从另一个策略中解除关联。",
+          "CONFIRM_BUTTON_LABEL": "继续",
+          "CANCEL_BUTTON_LABEL": "取消"
+        },
+        "API": {
+          "SUCCESS_MESSAGE": "客服容量策略更新成功",
+          "ERROR_MESSAGE": "更新客服容量策略失败"
+        },
+        "AGENT_API": {
+          "ADD": {
+            "SUCCESS_MESSAGE": "客服已成功添加到策略",
+            "ERROR_MESSAGE": "将客服添加到策略失败"
+          },
+          "REMOVE": {
+            "SUCCESS_MESSAGE": "客服已成功从策略中移除",
+            "ERROR_MESSAGE": "从策略中移除客服失败"
+          }
+        },
+        "INBOX_LIMIT_API": {
+          "ADD": {
+            "SUCCESS_MESSAGE": "收件箱限制添加成功",
+            "ERROR_MESSAGE": "添加收件箱限制失败"
+          },
+          "UPDATE": {
+            "SUCCESS_MESSAGE": "收件箱限制更新成功",
+            "ERROR_MESSAGE": "更新收件箱限制失败"
+          },
+          "DELETE": {
+            "SUCCESS_MESSAGE": "收件箱限制删除成功",
+            "ERROR_MESSAGE": "删除收件箱限制失败"
+          }
+        }
+      },
+      "FORM": {
+        "NAME": {
+          "LABEL": "策略名称：",
+          "PLACEHOLDER": "输入策略名称"
+        },
+        "DESCRIPTION": {
+          "LABEL": "描述:",
+          "PLACEHOLDER": "输入描述"
+        },
+        "INBOX_CAPACITY_LIMIT": {
+          "LABEL": "收件箱容量限制",
+          "ADD_BUTTON": "添加收件箱",
+          "FIELD": {
+            "SELECT_INBOX": "选择收件箱",
+            "MAX_CONVERSATIONS": "最大对话数",
+            "SET_LIMIT": "设置限制"
+          },
+          "EMPTY_STATE": "没有设置收件箱限制"
+        },
+        "EXCLUSION_RULES": {
+          "LABEL": "排除规则",
+          "DESCRIPTION": "满足以下条件的对话不计入客服容量",
+          "TAGS": {
+            "LABEL": "排除带有特定标签的对话",
+            "ADD_TAG": "添加标签",
+            "DROPDOWN": {
+              "SEARCH_PLACEHOLDER": "搜索并选择要添加的标签"
+            },
+            "EMPTY_STATE": "此策略尚未添加标签。"
+          },
+          "DURATION": {
+            "LABEL": "排除超过指定时长的对话",
+            "PLACEHOLDER": "设置时间"
+          }
+        },
+        "USERS": {
+          "LABEL": "已分配客服",
+          "DESCRIPTION": "添加此策略适用的客服。",
+          "ADD_BUTTON": "添加客服",
+          "DROPDOWN": {
+            "SEARCH_PLACEHOLDER": "搜索并选择要添加的客服",
+            "ADD_BUTTON": "添加"
+          },
+          "EMPTY_STATE": "尚未添加客服",
+          "API": {
+            "SUCCESS_MESSAGE": "客服已成功添加到策略",
+            "ERROR_MESSAGE": "将客服添加到策略失败"
+          }
+        }
+      },
+      "DELETE_POLICY": {
+        "SUCCESS_MESSAGE": "客服容量策略删除成功",
+        "ERROR_MESSAGE": "删除客服容量策略失败"
+      }
+    },
+    "DELETE_POLICY": {
+      "TITLE": "删除策略",
+      "DESCRIPTION": "您确定要删除此策略吗？此操作不可撤销。",
+      "CONFIRM_BUTTON_LABEL": "删除",
+      "CANCEL_BUTTON_LABEL": "取消"
+    }
+  }
+}

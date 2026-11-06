@@ -1,0 +1,62 @@
+class Twilio::CallbackController < ApplicationController
+  include TwilioMessagingSignatureVerification
+
+  def create
+    Webhooks::TwilioEventsJob.perform_later(permitted_params.to_unsafe_hash)
+
+    head :no_content
+  end
+
+  private
+
+  def twilio_channel
+    Twilio::IncomingMessageService.find_channel(permitted_params)
+  end
+
+  def twilio_webhook_url
+    Rails.application.routes.url_helpers.twilio_callback_index_url
+  end
+
+  def permitted_params # rubocop:disable Metrics/MethodLength
+    params.permit(
+      :ApiVersion,
+      :SmsSid,
+      :From,
+      :ToState,
+      :ToZip,
+      :AccountSid,
+      :MessageSid,
+      :OriginalRepliedMessageSid,
+      :FromCountry,
+      :ToCity,
+      :FromCity,
+      :To,
+      :FromZip,
+      :Body,
+      :ToCountry,
+      :FromState,
+      *Array.new(10) { |i| :"MediaUrl#{i}" },
+      *Array.new(10) { |i| :"MediaContentType#{i}" },
+      :MessagingServiceSid,
+      :NumMedia,
+      :Latitude,
+      :Longitude,
+      :MessageType,
+      :ProfileName,
+      :ExternalUserId,
+      :ParentExternalUserId,
+      :ProfileUsername,
+      :Username,
+      :ReferralBody,
+      :ReferralHeadline,
+      :ReferralSourceId,
+      :ReferralSourceType,
+      :ReferralSourceUrl,
+      :ReferralMediaId,
+      :ReferralMediaContentType,
+      :ReferralMediaUrl,
+      :ReferralNumMedia,
+      :ReferralCtwaClid
+    )
+  end
+end

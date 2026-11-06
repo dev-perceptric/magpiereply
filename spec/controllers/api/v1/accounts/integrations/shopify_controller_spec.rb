@@ -1,0 +1,316 @@
+require 'rails_helper'
+
+# Stub class for ShopifyAPI response
+class ShopifyAPIResponse
+  attr_reader :body
+
+  def initialize(body)
+    @body = body
+  end
+end
+
+RSpec.describe 'Shopify Integration API', type: :request do
+  let(:account) { create(:account) }
+  let(:agent) { create(:user, account: account, role: :agent) }
+  let(:unauthorized_agent) { create(:user, account: account, role: :agent) }
+  let(:contact) { create(:contact, account: account, email: 'test@example.com', phone_number: '+1234567890') }
+
+  before do
+    account.enable_features!('shopify_integration')
+    InstallationConfig.where(name: 'ENABLE_SHOPIFY_INTEGRATION').first_or_initialize.update!(value: true)
+    allow(Shopify::ApiContext).to receive(:setup!)
+  end
+
+  describe 'GET /api/v1/accounts/:account_id/integrations/shopify/orders' do
+    before do
+      create(:integrations_hook, :shopify, account: account)
+    end
+
+    context 'when it is an authenticated user' do
+      # rubocop:disable RSpec/AnyInstance
+      let(:shopify_client) { instance_double(ShopifyAPI::Clients::Rest::Admin) }
+
+      let(:customers_response) do
+        instance_double(
+          ShopifyAPIResponse,
+          body: { 'customers' => [{ 'id' => '123' }] }
+        )
+      end
+
+      let(:orders_response) do
+        instance_double(
+          ShopifyAPIResponse,
+          body: {
+            'orders' => [{
+              'id' => '456',
+              'email' => 'test@example.com',
+              'created_at' => Time.now.iso8601,
+              'total_price' => '100.00',
+              'currency' => 'USD',
+              'fulfillment_status' => 'fulfilled',
+              'financial_status' => 'paid'
+            }]
+          }
+        )
+      end
+
+      before do
+        allow_any_instance_of(Api::V1::Accounts::Integrations::ShopifyController).to receive(:shopify_client).and_return(shopify_client)
+
+        allow(shopify_client).to receive(:get).with(
+          path: 'customers/search.json',
+          query: { query: "email:#{contact.email} OR phone:#{contact.phone_number}", fields: 'id,email,phone' }
+        ).and_return(customers_response)
+
+        allow(shopify_client).to receive(:get).with(
+          path: 'orders.json',
+          query: { customer_id: '123', status: 'any', fields: 'id,email,created_at,total_price,currency,fulfillment_status,financial_status' }
+        ).and_return(orders_response)
+      end
+
+      it 'returns orders for the contact' do
+        get "/api/v1/accounts/#{account.id}/integrations/shopify/orders",
+            params: { contact_id: contact.id },
+            headers: agent.create_new_auth_token,
+            as: :json
+
+        expect(response).to have_http_status(:ok)
+        expect(response.parsed_body).to have_key('orders')
+        expect(response.parsed_body['orders'].length).to eq(1)
+        expect(response.parsed_body['orders'][0]['id']).to eq('456')
+        expect(Shopify::ApiContext).to have_received(:setup!)
+      end
+
+      it 'returns error when contact has no email or phone' do
+        contact_without_info = create(:contact, account: account)
+
+        get "/api/v1/accounts/#{account.id}/integrations/shopify/orders",
+            params: { contact_id: contact_without_info.id },
+            headers: agent.create_new_auth_token,
+            as: :json
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response.parsed_body['error']).to eq('Contact information missing')
+      end
+
+      it 'returns empty array when no customers found' do
+        empty_customers_response = instance_double(
+          ShopifyAPIResponse,
+          body: { 'customers' => [] }
+        )
+
+        allow(shopify_client).to receive(:get).with(
+          path: 'customers/search.json',
+          query: { query: "email:#{contact.email} OR phone:#{contact.phone_number}", fields: 'id,email,phone' }
+        ).and_return(empty_customers_response)
+
+        get "/api/v1/accounts/#{account.id}/integrations/shopify/orders",
+            params: { contact_id: contact.id },
+            headers: agent.create_new_auth_token,
+            as: :json
+
+        expect(response).to have_http_status(:ok)
+        expect(response.parsed_body['orders']).to eq([])
+      end
+
+      it 'rejects a disabled retained hook before calling Shopify' do
+        account.hooks.find_by!(app_id: 'shopify').update!(status: :disabled, access_token: nil)
+
+        get "/api/v1/accounts/#{account.id}/integrations/shopify/orders",
+            params: { contact_id: contact.id },
+            headers: agent.create_new_auth_token,
+            as: :json
+
+        expect(response).to have_http_status(:not_found)
+        expect(shopify_client).not_to have_received(:get)
+      end
+      # rubocop:enable RSpec/AnyInstance
+    end
+
+    context 'when it is an unauthenticated user' do
+      it 'returns unauthorized' do
+        get "/api/v1/accounts/#{account.id}/integrations/shopify/orders",
+            params: { contact_id: contact.id },
+            as: :json
+
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context 'when Shopify is disabled' do
+      it 'returns not found when the installation switch is disabled' do
+        InstallationConfig.where(name: 'ENABLE_SHOPIFY_INTEGRATION').first_or_initialize.update!(value: false)
+
+        get "/api/v1/accounts/#{account.id}/integrations/shopify/orders",
+            params: { contact_id: contact.id },
+            headers: agent.create_new_auth_token,
+            as: :json
+
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it 'returns not found when the account feature is disabled' do
+        account.disable_features!('shopify_integration')
+
+        get "/api/v1/accounts/#{account.id}/integrations/shopify/orders",
+            params: { contact_id: contact.id },
+            headers: agent.create_new_auth_token,
+            as: :json
+
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
+
+  describe 'POST /api/v1/accounts/:account_id/integrations/shopify/complete_install' do
+    let(:account) { create(:account, internal_attributes: { billing_provider: 'shopify', signup_source: 'shopify' }) }
+    let(:admin) { create(:user, account: account, role: :administrator) }
+    let(:pending_install_token) { SecureRandom.hex(16) }
+    let(:pending_installation) do
+      instance_double(
+        Shopify::PendingInstallation,
+        data: {
+          'access_token' => 'shopify-access-token',
+          'shop' => 'my-store.myshopify.com',
+          'scope' => 'read_customers,read_orders',
+          'connected_at' => Time.current.utc.iso8601(6)
+        }
+      )
+    end
+
+    it 'keeps the legacy completion endpoint available during rolling deployments' do
+      allow(Shopify::PendingInstallation).to receive(:claim)
+        .with(token: pending_install_token)
+        .and_return(pending_installation)
+      allow(pending_installation).to receive(:with_current_installation).and_yield
+      allow(pending_installation).to receive(:consume!)
+
+      expect do
+        post "/api/v1/accounts/#{account.id}/integrations/shopify/complete_install",
+             params: { pending_install_token: pending_install_token },
+             headers: admin.create_new_auth_token,
+             as: :json
+      end.to change(Integrations::Hook, :count).by(1)
+
+      hook = account.hooks.find_by!(app_id: 'shopify')
+      expect(hook).to have_attributes(
+        access_token: 'shopify-access-token',
+        reference_id: 'my-store.myshopify.com',
+        status: 'enabled'
+      )
+      expect(hook.settings).to include(
+        'scope' => 'read_customers,read_orders',
+        'connected_at' => match(/\.\d{6}Z\z/),
+        'installation_id' => be_present
+      )
+      expect(pending_installation).to have_received(:consume!)
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'rejects agents before claiming the pending install' do
+      expect(Shopify::PendingInstallation).not_to receive(:claim)
+
+      post "/api/v1/accounts/#{account.id}/integrations/shopify/complete_install",
+           params: { pending_install_token: pending_install_token },
+           headers: agent.create_new_auth_token,
+           as: :json
+
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it 'releases the claim and removes the hook when consumption fails' do
+      allow(Shopify::PendingInstallation).to receive(:claim)
+        .with(token: pending_install_token)
+        .and_return(pending_installation)
+      allow(pending_installation).to receive(:with_current_installation).and_yield
+      allow(pending_installation).to receive(:consume!)
+        .and_raise(Shopify::PendingInstallation::AlreadyClaimed, 'Install token claim has expired')
+      allow(pending_installation).to receive(:release!)
+
+      expect do
+        post "/api/v1/accounts/#{account.id}/integrations/shopify/complete_install",
+             params: { pending_install_token: pending_install_token },
+             headers: admin.create_new_auth_token,
+             as: :json
+      end.not_to change(Integrations::Hook, :count)
+
+      expect(pending_installation).to have_received(:release!)
+      expect(response).to have_http_status(:conflict)
+    end
+
+    it 'returns a duplicate-store error and releases the retained claim' do
+      allow(pending_installation).to receive(:with_current_installation).and_yield
+      other_account = create(:account)
+      other_account.enable_features!('shopify_integration')
+      create(:integrations_hook, :shopify, account: other_account, reference_id: 'my-store.myshopify.com')
+      allow(Shopify::PendingInstallation).to receive(:claim)
+        .with(token: pending_install_token)
+        .and_return(pending_installation)
+      allow(pending_installation).to receive(:release!)
+
+      expect do
+        post "/api/v1/accounts/#{account.id}/integrations/shopify/complete_install",
+             params: { pending_install_token: pending_install_token },
+             headers: admin.create_new_auth_token,
+             as: :json
+      end.not_to change(Integrations::Hook, :count)
+
+      expect(pending_installation).to have_received(:release!)
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response.parsed_body['error']).to eq('This Shopify store is already connected')
+    end
+
+    it 'does not claim an install while Shopify is disabled' do
+      InstallationConfig.where(name: 'ENABLE_SHOPIFY_INTEGRATION').first_or_initialize.update!(value: false)
+      expect(Shopify::PendingInstallation).not_to receive(:claim)
+
+      post "/api/v1/accounts/#{account.id}/integrations/shopify/complete_install",
+           params: { pending_install_token: pending_install_token },
+           headers: admin.create_new_auth_token,
+           as: :json
+
+      expect(response).to have_http_status(:not_found)
+    end
+  end
+
+  describe 'DELETE /api/v1/accounts/:account_id/integrations/shopify' do
+    let(:admin) { create(:user, account: account, role: :administrator) }
+
+    before do
+      create(:integrations_hook, :shopify, account: account)
+    end
+
+    context 'when it is an administrator' do
+      it 'deletes the shopify integration' do
+        expect do
+          delete "/api/v1/accounts/#{account.id}/integrations/shopify",
+                 headers: admin.create_new_auth_token,
+                 as: :json
+        end.to change { account.hooks.count }.by(-1)
+
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context 'when it is an agent' do
+      it 'returns unauthorized and keeps the integration' do
+        expect do
+          delete "/api/v1/accounts/#{account.id}/integrations/shopify",
+                 headers: agent.create_new_auth_token,
+                 as: :json
+        end.not_to(change { account.hooks.count })
+
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context 'when it is an unauthenticated user' do
+      it 'returns unauthorized' do
+        delete "/api/v1/accounts/#{account.id}/integrations/shopify",
+               as: :json
+
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+  end
+end
