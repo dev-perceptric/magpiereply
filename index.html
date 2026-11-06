@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>MagpieReply: customer support with an AI agent that acts</title>
+  <meta name="description" content="One inbox for every channel, with an AI agent that reads your help center, looks things up in your tools and hands the hard tickets to your team. Open source core.">
+  <meta name="theme-color" content="#0943b0">
+  <link rel="icon" type="image/svg+xml" href="assets/logo_thumbnail.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-inbox" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M22 12h-6l-2 3h-4l-2-3H2M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11Z"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3ZM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16Z"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14ZM4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.5-.7L3 21l1.8-5A8.4 8.4 0 1 1 21 11.5Z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm18 2-10 7L2 6"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M17 2H7a5 5 0 0 0-5 5v10a5 5 0 0 0 5 5h10a5 5 0 0 0 5-5V7a5 5 0 0 0-5-5Zm-1 9.4A4 4 0 1 1 12.6 8a4 4 0 0 1 3.4 3.4ZM17.5 6.5h0"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m22 2-7 20-4-9-9-4 20-7ZM22 2 11 13"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-out" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 17 17 7M8 7h9v9"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.3-4.3M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14Z"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M13 2 3 14h9l-1 8 10-12h-9l1-8Z"/></symbol>
+    <symbol id="i-hand" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M16 3h5v5M21 3l-7 7M8 21H3v-5M3 21l7-7"/></symbol>
+    <symbol id="i-cart" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4H6ZM3 6h18M16 10a4 4 0 0 1-8 0"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 3v18h18M7 16l4-5 4 3 5-7"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 11h14v10H5zM8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 2.9.8.1-.6.4-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5a3.9 3.9 0 0 1 1-2.7 3.6 3.6 0 0 1 .1-2.7s.8-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .4 1 .4 2 .1 2.7a3.9 3.9 0 0 1 1 2.7c0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></symbol>
+  </defs>
+</svg>
+
+<!-- Nav -->
+<header class="nav" id="nav">
+  <div class="frame pad">
+    <a class="logo" href="#top" aria-label="MagpieReply home"><img src="assets/logo.svg" alt="MagpieReply" width="167" height="32"></a>
+    <span class="divider" aria-hidden="true"></span>
+    <ul>
+      <li><a href="#inbox">Inbox</a></li>
+      <li><a href="#agent">AI agent</a></li>
+      <li><a href="#stack">Connections</a></li>
+      <li><a href="#teams">Who it's for</a></li>
+      <li><a href="#open-source">Open source</a></li>
+    </ul>
+    <div class="actions">
+      <a class="signin" href="/app/login">Sign in</a>
+      <a class="btn btn-secondary" href="#start">Book a demo</a>
+      <a class="btn btn-primary" href="#start">Get early access</a>
+    </div>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav"><svg width="20" height="20"><use href="#i-menu"/></svg></button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="mosaic" data-mosaic="hero" aria-hidden="true"><canvas></canvas></div>
+    <div class="frame pad">
+      <div class="hero-copy">
+        <a class="eyebrow-link" href="#agent"><span class="dot" aria-hidden="true"></span>The AI agent is in early access <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <h1 class="display">Support that answers, acts and <em>closes the loop</em></h1>
+        <p class="lede">One inbox for every channel, with an AI agent that reads your help center, looks things up in your tools and hands the hard tickets to your team with a summary.</p>
+        <div class="ctas">
+          <a class="btn btn-primary btn-lg" href="#start">Get early access</a>
+          <a class="btn btn-secondary btn-lg" href="#start">Book a demo</a>
+        </div>
+      </div>
+
+      <div class="hero-stage">
+        <div class="hero-badges" aria-hidden="true">
+          <div class="badge-card"><small>Open source core</small><strong>MIT licensed</strong></div>
+          <div class="badge-card"><small>One inbox</small><strong>11 channels</strong></div>
+        </div>
+
+        <div class="mock" id="inbox">
+          <div class="mock-tabs" role="tablist" aria-label="Product views">
+            <button class="mock-tab" role="tab" aria-selected="true" aria-controls="view-conversations" id="tab-conversations"><span class="ic"><svg><use href="#i-inbox"/></svg></span>Conversations</button>
+            <button class="mock-tab" role="tab" aria-selected="false" aria-controls="view-agent" id="tab-agent" tabindex="-1"><span class="ic"><svg><use href="#i-spark"/></svg></span>AI agent</button>
+            <button class="mock-tab" role="tab" aria-selected="false" aria-controls="view-contacts" id="tab-contacts" tabindex="-1"><span class="ic"><svg><use href="#i-user"/></svg></span>Contacts</button>
+            <button class="mock-tab" role="tab" aria-selected="false" aria-controls="view-help" id="tab-help" tabindex="-1"><span class="ic"><svg><use href="#i-book"/></svg></span>Help center</button>
+          </div>
+
+          <!-- Conversations view -->
+          <div class="app" role="tabpanel" id="view-conversations" aria-labelledby="tab-conversations">
+            <div class="app-side">
+              <div class="ws"><img src="assets/logo_thumbnail.svg" alt="">Northwind</div>
+              <div class="search">Search...</div>
+              <div class="item">My inbox <span class="n">4</span></div>
+              <div class="item on">All conversations <span class="n">23</span></div>
+              <div class="item">Mentions <span class="n">1</span></div>
+              <div class="item">Unattended <span class="n">2</span></div>
+              <div class="group">Teams</div>
+              <div class="item sub">Billing</div>
+              <div class="item sub">Technical support</div>
+              <div class="group">Channels</div>
+              <div class="item sub">Website chat</div>
+              <div class="item sub">Support email</div>
+              <div class="item sub">WhatsApp</div>
+            </div>
+
+            <div class="app-list">
+              <div class="head">Conversations <span class="pill">Open</span></div>
+              <div class="tabs"><span>Mine 4</span><span>Unassigned 2</span><span class="on">All 23</span></div>
+              <div class="conv on">
+                <span class="av" style="background:#7c5cd6">MA</span>
+                <div>
+                  <div class="meta"><span>Website chat</span><span>2m</span></div>
+                  <div class="name">Maya Alvarez</div>
+                  <div class="last">I was charged twice for March</div>
+                  <div class="tags"><span class="tag"><i style="background:#c4314b"></i>billing</span><span class="tag"><i style="background:#0943b0"></i>ai-handled</span></div>
+                </div>
+              </div>
+              <div class="conv">
+                <span class="av" style="background:#12805c">JO</span>
+                <div>
+                  <div class="meta"><span>Email</span><span>14m</span></div>
+                  <div class="name">Jonah Okafor</div>
+                  <div class="last">SSO login fails after the update</div>
+                  <div class="tags"><span class="tag"><i style="background:#b25e09"></i>bug</span><span class="tag"><i style="background:#646d7c"></i>ENG-412</span></div>
+                </div>
+              </div>
+              <div class="conv">
+                <span class="av" style="background:#b25e09">LP</span>
+                <div>
+                  <div class="meta"><span>WhatsApp</span><span>31m</span></div>
+                  <div class="name">Lena Petrova</div>
+                  <div class="last">Can we add 20 more seats?</div>
+                  <div class="tags"><span class="tag"><i style="background:#12805c"></i>upsell</span></div>
+                </div>
+              </div>
+              <div class="conv">
+                <span class="av" style="background:#0943b0">RS</span>
+                <div>
+                  <div class="meta"><span>Instagram</span><span>1h</span></div>
+                  <div class="name">Ravi Shah</div>
+                  <div class="last">Where is my order #1042?</div>
+                  <div class="tags"><span class="tag"><i style="background:#0943b0"></i>ai-handled</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="app-thread">
+              <div class="top">
+                <span class="av" style="width:28px;height:28px;border-radius:50%;background:#7c5cd6;color:#fff;display:grid;place-items:center;font-size:10.5px;font-weight:700">MA</span>
+                <div><div class="who">Maya Alvarez</div><div class="sub">#2381 on Website chat</div></div>
+                <div class="act"><span class="sla">First reply 4m</span><span class="resolve">Resolve</span></div>
+              </div>
+              <div class="msgs">
+                <div class="msg in">Hi, I think I was charged twice for March. Can you check?<span class="t">10:42</span></div>
+                <div class="msg ai"><span class="by"><svg width="12" height="12"><use href="#i-spark"/></svg>AI agent</span>You're right, Maya. Stripe shows two $49 charges on March 1. I've asked our team to refund one; you'll get a confirmation shortly.<span class="t">10:42 · Sources: Stripe, Refund policy</span></div>
+                <div class="note"><strong>Waiting for approval:</strong> refund $49.00 to card ending 4242.</div>
+                <div class="msg out">Approved. The refund is on its way and should show in 5 to 10 days.<span class="t">10:45 · Sam from Billing</span></div>
+              </div>
+              <div class="composer">
+                <div class="modes"><span class="on">Reply</span><span>Private note</span></div>
+                <span class="ph">Type / to use a saved reply</span>
+                <span class="send">Send</span>
+              </div>
+            </div>
+
+            <div class="app-info">
+              <div class="title">Contact</div>
+              <div class="person"><span class="av">MA</span><div><div class="who" style="color:var(--ink);font-weight:600">Maya Alvarez</div><div style="color:var(--ink-3);font-size:11.5px">Ops lead at Brightline</div></div></div>
+              <div class="kv">
+                <div><span>Plan</span><span>Team, yearly</span></div>
+                <div><span>Seats</span><span>18 of 20</span></div>
+                <div><span>Since</span><span>Jan 2025</span></div>
+              </div>
+              <div class="box">
+                <span class="label">Looked up</span>
+                <div class="kv">
+                  <div><span>Stripe</span><span class="stat-ok">2 charges found</span></div>
+                  <div><span>HubSpot</span><span>Owner: Dana K.</span></div>
+                  <div><span>Past tickets</span><span>3, all solved</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AI agent view -->
+          <div class="app" role="tabpanel" id="view-agent" aria-labelledby="tab-agent" hidden style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)">
+            <div class="app-thread">
+              <div class="top"><div><div class="who">AI agent activity</div><div class="sub">Today</div></div></div>
+              <div class="msgs" style="background:#fff">
+                <div class="mini"><span>Answered from help center</span><span class="stat-ok">Solved</span></div>
+                <div class="mini"><span>Looked up order in Shopify</span><span class="stat-ok">Solved</span></div>
+                <div class="mini"><span>Refund over limit</span><span style="color:var(--amber);font-weight:600">Waiting for approval</span></div>
+                <div class="mini"><span>Customer asked for a person</span><span style="color:var(--ink-3);font-weight:600">Handed off</span></div>
+                <div class="mini"><span>No matching article</span><span style="color:var(--ink-3);font-weight:600">Handed off</span></div>
+                <div class="mini"><span>Bug filed in Linear</span><span class="stat-ok">Linked</span></div>
+              </div>
+            </div>
+            <div class="app-info" style="display:flex">
+              <div class="title">Rules</div>
+              <div class="box">
+                <span class="label">Acts on its own</span>
+                <div class="kv"><div><span>Resend invoice</span><span class="stat-ok">On</span></div><div><span>Order tracking</span><span class="stat-ok">On</span></div><div><span>File a bug</span><span class="stat-ok">On</span></div></div>
+              </div>
+              <div class="box">
+                <span class="label">Needs a person</span>
+                <div class="kv"><div><span>Refunds over</span><span>$50</span></div><div><span>Cancellations</span><span>Always</span></div><div><span>Upset customer</span><span>Always</span></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contacts view -->
+          <div class="app" role="tabpanel" id="view-contacts" aria-labelledby="tab-contacts" hidden style="grid-template-columns:minmax(0,1fr)">
+            <div class="app-thread">
+              <div class="top"><div><div class="who">Contacts</div><div class="sub">4 shown</div></div></div>
+              <div class="msgs" style="background:#fff">
+                <div class="mini"><span><strong>Maya Alvarez</strong> · Brightline</span><span>Team plan · 3 conversations</span></div>
+                <div class="mini"><span><strong>Jonah Okafor</strong> · Pinecrest</span><span>Business plan · 7 conversations</span></div>
+                <div class="mini"><span><strong>Lena Petrova</strong> · Marlow Analytics</span><span>Team plan · 2 conversations</span></div>
+                <div class="mini"><span><strong>Ravi Shah</strong></span><span>Shopper · 1 order</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Help center view -->
+          <div class="app" role="tabpanel" id="view-help" aria-labelledby="tab-help" hidden style="grid-template-columns:minmax(0,1fr)">
+            <div class="app-thread">
+              <div class="top"><div><div class="who">help.northwind.example</div><div class="sub">English, Spanish</div></div></div>
+              <div class="msgs" style="background:#fff">
+                <div class="mini"><span>Getting started</span><span>12 articles</span></div>
+                <div class="mini"><span>Billing and refunds</span><span>8 articles</span></div>
+                <div class="mini"><span>Single sign-on</span><span>5 articles</span></div>
+                <div class="mini"><span>Shipping and returns</span><span>9 articles</span></div>
+                <div class="mini"><span><svg width="12" height="12" style="display:inline;vertical-align:-1px;color:var(--brand)"><use href="#i-spark"/></svg> Suggested from solved tickets</span><span>3 drafts</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Channels -->
+  <section class="frame pad strip" aria-label="Channels">
+    <p>Every channel lands in the same inbox</p>
+    <div class="channels">
+      <span class="channel"><svg><use href="#i-chat"/></svg>Website chat</span>
+      <span class="channel"><svg><use href="#i-mail"/></svg>Email</span>
+      <span class="channel"><svg><use href="#i-phone"/></svg>WhatsApp</span>
+      <span class="channel"><svg><use href="#i-camera"/></svg>Instagram</span>
+      <span class="channel"><svg><use href="#i-chat"/></svg>Messenger</span>
+      <span class="channel"><svg><use href="#i-send"/></svg>Telegram</span>
+      <span class="channel"><svg><use href="#i-chat"/></svg>TikTok</span>
+      <span class="channel"><svg><use href="#i-chat"/></svg>LINE</span>
+      <span class="channel"><svg><use href="#i-phone"/></svg>SMS</span>
+      <span class="channel"><svg><use href="#i-code"/></svg>API</span>
+    </div>
+  </section>
+  <div class="dotted" aria-hidden="true"></div>
+
+  <!-- AI agent -->
+  <section id="agent">
+    <div class="frame">
+      <div class="section-head pad">
+        <span class="sticker"><span class="chip"><svg><use href="#i-spark"/></svg></span>AI agent</span>
+        <h2 class="h2">An AI agent that solves the ticket from start to finish</h2>
+        <p class="body">It answers from your own docs, checks your tools for the facts, takes the actions you allow and passes the rest to your team.</p>
+      </div>
+
+      <div class="split">
+        <div class="steps" role="tablist" aria-label="How the AI agent works">
+          <button class="step" role="tab" aria-selected="true" aria-controls="p1" id="s1"><span class="num">01</span><h3>Learns from your help center</h3><p>Point it at your articles, PDFs and solved tickets. It keeps up as they change.</p></button>
+          <button class="step" role="tab" aria-selected="false" aria-controls="p2" id="s2" tabindex="-1"><span class="num">02</span><h3>Looks things up in your tools</h3><p>Orders in Shopify, charges in Stripe, bugs in Linear. Only for the customer who's asking.</p></button>
+          <button class="step" role="tab" aria-selected="false" aria-controls="p3" id="s3" tabindex="-1"><span class="num">03</span><h3>Acts with your approval</h3><p>Safe actions run on their own. Refunds and cancellations wait for a person to approve.</p></button>
+          <button class="step" role="tab" aria-selected="false" aria-controls="p4" id="s4" tabindex="-1"><span class="num">04</span><h3>Hands off with a summary</h3><p>When it isn't sure, your team gets the ticket with a short note, so nobody rereads the thread.</p></button>
+        </div>
+
+        <div class="visual">
+          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
+
+          <div class="panel on card" id="p1" role="tabpanel" aria-labelledby="s1">
+            <div class="chat-preview">
+              <div class="q">Do you ship to Canada?</div>
+              <div class="a">Yes. Orders to Canada arrive in 5 to 8 business days, and duties are included at checkout.</div>
+              <div class="src"><span>Shipping policy</span><span>help.northwind.example</span></div>
+            </div>
+          </div>
+
+          <div class="panel card" id="p2" role="tabpanel" aria-labelledby="s2" hidden>
+            <div class="flow">
+              <div class="row"><span class="ic"><svg><use href="#i-search"/></svg></span>Find customer by email<span class="ok">Ravi Shah</span></div>
+              <div class="connector"></div>
+              <div class="row"><span class="ic"><svg><use href="#i-cart"/></svg></span>Shopify: order #1042<span class="ok">Shipped</span></div>
+              <div class="connector"></div>
+              <div class="row"><span class="ic"><svg><use href="#i-send"/></svg></span>ShipStation: tracking<span class="ok">Out for delivery</span></div>
+              <div class="connector"></div>
+              <div class="row"><span class="ic"><svg><use href="#i-chat"/></svg></span>Reply with the tracking link<span class="ok">Sent</span></div>
+            </div>
+          </div>
+
+          <div class="panel card" id="p3" role="tabpanel" aria-labelledby="s3" hidden>
+            <div class="flow">
+              <div class="row"><span class="ic"><svg><use href="#i-bolt"/></svg></span>Resend invoice<span class="ok">Done on its own</span></div>
+              <div class="connector"></div>
+              <div class="row"><span class="ic"><svg><use href="#i-bolt"/></svg></span>Book a call in Cal.com<span class="ok">Customer confirmed</span></div>
+              <div class="connector"></div>
+              <div class="row"><span class="ic"><svg><use href="#i-lock"/></svg></span>Refund $49.00 to card 4242<span class="wait">Waiting for approval</span></div>
+            </div>
+          </div>
+
+          <div class="panel card" id="p4" role="tabpanel" aria-labelledby="s4" hidden>
+            <div class="flow">
+              <div class="row"><span class="ic"><svg><use href="#i-hand"/></svg></span><strong>Handed to Technical support</strong></div>
+              <div class="note" style="margin-top:4px">Jonah can't sign in with SSO since this morning. Same error as 3 other customers this week. Linked to ENG-412. Tried: cleared cache, new browser.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Closes the loop band -->
+  <section class="band" aria-labelledby="loop-title">
+    <div class="mosaic" data-mosaic="band" aria-hidden="true"><canvas></canvas></div>
+    <div class="frame">
+      <div class="band-inner">
+        <div class="band-copy">
+          <span class="sticker tilt"><span class="chip"><svg><use href="#i-check"/></svg></span>Closes the loop</span>
+          <h2 class="h2" id="loop-title">When the bug is fixed, every customer hears about it</h2>
+          <p>MagpieReply links each conversation to the issue in Linear, Jira or GitHub. When the issue closes, it writes to everyone who reported it and reopens the thread if it's still broken.</p>
+        </div>
+        <div class="band-chart">
+          <span class="label" style="color:rgba(255,255,255,0.7)">Example</span>
+          <div class="bar-row"><span>Issue ENG-412</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="v">Done</span></div>
+          <div class="bar-row"><span>Linked tickets</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="v">14</span></div>
+          <div class="bar-row"><span>Updates sent</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="v">14</span></div>
+          <div class="bar-row"><span>Reopened</span><div class="track"><div class="fill" style="width:7%"></div></div><span class="v">1</span></div>
+          <span class="cap">One reopened ticket went back to the team with the customer's new details.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature cards -->
+  <section>
+    <div class="frame pad">
+      <div class="cards">
+        <article class="fcard">
+          <div class="bar"><span class="label">Macros</span><svg><use href="#i-out"/></svg></div>
+          <div class="art">
+            <div class="mini"><span>Order delayed</span><span class="run">Run</span></div>
+            <div class="mini"><span>Send saved reply</span><svg width="14" height="14" style="color:var(--green)"><use href="#i-check"/></svg></div>
+            <div class="mini"><span>Add label: delayed</span><svg width="14" height="14" style="color:var(--green)"><use href="#i-check"/></svg></div>
+            <div class="mini"><span>Snooze 1 day</span><svg width="14" height="14" style="color:var(--green)"><use href="#i-check"/></svg></div>
+          </div>
+          <div class="txt"><h3>Run a playbook in one click</h3><p>Bundle a reply, a label and a snooze. Run it on any conversation.</p></div>
+        </article>
+        <article class="fcard">
+          <div class="bar"><span class="label">Automations</span><svg><use href="#i-out"/></svg></div>
+          <div class="art">
+            <div class="mini"><span><span class="k">WHEN</span> Conversation created</span></div>
+            <div class="mini"><span><span class="k">IF</span> Message has "refund"</span></div>
+            <div class="mini"><span><span class="k">THEN</span> Assign to Billing</span></div>
+          </div>
+          <div class="txt"><h3>Or let it run on its own</h3><p>Rules route, label and reply the moment a conversation matches.</p></div>
+        </article>
+        <article class="fcard">
+          <div class="bar"><span class="label">Reports</span><svg><use href="#i-out"/></svg></div>
+          <div class="art">
+            <div class="mini"><span>First reply time</span><strong>by team</strong></div>
+            <div class="mini"><span>Solved by the AI agent</span><strong>by topic</strong></div>
+            <div class="mini"><span>Satisfaction</span><strong>by agent</strong></div>
+            <div class="mini"><span>Busy hours</span><strong>heatmap</strong></div>
+          </div>
+          <div class="txt"><h3>See what's working</h3><p>Live and historical reports for agents, inboxes, teams and labels.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stack -->
+  <section id="stack">
+    <div class="frame">
+      <div class="section-head pad" style="border-top:1px solid var(--line)">
+        <span class="sticker"><span class="chip"><svg><use href="#i-bolt"/></svg></span>Connections</span>
+        <h2 class="h2">Connects to the tools you already use</h2>
+        <p class="body">Sign in once per tool. The AI agent reads what it needs to solve the ticket, and every lookup is logged on the conversation.</p>
+      </div>
+      <div class="stack">
+        <div class="stack-col">
+          <span class="label">Commerce and billing</span>
+          <div class="tool"><span class="nm"><span class="mark" style="background:#5e8e3e">S</span>Shopify</span><span class="what">Orders</span></div>
+          <div class="tool"><span class="nm"><span class="mark" style="background:#635bff">S</span>Stripe</span><span class="what">Billing</span></div>
+          <div class="tool"><span class="nm"><span class="mark" style="background:#2e3a59">R</span>Recharge</span><span class="what">Subscriptions</span></div>
+          <div class="tool"><span class="nm"><span class="mark" style="background:#5b8c3a">S</span>ShipStation</span><span class="what">Shipping</span></div>
+        </div>
+        <div class="stack-col">
+          <span class="label">Engineering</span>
+          <div class="tool"><span class="nm"><span class="mark" style="background:#5e6ad2">L</span>Linear</span><span class="what">Issues</span></div>
+          <div class="tool"><span class="nm"><span class="mark" style="background:#0c66e4">J</span>Jira</span><span class="what">Issues</span></div>
+          <div class="tool"><span class="nm"><span class="mark" style="background:#24292f">G</span>GitHub</span><span class="what">Code</span></div>
+          <div class="tool"><span class="nm"><span class="mark" style="background:#362d59">S</span>Sentry</span><span class="what">Errors</span></div>
+        </div>
+        <div class="stack-col">
+          <span class="label">Team and accounts</span>
+          <div class="tool"><span class="nm"><span class="mark" style="background:#4a154b">S</span>Slack</span><span class="what">Escalations</span></div>
+          <div class="tool"><span class="nm"><span class="mark" style="background:#ff7a59">H</span>HubSpot</span><span class="what">CRM</span></div>
+          <div class="tool"><span class="nm"><span class="mark" style="background:#191919">N</span>Notion</span><span class="what">Docs</span></div>
+          <div class="tool"><span class="nm"><span class="mark" style="background:#333333">O</span>Omniscient</span><span class="what">CRM</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who it's for -->
+  <section id="teams">
+    <div class="frame">
+      <div class="section-head pad" style="border-top:1px solid var(--line)">
+        <span class="sticker"><span class="chip"><svg><use href="#i-user"/></svg></span>Who it's for</span>
+        <h2 class="h2">Built for how your customers ask</h2>
+      </div>
+      <div class="ind-tabs" role="tablist" aria-label="Team types">
+        <button class="ind-tab" role="tab" aria-selected="true" aria-controls="ind-b2b" id="t-b2b"><span class="ic"><svg><use href="#i-code"/></svg></span><span><small>01</small><strong>B2B software</strong></span></button>
+        <button class="ind-tab" role="tab" aria-selected="false" aria-controls="ind-ecom" id="t-ecom" tabindex="-1"><span class="ic"><svg><use href="#i-cart"/></svg></span><span><small>02</small><strong>E-commerce</strong></span></button>
+      </div>
+
+      <div class="ind-panel on" id="ind-b2b" role="tabpanel" aria-labelledby="t-b2b">
+        <div class="ind-copy">
+          <span class="k">01 / B2B SOFTWARE</span>
+          <h3>Turn "it's broken" into a fix your customer hears about</h3>
+          <ul>
+            <li><svg><use href="#i-check"/></svg>Sees the account's plan, owner and open deals next to every ticket</li>
+            <li><svg><use href="#i-check"/></svg>Checks recent deploys and errors before anyone asks engineering</li>
+            <li><svg><use href="#i-check"/></svg>Files the bug with every affected customer attached</li>
+          </ul>
+        </div>
+        <div class="ind-visual">
+          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
+          <div class="card" style="position:relative;z-index:1;width:min(420px,100%)">
+            <div class="flow">
+              <div class="row"><span class="ic"><svg><use href="#i-user"/></svg></span>Brightline, Team plan<span class="ok">Renews in 34 days</span></div>
+              <div class="connector"></div>
+              <div class="row"><span class="ic"><svg><use href="#i-code"/></svg></span>Auth deploy, yesterday 6pm<span class="wait">Likely cause</span></div>
+              <div class="connector"></div>
+              <div class="row"><span class="ic"><svg><use href="#i-bolt"/></svg></span>ENG-412 with 4 customers<span class="ok">Filed</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ind-panel" id="ind-ecom" role="tabpanel" aria-labelledby="t-ecom" hidden>
+        <div class="ind-copy">
+          <span class="k">02 / E-COMMERCE</span>
+          <h3>Answer "where's my order?" before your team sees it</h3>
+          <ul>
+            <li><svg><use href="#i-check"/></svg>Tracks orders and shipments across Shopify and ShipStation</li>
+            <li><svg><use href="#i-check"/></svg>Starts returns and subscription changes the customer confirms</li>
+            <li><svg><use href="#i-check"/></svg>Keeps refunds behind your approval limit</li>
+          </ul>
+        </div>
+        <div class="ind-visual">
+          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
+          <div class="card" style="position:relative;z-index:1;width:min(420px,100%)">
+            <div class="chat-preview">
+              <div class="q">Where is my order #1042?</div>
+              <div class="a">It's out for delivery today. Here's your tracking link.</div>
+              <div class="src"><span>Shopify</span><span>ShipStation</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Open source -->
+  <section class="oss" id="open-source">
+    <div class="mosaic" data-mosaic="oss" aria-hidden="true"><canvas></canvas></div>
+    <div class="frame pad">
+      <div class="oss-inner">
+        <div class="oss-copy">
+          <span class="sticker"><span class="chip"><svg><use href="#i-lock"/></svg></span>Open source core</span>
+          <h2 class="h2">Host it yourself and own your data</h2>
+          <p>The inbox, channels, help center and reports are open source under the MIT license. Run it on your own servers, or let us run it for you.</p>
+          <div class="oss-facts">
+            <div><strong>MIT</strong><small>License</small></div>
+            <div><strong>Docker</strong><small>Self-host</small></div>
+            <div><strong>11</strong><small>Channels</small></div>
+            <div><strong>API</strong><small>And webhooks</small></div>
+          </div>
+        </div>
+        <div class="terminal">
+          <div class="bar">Self-host in a few commands</div>
+<pre><span class="c"># Get the code</span>
+<span class="p">$</span> git clone https://github.com/dev-perceptric/magpiereply
+<span class="p">$</span> cd magpiereply
+
+<span class="c"># Set your secrets and prepare the database</span>
+<span class="p">$</span> cp .env.example .env
+<span class="p">$</span> docker compose -f docker-compose.production.yaml run --rm rails bundle exec rails db:chatwoot_prepare
+
+<span class="c"># Start it</span>
+<span class="p">$</span> docker compose -f docker-compose.production.yaml up -d</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="start">
+    <div class="mosaic" data-mosaic="cta" aria-hidden="true"><canvas></canvas></div>
+    <div class="frame pad">
+      <div class="cta-inner">
+        <span class="sticker tilt-r"><span class="chip"><svg><use href="#i-spark"/></svg></span>Early access</span>
+        <h2 class="display" style="font-size:clamp(36px,5vw,60px);max-width:16ch">Give your team an inbox that does the legwork</h2>
+        <p class="lede">We're onboarding a small group of support teams first.</p>
+        <div class="ctas">
+          <a class="btn btn-primary btn-lg" href="mailto:hello@magpiereply.com">Get early access</a>
+          <a class="btn btn-secondary btn-lg" href="mailto:hello@magpiereply.com?subject=Demo">Book a demo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="frame pad">
+    <div class="foot">
+      <div class="about">
+        <img src="assets/logo.svg" alt="MagpieReply" width="167" height="32">
+        <p>Customer support with an AI agent that answers, acts and closes the loop.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul><li><a href="#inbox">Inbox</a></li><li><a href="#agent">AI agent</a></li><li><a href="#stack">Connections</a></li><li><a href="#teams">Who it's for</a></li></ul>
+      </div>
+      <div>
+        <h4>Open source</h4>
+        <ul><li><a href="https://github.com/dev-perceptric/magpiereply">Source code</a></li><li><a href="https://github.com/chatwoot/chatwoot">Built on Chatwoot</a></li></ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul><li><a href="/terms">Terms</a></li><li><a href="/privacy">Privacy</a></li></ul>
+      </div>
+    </div>
+  </div>
+  <div class="frame pad">
+    <div class="legal"><span>© 2026 MagpieReply</span><span>Open source core under the MIT license</span></div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
