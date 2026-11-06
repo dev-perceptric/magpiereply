@@ -1,4 +1,17 @@
-# Chatwoot Development Guidelines
+# MagpieReply Development Guidelines
+
+MagpieReply is a fork of Chatwoot's open source core. Read [docs/magpiereply.md](docs/magpiereply.md) first: it lists what changed from upstream, how to pull in upstream updates and the running cost.
+
+## MagpieReply rules
+
+- There is no `enterprise/` folder. Chatwoot's paid code is not part of this repo, so never add it back or copy code from it. Where the sections below mention Enterprise, ignore them.
+- New user-facing copy says MagpieReply. For text that should follow a customer's own installation name, use `replaceInstallationName`, which swaps both "MagpieReply" and "Chatwoot".
+- Keep technical names (`X-Chatwoot-*` headers, the `$chatwoot` widget SDK, `ChatwootApp`) as they are; renaming them breaks mobile apps, the SDK and existing installs.
+- Brand color is `#0943b0`; the font is Inter. Use the Tailwind tokens (`n-brand`, `n-blue-*`), never a new hex.
+- Every feature plan states what it adds to the monthly bill (servers plus every paid service, Claude tokens included) at Beta (50 teams) and Growth (500 teams). Mark prices not confirmed on the vendor's own page as "check".
+- PRs don't need a Linear ticket until the team sets one up.
+
+# Upstream Chatwoot Guidelines
 
 `CLAUDE.md` is a symlink to this file. Keep shared, repository-wide instructions here and detailed procedures in linked docs. Add nested `AGENTS.md` files only for subtree-specific differences; avoid duplicating root rules.
 

@@ -1,139 +1,78 @@
-<img src="./.github/screenshots/header.png#gh-light-mode-only" width="100%" alt="Header light mode"/>
-<img src="./.github/screenshots/header-dark.png#gh-dark-mode-only" width="100%" alt="Header dark mode"/>
-
-___
-
-# Chatwoot
-
-The modern customer support platform, an open-source alternative to Intercom, Zendesk, Salesforce Service Cloud etc.
-
-<p>
-  <img src="https://img.shields.io/circleci/build/github/chatwoot/chatwoot" alt="CircleCI Badge">
-    <a href="https://hub.docker.com/r/chatwoot/chatwoot/"><img src="https://img.shields.io/docker/pulls/chatwoot/chatwoot" alt="Docker Pull Badge"></a>
-  <a href="https://hub.docker.com/r/chatwoot/chatwoot/"><img src="https://img.shields.io/docker/cloud/build/chatwoot/chatwoot" alt="Docker Build Badge"></a>
-  <img src="https://img.shields.io/github/commit-activity/m/chatwoot/chatwoot" alt="Commits-per-month">
-  <a title="Crowdin" target="_self" href="https://chatwoot.crowdin.com/chatwoot"><img src="https://badges.crowdin.net/e/37ced7eba411064bd792feb3b7a28b16/localized.svg"></a>
-  <a href="https://discord.gg/cJXdrwS"><img src="https://img.shields.io/discord/647412545203994635" alt="Discord"></a>
-  <a href="https://status.chatwoot.com"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fchatwoot%2Fstatus%2Fmaster%2Fapi%2Fchatwoot%2Fuptime.json" alt="uptime"></a>
-  <a href="https://status.chatwoot.com"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fchatwoot%2Fstatus%2Fmaster%2Fapi%2Fchatwoot%2Fresponse-time.json" alt="response time"></a>
-  <a href="https://artifacthub.io/packages/helm/chatwoot/chatwoot"><img src="https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/artifact-hub" alt="Artifact HUB"></a>
+<p align="center">
+  <img src="./public/brand-assets/logo.svg" width="260" alt="MagpieReply">
 </p>
 
+# MagpieReply
 
-<p>
-  <a href="https://heroku.com/deploy?template=https://github.com/chatwoot/chatwoot/tree/master" alt="Deploy to Heroku">
-     <img width="150" alt="Deploy" src="https://www.herokucdn.com/deploy/button.svg"/>
-  </a>
-  <a href="https://marketplace.digitalocean.com/apps/chatwoot?refcode=f2238426a2a8" alt="Deploy to DigitalOcean">
-     <img width="200" alt="Deploy to DO" src="https://www.deploytodo.com/do-btn-blue.svg"/>
-  </a>
-</p>
+Customer support with one inbox for every channel, and an AI agent that answers, acts and closes the loop.
 
-<img src="./.github/screenshots/dashboard.png#gh-light-mode-only" width="100%" alt="Chat dashboard dark mode"/>
-<img src="./.github/screenshots/dashboard-dark.png#gh-dark-mode-only" width="100%" alt="Chat dashboard"/>
+MagpieReply is built on the open source core of [Chatwoot](https://github.com/chatwoot/chatwoot) (MIT). See [docs/magpiereply.md](docs/magpiereply.md) for what changed, how to pull in upstream updates and what it costs to run.
 
----
+## What's inside
 
-Chatwoot is the modern, open-source, and self-hosted customer support platform designed to help businesses deliver exceptional customer support experience. Built for scale and flexibility, Chatwoot gives you full control over your customer data while providing powerful tools to manage conversations across channels.
+- **Channels:** website chat, email (Google, Microsoft or any mail server), WhatsApp, Facebook Messenger, Instagram, TikTok, Telegram, LINE, SMS, X and an API channel.
+- **Shared inbox:** statuses, priorities, assignment, teams, labels, private notes, mentions, saved replies, macros and bulk actions.
+- **Automations:** rules that route, label and reply when a conversation matches, plus auto-resolve.
+- **Help center:** several portals, custom domains, categories and languages.
+- **Contacts and companies:** custom fields, notes, merging and imports.
+- **Reports:** overview, agents, inboxes, teams, labels, satisfaction surveys and live views.
+- **Integrations:** webhooks, dashboard apps, agent bots, Slack, Linear, Notion, Shopify, Stripe and more.
+- **APIs:** a full app API, a platform API for creating accounts and users, and a public API for the chat widget and help center.
 
-### ✨ Captain – AI Agent for Support
+The AI agent is in development. It plugs in through the agent bot hook, so the inbox works on its own today.
 
-Supercharge your support with Captain, Chatwoot’s AI agent. Captain helps automate responses, handle common queries, and reduce agent workload—ensuring customers get instant, accurate answers. With Captain, your team can focus on complex conversations while routine questions are resolved automatically. Read more about Captain [here](https://chwt.app/captain-docs).
+## Run it locally
 
-### 💬 Omnichannel Support Desk
+You need Ruby (version in `.ruby-version`), Node (version in `.nvmrc`), pnpm, PostgreSQL with the `pgvector` extension, and Redis.
 
-Chatwoot centralizes all customer conversations into one powerful inbox, no matter where your customers reach out from. It supports live chat on your website, email, Facebook, Instagram, Twitter, WhatsApp, Telegram, Line, SMS etc.
+```bash
+cp .env.example .env
+```
 
-### 📚 Help center portal
+```bash
+bundle install && pnpm install
+```
 
-Publish help articles, FAQs, and guides through the built-in Help Center Portal. Enable customers to find answers on their own, reduce repetitive queries, and keep your support team focused on more complex issues.
+```bash
+bundle exec rails db:chatwoot_prepare
+```
 
-### 🗂️ Other features
+```bash
+pnpm dev
+```
 
-#### Collaboration & Productivity
+Open http://localhost:3000 and sign up for the first account.
 
-- Private Notes and @mentions for internal team discussions.
-- Labels to organize and categorize conversations.
-- Keyboard Shortcuts and a Command Bar for quick navigation.
-- Canned Responses to reply faster to frequently asked questions.
-- Auto-Assignment to route conversations based on agent availability.
-- Multi-lingual Support to serve customers in multiple languages.
-- Custom Views and Filters for better inbox organization.
-- Business Hours and Auto-Responders to manage response expectations.
-- Teams and Automation tools for scaling support workflows.
-- Agent Capacity Management to balance workload across the team.
+## Self-host with Docker
 
-#### Customer Data & Segmentation
-- Contact Management with profiles and interaction history.
-- Contact Segments and Notes for targeted communication.
-- Campaigns to proactively engage customers.
-- Custom Attributes for storing additional customer data.
-- Pre-Chat Forms to collect user information before starting conversations.
+```bash
+cp .env.example .env
+```
 
-#### Integrations
-- Slack Integration to manage conversations directly from Slack.
-- Dialogflow Integration for chatbot automation.
-- Dashboard Apps to embed internal tools within Chatwoot.
-- Shopify Integration to view and manage customer orders right within Chatwoot.
-- Use Google Translate to translate messages from your customers in realtime.
-- Create and manage Linear tickets within Chatwoot.
+```bash
+docker compose -f docker-compose.production.yaml run --rm rails bundle exec rails db:chatwoot_prepare
+```
 
-#### Reports & Insights
-- Live View of ongoing conversations for real-time monitoring.
-- Conversation, Agent, Inbox, Label, and Team Reports for operational visibility.
-- CSAT Reports to measure customer satisfaction.
-- Downloadable Reports for offline analysis and reporting.
+```bash
+docker compose -f docker-compose.production.yaml up -d
+```
 
+The production compose file builds the MagpieReply image from this repository.
 
-## Documentation
+## Tests
 
-Detailed documentation is available at [chatwoot.com/help-center](https://www.chatwoot.com/help-center).
+```bash
+pnpm test
+```
 
-## Translation process
+```bash
+bundle exec rspec
+```
 
-The translation process for Chatwoot web and mobile app is managed at [https://translate.chatwoot.com](https://translate.chatwoot.com) using Crowdin. Please read the [translation guide](https://www.chatwoot.com/docs/contributing/translating-chatwoot-to-your-language) for contributing to Chatwoot.
+## Website
 
-## Branching model
+The marketing site lives in [`website/`](website/README.md). It's plain HTML and CSS with no build step.
 
-We use the [git-flow](https://nvie.com/posts/a-successful-git-branching-model/) branching model. The base branch is `develop`.
-If you are looking for a stable version, please use the `master` or tags labelled as `v1.x.x`.
+## License
 
-## Deployment
-
-### Heroku one-click deploy
-
-Deploying Chatwoot to Heroku is a breeze. It's as simple as clicking this button:
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/chatwoot/chatwoot/tree/master)
-
-Follow this [link](https://www.chatwoot.com/docs/environment-variables) to understand setting the correct environment variables for the app to work with all the features. There might be breakages if you do not set the relevant environment variables.
-
-
-### DigitalOcean 1-Click Kubernetes deployment
-
-Chatwoot now supports 1-Click deployment to DigitalOcean as a kubernetes app.
-
-<a href="https://marketplace.digitalocean.com/apps/chatwoot?refcode=f2238426a2a8" alt="Deploy to DigitalOcean">
-  <img width="200" alt="Deploy to DO" src="https://www.deploytodo.com/do-btn-blue.svg"/>
-</a>
-
-### Other deployment options
-
-For other supported options, checkout our [deployment page](https://chatwoot.com/deploy).
-
-## Security
-
-Looking to report a vulnerability? Please refer our [SECURITY.md](./SECURITY.md) file.
-
-## Community
-
-If you need help or just want to hang out, come, say hi on our [Discord](https://discord.gg/cJXdrwS) server.
-
-## Contributors
-
-Thanks goes to all these [wonderful people](https://www.chatwoot.com/docs/contributors):
-
-<a href="https://github.com/chatwoot/chatwoot/graphs/contributors"><img src="https://opencollective.com/chatwoot/contributors.svg?width=890&button=false" /></a>
-
-
-*Chatwoot* &copy; 2017-2026, Chatwoot Inc - Released under the MIT License.
+MIT, the same as the Chatwoot core it's built on. The original copyright notice is kept in [LICENSE](LICENSE). Chatwoot's paid `enterprise/` code is not included.
