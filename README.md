@@ -73,7 +73,7 @@ Add the site in hPanel as a Node.js project connected to GitHub, then use these 
 | Branch | `hostinger-site` |
 | Framework preset | Vite (or Other) |
 | Root directory | `./` |
-| Build command | `npm run build` |
+| Build command | `npm run build` (`npm run build:sdk` does the same, since hPanel may keep the app branch's command) |
 | Package manager | npm |
 | Output directory | `dist` |
 
