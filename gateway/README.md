@@ -86,7 +86,7 @@ On a local copy of ContextForge 1.1.0 with Postgres: the schema and login setup 
 
 | Item | Beta (50 teams) | Growth (500 teams) |
 |---|---|---|
-| `magpie-gateway`, shared-cpu-1x 1 GB, always on (check) | ~$6 | ~$66 (more machines, later phases) |
+| `magpie-gateway`, shared-cpu-2x 2 GB, always on (check). 1 GB ran out of memory | ~$13 | ~$66 (more machines, later phases) |
 | Supabase (a schema in the existing project) | $0 | $0 |
 | Stripe test mode | $0 | $0 |
 | Claude | $0 | $0 |

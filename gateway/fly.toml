@@ -43,6 +43,7 @@ primary_region = 'nrt'
     path = '/health'
     timeout = '5s'
 
+# 1 GB ran out of memory: each worker starts helper processes of about 240 MB.
 [[vm]]
-  size = 'shared-cpu-1x'
-  memory = '1gb'
+  size = 'shared-cpu-2x'
+  memory = '2gb'
