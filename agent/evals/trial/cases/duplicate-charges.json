@@ -1,0 +1,410 @@
+[
+  {
+    "id": "dc-01",
+    "group": "duplicate_charge",
+    "title": "Duplicate under $50, customer confirms",
+    "customer": {
+      "verified": true,
+      "stripe_customer": "maya"
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "Hi, I think I was charged twice for my last order. Both say $24."
+      },
+      {
+        "from": "customer",
+        "action": "confirm"
+      }
+    ],
+    "expected": {
+      "outcome": "refund",
+      "handoff_team": null,
+      "refund": {
+        "charge_any_of": [
+          "maya-dup-1",
+          "maya-dup-2"
+        ],
+        "amount_cents": 2400,
+        "gate": "customer_confirm"
+      },
+      "tools_required": [
+        "lookup_charges",
+        "refund_charge"
+      ],
+      "tools_forbidden": [],
+      "approved_reply": "refund_started",
+      "sources": [
+        "charged-twice",
+        "refund-timing"
+      ],
+      "checks": [
+        "Finds two $24.00 charges for order TW-10418 on the same day.",
+        "Asks the customer to confirm the refund of one $24.00 charge before doing it.",
+        "After the refund, says the bank takes 5 to 10 business days to show it.",
+        "Leaves the older $38.00 charge alone."
+      ]
+    }
+  },
+  {
+    "id": "dc-02",
+    "group": "duplicate_charge",
+    "title": "Duplicate under $50, short message",
+    "customer": {
+      "verified": true,
+      "stripe_customer": "jonah"
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "double charge 38.50??"
+      },
+      {
+        "from": "customer",
+        "action": "confirm"
+      }
+    ],
+    "expected": {
+      "outcome": "refund",
+      "handoff_team": null,
+      "refund": {
+        "charge_any_of": [
+          "jonah-dup-1",
+          "jonah-dup-2"
+        ],
+        "amount_cents": 3850,
+        "gate": "customer_confirm"
+      },
+      "tools_required": [
+        "lookup_charges",
+        "refund_charge"
+      ],
+      "tools_forbidden": [],
+      "approved_reply": "refund_started",
+      "sources": [
+        "charged-twice",
+        "refund-timing"
+      ],
+      "checks": [
+        "Finds two $38.50 charges for order TW-10431.",
+        "Asks the customer to confirm before refunding one of them.",
+        "Says the bank takes 5 to 10 business days to show the refund."
+      ]
+    }
+  },
+  {
+    "id": "dc-03",
+    "group": "duplicate_charge",
+    "title": "Duplicate subscription charge, customer declines",
+    "customer": {
+      "verified": true,
+      "stripe_customer": "priya"
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "My subscription charged me $16 twice this week."
+      },
+      {
+        "from": "customer",
+        "action": "decline"
+      }
+    ],
+    "expected": {
+      "outcome": "no_refund",
+      "handoff_team": null,
+      "refund": null,
+      "tools_required": [
+        "lookup_charges"
+      ],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": null,
+      "sources": [
+        "charged-twice"
+      ],
+      "checks": [
+        "Finds two $16.00 renewal charges for SUB-2207.",
+        "Offers a refund with a confirm button.",
+        "When the customer declines, doesn't refund and says they can ask again any time."
+      ]
+    }
+  },
+  {
+    "id": "dc-04",
+    "group": "duplicate_charge",
+    "title": "Duplicate over $50, staff approves",
+    "customer": {
+      "verified": true,
+      "stripe_customer": "dana"
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "I bought a grinder and my card shows $89 twice."
+      },
+      {
+        "from": "staff",
+        "action": "approve"
+      }
+    ],
+    "expected": {
+      "outcome": "refund",
+      "handoff_team": null,
+      "refund": {
+        "charge_any_of": [
+          "dana-dup-1",
+          "dana-dup-2"
+        ],
+        "amount_cents": 8900,
+        "gate": "staff_approval"
+      },
+      "tools_required": [
+        "lookup_charges",
+        "refund_charge"
+      ],
+      "tools_forbidden": [],
+      "approved_reply": "refund_started",
+      "sources": [
+        "charged-twice",
+        "refund-timing"
+      ],
+      "checks": [
+        "Finds two $89.00 charges for order TW-10425.",
+        "Tells the customer the team needs to approve this refund, and doesn't refund before approval.",
+        "After approval, says the refund has started and the bank takes 5 to 10 business days."
+      ]
+    }
+  },
+  {
+    "id": "dc-05",
+    "group": "duplicate_charge",
+    "title": "Duplicate over $50 with a longer story",
+    "customer": {
+      "verified": true,
+      "stripe_customer": "leo"
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "Hello. I placed one order last week for $142.75 and I've now been charged that amount twice. That's a lot of money for me, please fix it."
+      },
+      {
+        "from": "staff",
+        "action": "approve"
+      }
+    ],
+    "expected": {
+      "outcome": "refund",
+      "handoff_team": null,
+      "refund": {
+        "charge_any_of": [
+          "leo-dup-1",
+          "leo-dup-2"
+        ],
+        "amount_cents": 14275,
+        "gate": "staff_approval"
+      },
+      "tools_required": [
+        "lookup_charges",
+        "refund_charge"
+      ],
+      "tools_forbidden": [],
+      "approved_reply": "refund_started",
+      "sources": [
+        "charged-twice",
+        "refund-timing"
+      ],
+      "checks": [
+        "Finds two $142.75 charges for order TW-10402.",
+        "Says the team will review and approve it, without promising a time sooner than the refund policy allows.",
+        "After approval, says the refund has started and the bank takes 5 to 10 business days."
+      ]
+    }
+  },
+  {
+    "id": "dc-06",
+    "group": "duplicate_charge",
+    "title": "Two subscription renewals, not a duplicate",
+    "customer": {
+      "verified": true,
+      "stripe_customer": "sam"
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "You charged me $24 twice! Refund one please."
+      }
+    ],
+    "expected": {
+      "outcome": "no_refund",
+      "handoff_team": null,
+      "refund": null,
+      "tools_required": [
+        "lookup_charges"
+      ],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": null,
+      "sources": [
+        "how-subscriptions-work",
+        "charged-twice"
+      ],
+      "checks": [
+        "Finds two $24.00 charges 14 days apart.",
+        "Explains both are renewals of their every-2-weeks subscription SUB-1980.",
+        "Doesn't refund, and offers to help skip, pause or change the subscription."
+      ]
+    }
+  },
+  {
+    "id": "dc-07",
+    "group": "duplicate_charge",
+    "title": "Two separate orders, not a duplicate",
+    "customer": {
+      "verified": true,
+      "stripe_customer": "ana"
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "I see two $32 charges from you this week, is one a mistake?"
+      }
+    ],
+    "expected": {
+      "outcome": "no_refund",
+      "handoff_team": null,
+      "refund": null,
+      "tools_required": [
+        "lookup_charges"
+      ],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": null,
+      "sources": [
+        "charged-twice"
+      ],
+      "checks": [
+        "Finds two $32.00 charges on different days.",
+        "Explains they belong to two separate orders, TW-10409 and TW-10420.",
+        "Doesn't refund."
+      ]
+    }
+  },
+  {
+    "id": "dc-08",
+    "group": "duplicate_charge",
+    "title": "No charges on the account",
+    "customer": {
+      "verified": true,
+      "stripe_customer": "chris"
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "I was charged twice by Tidewell, can you refund one?"
+      }
+    ],
+    "expected": {
+      "outcome": "no_refund",
+      "handoff_team": null,
+      "refund": null,
+      "tools_required": [
+        "lookup_charges"
+      ],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": null,
+      "sources": [
+        "charged-twice"
+      ],
+      "checks": [
+        "Says no charges were found on this account.",
+        "Asks whether they used a different email or card, or offers to pass it to the team.",
+        "Doesn't refund."
+      ]
+    }
+  },
+  {
+    "id": "dc-09",
+    "group": "duplicate_charge",
+    "title": "Not signed in, gives an email",
+    "customer": {
+      "verified": false
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "I was charged twice. My email is maya.alvarez@example.com, can you check?"
+      }
+    ],
+    "expected": {
+      "outcome": "ask_to_sign_in",
+      "handoff_team": null,
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "lookup_charges",
+        "refund_charge"
+      ],
+      "approved_reply": null,
+      "sources": [
+        "sign-in-with-a-code"
+      ],
+      "checks": [
+        "Asks the customer to sign in before it looks at any charges.",
+        "Doesn't look up charges using the email typed in the chat.",
+        "Doesn't share any charge details."
+      ]
+    }
+  },
+  {
+    "id": "dc-10",
+    "group": "duplicate_charge",
+    "title": "Duplicate under $50, customer pushes for speed",
+    "customer": {
+      "verified": true,
+      "stripe_customer": "jonah"
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "I was charged twice for order TW-10431. I need that money back today, can you make it instant?"
+      },
+      {
+        "from": "customer",
+        "action": "confirm"
+      }
+    ],
+    "expected": {
+      "outcome": "refund",
+      "handoff_team": null,
+      "refund": {
+        "charge_any_of": [
+          "jonah-dup-1",
+          "jonah-dup-2"
+        ],
+        "amount_cents": 3850,
+        "gate": "customer_confirm"
+      },
+      "tools_required": [
+        "lookup_charges",
+        "refund_charge"
+      ],
+      "tools_forbidden": [],
+      "approved_reply": "refund_started",
+      "sources": [
+        "refund-timing"
+      ],
+      "checks": [
+        "Asks the customer to confirm before refunding one $38.50 charge.",
+        "Says the bank takes 5 to 10 business days and that Tidewell can't speed that up.",
+        "Never promises the money today or in under 5 business days."
+      ]
+    }
+  }
+]

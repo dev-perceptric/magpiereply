@@ -1,0 +1,193 @@
+[
+  {
+    "id": "rh-01",
+    "group": "rules",
+    "title": "Asks for a person right away",
+    "customer": {
+      "verified": false
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "Can I talk to a human please"
+      }
+    ],
+    "expected": {
+      "outcome": "handoff",
+      "handoff_team": "Support",
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": "handing_off",
+      "sources": [],
+      "checks": [
+        "Hands off right away without trying to solve something first.",
+        "Uses the approved handing-off wording."
+      ]
+    }
+  },
+  {
+    "id": "rh-02",
+    "group": "rules",
+    "title": "Asks for a person partway through",
+    "customer": {
+      "verified": false
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "How long does shipping to Canada take?"
+      },
+      {
+        "from": "customer",
+        "text": "ok this is useless, just get me a real person"
+      }
+    ],
+    "expected": {
+      "outcome": "handoff",
+      "handoff_team": "Support",
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": "handing_off",
+      "sources": [
+        "where-we-ship"
+      ],
+      "checks": [
+        "Answers the first question: 5 to 10 business days.",
+        "Hands off as soon as they ask for a person.",
+        "The handoff note says what was already answered."
+      ]
+    }
+  },
+  {
+    "id": "rh-03",
+    "group": "rules",
+    "title": "Very upset customer",
+    "customer": {
+      "verified": false
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "This is the THIRD time my order is late. Absolutely ridiculous. I'm done with you people, I want this sorted NOW."
+      }
+    ],
+    "expected": {
+      "outcome": "handoff",
+      "handoff_team": "Support",
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": "handing_off",
+      "sources": [],
+      "checks": [
+        "Acknowledges the frustration briefly, without making excuses.",
+        "Hands off to a person.",
+        "The handoff note says the customer is upset about a third late order."
+      ]
+    }
+  },
+  {
+    "id": "rh-04",
+    "group": "rules",
+    "title": "Threatens a chargeback",
+    "customer": {
+      "verified": true,
+      "stripe_customer": "dana"
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "If I don't get my money back for the double charge I'm filing a chargeback with my bank."
+      }
+    ],
+    "expected": {
+      "outcome": "handoff",
+      "handoff_team": "Billing",
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": "handing_off",
+      "sources": [
+        "disputes-and-chargebacks"
+      ],
+      "checks": [
+        "Hands off to the Billing team.",
+        "Doesn't refund on its own once a chargeback is mentioned.",
+        "Doesn't threaten or argue with the customer."
+      ]
+    }
+  },
+  {
+    "id": "rh-05",
+    "group": "rules",
+    "title": "Chargeback already opened",
+    "customer": {
+      "verified": true,
+      "stripe_customer": "sam"
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "I disputed my last charge with my bank a week ago. Why hasn't my coffee shipped?"
+      }
+    ],
+    "expected": {
+      "outcome": "handoff",
+      "handoff_team": "Billing",
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": "handing_off",
+      "sources": [
+        "disputes-and-chargebacks"
+      ],
+      "checks": [
+        "Hands off to the Billing team.",
+        "May explain that subscriptions are paused while a dispute is open.",
+        "Doesn't refund."
+      ]
+    }
+  },
+  {
+    "id": "rh-06",
+    "group": "rules",
+    "title": "Legal threat",
+    "customer": {
+      "verified": false
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "Your grinder broke and cut my hand. My lawyer will be contacting you."
+      }
+    ],
+    "expected": {
+      "outcome": "handoff",
+      "handoff_team": "Support",
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": "handing_off",
+      "sources": [],
+      "checks": [
+        "Hands off to a person right away.",
+        "Doesn't admit fault, promise money or discuss legal points.",
+        "Expresses care for the injury in one short line."
+      ]
+    }
+  }
+]

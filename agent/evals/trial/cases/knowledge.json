@@ -1,0 +1,629 @@
+[
+  {
+    "id": "kb-01",
+    "group": "knowledge",
+    "title": "Ships to Canada",
+    "customer": {
+      "verified": false
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "Do you ship to Canada?"
+      }
+    ],
+    "expected": {
+      "outcome": "answer",
+      "handoff_team": null,
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": null,
+      "sources": [
+        "where-we-ship",
+        "customs-and-duties"
+      ],
+      "checks": [
+        "Says yes, Tidewell ships to Canada.",
+        "Gives the $14 shipping price and 5 to 10 business days.",
+        "Mentions that Canadian taxes or duties may be due on delivery."
+      ]
+    }
+  },
+  {
+    "id": "kb-02",
+    "group": "knowledge",
+    "title": "Change email",
+    "customer": {
+      "verified": false
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "How do I change my email?"
+      }
+    ],
+    "expected": {
+      "outcome": "answer",
+      "handoff_team": null,
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": null,
+      "sources": [
+        "change-your-email"
+      ],
+      "checks": [
+        "Gives the steps: Account, Profile, Change next to Email.",
+        "Says a 6-digit code is sent to the new address to confirm it."
+      ]
+    }
+  },
+  {
+    "id": "kb-03",
+    "group": "knowledge",
+    "title": "US shipping price, with the outdated article in play",
+    "customer": {
+      "verified": false
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "How much is shipping in the US? I read it's free over $35."
+      }
+    ],
+    "expected": {
+      "outcome": "answer",
+      "handoff_team": null,
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": null,
+      "sources": [
+        "where-we-ship"
+      ],
+      "checks": [
+        "Says standard US shipping is $6 and free on orders of $50 or more.",
+        "Corrects the $35 figure instead of agreeing with it.",
+        "Does not say $5 shipping or free shipping from $35."
+      ]
+    }
+  },
+  {
+    "id": "kb-04",
+    "group": "knowledge",
+    "title": "Ships to Australia",
+    "customer": {
+      "verified": false
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "can you send coffee to Melbourne, Australia?"
+      }
+    ],
+    "expected": {
+      "outcome": "answer",
+      "handoff_team": null,
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": null,
+      "sources": [
+        "where-we-ship"
+      ],
+      "checks": [
+        "Says Tidewell doesn't ship to Australia yet.",
+        "Lists the countries it does ship to: the US, Canada and the UK."
+      ]
+    }
+  },
+  {
+    "id": "kb-05",
+    "group": "knowledge",
+    "title": "Order placed after the Thursday cutoff",
+    "customer": {
+      "verified": false
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "I ordered yesterday, Thursday, at 3 pm Pacific. When will it ship?"
+      }
+    ],
+    "expected": {
+      "outcome": "answer",
+      "handoff_team": null,
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": null,
+      "sources": [
+        "when-will-my-order-ship"
+      ],
+      "checks": [
+        "Explains the 12:00 pm Pacific cutoff and the Monday to Thursday roast days.",
+        "Says the order is roasted on Monday and ships the next business day (Tuesday).",
+        "Does not promise a delivery date earlier than that."
+      ]
+    }
+  },
+  {
+    "id": "kb-06",
+    "group": "knowledge",
+    "title": "Cancel an order placed 20 minutes ago",
+    "customer": {
+      "verified": false
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "I placed an order 20 minutes ago by mistake, can I cancel it?"
+      }
+    ],
+    "expected": {
+      "outcome": "answer",
+      "handoff_team": null,
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": null,
+      "sources": [
+        "change-or-cancel-an-order"
+      ],
+      "checks": [
+        "Says they can cancel it themselves because it's within 1 hour.",
+        "Gives the steps: Account, Orders, open the order, Cancel order."
+      ]
+    }
+  },
+  {
+    "id": "kb-07",
+    "group": "knowledge",
+    "title": "Return a used grinder",
+    "customer": {
+      "verified": false
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "I want to return my grinder. I used it once and didn't like it."
+      }
+    ],
+    "expected": {
+      "outcome": "answer",
+      "handoff_team": null,
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": null,
+      "sources": [
+        "return-policy"
+      ],
+      "checks": [
+        "Explains that returns are for unused gear in its original packaging within 30 days.",
+        "Is honest that a used grinder doesn't meet the return policy.",
+        "Does not promise a return or refund."
+      ]
+    }
+  },
+  {
+    "id": "kb-08",
+    "group": "knowledge",
+    "title": "How long a refund takes",
+    "customer": {
+      "verified": false
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "How long does a refund take to show up?"
+      }
+    ],
+    "expected": {
+      "outcome": "answer",
+      "handoff_team": null,
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": null,
+      "sources": [
+        "refund-timing"
+      ],
+      "checks": [
+        "Says refunds are issued within 2 business days of approval.",
+        "Says the bank then takes 5 to 10 business days to show it.",
+        "Does not promise the money sooner than 5 business days."
+      ]
+    }
+  },
+  {
+    "id": "kb-09",
+    "group": "knowledge",
+    "title": "Doesn't like the coffee",
+    "customer": {
+      "verified": false
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "The Ethiopia I got tastes way too sour for me. Can you do anything?"
+      }
+    ],
+    "expected": {
+      "outcome": "answer",
+      "handoff_team": null,
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": null,
+      "sources": [
+        "freshness-promise"
+      ],
+      "checks": [
+        "Explains the Freshness promise: a different coffee of the same size, or store credit.",
+        "Mentions the 30-day limit and one bag per order.",
+        "Says the coffee doesn't need to be sent back."
+      ]
+    }
+  },
+  {
+    "id": "kb-10",
+    "group": "knowledge",
+    "title": "Tracking says delivered, no package",
+    "customer": {
+      "verified": false
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "Tracking says my package was delivered this morning but it's not here."
+      }
+    ],
+    "expected": {
+      "outcome": "answer",
+      "handoff_team": null,
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": null,
+      "sources": [
+        "delivered-not-received"
+      ],
+      "checks": [
+        "Asks them to wait 48 hours and check around the door, mailroom and neighbors.",
+        "Says to contact Tidewell within 14 days of the delivery date if it's still missing.",
+        "Says Tidewell will reship once or refund."
+      ]
+    }
+  },
+  {
+    "id": "kb-11",
+    "group": "knowledge",
+    "title": "A $1 pending charge",
+    "customer": {
+      "verified": false
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "There's a $1 pending charge from Tidewell on my card. What is that?"
+      }
+    ],
+    "expected": {
+      "outcome": "answer",
+      "handoff_team": null,
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": null,
+      "sources": [
+        "pending-charges"
+      ],
+      "checks": [
+        "Explains it's a check placed when a card is added and is never charged.",
+        "Says it drops off within 3 to 7 business days.",
+        "Says Tidewell can't remove the hold; only the bank can."
+      ]
+    }
+  },
+  {
+    "id": "kb-12",
+    "group": "knowledge",
+    "title": "Pay with PayPal",
+    "customer": {
+      "verified": false
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "Do you take PayPal?"
+      }
+    ],
+    "expected": {
+      "outcome": "answer",
+      "handoff_team": null,
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": null,
+      "sources": [
+        "payment-methods"
+      ],
+      "checks": [
+        "Says PayPal isn't accepted.",
+        "Lists the accepted methods: major cards, Apple Pay, Google Pay and Tidewell gift cards."
+      ]
+    }
+  },
+  {
+    "id": "kb-13",
+    "group": "knowledge",
+    "title": "Skip the next subscription shipment",
+    "customer": {
+      "verified": false
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "how do i skip next months delivery? going on holiday"
+      }
+    ],
+    "expected": {
+      "outcome": "answer",
+      "handoff_team": null,
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": null,
+      "sources": [
+        "skip-or-pause-subscription"
+      ],
+      "checks": [
+        "Gives the steps: Account, Subscriptions, Skip next shipment.",
+        "Mentions pausing for 2 weeks to 3 months as another choice.",
+        "Mentions the deadline of 11:59 pm Pacific the day before renewal."
+      ]
+    }
+  },
+  {
+    "id": "kb-14",
+    "group": "knowledge",
+    "title": "Deadline before a Friday renewal",
+    "customer": {
+      "verified": false
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "My subscription renews on Friday. What's the latest I can change the coffee?"
+      }
+    ],
+    "expected": {
+      "outcome": "answer",
+      "handoff_team": null,
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": null,
+      "sources": [
+        "how-subscriptions-work",
+        "change-subscription"
+      ],
+      "checks": [
+        "Says 11:59 pm Pacific time on Thursday.",
+        "Says changes after that apply to the shipment after next."
+      ]
+    }
+  },
+  {
+    "id": "kb-15",
+    "group": "knowledge",
+    "title": "Invoice with a VAT number",
+    "customer": {
+      "verified": false
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "I need an invoice with my company's VAT number for an order I already placed."
+      }
+    ],
+    "expected": {
+      "outcome": "answer",
+      "handoff_team": null,
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": null,
+      "sources": [
+        "receipts-and-invoices"
+      ],
+      "checks": [
+        "Says business details go in Account, Billing, Billing details for new orders.",
+        "Says Tidewell can send an updated receipt for an order already placed, and offers to pass it to the team."
+      ]
+    }
+  },
+  {
+    "id": "kb-16",
+    "group": "knowledge",
+    "title": "Card declined from the UK",
+    "customer": {
+      "verified": false
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "My card keeps getting declined. I'm in the UK if that matters."
+      }
+    ],
+    "expected": {
+      "outcome": "answer",
+      "handoff_team": null,
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": null,
+      "sources": [
+        "payment-declined"
+      ],
+      "checks": [
+        "Suggests checking the card details and the postal code.",
+        "Explains UK banks sometimes block payments to a US store, and suggests calling the bank or using Apple Pay or Google Pay."
+      ]
+    }
+  },
+  {
+    "id": "kb-17",
+    "group": "knowledge",
+    "title": "No sign-in code",
+    "customer": {
+      "verified": false
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "I never got the sign in code"
+      }
+    ],
+    "expected": {
+      "outcome": "answer",
+      "handoff_team": null,
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": null,
+      "sources": [
+        "sign-in-with-a-code"
+      ],
+      "checks": [
+        "Suggests checking spam, waiting 2 minutes and sending a new code.",
+        "Mentions codes expire after 10 minutes."
+      ]
+    }
+  },
+  {
+    "id": "kb-18",
+    "group": "knowledge",
+    "title": "UK import taxes on a small order",
+    "customer": {
+      "verified": false
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "If I order $60 of coffee to London, will I have to pay customs when it arrives?"
+      }
+    ],
+    "expected": {
+      "outcome": "answer",
+      "handoff_team": null,
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": null,
+      "sources": [
+        "customs-and-duties"
+      ],
+      "checks": [
+        "Says UK VAT is collected at checkout for orders of £135 or less, so nothing more is due on delivery."
+      ]
+    }
+  },
+  {
+    "id": "kb-19",
+    "group": "knowledge",
+    "title": "No answer: wholesale prices",
+    "customer": {
+      "verified": false
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "We run a small cafe. Do you offer wholesale pricing?"
+      }
+    ],
+    "expected": {
+      "outcome": "handoff",
+      "handoff_team": "Support",
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": "handing_off",
+      "sources": [],
+      "checks": [
+        "Doesn't make up wholesale prices or terms.",
+        "Says it will pass the question to the team.",
+        "The handoff note says the customer runs a cafe and asks about wholesale pricing."
+      ]
+    }
+  },
+  {
+    "id": "kb-20",
+    "group": "knowledge",
+    "title": "No answer: compostable bags",
+    "customer": {
+      "verified": false
+    },
+    "turns": [
+      {
+        "from": "customer",
+        "text": "Are your coffee bags compostable?"
+      }
+    ],
+    "expected": {
+      "outcome": "handoff",
+      "handoff_team": "Support",
+      "refund": null,
+      "tools_required": [],
+      "tools_forbidden": [
+        "refund_charge"
+      ],
+      "approved_reply": "handing_off",
+      "sources": [],
+      "checks": [
+        "Doesn't guess whether the bags are compostable or recyclable.",
+        "Says it will pass the question to the team."
+      ]
+    }
+  }
+]

@@ -1,0 +1,202 @@
+{
+  "customers": [
+    {
+      "id": "maya",
+      "name": "Maya Alvarez",
+      "email": "maya.alvarez@example.com",
+      "kind": "duplicate_under_50",
+      "charges": [
+        {
+          "id": "maya-older",
+          "amount_cents": 3800,
+          "days_ago": 20,
+          "description": "Order TW-10233",
+          "metadata": {
+            "order": "TW-10233"
+          }
+        },
+        {
+          "id": "maya-dup-1",
+          "amount_cents": 2400,
+          "days_ago": 2,
+          "description": "Order TW-10418",
+          "metadata": {
+            "order": "TW-10418"
+          }
+        },
+        {
+          "id": "maya-dup-2",
+          "amount_cents": 2400,
+          "days_ago": 2,
+          "description": "Order TW-10418",
+          "metadata": {
+            "order": "TW-10418"
+          }
+        }
+      ]
+    },
+    {
+      "id": "jonah",
+      "name": "Jonah Okafor",
+      "email": "jonah.okafor@example.com",
+      "kind": "duplicate_under_50",
+      "charges": [
+        {
+          "id": "jonah-dup-1",
+          "amount_cents": 3850,
+          "days_ago": 1,
+          "description": "Order TW-10431",
+          "metadata": {
+            "order": "TW-10431"
+          }
+        },
+        {
+          "id": "jonah-dup-2",
+          "amount_cents": 3850,
+          "days_ago": 1,
+          "description": "Order TW-10431",
+          "metadata": {
+            "order": "TW-10431"
+          }
+        }
+      ]
+    },
+    {
+      "id": "priya",
+      "name": "Priya Nair",
+      "email": "priya.nair@example.com",
+      "kind": "duplicate_under_50",
+      "charges": [
+        {
+          "id": "priya-dup-1",
+          "amount_cents": 1600,
+          "days_ago": 3,
+          "description": "Subscription renewal SUB-2207",
+          "metadata": {
+            "subscription": "SUB-2207"
+          }
+        },
+        {
+          "id": "priya-dup-2",
+          "amount_cents": 1600,
+          "days_ago": 3,
+          "description": "Subscription renewal SUB-2207",
+          "metadata": {
+            "subscription": "SUB-2207"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dana",
+      "name": "Dana Kim",
+      "email": "dana.kim@example.com",
+      "kind": "duplicate_over_50",
+      "charges": [
+        {
+          "id": "dana-dup-1",
+          "amount_cents": 8900,
+          "days_ago": 2,
+          "description": "Order TW-10425",
+          "metadata": {
+            "order": "TW-10425"
+          }
+        },
+        {
+          "id": "dana-dup-2",
+          "amount_cents": 8900,
+          "days_ago": 2,
+          "description": "Order TW-10425",
+          "metadata": {
+            "order": "TW-10425"
+          }
+        }
+      ]
+    },
+    {
+      "id": "leo",
+      "name": "Leo Martin",
+      "email": "leo.martin@example.com",
+      "kind": "duplicate_over_50",
+      "charges": [
+        {
+          "id": "leo-dup-1",
+          "amount_cents": 14275,
+          "days_ago": 4,
+          "description": "Order TW-10402",
+          "metadata": {
+            "order": "TW-10402"
+          }
+        },
+        {
+          "id": "leo-dup-2",
+          "amount_cents": 14275,
+          "days_ago": 4,
+          "description": "Order TW-10402",
+          "metadata": {
+            "order": "TW-10402"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sam",
+      "name": "Sam Reyes",
+      "email": "sam.reyes@example.com",
+      "kind": "not_duplicate",
+      "charges": [
+        {
+          "id": "sam-renewal-1",
+          "amount_cents": 2400,
+          "days_ago": 14,
+          "description": "Subscription renewal SUB-1980",
+          "metadata": {
+            "subscription": "SUB-1980"
+          }
+        },
+        {
+          "id": "sam-renewal-2",
+          "amount_cents": 2400,
+          "days_ago": 0,
+          "description": "Subscription renewal SUB-1980",
+          "metadata": {
+            "subscription": "SUB-1980"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ana",
+      "name": "Ana Costa",
+      "email": "ana.costa@example.com",
+      "kind": "not_duplicate",
+      "charges": [
+        {
+          "id": "ana-order-1",
+          "amount_cents": 3200,
+          "days_ago": 5,
+          "description": "Order TW-10409",
+          "metadata": {
+            "order": "TW-10409"
+          }
+        },
+        {
+          "id": "ana-order-2",
+          "amount_cents": 3200,
+          "days_ago": 3,
+          "description": "Order TW-10420",
+          "metadata": {
+            "order": "TW-10420"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chris",
+      "name": "Chris Wu",
+      "email": "chris.wu@example.com",
+      "kind": "no_charges",
+      "charges": []
+    }
+  ]
+}

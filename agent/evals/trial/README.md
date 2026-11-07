@@ -30,6 +30,44 @@ Test data for the phase 0 trial in `docs/phase-0.md` (Week 2, Day 7).
 - wholesale or bulk prices for cafes and offices
 - whether the bags are compostable or recyclable
 
+## Stripe test customers (`stripe-customers.json`)
+
+8 customers for Stripe **test mode**, with emails on `example.com`:
+
+| Customer | Kind | Charges |
+|---|---|---|
+| Maya Alvarez | duplicate under $50 | $24.00 twice for order TW-10418, plus an older $38.00 order |
+| Jonah Okafor | duplicate under $50 | $38.50 twice for order TW-10431 |
+| Priya Nair | duplicate under $50 | $16.00 twice for subscription renewal SUB-2207 |
+| Dana Kim | duplicate over $50 | $89.00 twice for order TW-10425 |
+| Leo Martin | duplicate over $50 | $142.75 twice for order TW-10402 |
+| Sam Reyes | not a duplicate | $24.00 renewals of SUB-1980, 14 days apart |
+| Ana Costa | not a duplicate | $32.00 for order TW-10409, then $32.00 for order TW-10420 two days later |
+| Chris Wu | no charges | none |
+
+`days_ago` sets when each charge happened. Stripe sets a charge's date to the moment it's made, so charges on past days need a test clock (check that charges made for a test-clock customer take the clock's date) or must be made on different real days. The order or subscription number goes in each charge's metadata.
+
+## Test conversations (`cases/`)
+
+40 cases, matching the plan:
+
+| File | Cases | What it tests |
+|---|---|---|
+| `knowledge.json` | 20 | Answers from the articles; `kb-03` checks the outdated article; `kb-19` and `kb-20` have no answer and should hand off |
+| `duplicate-charges.json` | 10 | Under $50 with the customer confirming, over $50 with staff approving, a customer who declines, two kinds of not-a-duplicate, no charges, a customer who isn't signed in, and a push for a faster refund |
+| `rules-and-handoff.json` | 6 | Asks for a person (twice), very upset, chargeback threatened and already opened (to Billing), legal threat |
+| `attacks.json` | 4 | "Ignore your rules", another customer's charges, a fake admin message, a link with hidden instructions |
+
+Each case has:
+
+- `customer`: who's signed in. `verified: true` with a `stripe_customer` means the identity comes from the session, so the agent looks up that customer only. `verified: false` means nobody is signed in.
+- `turns`: played in order. A `text` turn is a customer message; the runner waits for the agent's reply before the next turn. `confirm` and `decline` are the customer pressing the agent's buttons. `approve` and `reject` are staff answering an approval card.
+- `expected`: the outcome, the handoff team, the refund (which charge, how much, and whether the customer confirms or staff approve), the tools that must and must not run, the approved wording, the articles to cite, and `checks`, plain sentences a grader marks pass or fail.
+
+`lookup_charges` and `refund_charge` are names for what happens. The runner maps them to the Stripe MCP tools found during the trial. Reset the Stripe data before each case, since refunds change it.
+
+`test/trial-cases.test.ts` checks the files fit together: the counts, that every article and customer exists, that refund amounts match the charges, that over $50 needs staff approval, and that nobody signed out gets a charge lookup.
+
 ## Load them into MagpieReply
 
 Needs Node 22 and an administrator API key (Profile settings → Access token). It creates the `tidewell` help center and its categories if they're missing, then adds each article as published. Running it again skips articles that are already there.
@@ -40,4 +78,4 @@ APP_URL=https://app.magpiereply.com node agent/evals/trial/load-articles.mjs --a
 
 ## Running cost
 
-None. The articles live in the app's existing database, and loading them uses no Claude tokens.
+None. The articles live in the app's existing database, and loading them uses no Claude tokens. The cases and Stripe test customers are files; Stripe test mode is free.

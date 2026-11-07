@@ -21,7 +21,8 @@ Two weeks. Part of `docs/ai-agent-plan.md`.
 | Day 5: webhook → queue → worker → private note | Done. Tested end to end against a local MagpieReply: one message, a burst of three (one turn), duplicates, bad signatures, other accounts |
 | Deploy `magpie-agent` to Fly | Done. `/health` answers ok |
 | Week 2: sample help articles | Done: 29 articles for a made-up store in `agent/evals/trial/` (not loaded into the app yet) |
-| Week 2: gateway, Stripe test data, test set, Parlant trial | Not started |
+| Week 2: test set | Done: 40 cases and the 8 Stripe test customers they use, in `agent/evals/trial/`, checked by `agent/test/trial-cases.test.ts` |
+| Week 2: gateway, Stripe test data in Stripe, Parlant trial | Not started |
 
 ## What you need to provide
 
