@@ -1,0 +1,24 @@
+# MagpieReply background worker (Sidekiq) on Fly.io (Tokyo). See docs/fly.md.
+# Uses the same image and secrets as magpiereply-web.
+app = 'magpiereply-worker'
+primary_region = 'nrt'
+
+[build]
+  dockerfile = 'docker/Dockerfile'
+
+[env]
+  RAILS_ENV = 'production'
+  NODE_ENV = 'production'
+  RAILS_LOG_TO_STDOUT = 'true'
+  FRONTEND_URL = 'https://app.magpiereply.com'
+  ACTIVE_STORAGE_SERVICE = 's3_compatible'
+  STORAGE_FORCE_PATH_STYLE = 'true'
+  SIDEKIQ_CONCURRENCY = '10'
+
+[experimental]
+  entrypoint = ['docker/entrypoints/rails.sh']
+  cmd = ['bundle', 'exec', 'sidekiq', '-C', 'config/sidekiq.yml']
+
+[[vm]]
+  size = 'shared-cpu-2x'
+  memory = '2gb'
