@@ -19,8 +19,9 @@ Two weeks. Part of `docs/ai-agent-plan.md`.
 | Day 3: app change, bot read access (messages, contacts, articles) | Done, with request and policy specs |
 | Day 4: team setup script | Done |
 | Day 5: webhook → queue → worker → private note | Done. Tested end to end against a local MagpieReply: one message, a burst of three (one turn), duplicates, bad signatures, other accounts |
-| Deploy `magpie-agent` to Fly | Waiting on the Supabase login and secrets (see `agent/README.md`) |
-| Week 2: gateway, test data, Parlant trial | Not started |
+| Deploy `magpie-agent` to Fly | Done. `/health` answers ok |
+| Week 2: sample help articles | Done: 29 articles for a made-up store in `agent/evals/trial/` (not loaded into the app yet) |
+| Week 2: gateway, Stripe test data, test set, Parlant trial | Not started |
 
 ## What you need to provide
 
@@ -30,7 +31,7 @@ Two weeks. Part of `docs/ai-agent-plan.md`.
 | Voyage API key | Parlant uses Voyage for search vectors when the models are Claude | Fly secret on `magpie-brain` |
 | A Stripe account in **test mode** | Fake customers and duplicate charges for the trial; no real money | Connected through the gateway's sign-in |
 | A MagpieReply admin API key | To create the agent bot for the test account (Profile settings → Access token) | Typed in when running the setup script; not stored in the repo |
-| 20 to 30 help articles | Knowledge for the trial. Real ones from a friendly team are best; otherwise we write a sample set for a made-up store | MagpieReply help center |
+| 20 to 30 help articles | Knowledge for the trial. Written: a sample set for a made-up store (`agent/evals/trial/articles/`) | MagpieReply help center, loaded with `agent/evals/trial/load-articles.mjs` |
 
 ## Week 1: groundwork
 
