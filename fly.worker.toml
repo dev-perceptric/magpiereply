@@ -10,6 +10,8 @@ primary_region = 'nrt'
   RAILS_ENV = 'production'
   NODE_ENV = 'production'
   RAILS_LOG_TO_STDOUT = 'true'
+  # Don't send usage counts to Chatwoot's hub.
+  DISABLE_TELEMETRY = 'true'
   FRONTEND_URL = 'https://app.magpiereply.com'
   ACTIVE_STORAGE_SERVICE = 's3_compatible'
   STORAGE_FORCE_PATH_STYLE = 'true'
