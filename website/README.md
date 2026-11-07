@@ -50,6 +50,18 @@ cd website && python3 -m http.server 8080
 
 Then open http://localhost:8080.
 
+## Deploy
+
+The site runs on Fly as `magpiereply-site` in Tokyo, next to the app: https://magpiereply-site.fly.dev
+
+```bash
+FLY_API_TOKEN=... node tools/deploy-fly.mjs
+```
+
+The script uses Fly's Machines API, so it needs no flyctl or image build. It runs the stock nginx image, sends the site's files with the machine config, and updates the same machine on each run. The machine stops when idle and starts on the next visit.
+
+To use www.magpiereply.com, add the certificate in the Fly dashboard (Certificates on `magpiereply-site`) and point the domain's DNS at the app.
+
 ## Before launch
 
 - Prices on `/pricing/` and the homepage are early access prices. Starter is $49 ($44 yearly) and Growth is $149 ($134 yearly), at least 3 times the AI cost per team in `docs/ai-agent-plan.md`. Confirm them before launch.
@@ -59,4 +71,4 @@ Then open http://localhost:8080.
 
 ## Running cost
 
-A static site on a free static host (Cloudflare Pages or Netlify free tier, check) adds $0 a month at Beta (50 teams) and at Growth (500 teams). Fonts load from Google Fonts at no cost.
+One Fly machine (shared-cpu-1x, 256 MB) that stops when idle, plus a shared IPv4 address: about $0 to $2 a month at Beta (50 teams) and $2 to $4 at Growth (500 teams), check. Fonts load from Google Fonts at no cost.
