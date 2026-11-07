@@ -23,6 +23,7 @@ The marketing site: plain HTML, CSS and a small script, with no build step. It's
 - `assets/icons.svg`: every icon, used as `<svg><use href="/assets/icons.svg#i-NAME"/></svg>`
 - `partials/nav.html` and `partials/footer.html`: the nav and footer on every page
 - `partials/page-template.html`: start a new page from this
+- `.htaccess`: Hostinger server settings
 
 After editing the nav or footer, copy them into every page:
 
@@ -52,15 +53,29 @@ Then open http://localhost:8080.
 
 ## Deploy
 
-The site runs on Fly as `magpiereply-site` in Tokyo, next to the app: https://magpiereply-site.fly.dev
+The site is hosted on Hostinger. Hostinger's Git deploy copies a whole branch into `public_html`, so the site's files are published to their own branch, `hostinger-site`, with `website/` as its top level.
+
+After the site changes, publish the branch:
 
 ```bash
-FLY_API_TOKEN=... node tools/deploy-fly.mjs
+bash website/tools/publish-hostinger.sh
 ```
 
-The script uses Fly's Machines API, so it needs no flyctl or image build. It runs the stock nginx image, sends the site's files with the machine config, and updates the same machine on each run. The machine stops when idle and starts on the next visit.
+Then click **Deploy** in hPanel, or turn on auto-deploy once (see below).
 
-To use www.magpiereply.com, add the certificate in the Fly dashboard (Certificates on `magpiereply-site`) and point the domain's DNS at the app.
+### First-time setup in hPanel
+
+1. Open **Websites**, pick magpiereply.com and click **Dashboard**.
+2. Go to **Advanced > Git**.
+3. Under **Create a new repository**, fill in:
+   - **Repository:** `https://github.com/dev-perceptric/magpiereply.git`
+   - **Branch:** `hostinger-site`
+   - **Directory:** leave empty, so it deploys into `public_html`. The folder must be empty first, so delete Hostinger's default files there.
+4. Click **Create**, then **Deploy**.
+5. To deploy on every push, click **Auto deployment**, copy the webhook URL and add it in GitHub under the repo's **Settings > Webhooks** (content type `application/json`, push events).
+6. In **Security > SSL**, make sure the free SSL is on for magpiereply.com and www.
+
+`.htaccess` sets the 404 page, forces HTTPS and hides the `partials/` and `tools/` folders.
 
 ## Before launch
 
@@ -71,4 +86,4 @@ To use www.magpiereply.com, add the certificate in the Fly dashboard (Certificat
 
 ## Running cost
 
-One Fly machine (shared-cpu-1x, 256 MB) that stops when idle, plus a shared IPv4 address: about $0 to $2 a month at Beta (50 teams) and $2 to $4 at Growth (500 teams), check. Fonts load from Google Fonts at no cost.
+Hostinger web hosting: $0 extra a month at Beta (50 teams) and Growth (500 teams) if it shares a plan already paid for. On its own, a Premium Web Hosting plan is about $3 to $12 a month depending on the term (check). Fonts load from Google Fonts at no cost.
