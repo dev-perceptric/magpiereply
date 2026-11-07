@@ -16,7 +16,8 @@
     "dev:api": "tsx watch src/api.ts",
     "dev:worker": "tsx watch src/worker.ts",
     "enable-team": "tsx src/enable-team.ts",
-    "trial": "tsx src/run-trial.ts"
+    "trial": "tsx src/run-trial.ts",
+    "stripe": "tsx src/stripe-trial.ts"
   },
   "dependencies": {
     "@hono/node-server": "2.1.6",

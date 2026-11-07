@@ -45,7 +45,12 @@ Test data for the phase 0 trial in `docs/phase-0.md` (Week 2, Day 7).
 | Ana Costa | not a duplicate | $32.00 for order TW-10409, then $32.00 for order TW-10420 two days later |
 | Chris Wu | no charges | none |
 
-`days_ago` sets when each charge happened. Stripe sets a charge's date to the moment it's made, so charges on past days need a test clock (check that charges made for a test-clock customer take the clock's date) or must be made on different real days. The order or subscription number goes in each charge's metadata.
+`days_ago` sets when each charge happened. The order or subscription number goes in each charge's metadata.
+
+**Create them** with `npm run stripe -- seed` in `agent/` and a test-mode key in `STRIPE_SECRET_KEY` (`sk_test_` or `rk_test_`; the script refuses anything else). A restricted key needs write access to customers, payment intents and test clocks, and read access to charges. Each customer gets its own Stripe test clock, set to its earliest charge and moved forward before each later one, since Stripe dates a charge when it's made. Running `seed` again replaces the earlier customers.
+
+`npm run stripe -- check` reads them back: one customer each, every charge paid for the right amount, on the right day, nothing refunded. Stripe's docs don't say whether one-off payments take the test clock's date. If they don't, `check` names the charges and warns that the not-a-duplicate cases (dc-06, dc-07, at-04) aren't valid. `npm run stripe -- remove` deletes the customers and their clocks; Stripe deletes test clocks after 30 days anyway.
+
 
 ## Test conversations (`cases/`)
 
@@ -99,7 +104,7 @@ npm run trial -- compare <parlant results.json> <baseline results.json>
   - It sends the approved wording for "refund started" and "handing off". Claude answers a Cancel or a turned-down approval.
   - Stripe goes through the gateway: set `GATEWAY_MCP_URL` (from `gateway/trial.mjs make-server`) and `GATEWAY_TOKEN`. Without them, knowledge cases still run, and Stripe calls show as failed.
 - **Parlant setup** (`agent/src/evals/setups/parlant.ts`, `--setup parlant`): drives `magpie-brain` (`brain/`) over Parlant's HTTP API with `PARLANT_URL` and `PARLANT_ADMIN_API_KEY`. Parlant picks the reply and the tools; the adapter plays the bridge, as the baseline's code does. It makes a Parlant customer with the signed-in email, turns the brain's refund requests into Confirm buttons or staff cards, makes the refund through the gateway, asks Parlant to answer a Cancel, and sends the approved wording. Token use per turn comes from Parlant's session usage. Parlant doesn't name its sources, so "Expected sources cited" stays at 0 for it.
-- **Not wired yet:** resetting the Stripe test data before each case. It comes with the script that creates the test customers.
+- **Resetting Stripe:** `run --reset-stripe` (needs `STRIPE_SECRET_KEY`) checks each case's customer first and recreates them if an earlier case refunded a charge or a charge is missing. Untouched customers are left alone, so a run stays quick.
 
 ## Load them into MagpieReply
 

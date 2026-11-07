@@ -1,5 +1,7 @@
 // The Parlant trial's test runner (docs/phase-0.md, Day 10). Run with: npm run trial -- <command>
-//   run --setup <name> [--cases kb-01,dc-02] [--no-grade]   play the cases through a setup
+//   run --setup <name> [--cases kb-01,dc-02] [--no-grade] [--reset-stripe]   play the cases through a setup
+//     --reset-stripe recreates a case's Stripe test customer first if an earlier case refunded them
+//     (needs STRIPE_SECRET_KEY, a test-mode key)
 //   grade <results.json>                                     grade cases that have no grade yet
 //   report <results.json>                                    rescore and rewrite the Markdown report
 //   compare <candidate.json> <baseline.json>                 the go/no-go table
@@ -17,6 +19,7 @@ import { scoreCase, sourcesFound } from './evals/score.js';
 import { createBaseline } from './evals/setups/baseline.js';
 import { createParlant } from './evals/setups/parlant.js';
 import { createDisconnectedStripe, createGatewayStripe } from './evals/setups/stripe.js';
+import { createStripeApi, resetIfChanged } from './evals/stripe-seed.js';
 import { createMcpClient } from './mcp-client.js';
 
 function requiredEnv(name: string): string {
@@ -61,6 +64,7 @@ const { values, positionals } = parseArgs({
     setup: { type: 'string' },
     cases: { type: 'string' },
     'no-grade': { type: 'boolean', default: false },
+    'reset-stripe': { type: 'boolean', default: false },
   },
 });
 
@@ -113,7 +117,15 @@ async function run(): Promise<void> {
   mkdirSync(RESULTS_DIR, { recursive: true });
   const path = new URL(`${agent.name}-${results.startedAt.replaceAll(':', '-').slice(0, 19)}.json`, RESULTS_DIR).pathname;
 
+  const stripeApi = values['reset-stripe'] ? createStripeApi({ secretKey: requiredEnv('STRIPE_SECRET_KEY') }) : null;
   for (const trialCase of selected) {
+    if (stripeApi && trialCase.customer.verified) {
+      const customerId = trialCase.customer.stripe_customer;
+      const fixture = customers.find(entry => entry.id === customerId);
+      if (fixture && (await resetIfChanged(stripeApi, fixture, Math.floor(Date.now() / 1000)))) {
+        console.log(`recreated Stripe customer ${fixture.id}`);
+      }
+    }
     const result = await runCase(agent, trialCase, customers);
     results.cases.push(result);
     const failedChecks = result.codeChecks.filter(check => !check.pass).map(check => check.name);
