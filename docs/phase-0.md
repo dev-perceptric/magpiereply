@@ -10,6 +10,18 @@ Two weeks. Part of `docs/ai-agent-plan.md`.
 - A customer message in a test inbox shows up in the `agent` schema as a saved event and a queued job, and the worker posts a private note on the conversation.
 - The Parlant trial has run the full test set, and `docs/decisions/0001-brain.md` records **go** or **no-go** with the numbers.
 
+## Status
+
+| Part | Status |
+|---|---|
+| Day 1: agent service skeleton (`agent/`), Docker image, Fly config, CI | Done |
+| Day 2: `agent` schema and migrations | Done |
+| Day 3: app change, bot read access (messages, contacts, articles) | Done, with request and policy specs |
+| Day 4: team setup script | Done |
+| Day 5: webhook → queue → worker → private note | Done. Tested end to end against a local MagpieReply: one message, a burst of three (one turn), duplicates, bad signatures, other accounts |
+| Deploy `magpie-agent` to Fly | Waiting on the Supabase login and secrets (see `agent/README.md`) |
+| Week 2: gateway, test data, Parlant trial | Not started |
+
 ## What you need to provide
 
 | Item | Why | Where it goes |
@@ -37,7 +49,7 @@ Two weeks. Part of `docs/ai-agent-plan.md`.
 - A database role `magpie_agent`:
   - read and write on `agent` and `pgboss`
   - no access to the app's `public` tables (the agent reads app data through the app's API instead)
-- Phase 0 tables:
+- Phase 0 tables (built: `agent/src/db/migrations/001_init.sql`):
 
 | Table | Holds |
 |---|---|
