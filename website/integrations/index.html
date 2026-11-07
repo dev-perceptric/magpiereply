@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Integrations | MagpieReply</title>
+  <meta name="description" content="Connect Stripe, Shopify, HubSpot, Linear and more with one sign-in each. The MagpieReply AI agent uses them through MCP, and every lookup is logged.">
+  <link rel="canonical" href="https://www.magpiereply.com/integrations/">
+  <meta property="og:title" content="Integrations | MagpieReply">
+  <meta property="og:description" content="Connect Stripe, Shopify, HubSpot, Linear and more with one sign-in each. The MagpieReply AI agent uses them through MCP, and every lookup is logged.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0943b0">
+  <link rel="icon" type="image/svg+xml" href="/assets/logo_thumbnail.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<!-- nav -->
+<header class="nav" id="nav">
+  <div class="frame pad">
+    <a class="logo" href="/" aria-label="MagpieReply home"><img src="/assets/logo.svg" alt="MagpieReply" width="167" height="32"></a>
+    <span class="divider" aria-hidden="true"></span>
+    <ul>
+      <li><a href="/inbox/">Inbox</a></li>
+      <li><a href="/ai-agent/">AI agent</a></li>
+      <li><a href="/integrations/" aria-current="page">Integrations</a></li>
+      <li><a href="/pricing/">Pricing</a></li>
+      <li><a href="/open-source/">Open source</a></li>
+    </ul>
+    <div class="actions">
+      <a class="signin" href="/app/login">Sign in</a>
+      <a class="btn btn-secondary" href="mailto:hello@magpiereply.com?subject=Demo">Book a demo</a>
+      <a class="btn btn-primary" href="mailto:hello@magpiereply.com?subject=Early%20access">Get early access</a>
+    </div>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav"><svg width="20" height="20"><use href="/assets/icons.svg#i-menu"/></svg></button>
+  </div>
+</header>
+<!-- /nav -->
+
+<main id="top">
+
+  <section class="page-hero">
+    <div class="mosaic" data-mosaic="hero" aria-hidden="true"><canvas></canvas></div>
+    <div class="frame pad">
+      <div class="page-hero-copy">
+        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-plug"/></svg></span>Integrations</span>
+        <h1 class="display sm">Connect your apps with <em>one sign-in each</em></h1>
+        <p class="lede">The AI agent looks things up and takes actions in the tools you already use. You sign in once per app, choose what it may do, and every lookup is logged on the conversation.</p>
+        <div class="ctas">
+          <a class="btn btn-primary btn-lg" href="mailto:hello@magpiereply.com?subject=Early%20access">Get early access</a>
+          <a class="btn btn-secondary btn-lg" href="mailto:hello@magpiereply.com?subject=Integration%20request">Ask for an app</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="apps">
+    <div class="frame">
+      <div class="section-head pad">
+        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-plug"/></svg></span>Apps for the AI agent</span>
+        <h2 class="h2">What the agent can use</h2>
+        <p class="body">The agent reaches each app through MCP, an open standard for giving AI tools safe access to other apps. The first four are in early access. The rest are on the way.</p>
+      </div>
+      <div class="dir-filter pad" data-filter-group=".app-card" role="group" aria-label="Filter apps">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="payments" aria-pressed="false">Payments</button>
+        <button type="button" data-filter="stores" aria-pressed="false">Stores</button>
+        <button type="button" data-filter="crm" aria-pressed="false">CRM</button>
+        <button type="button" data-filter="engineering" aria-pressed="false">Engineering</button>
+        <button type="button" data-filter="team" aria-pressed="false">Team</button>
+        <button type="button" data-filter="other" aria-pressed="false">Other</button>
+      </div>
+      <div class="dir">
+        <article class="app-card" data-cat="payments">
+          <div class="top"><span class="mark" style="background:#635bff" aria-hidden="true">S</span><div><h3>Stripe</h3><span class="cat">Payments</span></div></div>
+          <p>Finds charges, invoices and subscriptions for the customer who is asking.</p>
+          <div class="acts"><span>Find charges</span><span>Resend invoice</span><span>Refund with approval</span></div>
+          <span class="state beta">Early access</span>
+        </article>
+        <article class="app-card" data-cat="payments">
+          <div class="top"><span class="mark" style="background:#003087" aria-hidden="true">P</span><div><h3>PayPal</h3><span class="cat">Payments</span></div></div>
+          <p>Checks payments and refund status on PayPal orders.</p>
+          <div class="acts"><span>Find payments</span><span>Refund status</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="payments">
+          <div class="top"><span class="mark" style="background:#1a1a1a" aria-hidden="true">S</span><div><h3>Square</h3><span class="cat">Payments</span></div></div>
+          <p>Looks up Square payments and receipts.</p>
+          <div class="acts"><span>Find payments</span><span>Send receipt</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="payments">
+          <div class="top"><span class="mark" style="background:#ff3300" aria-hidden="true">C</span><div><h3>Chargebee</h3><span class="cat">Billing</span></div></div>
+          <p>Reads plans, invoices and renewal dates.</p>
+          <div class="acts"><span>Plan details</span><span>Next invoice</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="payments">
+          <div class="top"><span class="mark" style="background:#3b4bdb" aria-hidden="true">P</span><div><h3>Paddle</h3><span class="cat">Billing</span></div></div>
+          <p>Checks subscriptions and transactions sold through Paddle.</p>
+          <div class="acts"><span>Subscriptions</span><span>Transactions</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="stores">
+          <div class="top"><span class="mark" style="background:#5e8e3e" aria-hidden="true">S</span><div><h3>Shopify</h3><span class="cat">Store</span></div></div>
+          <p>Finds orders, shipping status and returns for the shopper.</p>
+          <div class="acts"><span>Order status</span><span>Start a return</span><span>Edit address</span></div>
+          <span class="state beta">Early access</span>
+        </article>
+        <article class="app-card" data-cat="stores">
+          <div class="top"><span class="mark" style="background:#2e3a59" aria-hidden="true">R</span><div><h3>Recharge</h3><span class="cat">Subscriptions</span></div></div>
+          <p>Reads and changes subscription orders the customer confirms.</p>
+          <div class="acts"><span>Skip an order</span><span>Change date</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="stores">
+          <div class="top"><span class="mark" style="background:#5b8c3a" aria-hidden="true">S</span><div><h3>ShipStation</h3><span class="cat">Shipping</span></div></div>
+          <p>Gets tracking links and shipment status.</p>
+          <div class="acts"><span>Tracking link</span><span>Shipment status</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="crm">
+          <div class="top"><span class="mark" style="background:#ff7a59" aria-hidden="true">H</span><div><h3>HubSpot</h3><span class="cat">CRM</span></div></div>
+          <p>Shows the account, owner and open deals next to the ticket.</p>
+          <div class="acts"><span>Account owner</span><span>Open deals</span><span>Log a note</span></div>
+          <span class="state beta">Early access</span>
+        </article>
+        <article class="app-card" data-cat="crm">
+          <div class="top"><span class="mark" style="background:#1a1a1a" aria-hidden="true">A</span><div><h3>Attio</h3><span class="cat">CRM</span></div></div>
+          <p>Reads company and person records from Attio.</p>
+          <div class="acts"><span>Company record</span><span>Log a note</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="crm">
+          <div class="top"><span class="mark" style="background:#017737" aria-hidden="true">P</span><div><h3>Pipedrive</h3><span class="cat">CRM</span></div></div>
+          <p>Shows deals and owners for the customer's company.</p>
+          <div class="acts"><span>Deals</span><span>Owner</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="crm">
+          <div class="top"><span class="mark" style="background:#00a75d" aria-hidden="true">S</span><div><h3>Salesloft</h3><span class="cat">Sales</span></div></div>
+          <p>Tells sales when a customer they work with writes in.</p>
+          <div class="acts"><span>Notify owner</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="crm">
+          <div class="top"><span class="mark" style="background:#1463ff" aria-hidden="true">C</span><div><h3>Close</h3><span class="cat">CRM</span></div></div>
+          <p>Reads leads and recent activity in Close.</p>
+          <div class="acts"><span>Lead details</span><span>Activity</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="crm">
+          <div class="top"><span class="mark" style="background:#8039df" aria-hidden="true">G</span><div><h3>Gong</h3><span class="cat">Calls</span></div></div>
+          <p>Finds recent calls with the account for context.</p>
+          <div class="acts"><span>Recent calls</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="crm">
+          <div class="top"><span class="mark" style="background:#333333" aria-hidden="true">O</span><div><h3>Omniscient</h3><span class="cat">CRM</span></div></div>
+          <p>Brings in account facts, deals and contracts. Built by the same team.</p>
+          <div class="acts"><span>Account facts</span><span>Deals</span><span>Contracts</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="engineering">
+          <div class="top"><span class="mark" style="background:#24292f" aria-hidden="true">G</span><div><h3>GitHub</h3><span class="cat">Code</span></div></div>
+          <p>Checks recent releases and links issues to tickets.</p>
+          <div class="acts"><span>Recent releases</span><span>Link issue</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="engineering">
+          <div class="top"><span class="mark" style="background:#fc6d26" aria-hidden="true">G</span><div><h3>GitLab</h3><span class="cat">Code</span></div></div>
+          <p>Checks recent deploys and links issues to tickets.</p>
+          <div class="acts"><span>Recent deploys</span><span>Link issue</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="engineering">
+          <div class="top"><span class="mark" style="background:#5e6ad2" aria-hidden="true">L</span><div><h3>Linear</h3><span class="cat">Issues</span></div></div>
+          <p>Files bugs with the customers attached and tells them when the fix ships.</p>
+          <div class="acts"><span>File a bug</span><span>Link issue</span><span>Status updates</span></div>
+          <span class="state beta">Early access</span>
+        </article>
+        <article class="app-card" data-cat="engineering">
+          <div class="top"><span class="mark" style="background:#0c66e4" aria-hidden="true">J</span><div><h3>Jira</h3><span class="cat">Issues</span></div></div>
+          <p>Files and links Jira issues from a conversation.</p>
+          <div class="acts"><span>File a bug</span><span>Link issue</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="engineering">
+          <div class="top"><span class="mark" style="background:#1868db" aria-hidden="true">C</span><div><h3>Confluence</h3><span class="cat">Docs</span></div></div>
+          <p>Reads internal docs so answers match how your product works.</p>
+          <div class="acts"><span>Search docs</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="engineering">
+          <div class="top"><span class="mark" style="background:#362d59" aria-hidden="true">S</span><div><h3>Sentry</h3><span class="cat">Errors</span></div></div>
+          <p>Looks for errors that match what the customer saw.</p>
+          <div class="acts"><span>Find errors</span><span>Error count</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="engineering">
+          <div class="top"><span class="mark" style="background:#632ca6" aria-hidden="true">D</span><div><h3>Datadog</h3><span class="cat">Monitoring</span></div></div>
+          <p>Checks service health when many people report the same problem.</p>
+          <div class="acts"><span>Service health</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="engineering">
+          <div class="top"><span class="mark" style="background:#06ac38" aria-hidden="true">P</span><div><h3>PagerDuty</h3><span class="cat">On-call</span></div></div>
+          <p>Pages on-call during an outage once a person approves.</p>
+          <div class="acts"><span>Page on-call</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="engineering">
+          <div class="top"><span class="mark" style="background:#000000" aria-hidden="true">V</span><div><h3>Vercel</h3><span class="cat">Deploys</span></div></div>
+          <p>Checks recent deploys when a bug report comes in.</p>
+          <div class="acts"><span>Recent deploys</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="engineering">
+          <div class="top"><span class="mark" style="background:#f38020" aria-hidden="true">C</span><div><h3>Cloudflare</h3><span class="cat">Network</span></div></div>
+          <p>Checks DNS and site status for the customer's domain.</p>
+          <div class="acts"><span>Domain status</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="engineering">
+          <div class="top"><span class="mark" style="background:#3ecf8e" aria-hidden="true">S</span><div><h3>Supabase</h3><span class="cat">Database</span></div></div>
+          <p>Reads account rows you allow, like plan or usage.</p>
+          <div class="acts"><span>Account lookup</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="team">
+          <div class="top"><span class="mark" style="background:#4a154b" aria-hidden="true">S</span><div><h3>Slack</h3><span class="cat">Chat</span></div></div>
+          <p>Posts hard tickets to a channel and brings answers back.</p>
+          <div class="acts"><span>Post to channel</span><span>Ask an expert</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="team">
+          <div class="top"><span class="mark" style="background:#191919" aria-hidden="true">N</span><div><h3>Notion</h3><span class="cat">Docs</span></div></div>
+          <p>Reads your Notion pages as knowledge.</p>
+          <div class="acts"><span>Search pages</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="team">
+          <div class="top"><span class="mark" style="background:#f06a6a" aria-hidden="true">A</span><div><h3>Asana</h3><span class="cat">Tasks</span></div></div>
+          <p>Creates a task when a ticket needs follow-up work.</p>
+          <div class="acts"><span>Create task</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="team">
+          <div class="top"><span class="mark" style="background:#ff3d57" aria-hidden="true">M</span><div><h3>monday.com</h3><span class="cat">Work</span></div></div>
+          <p>Adds items to a board from a conversation.</p>
+          <div class="acts"><span>Create item</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="team">
+          <div class="top"><span class="mark" style="background:#7b68ee" aria-hidden="true">C</span><div><h3>ClickUp</h3><span class="cat">Tasks</span></div></div>
+          <p>Creates and links tasks from tickets.</p>
+          <div class="acts"><span>Create task</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="team">
+          <div class="top"><span class="mark" style="background:#18bfff" aria-hidden="true">A</span><div><h3>Airtable</h3><span class="cat">Data</span></div></div>
+          <p>Looks up rows in a base you choose.</p>
+          <div class="acts"><span>Find record</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="team">
+          <div class="top"><span class="mark" style="background:#0061d5" aria-hidden="true">B</span><div><h3>Box</h3><span class="cat">Files</span></div></div>
+          <p>Reads files you share with the agent as knowledge.</p>
+          <div class="acts"><span>Search files</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="other">
+          <div class="top"><span class="mark" style="background:#1d4aff" aria-hidden="true">P</span><div><h3>PostHog</h3><span class="cat">Analytics</span></div></div>
+          <p>Checks what a user did in your product before writing in.</p>
+          <div class="acts"><span>Recent events</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="other">
+          <div class="top"><span class="mark" style="background:#1e61f0" aria-hidden="true">A</span><div><h3>Amplitude</h3><span class="cat">Analytics</span></div></div>
+          <p>Reads a user's recent product activity.</p>
+          <div class="acts"><span>User activity</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="other">
+          <div class="top"><span class="mark" style="background:#232426" aria-hidden="true">K</span><div><h3>Klaviyo</h3><span class="cat">Email</span></div></div>
+          <p>Checks email and SMS subscriptions.</p>
+          <div class="acts"><span>Subscription status</span><span>Unsubscribe</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="other">
+          <div class="top"><span class="mark" style="background:#7131ff" aria-hidden="true">C</span><div><h3>Customer.io</h3><span class="cat">Messaging</span></div></div>
+          <p>Checks which messages a customer was sent.</p>
+          <div class="acts"><span>Sent messages</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="other">
+          <div class="top"><span class="mark" style="background:#5b2cff" aria-hidden="true">P</span><div><h3>Postscript</h3><span class="cat">SMS</span></div></div>
+          <p>Checks SMS subscriptions for shoppers.</p>
+          <div class="acts"><span>Subscription status</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="other">
+          <div class="top"><span class="mark" style="background:#1f8ded" aria-hidden="true">I</span><div><h3>Intercom</h3><span class="cat">Support</span></div></div>
+          <p>Reads past Intercom conversations while you move over.</p>
+          <div class="acts"><span>Past conversations</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="other">
+          <div class="top"><span class="mark" style="background:#161616" aria-hidden="true">G</span><div><h3>Gorgias</h3><span class="cat">Support</span></div></div>
+          <p>Reads past Gorgias tickets while you move over.</p>
+          <div class="acts"><span>Past tickets</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="other">
+          <div class="top"><span class="mark" style="background:#111827" aria-hidden="true">C</span><div><h3>Cal.com</h3><span class="cat">Scheduling</span></div></div>
+          <p>Books a call at a time the customer picks.</p>
+          <div class="acts"><span>Book a call</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="other">
+          <div class="top"><span class="mark" style="background:#006bff" aria-hidden="true">C</span><div><h3>Calendly</h3><span class="cat">Scheduling</span></div></div>
+          <p>Shares booking links and checks upcoming meetings.</p>
+          <div class="acts"><span>Booking link</span><span>Upcoming meetings</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+        <article class="app-card" data-cat="other">
+          <div class="top"><span class="mark" style="background:#4c00ff" aria-hidden="true">D</span><div><h3>DocuSign</h3><span class="cat">Signing</span></div></div>
+          <p>Checks where a contract is in the signing process.</p>
+          <div class="acts"><span>Envelope status</span></div>
+          <span class="state soon">Coming</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="control">
+    <div class="frame">
+      <div class="section-head pad" style="border-top:1px solid var(--line)">
+        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-shield"/></svg></span>You stay in control</span>
+        <h2 class="h2">You choose what each action needs</h2>
+        <p class="body">Every action gets a risk level. Money and account changes can always wait for a person.</p>
+      </div>
+      <div class="pad">
+        <div class="risk">
+          <div class="card"><span class="state live">Runs on its own</span><h3>Safe</h3><p>Lookups and low-risk steps, like sending a tracking link or resending an invoice.</p></div>
+          <div class="card"><span class="state beta">Customer confirms</span><h3>Ask the customer</h3><p>The customer taps a button in the chat first, like when changing a delivery date.</p></div>
+          <div class="card"><span class="state soon">Staff approves</span><h3>Ask your team</h3><p>A card waits in the side panel until someone on your team approves, like a refund over your limit.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="built-in">
+    <div class="frame">
+      <div class="section-head pad" style="border-top:1px solid var(--line)">
+        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-check"/></svg></span>Built into the inbox</span>
+        <h2 class="h2">Integrations you can use today</h2>
+        <p class="body">These come with the open source inbox. Turn them on in Settings, with or without the AI agent. <span class="state live" style="vertical-align:2px">Live</span></p>
+      </div>
+      <div class="tiles four">
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-code"/></svg></span><h3>Webhooks</h3><p>Send conversation and message events to any URL you choose.</p></div>
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-layers"/></svg></span><h3>Dashboard apps</h3><p>Show your own web app in a side panel next to each conversation.</p></div>
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-spark"/></svg></span><h3>Agent bots</h3><p>Connect your own bot to any inbox through a webhook.</p></div>
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-chat"/></svg></span><h3>Slack</h3><p>Reply to customers from a Slack channel.</p></div>
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-bolt"/></svg></span><h3>Linear</h3><p>Create and link Linear issues from a conversation.</p></div>
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-server"/></svg></span><h3>Platform API</h3><p>Create accounts, users and inboxes from your own system.</p></div>
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-cart"/></svg></span><h3>Shopify</h3><p>See a contact's Shopify orders in the side panel.</p></div>
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-lock"/></svg></span><h3>Stripe</h3><p>See a contact's Stripe details in the side panel.</p></div>
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-globe"/></svg></span><h3>Google Translate</h3><p>Translate messages from customers into your language.</p></div>
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-phone"/></svg></span><h3>Dyte</h3><p>Start a video call from a chat.</p></div>
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-chat"/></svg></span><h3>Dialogflow</h3><p>Use a Dialogflow bot on an inbox.</p></div>
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-user"/></svg></span><h3>LeadSquared</h3><p>Sync contacts and conversations to LeadSquared.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="custom">
+    <div class="frame">
+      <div class="section-head pad" style="border-top:1px solid var(--line)">
+        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-code"/></svg></span>Your own tools</span>
+        <h2 class="h2">Bring your own systems</h2>
+      </div>
+      <div class="tiles two">
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-plug"/></svg></span><h3>Custom tools</h3><p>Point the agent at your in-house API and it becomes a tool like any other app. You set the risk level and limits for each action.</p><span class="state soon" style="align-self:flex-start">Coming</span></div>
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-server"/></svg></span><h3>MagpieReply MCP server</h3><p>Let your own AI tools, like Claude, ChatGPT or Cursor, read your tickets, customer summaries and bug reports.</p><span class="state soon" style="align-self:flex-start">Coming</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="frame">
+      <div class="section-head pad" style="border-top:1px solid var(--line)">
+        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-list"/></svg></span>Questions</span>
+        <h2 class="h2">Common questions</h2>
+      </div>
+      <div class="faq">
+        <details><summary>How does sign-in work?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>Click Connect next to an app and sign in to it as you normally would. MagpieReply stores the access it gets in encrypted form, and you can disconnect at any time.</p></div></details>
+        <details><summary>What data can the agent see?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>Only records for the customer who is asking. The agent checks who the customer is first, and code fills in their ID for every lookup. The model never picks whose data to read.</p></div></details>
+        <details><summary>Can I limit what the agent does?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>Yes. You turn each action on or off and give it a risk level. You can also set amount limits, like refunds up to $50, and a daily cap.</p></div></details>
+        <details><summary>What happens if an app is down?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>The agent hands the conversation to your team with a note about which app failed. Nothing runs twice when the app comes back.</p></div></details>
+        <details><summary>Can I ask for an app that is not listed?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>Yes. Email <a href="mailto:hello@magpiereply.com" style="color:var(--brand)">hello@magpiereply.com</a> with the app you need.</p></div></details>
+      </div>
+    </div>
+  </section>
+  <section class="end-cta">
+    <div class="mosaic" data-mosaic="cta" aria-hidden="true"><canvas></canvas></div>
+    <div class="frame pad">
+      <div class="end-cta-inner">
+        <h2 class="h2" style="max-width:18ch">Connect the apps your team already uses</h2>
+        <div class="ctas">
+          <a class="btn btn-primary btn-lg" href="mailto:hello@magpiereply.com?subject=Early%20access">Get early access</a>
+          <a class="btn btn-secondary btn-lg" href="/pricing/">See pricing</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- footer -->
+<footer>
+  <div class="frame pad">
+    <div class="foot">
+      <div class="about">
+        <img src="/assets/logo.svg" alt="MagpieReply" width="167" height="32">
+        <p>Customer support with an AI agent that answers, acts and closes the loop.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul><li><a href="/inbox/">Inbox</a></li><li><a href="/ai-agent/">AI agent</a></li><li><a href="/integrations/">Integrations</a></li><li><a href="/pricing/">Pricing</a></li><li><a href="/security/">Security</a></li></ul>
+      </div>
+      <div>
+        <h4>Open source</h4>
+        <ul><li><a href="/open-source/">Self-host</a></li><li><a href="https://github.com/dev-perceptric/magpiereply">Source code</a></li><li><a href="https://github.com/chatwoot/chatwoot">Built on Chatwoot</a></li></ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul><li><a href="mailto:hello@magpiereply.com">Contact</a></li><li><a href="/terms/">Terms</a></li><li><a href="/privacy/">Privacy</a></li></ul>
+      </div>
+    </div>
+  </div>
+  <div class="frame pad">
+    <div class="legal"><span>© 2026 MagpieReply</span><span>Open source core under the MIT license</span></div>
+  </div>
+</footer>
+<!-- /footer -->
+
+<script src="/script.js"></script>
+</body>
+</html>

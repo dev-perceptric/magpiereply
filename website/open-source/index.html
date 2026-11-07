@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Open source | MagpieReply</title>
+  <meta name="description" content="The MagpieReply inbox is open source under the MIT license and built on Chatwoot. Self-host it with Docker for free.">
+  <link rel="canonical" href="https://www.magpiereply.com/open-source/">
+  <meta property="og:title" content="Open source | MagpieReply">
+  <meta property="og:description" content="The MagpieReply inbox is open source under the MIT license and built on Chatwoot. Self-host it with Docker for free.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0943b0">
+  <link rel="icon" type="image/svg+xml" href="/assets/logo_thumbnail.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<!-- nav -->
+<header class="nav" id="nav">
+  <div class="frame pad">
+    <a class="logo" href="/" aria-label="MagpieReply home"><img src="/assets/logo.svg" alt="MagpieReply" width="167" height="32"></a>
+    <span class="divider" aria-hidden="true"></span>
+    <ul>
+      <li><a href="/inbox/">Inbox</a></li>
+      <li><a href="/ai-agent/">AI agent</a></li>
+      <li><a href="/integrations/">Integrations</a></li>
+      <li><a href="/pricing/">Pricing</a></li>
+      <li><a href="/open-source/" aria-current="page">Open source</a></li>
+    </ul>
+    <div class="actions">
+      <a class="signin" href="/app/login">Sign in</a>
+      <a class="btn btn-secondary" href="mailto:hello@magpiereply.com?subject=Demo">Book a demo</a>
+      <a class="btn btn-primary" href="mailto:hello@magpiereply.com?subject=Early%20access">Get early access</a>
+    </div>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav"><svg width="20" height="20"><use href="/assets/icons.svg#i-menu"/></svg></button>
+  </div>
+</header>
+<!-- /nav -->
+
+<main id="top">
+
+  <section class="page-hero">
+    <div class="mosaic" data-mosaic="hero" aria-hidden="true"><canvas></canvas></div>
+    <div class="frame pad">
+      <div class="page-hero-copy">
+        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-github"/></svg></span>Open source</span>
+        <h1 class="display sm">Run the inbox on <em>your own servers</em></h1>
+        <p class="lede">The MagpieReply inbox is open source under the MIT license. Use it, change it and host it yourself for free.</p>
+        <div class="ctas">
+          <a class="btn btn-primary btn-lg" href="https://github.com/dev-perceptric/magpiereply">View on GitHub</a>
+          <a class="btn btn-secondary btn-lg" href="#self-host">Self-host guide</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="chatwoot">
+    <div class="frame">
+      <div class="showcase">
+        <div class="showcase-copy">
+          <span class="sticker" style="align-self:flex-start"><span class="chip"><svg><use href="/assets/icons.svg#i-layers"/></svg></span>Built on Chatwoot</span>
+          <h3>Standing on a proven open source inbox</h3>
+          <p>MagpieReply is built on the open source core of <a href="https://github.com/chatwoot/chatwoot" style="color:var(--brand);text-decoration:underline;text-underline-offset:2px">Chatwoot</a>, which is MIT licensed. We started from their work and added our own brand, look and AI agent.</p>
+          <p>Chatwoot's original copyright notice is kept in our license file. Their paid enterprise code isn't part of MagpieReply.</p>
+        </div>
+        <div class="showcase-visual">
+          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
+          <div class="card">
+            <div class="flow">
+              <div class="row"><span class="ic"><svg><use href="/assets/icons.svg#i-code"/></svg></span>Chatwoot open source core<span class="ok">MIT</span></div>
+              <div class="connector"></div>
+              <div class="row"><span class="ic"><svg><use href="/assets/icons.svg#i-inbox"/></svg></span>MagpieReply inbox<span class="ok">MIT</span></div>
+              <div class="connector"></div>
+              <div class="row"><span class="ic"><svg><use href="/assets/icons.svg#i-spark"/></svg></span>AI agent service<span class="wait">MagpieReply Cloud</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="included">
+    <div class="frame">
+      <div class="section-head pad" style="border-top:1px solid var(--line)">
+        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-check"/></svg></span>What's open source</span>
+        <h2 class="h2">The whole inbox is yours to run</h2>
+        <p class="body">Everything below ships in the open source repo. The AI agent is a separate service that runs on MagpieReply Cloud.</p>
+      </div>
+      <div class="tiles">
+        <div class="tile">
+          <span class="ic"><svg><use href="/assets/icons.svg#i-inbox"/></svg></span>
+          <h3>Shared inbox</h3>
+          <p>Statuses, priorities, assignment, teams, labels, private notes, mentions, saved replies, macros and bulk actions.</p>
+        </div>
+        <div class="tile">
+          <span class="ic"><svg><use href="/assets/icons.svg#i-chat"/></svg></span>
+          <h3>Every channel</h3>
+          <p>Website chat, email, WhatsApp, Messenger, Instagram, TikTok, Telegram, LINE, SMS, X and an API channel.</p>
+        </div>
+        <div class="tile">
+          <span class="ic"><svg><use href="/assets/icons.svg#i-book"/></svg></span>
+          <h3>Help center</h3>
+          <p>Several portals with custom domains, categories and languages.</p>
+        </div>
+        <div class="tile">
+          <span class="ic"><svg><use href="/assets/icons.svg#i-bolt"/></svg></span>
+          <h3>Automations</h3>
+          <p>Rules that route, label and reply when a conversation matches, plus auto-resolve.</p>
+        </div>
+        <div class="tile">
+          <span class="ic"><svg><use href="/assets/icons.svg#i-chart"/></svg></span>
+          <h3>Reports</h3>
+          <p>Overview, agents, inboxes, teams, labels, satisfaction surveys and live views.</p>
+        </div>
+        <div class="tile">
+          <span class="ic"><svg><use href="/assets/icons.svg#i-code"/></svg></span>
+          <h3>APIs and webhooks</h3>
+          <p>A full app API, a platform API for accounts and users, and a public API for the chat widget and help center.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="oss" id="self-host">
+    <div class="mosaic" data-mosaic="oss" aria-hidden="true"><canvas></canvas></div>
+    <div class="frame pad">
+      <div class="oss-inner">
+        <div class="oss-copy">
+          <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-server"/></svg></span>Self-host</span>
+          <h2 class="h2">Up and running with Docker</h2>
+          <p>The production compose file builds the MagpieReply image from the repo. Set your secrets in <code>.env</code>, prepare the database and start it.</p>
+          <div class="oss-facts">
+            <div><strong>Docker</strong><small>Easiest way</small></div>
+            <div><strong>Postgres</strong><small>With pgvector</small></div>
+            <div><strong>Redis</strong><small>For jobs</small></div>
+            <div><strong>MIT</strong><small>License</small></div>
+          </div>
+        </div>
+        <div class="terminal">
+          <div class="bar">Self-host in a few commands</div>
+<pre><span class="c"># Get the code</span>
+<span class="p">$</span> git clone https://github.com/dev-perceptric/magpiereply
+<span class="p">$</span> cd magpiereply
+
+<span class="c"># Set your secrets and prepare the database</span>
+<span class="p">$</span> cp .env.example .env
+<span class="p">$</span> docker compose -f docker-compose.production.yaml run --rm rails bundle exec rails db:chatwoot_prepare
+
+<span class="c"># Start it</span>
+<span class="p">$</span> docker compose -f docker-compose.production.yaml up -d</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="develop">
+    <div class="frame">
+      <div class="showcase flip">
+        <div class="showcase-copy">
+          <span class="sticker" style="align-self:flex-start"><span class="chip"><svg><use href="/assets/icons.svg#i-code"/></svg></span>Run it locally</span>
+          <h3>Work on the code</h3>
+          <p>To run MagpieReply on your own machine without Docker, you need:</p>
+          <ul>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Ruby, at the version in <code>.ruby-version</code></li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Node, at the version in <code>.nvmrc</code>, and pnpm</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>PostgreSQL with the pgvector extension</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Redis</li>
+          </ul>
+          <p>Then open http://localhost:3000 and sign up for the first account.</p>
+        </div>
+        <div class="showcase-visual">
+          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
+          <div class="terminal" style="position:relative;z-index:1;width:min(460px,100%)">
+            <div class="bar">Local development</div>
+<pre><span class="p">$</span> cp .env.example .env
+<span class="p">$</span> bundle install &amp;&amp; pnpm install
+<span class="p">$</span> bundle exec rails db:chatwoot_prepare
+<span class="p">$</span> pnpm dev
+
+<span class="c"># Run the tests</span>
+<span class="p">$</span> pnpm test
+<span class="p">$</span> bundle exec rspec</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="compare">
+    <div class="frame">
+      <div class="section-head pad" style="border-top:1px solid var(--line)">
+        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-list"/></svg></span>Self-hosted or Cloud</span>
+        <h2 class="h2">Pick where it runs</h2>
+        <p class="body">Self-host the inbox for free, or let us run it for you and add the AI agent.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="compare">
+          <thead>
+            <tr><th scope="col">Feature</th><th scope="col">Self-hosted</th><th scope="col">MagpieReply Cloud</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Inbox for every channel</th><td><svg role="img" aria-label="Included"><use href="/assets/icons.svg#i-check"/></svg></td><td><svg role="img" aria-label="Included"><use href="/assets/icons.svg#i-check"/></svg></td></tr>
+            <tr><th scope="row">Help center</th><td><svg role="img" aria-label="Included"><use href="/assets/icons.svg#i-check"/></svg></td><td><svg role="img" aria-label="Included"><use href="/assets/icons.svg#i-check"/></svg></td></tr>
+            <tr><th scope="row">Automations and reports</th><td><svg role="img" aria-label="Included"><use href="/assets/icons.svg#i-check"/></svg></td><td><svg role="img" aria-label="Included"><use href="/assets/icons.svg#i-check"/></svg></td></tr>
+            <tr><th scope="row">API and webhooks</th><td><svg role="img" aria-label="Included"><use href="/assets/icons.svg#i-check"/></svg></td><td><svg role="img" aria-label="Included"><use href="/assets/icons.svg#i-check"/></svg></td></tr>
+            <tr><th scope="row">Contacts and companies</th><td><svg role="img" aria-label="Included"><use href="/assets/icons.svg#i-check"/></svg></td><td><svg role="img" aria-label="Included"><use href="/assets/icons.svg#i-check"/></svg></td></tr>
+            <tr><th scope="row">Your data on your own servers</th><td><svg role="img" aria-label="Included"><use href="/assets/icons.svg#i-check"/></svg></td><td><svg class="no" role="img" aria-label="Not included"><use href="/assets/icons.svg#i-x"/></svg></td></tr>
+            <tr><th scope="row">We run updates and backups</th><td><svg class="no" role="img" aria-label="Not included"><use href="/assets/icons.svg#i-x"/></svg></td><td><svg role="img" aria-label="Included"><use href="/assets/icons.svg#i-check"/></svg></td></tr>
+            <tr><th scope="row">AI agent</th><td><svg class="no" role="img" aria-label="Not included"><use href="/assets/icons.svg#i-x"/></svg></td><td><svg role="img" aria-label="Included"><use href="/assets/icons.svg#i-check"/></svg></td></tr>
+            <tr><th scope="row">Apps and actions with approvals</th><td><svg class="no" role="img" aria-label="Not included"><use href="/assets/icons.svg#i-x"/></svg></td><td><svg role="img" aria-label="Included"><use href="/assets/icons.svg#i-check"/></svg></td></tr>
+            <tr><th scope="row">Tests, spending caps and kill switches</th><td><svg class="no" role="img" aria-label="Not included"><use href="/assets/icons.svg#i-x"/></svg></td><td><svg role="img" aria-label="Included"><use href="/assets/icons.svg#i-check"/></svg></td></tr>
+            <tr><th scope="row">Price</th><td>$0</td><td>From $49 a month</td></tr>
+            <tr><th scope="row">Support</th><td>Community on GitHub</td><td>Email</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="contribute">
+    <div class="frame">
+      <div class="section-head pad">
+        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-users"/></svg></span>Contribute</span>
+        <h2 class="h2">Help make it better</h2>
+        <p class="body">Found a bug or have an idea? Open an issue on GitHub. Want to fix it yourself? Send a pull request.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:4px">
+          <a class="btn btn-secondary" href="https://github.com/dev-perceptric/magpiereply/issues">Open an issue</a>
+          <a class="btn btn-secondary" href="https://github.com/dev-perceptric/magpiereply/pulls">Send a pull request</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="end-cta">
+    <div class="mosaic" data-mosaic="cta" aria-hidden="true"><canvas></canvas></div>
+    <div class="frame pad">
+      <div class="end-cta-inner">
+        <h2 class="h2" style="max-width:18ch">Want the AI agent on top?</h2>
+        <div class="ctas">
+          <a class="btn btn-primary btn-lg" href="mailto:hello@magpiereply.com?subject=Early%20access">Get early access</a>
+          <a class="btn btn-secondary btn-lg" href="/pricing/">See pricing</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- footer -->
+<footer>
+  <div class="frame pad">
+    <div class="foot">
+      <div class="about">
+        <img src="/assets/logo.svg" alt="MagpieReply" width="167" height="32">
+        <p>Customer support with an AI agent that answers, acts and closes the loop.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul><li><a href="/inbox/">Inbox</a></li><li><a href="/ai-agent/">AI agent</a></li><li><a href="/integrations/">Integrations</a></li><li><a href="/pricing/">Pricing</a></li><li><a href="/security/">Security</a></li></ul>
+      </div>
+      <div>
+        <h4>Open source</h4>
+        <ul><li><a href="/open-source/">Self-host</a></li><li><a href="https://github.com/dev-perceptric/magpiereply">Source code</a></li><li><a href="https://github.com/chatwoot/chatwoot">Built on Chatwoot</a></li></ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul><li><a href="mailto:hello@magpiereply.com">Contact</a></li><li><a href="/terms/">Terms</a></li><li><a href="/privacy/">Privacy</a></li></ul>
+      </div>
+    </div>
+  </div>
+  <div class="frame pad">
+    <div class="legal"><span>© 2026 MagpieReply</span><span>Open source core under the MIT license</span></div>
+  </div>
+</footer>
+<!-- /footer -->
+
+<script src="/script.js"></script>
+</body>
+</html>

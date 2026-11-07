@@ -1,4 +1,5 @@
-// MagpieReply website: pixel mosaics, tab groups and the phone menu.
+// MagpieReply website: pixel mosaics, tab groups, the phone menu,
+// the pricing period switch and the integrations filter.
 
 (function () {
   const BRAND = [9, 67, 176];
@@ -119,6 +120,39 @@
       });
     });
   }
+
+
+  // Pricing period switch: buttons with data-period set the prices in [data-monthly][data-yearly].
+  document.querySelectorAll('[data-period-switch]').forEach((group) => {
+    const buttons = Array.from(group.querySelectorAll('button[data-period]'));
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const period = button.dataset.period;
+        buttons.forEach((other) => other.setAttribute('aria-pressed', String(other === button)));
+        document.querySelectorAll('[data-monthly][data-yearly]').forEach((price) => {
+          price.textContent = price.dataset[period];
+        });
+        document.querySelectorAll('[data-period-note]').forEach((note) => {
+          note.hidden = note.dataset.periodNote !== period;
+        });
+      });
+    });
+  });
+
+  // Integrations filter: buttons with data-filter show the cards whose data-cat matches.
+  document.querySelectorAll('[data-filter-group]').forEach((group) => {
+    const buttons = Array.from(group.querySelectorAll('button[data-filter]'));
+    const cards = Array.from(document.querySelectorAll(group.dataset.filterGroup));
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const filter = button.dataset.filter;
+        buttons.forEach((other) => other.setAttribute('aria-pressed', String(other === button)));
+        cards.forEach((card) => {
+          card.hidden = filter !== 'all' && card.dataset.cat !== filter;
+        });
+      });
+    });
+  });
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', drawAll);

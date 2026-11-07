@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Shared inbox for every channel | MagpieReply</title>
+  <meta name="description" content="One shared inbox for website chat, email, WhatsApp, Instagram, Messenger, TikTok, Telegram, LINE, SMS and X, with automations, a help center and reports.">
+  <link rel="canonical" href="https://www.magpiereply.com/inbox/">
+  <meta property="og:title" content="Shared inbox for every channel | MagpieReply">
+  <meta property="og:description" content="One shared inbox for website chat, email, WhatsApp, Instagram, Messenger, TikTok, Telegram, LINE, SMS and X, with automations, a help center and reports.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0943b0">
+  <link rel="icon" type="image/svg+xml" href="/assets/logo_thumbnail.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<!-- nav -->
+<header class="nav" id="nav">
+  <div class="frame pad">
+    <a class="logo" href="/" aria-label="MagpieReply home"><img src="/assets/logo.svg" alt="MagpieReply" width="167" height="32"></a>
+    <span class="divider" aria-hidden="true"></span>
+    <ul>
+      <li><a href="/inbox/" aria-current="page">Inbox</a></li>
+      <li><a href="/ai-agent/">AI agent</a></li>
+      <li><a href="/integrations/">Integrations</a></li>
+      <li><a href="/pricing/">Pricing</a></li>
+      <li><a href="/open-source/">Open source</a></li>
+    </ul>
+    <div class="actions">
+      <a class="signin" href="/app/login">Sign in</a>
+      <a class="btn btn-secondary" href="mailto:hello@magpiereply.com?subject=Demo">Book a demo</a>
+      <a class="btn btn-primary" href="mailto:hello@magpiereply.com?subject=Early%20access">Get early access</a>
+    </div>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav"><svg width="20" height="20"><use href="/assets/icons.svg#i-menu"/></svg></button>
+  </div>
+</header>
+<!-- /nav -->
+
+<main id="top">
+
+  <section class="page-hero">
+    <div class="mosaic" data-mosaic="hero" aria-hidden="true"><canvas></canvas></div>
+    <div class="frame pad">
+      <div class="page-hero-copy">
+        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-inbox"/></svg></span>Shared inbox</span>
+        <h1 class="display sm">Every customer message in <em>one place</em></h1>
+        <p class="lede">Chat, email, WhatsApp and social messages land in one shared inbox. Your team can see who is on each ticket, pass work along and reply from the same screen.</p>
+        <div class="ctas">
+          <a class="btn btn-primary btn-lg" href="mailto:hello@magpiereply.com?subject=Early%20access">Get early access</a>
+          <a class="btn btn-secondary btn-lg" href="/open-source/">Self-host for free</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="frame pad strip" aria-label="Channels">
+    <p>Website chat, email, WhatsApp, Messenger, Instagram, TikTok, Telegram, LINE, SMS, X and an API channel</p>
+  </section>
+  <div class="dotted" aria-hidden="true"></div>
+
+  <section id="channels">
+    <div class="frame">
+      <div class="section-head pad">
+        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-chat"/></svg></span>Channels</span>
+        <h2 class="h2">Meet customers where they already write</h2>
+        <p class="body">Each channel is an inbox. Every reply goes back out on the channel the customer used, so they never have to switch apps.</p>
+      </div>
+      <div class="tiles">
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-chat"/></svg></span><h3>Website chat</h3><p>A chat bubble for your site. Match your colors, set a greeting and ask for an email before the chat starts.</p></div>
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-mail"/></svg></span><h3>Email</h3><p>Connect Google or Microsoft with a sign-in, or any mail server with IMAP and SMTP.</p></div>
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-phone"/></svg></span><h3>WhatsApp</h3><p>Reply through the WhatsApp Business API and send approved templates when the 24-hour window closes.</p></div>
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-chat"/></svg></span><h3>Messenger</h3><p>Messages to your Facebook Page show up as conversations.</p></div>
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-camera"/></svg></span><h3>Instagram</h3><p>Answer direct messages and story replies from the inbox.</p></div>
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-chat"/></svg></span><h3>TikTok</h3><p>Reply to TikTok direct messages next to everything else.</p></div>
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-send"/></svg></span><h3>Telegram</h3><p>Connect a Telegram bot and answer its chats.</p></div>
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-chat"/></svg></span><h3>LINE</h3><p>Bring in messages from your LINE official account.</p></div>
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-phone"/></svg></span><h3>SMS</h3><p>Text with customers through Twilio or Bandwidth numbers.</p></div>
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-send"/></svg></span><h3>X</h3><p>Handle direct messages sent to your X profile.</p></div>
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-code"/></svg></span><h3>API channel</h3><p>Build your own channel. Send messages in and get replies out with webhooks.</p></div>
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-globe"/></svg></span><h3>Many inboxes</h3><p>Create as many inboxes as you need, each with its own team, hours and auto reply.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="teamwork">
+    <div class="frame">
+      <div class="section-head pad" style="border-top:1px solid var(--line)">
+        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-users"/></svg></span>Teamwork</span>
+        <h2 class="h2">Built for a team that shares the load</h2>
+        <p class="body">Everyone works from the same list. Clear owners and statuses mean two people never answer the same customer.</p>
+      </div>
+      <div class="rows">
+        <div class="row-item">
+          <div><span class="k">01</span><h3>Statuses and priorities</h3></div>
+          <div><p>Mark each conversation open, pending, snoozed or resolved. Set a priority so urgent tickets rise to the top.</p>
+            <ul><li><svg><use href="/assets/icons.svg#i-check"/></svg>Snooze until tomorrow, next week or a date you pick</li><li><svg><use href="/assets/icons.svg#i-check"/></svg>See unattended and mentioned chats in their own views</li></ul></div>
+        </div>
+        <div class="row-item">
+          <div><span class="k">02</span><h3>Assignment and teams</h3></div>
+          <div><p>Group agents into teams like Billing or Technical support. Assign by hand, or let the inbox hand out new chats in turn to whoever is online.</p>
+            <ul><li><svg><use href="/assets/icons.svg#i-check"/></svg>Round-robin assignment for each inbox</li><li><svg><use href="/assets/icons.svg#i-check"/></svg>Business hours with an away message outside them</li></ul></div>
+        </div>
+        <div class="row-item">
+          <div><span class="k">03</span><h3>Private notes and mentions</h3></div>
+          <div><p>Talk about a ticket right inside the thread. Customers never see private notes. Mention a teammate and they get a ping.</p>
+            <ul><li><svg><use href="/assets/icons.svg#i-check"/></svg>Notes stay with the conversation for whoever picks it up next</li><li><svg><use href="/assets/icons.svg#i-check"/></svg>Attach files and screenshots to notes</li></ul></div>
+        </div>
+        <div class="row-item">
+          <div><span class="k">04</span><h3>Saved replies and macros</h3></div>
+          <div><p>Type a slash to drop in a saved reply. Macros run several steps at once, like reply, add a label and snooze.</p>
+            <ul><li><svg><use href="/assets/icons.svg#i-check"/></svg>Saved replies can fill in the customer's name and other fields</li><li><svg><use href="/assets/icons.svg#i-check"/></svg>Share macros with the whole team or keep them private</li></ul></div>
+        </div>
+        <div class="row-item">
+          <div><span class="k">05</span><h3>Labels, filters and bulk actions</h3></div>
+          <div><p>Tag conversations with labels, save the filters you use every day and update many tickets in one go.</p>
+            <ul><li><svg><use href="/assets/icons.svg#i-check"/></svg>Filter by status, inbox, team, label, agent and custom fields</li><li><svg><use href="/assets/icons.svg#i-check"/></svg>Assign, label, resolve or snooze many conversations at once</li></ul></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="automations">
+    <div class="frame">
+      <div class="section-head pad" style="border-top:1px solid var(--line)">
+        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-bolt"/></svg></span>Automations</span>
+        <h2 class="h2">Let rules handle the sorting</h2>
+        <p class="body">Set a rule once and it runs every time a conversation matches.</p>
+      </div>
+      <div class="showcase">
+        <div class="showcase-copy">
+          <h3>When this happens, do that</h3>
+          <p>Rules can start when a conversation is created, updated or gets a new message. They check the message, the contact and the channel, then act.</p>
+          <ul><li><svg><use href="/assets/icons.svg#i-check"/></svg>Assign to a team or agent</li><li><svg><use href="/assets/icons.svg#i-check"/></svg>Add labels and set priority</li><li><svg><use href="/assets/icons.svg#i-check"/></svg>Send a message, an email or a webhook</li><li><svg><use href="/assets/icons.svg#i-check"/></svg>Resolve chats that go quiet after a set time</li></ul>
+        </div>
+        <div class="showcase-visual">
+          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
+          <div class="card">
+            <div class="flow">
+              <div class="mini"><span><span class="k">WHEN</span> Message created</span></div>
+              <div class="mini"><span><span class="k">IF</span> Message has "invoice" or "refund"</span></div>
+              <div class="mini"><span><span class="k">AND</span> Inbox is Support email</span></div>
+              <div class="mini"><span><span class="k">THEN</span> Assign to Billing</span></div>
+              <div class="mini"><span><span class="k">THEN</span> Add label: billing</span></div>
+              <div class="mini"><span><span class="k">THEN</span> Set priority: high</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="help-center">
+    <div class="frame">
+      <div class="section-head pad" style="border-top:1px solid var(--line)">
+        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-book"/></svg></span>Help center</span>
+        <h2 class="h2">Answer questions before they become tickets</h2>
+        <p class="body">Write help articles in a simple editor and publish them on your own domain. The same articles teach the AI agent what to say.</p>
+      </div>
+      <div class="showcase flip">
+        <div class="showcase-copy">
+          <h3>A help center that looks like yours</h3>
+          <ul><li><svg><use href="/assets/icons.svg#i-check"/></svg>Run more than one portal, each with its own brand</li><li><svg><use href="/assets/icons.svg#i-check"/></svg>Use your own domain, like help.yourcompany.com</li><li><svg><use href="/assets/icons.svg#i-check"/></svg>Sort articles into categories</li><li><svg><use href="/assets/icons.svg#i-check"/></svg>Publish in more than one language</li></ul>
+        </div>
+        <div class="showcase-visual">
+          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
+          <div class="card">
+            <div class="flow">
+              <div class="mini"><span>help.northwind.example</span><span class="state live">Published</span></div>
+              <div class="mini"><span>Getting started</span><span>12 articles</span></div>
+              <div class="mini"><span>Billing and refunds</span><span>8 articles</span></div>
+              <div class="mini"><span>Shipping and returns</span><span>9 articles</span></div>
+              <div class="mini"><span>Languages</span><span>English, Spanish</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacts">
+    <div class="frame">
+      <div class="section-head pad" style="border-top:1px solid var(--line)">
+        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-user"/></svg></span>Contacts and reports</span>
+        <h2 class="h2">Know who you are talking to and how it went</h2>
+      </div>
+      <div class="tiles two">
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-users"/></svg></span><h3>Contacts and companies</h3><p>Every person who writes in gets a profile with their past conversations. Group people under their company.</p>
+          <ul><li><svg><use href="/assets/icons.svg#i-check"/></svg>Add custom fields like plan, region or order count</li><li><svg><use href="/assets/icons.svg#i-check"/></svg>Keep notes on a contact</li><li><svg><use href="/assets/icons.svg#i-check"/></svg>Merge duplicate contacts</li><li><svg><use href="/assets/icons.svg#i-check"/></svg>Import contacts from a CSV file</li></ul></div>
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-chart"/></svg></span><h3>Reports</h3><p>See how fast your team replies and how happy customers are, today and over time.</p>
+          <ul><li><svg><use href="/assets/icons.svg#i-check"/></svg>Overview with first reply time, resolution time and volume</li><li><svg><use href="/assets/icons.svg#i-check"/></svg>Reports by agent, inbox, team and label</li><li><svg><use href="/assets/icons.svg#i-check"/></svg>Satisfaction surveys after a chat ends</li><li><svg><use href="/assets/icons.svg#i-check"/></svg>A live view of open chats and who is online</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="widget">
+    <div class="frame">
+      <div class="section-head pad" style="border-top:1px solid var(--line)">
+        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-chat"/></svg></span>Chat widget</span>
+        <h2 class="h2">A chat bubble that fits your site</h2>
+      </div>
+      <div class="tiles">
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-spark"/></svg></span><h3>Your look</h3><p>Pick the color, position, greeting and launcher text. Show your team's faces and typical reply time.</p></div>
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-lock"/></svg></span><h3>Known visitors</h3><p>Pass in the signed-in user's name and email with an identity check, so chats link to the right contact.</p></div>
+        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-send"/></svg></span><h3>Proactive messages</h3><p>Start a chat with visitors on pages you choose, like pricing or checkout.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="ai-title">
+    <div class="mosaic" data-mosaic="band" aria-hidden="true"><canvas></canvas></div>
+    <div class="frame">
+      <div class="band-inner">
+        <div class="band-copy">
+          <span class="sticker tilt"><span class="chip"><svg><use href="/assets/icons.svg#i-spark"/></svg></span>AI agent</span>
+          <h2 class="h2" id="ai-title">Add an AI agent when you are ready</h2>
+          <p>The inbox works on its own today. The AI agent plugs into it, answers from your help center and hands the hard tickets to your team with a summary.</p>
+          <a class="btn btn-secondary" href="/ai-agent/" style="align-self:flex-start">See the AI agent</a>
+        </div>
+        <div class="band-chart">
+          <span class="label" style="color:rgba(255,255,255,0.7)">Where things stand</span>
+          <div class="bar-row"><span>Shared inbox</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="v">Live</span></div>
+          <div class="bar-row"><span>Help center</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="v">Live</span></div>
+          <div class="bar-row"><span>Automations</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="v">Live</span></div>
+          <div class="bar-row"><span>AI agent</span><div class="track"><div class="fill" style="width:30%"></div></div><span class="v">Early</span></div>
+          <span class="cap">The AI agent is in early access with a small group of teams.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="end-cta">
+    <div class="mosaic" data-mosaic="cta" aria-hidden="true"><canvas></canvas></div>
+    <div class="frame pad">
+      <div class="end-cta-inner">
+        <h2 class="h2" style="max-width:18ch">Bring every channel into one inbox</h2>
+        <div class="ctas">
+          <a class="btn btn-primary btn-lg" href="mailto:hello@magpiereply.com?subject=Early%20access">Get early access</a>
+          <a class="btn btn-secondary btn-lg" href="/pricing/">See pricing</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- footer -->
+<footer>
+  <div class="frame pad">
+    <div class="foot">
+      <div class="about">
+        <img src="/assets/logo.svg" alt="MagpieReply" width="167" height="32">
+        <p>Customer support with an AI agent that answers, acts and closes the loop.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul><li><a href="/inbox/">Inbox</a></li><li><a href="/ai-agent/">AI agent</a></li><li><a href="/integrations/">Integrations</a></li><li><a href="/pricing/">Pricing</a></li><li><a href="/security/">Security</a></li></ul>
+      </div>
+      <div>
+        <h4>Open source</h4>
+        <ul><li><a href="/open-source/">Self-host</a></li><li><a href="https://github.com/dev-perceptric/magpiereply">Source code</a></li><li><a href="https://github.com/chatwoot/chatwoot">Built on Chatwoot</a></li></ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul><li><a href="mailto:hello@magpiereply.com">Contact</a></li><li><a href="/terms/">Terms</a></li><li><a href="/privacy/">Privacy</a></li></ul>
+      </div>
+    </div>
+  </div>
+  <div class="frame pad">
+    <div class="legal"><span>© 2026 MagpieReply</span><span>Open source core under the MIT license</span></div>
+  </div>
+</footer>
+<!-- /footer -->
+
+<script src="/script.js"></script>
+</body>
+</html>
