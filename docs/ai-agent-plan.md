@@ -1,285 +1,233 @@
-# MagpieReply AI agent: the full build plan
+# Magpie AI: the full build plan
 
-How every piece of the AI agent connects, what runs where, and the order to build it in. The agent answers customers from the team's own knowledge, follows the team's playbooks, uses the team's tools through MCP and hands off to a person when it should.
+Magpie AI is MagpieReply's AI layer. It answers customers from the team's own knowledge, follows the team's playbooks, uses the team's apps through MCP, helps staff on the hard cases and proves its own quality. This plan covers every feature, how the pieces connect, the build order and the monthly cost.
 
-## 1. The pieces and where they run
+## 1. What we're matching, and where we go further
 
-| Piece | What it is | Runs on | License |
+| Area | Decagon (public info) | Chatwoot Captain (public page and code) | Magpie AI |
 |---|---|---|---|
-| **MagpieReply app** | The inbox (this repo, Rails) | Fly `magpiereply-web` + `magpiereply-worker`, Tokyo | MIT |
-| **Agent service** | New TypeScript service in `agent/` of this repo: webhooks, thinking loop, playbook engine, job workers, admin pages | Fly `magpie-agent`, two process groups: `api` and `worker` | ours |
-| **Mastra** | Agent framework and workflow engine inside the agent service | inside `magpie-agent` | Apache 2.0 (not its `ee/` code) |
-| **MCP TypeScript SDK** | Talks to MCP servers | inside `magpie-agent` | MIT / Apache 2.0 |
-| **Anthropic SDK** | Claude calls: Haiku 5.5 for sorting and checks, Sonnet 5.5 for answers and playbook steps | inside `magpie-agent` | MIT (check) |
-| **pg-boss** | Job queue in Postgres: retries, delays, pauses for approvals and customer replies | inside `magpie-agent`, data in Supabase | MIT |
-| **ContextForge** | MCP gateway: one front door to every team's tools, with per-team sign-ins, rate limits and logs | Fly `magpie-gateway` | Apache 2.0 |
-| **Supabase Postgres** | One database: `public` schema for the app, `agent` schema for the agent, `pgboss` schema for jobs; `pgvector` for search | Supabase, Tokyo | managed |
-| **Voyage** | Turns text into "meaning" vectors for search | API | paid service |
-| **Traces** (ours) | Every step of every turn, with tokens, time and cost, stored in the `agent` schema and shown on a Traces page in `/admin` | inside `magpie-agent` + Supabase | ours |
-| **promptfoo** | Golden-question tests and attack tests on every change | GitHub Actions | MIT |
+| Answers on its own | Yes | Yes, from help center, past chats and FAQs | Yes, with sources on every answer and a fact check before sending |
+| Step-by-step procedures | AOPs: plain-language procedures | Not shown | Playbooks: plain English turned into checked steps, run by Parlant |
+| Actions in other apps | Yes, with guardrails | Custom tools and MCP servers (paid) | 45+ apps through MCP, one-click Connect, risk levels and approvals |
+| Handoff | Yes | Model-chosen handoff, failures, credit limits, quiet sweep | All of those, plus hard rules (upset, two failed tries, fact check fails) |
+| Help for staff | Duet | Copilot: draft, improve, translate, ask about history | Copilot plus Investigate: root cause across Stripe, Sentry, GitHub and Slack |
+| Fill knowledge gaps | Not shown | Smart FAQs | Suggested articles, plus flags for outdated or conflicting ones |
+| Remember customers | Not shown | Memories | Memories, plus live account facts from the CRM |
+| Test before going live | Simulations | Not shown | Replay tests, simulated customers, golden tests in CI, Live only when tests pass |
+| Watch live quality | Watchtower | Monitors | Watch (scores every chat, AI and human) and Monitors (themes with alerts) |
+| Sort and route | Not shown | Triage | Triage, plus outage detection that groups tickets and pages on-call |
+| Languages | Yes | Auto-translate (paid) | Detect, answer in the customer's language, translate both ways for staff |
+| Voice | Voice agents | Voice channel (paid) | Phase 9 |
+| Open to other agents | Not shown | Not shown | MagpieReply's own MCP server, so a customer's AI tools can read their support data |
 
-Parlant (Apache 2.0) is the design reference for playbooks: guidelines matched to each moment of a chat, and journeys for step-by-step flows. We copy the design in TypeScript instead of running a Python service.
+## 2. The pieces and where they run
+
+| Piece | Role | Runs on | License |
+|---|---|---|---|
+| MagpieReply app | The inbox: channels, conversations, help center | Fly `magpiereply-web` + `magpiereply-worker` | MIT |
+| **magpie-agent** (TypeScript, `agent/` in this repo) | The bridge: webhook, job queue, app client, approvals panel, admin, MCP client, traces | Fly, processes `api` + `worker` | ours |
+| **magpie-brain** (Python) | The thinking brain: Parlant, plus Docling, Crawl4AI, FlashRank, Presidio, LLM Guard, Lingua | Fly | Apache 2.0 / MIT |
+| **magpie-gateway** | ContextForge MCP gateway: each team's private bundle of app tools and sign-ins | Fly | Apache 2.0 |
+| Supabase Postgres | App tables (`public`), agent tables (`agent`), jobs (`pgboss`), search (`pgvector`) | Supabase, Tokyo | managed |
+| MongoDB + Qdrant | Parlant's storage and its knowledge search | Atlas (check) + Fly | managed / Apache 2.0 |
+| Claude | Haiku 5.5 for sorting, matching and checks; Sonnet 5.5 for replies; Opus for investigations | API | paid |
+| Voyage | Meaning vectors for search | API | paid |
+| promptfoo, Ragas, DeepEval | Tests and quality scores in CI | GitHub Actions | MIT / Apache 2.0 |
+| OpenTelemetry, Uptime Kuma | Traces across services, uptime and status page | inside services / Fly | Apache 2.0 / MIT |
 
 ```
-Customer ─► MagpieReply app (Rails) ──agent bot webhook──► magpie-agent (api)
-                ▲                                              │ save event, queue job
-                │ REST API (bot key): reply, note,             ▼
-                │ handoff, assign, label                 pg-boss (Supabase) ──► magpie-agent (worker)
-                └──────────────────────────────────────────────┤  Mastra: understand → playbook → tools → check → deliver
-                                                               ├─► Claude (Haiku, Sonnet)
-                                                               ├─► Supabase: agent schema + pgvector
-                                                               ├─► Voyage (search vectors)
-                                                               ├─► magpie-gateway (ContextForge) ─► each team's MCP servers
-                                                               │                                    (Stripe, Shopify, HubSpot, Linear, Slack…)
-                                                               └─► agent schema: run_steps = traces, shown in /admin
+Customer ─► MagpieReply app ──webhook──► magpie-agent (bridge) ──► magpie-brain (Parlant + Python tools) ──► Claude
+                 ▲                          │   ▲                         │
+                 └── reply / note / handoff ┘   └──── tool calls ─────────┘
+                                            │
+                                            ├─► magpie-gateway (ContextForge) ─► Stripe, Shopify, HubSpot, Linear, Slack… (MCP)
+                                            ├─► Supabase: agent tables, pg-boss jobs, pgvector, traces
+                                            └─► /admin, side panel, reports
 ```
 
-## 2. How each connection works
+The bridge owns everything specific to MagpieReply. The brain owns deciding what to say and do. The gateway owns the keys to each team's apps. If the Parlant trial fails, the brain becomes a TypeScript engine (Mastra workflows) inside the bridge; the rest of the plan stays the same.
 
-### 2.1 App → agent (new messages)
+## 3. Every feature
 
-- For each team that turns the agent on, the agent service creates an **agent bot** in that account through the app's API, with its webhook set to `https://magpie-agent.fly.dev/hooks/chatwoot/<team-hook-id>`. `<team-hook-id>` is a long random value per team, stored hashed, so the address itself acts as the password.
-- The bot is attached to the inboxes the team picks (`POST /api/v1/accounts/:id/inboxes/:inbox_id/set_agent_bot`).
-- The app sends events to that address. The agent uses `message_created` (new customer message), `message_updated` (a customer picked a button), `conversation_opened` and `conversation_resolved`.
-- The webhook handler only checks the address, skips duplicates by message ID, saves the event and queues a job. It answers within a second.
+### A. Magpie Agent: answers customers
 
-### 2.2 Agent → app (replies and handoffs)
+1. **Answers from knowledge, with sources.** Help center, websites (Crawl4AI), PDFs and docs (Docling), and approved solved chats. Hybrid search (meaning plus keywords), re-ranked by FlashRank.
+2. **Playbooks.** The team writes how to handle a case in plain English. Sonnet turns it into steps, the checker validates them (tools connected, safe inputs, approvals on money and identity, no dead ends) and Parlant runs them as journeys. Versions, and Draft, Testing or Live status.
+3. **Rules.** "When X, do Y" policies (Parlant guidelines), applied only when they fit the moment.
+4. **Approved wording.** Fixed replies for sensitive moments, like refunds, legal or outages.
+5. **Actions in the team's apps.** Through MCP, with three risk levels:
+   - safe (runs on its own)
+   - customer confirms (buttons in the chat)
+   - staff approves (card in the side panel)
+   
+   Also: amount limits, daily caps, unique keys so a retry can't run twice, and a log on the conversation.
+6. **Identity first.** Lookups and actions only for a verified customer: widget identity check, email sender, or a one-time code sent by email before sensitive actions. Identity fields are filled by code, never by the model.
+7. **Smart handoff.**
+   - **When:** the customer asks, missing knowledge, a request it isn't set up for, a policy limit, the customer is upset, two failed tries, the fact check fails, an error, or the spending cap is reached.
+   - **How:** a private summary note, the right team assigned, the customer told, and an out-of-office message after hours.
+8. **Quiet sweep.** After N quiet minutes, Haiku decides whether to resolve the conversation or hand it off, with a note.
+9. **Languages.** Lingua detects the language for free, the agent answers in it, and staff see both ways translated.
+10. **Channel-aware replies.** Short for chat, formatted for email, within WhatsApp's 24-hour window, plain for SMS.
+11. **Modes and switches.** Draft or Auto per inbox, business hours, and kill switches per inbox, per team and globally.
+12. **Memories.** Short facts per customer ("prefers email"), plus live account facts from the CRM.
+13. **Closing the loop.** Messages customers when their Linear or Jira bug is fixed, reopens if it's still broken, and follows up on promised callbacks.
 
-Uses the agent bot's API key. Today the app lets a bot key:
+### B. Magpie Copilot: helps staff
 
-| Action | Endpoint |
-|---|---|
-| Send a reply or a private note | `POST .../conversations/:id/messages` (`private: true` for notes) |
-| Hand off | `POST .../conversations/:id/toggle_status` with `open` |
-| Assign a team or person | `POST .../conversations/:id/assignments` |
-| Add labels | `POST .../conversations/:id/labels` |
-| Set priority | `POST .../conversations/:id/toggle_priority` |
-| Read the conversation | `GET .../conversations/:id` |
+14. **Draft, improve, change tone, translate,** inside the reply box (moved from OpenAI to Claude).
+15. **Ask Copilot.** Questions in plain English about a customer, across past conversations and connected apps: "Did we discuss enterprise pricing with them?"
+16. **Investigate.** For hard tickets: checks recent deploys (GitHub, Vercel), errors (Sentry), on-call chat (Slack) and similar tickets, then writes a root cause with links. Uses Opus.
+17. **Summaries.** One-click thread summary, and the handoff note.
+18. **Suggested next step.** Recommends a macro, a playbook or a team to route to.
 
-**App change needed (phase 0):** a bot key can't yet read the full message history, the contact or help center articles. Add these to `BOT_ACCESSIBLE_ENDPOINTS` in `app/controllers/concerns/access_token_auth_helper.rb`, read-only and limited to the bot's own account:
+### C. Knowledge that improves itself
 
-- messages list for a conversation
-- contact show
-- help center articles list and show
+19. **Suggested articles.** Questions with no good answer become draft articles for a person to approve.
+20. **Knowledge health.** Flags articles that are outdated, contradict each other or lead to handoffs.
+21. **Learns the team's style** from staff edits to drafts.
 
-The change is small and sits outside code Chatwoot changes often, so upstream syncs stay easy.
+### D. Quality and safety
 
-**Customer confirmations** use the app's existing button messages (`content_type: input_select`). The customer's pick comes back as a `message_updated` event.
+22. **Replay tests.** Runs the team's past conversations before go-live: solved, wrong and handed-off counts per playbook.
+23. **Simulated customers.** Built from the team's real failures: angry, vague, or trying for a refund they shouldn't get.
+24. **Golden tests in CI** (promptfoo, DeepEval). A playbook goes Live only when its tests pass, and every change reruns them.
+25. **Answer-quality scores** (Ragas): did search find the right pieces, and did the answer stick to them?
+26. **Watch.** Scores every conversation, AI and human, against checks the team writes in plain language.
+27. **Monitors.** Tracks themes in plain English ("customers mentioning a competitor") with counts and alerts.
+28. **Guardrails:**
+    - a fact check before sending
+    - a rule check on every reply and action
+    - LLM Guard for prompt injection
+    - Presidio to mask personal data in logs and traces
+29. **Explain any reply.** Every step, rule, tool call, token and second, in the side panel and on the Traces page.
+30. **Spending caps** per team and plan, with alerts before the limit.
 
-### 2.3 Staff screens
+### E. Triage and routing
 
-- **In the conversation:** a **dashboard app** (a free app feature) adds a side panel inside each conversation. It loads `https://magpie-agent.fly.dev/panel`. The app passes the conversation and the signed-in staff member to the panel. The panel shows:
-  - the playbook in use
-  - each step taken, with the trace
-  - pending approvals, with Approve and Decline buttons
-  - what the agent looked up
-- **Settings:** `https://magpie-agent.fly.dev/admin` for knowledge sources, playbooks, tools, rules, tests and reports. Staff sign in with their MagpieReply email; the agent checks through the app's API that they're an admin of that account.
-- **Later:** move settings into the app's own Settings screens (Vue), calling the agent's admin API.
+31. **Auto-sort.** Topic labels, priority, mood, spam, and routing to the right team, on every new conversation.
+32. **Outage detection.** Groups a burst of similar tickets into one incident card, pages on-call (PagerDuty MCP, staff approves), sends one holding reply to everyone and the all-clear when it's fixed.
 
-### 2.4 Agent → tools (MCP)
+### F. Connections
 
-- Each team gets a **virtual server** in ContextForge that bundles only that team's tools.
-- **Connecting a tool:**
-  1. The admin clicks **Connect Stripe** in `/admin`.
-  2. ContextForge runs the sign-in (OAuth) and stores the token encrypted.
-  3. The agent saves the tool's name, risk level and allowed playbooks in its own tables.
-- **At runtime,** the agent connects to the team's virtual server with the MCP SDK (Streamable HTTP), using a short-lived gateway key that only works for that team.
-- **The agent fills identity fields itself** (customer email, account ID) from the verified customer. The model never chooses them.
-- **Every app connects through MCP.** Apps with an official MCP server (see the list below) are added to the team's bundle as they are.
-- **Apps or in-house APIs without an MCP server** are added as custom tools: the admin gives an address, inputs and a key, and ContextForge turns them into MCP tools (check its REST-to-MCP feature before phase 5).
+33. **One-click apps over MCP:**
+    - **Payments:** Stripe, PayPal, Square, Chargebee, Paddle
+    - **Stores:** Shopify, Recharge, ShipStation
+    - **CRM:** HubSpot, Attio, Pipedrive, Salesloft, Close, Gong
+    - **Engineering:** GitHub, GitLab, Linear, Jira, Confluence, Sentry, Datadog, PagerDuty, Vercel, Cloudflare, Supabase
+    - **Team:** Slack, Notion, Asana, monday.com, ClickUp, Airtable, Box
+    - **Other:** PostHog, Amplitude, Klaviyo, Customer.io, Postscript, Intercom, Gorgias, Cal.com, Calendly, DocuSign
+34. **Custom tools.** Any in-house API becomes an MCP tool (check ContextForge's REST-to-MCP feature).
+35. **Omniscient connection.** An Omniscient MCP server (ours to build) for account context, deals and contracts.
+36. **MagpieReply MCP server.** A customer's own AI tools (Claude, ChatGPT, Cursor) can read their tickets, customer overviews and bug reports.
 
-**Official MCP servers confirmed live (November 2026), ready for one-click Connect:**
+### G. Insights
 
-| Area | Apps |
-|---|---|
-| Payments and billing | Stripe, PayPal, Square, Chargebee, Paddle |
-| Store and orders | Shopify, Recharge (subscriptions), ShipStation (shipping) |
-| CRM and sales | HubSpot, Attio, Pipedrive, Salesloft, Close, Gong, Omniscient (ours, to build) |
-| Support history | Intercom, Gorgias (for teams switching to MagpieReply) |
-| Engineering | GitHub, GitLab, Linear, Jira and Confluence (Atlassian), Sentry, Datadog, PagerDuty, Vercel, Cloudflare, Supabase |
-| Team and docs | Slack, Notion, Asana, monday.com, ClickUp, Airtable, Box |
-| Product usage | PostHog, Amplitude |
-| Marketing and email | Klaviyo, Customer.io, Postscript |
-| Scheduling and signing | Cal.com, Calendly, DocuSign |
+37. **Agent reports:**
+    - share solved by the agent
+    - wrong-answer rate
+    - handoff reasons
+    - satisfaction
+    - cost per conversation
+    - results per playbook
+38. **Topic trends.** What customers ask about, rising and falling.
+39. **Revenue signals.** Upsell requests and churn risk sent to the CRM (Omniscient or HubSpot).
 
-### 2.5 Agent → knowledge
+### H. Voice (phase 9)
 
-- **Sources:**
-  - help center articles, read through the app API
-  - web pages (crawled)
-  - PDFs (uploaded to Supabase Storage)
-  - approved solved conversations
-- **Sync:** every 15 minutes, plus a **Sync now** button. Later, the app sends an event when an article changes. That's a small change to the app's webhook events.
-- **Pieces:** split by headings into pieces of about 300 to 800 words, each with its title, link and team ID. Voyage turns each piece into a vector, stored in `agent.knowledge_chunks` (`pgvector`) with a full-text index.
-- **Search:** meaning search plus keyword search, a re-ranking pass, and the top 5 to 8 pieces, always filtered by team ID.
+40. **Phone agent.** Twilio number, live speech-to-text (faster-whisper or Deepgram), the same brain and playbooks, text-to-speech, handoff to a person, and a recording and summary on the conversation.
 
-### 2.6 Database
+## 4. One customer message, through every piece
 
-All agent data lives in the `agent` schema, owned by a database role the app can't write to. The team's ID is the app's `account_id`.
+1. **App:** creates or updates the conversation, marks it pending and calls the bridge webhook.
+2. **Bridge:** checks the address, skips duplicates, saves the event and queues a turn after a 4-second wait, one job per conversation at a time.
+3. **Bridge:** gathers messages, contact, verified identity, memories, team rules and tool list.
+4. **Brain:** Lingua detects the language, LLM Guard scans for attacks and Haiku sorts topic, mood and risk. Quick exits go to handoff.
+5. **Brain:** Parlant matches the journey step, rules and approved wording that apply.
+6. **Brain:** searches knowledge; FlashRank keeps the best 3 to 5 pieces.
+7. **Bridge to gateway:** runs the tool calls the matched step allows, through the team's MCP bundle, with identity filled by code.
+8. **Brain:** Sonnet writes the reply. Parlant reviews the reply and any action against the rules, and the fact check confirms each claim has a source.
+9. **Bridge:** replies, pauses for a confirm or approval (saving the run, resuming later with a unique key), or hands off with a note.
+10. **Bridge:** saves the trace (Presidio-masked), tokens, time and cost.
+11. **Later jobs:** quiet sweep, outcome scoring, Watch, Monitors, suggested articles and closing the loop.
+
+## 5. Data (`agent` schema)
 
 | Table | Holds |
 |---|---|
-| `teams` | account ID, plan, mode (off, draft, auto), spending cap, hook ID (hashed), bot key (encrypted) |
-| `inbox_settings` | per inbox: on or off, mode, business hours, handoff team |
-| `knowledge_sources`, `knowledge_chunks` | sources and their searchable pieces (`vector(1024)`, full-text) |
-| `playbooks`, `playbook_versions` | plain-English text and the structured steps, status (draft, testing, live) |
-| `guidelines` | always-on rules: "when X, do Y" |
-| `tools` | per team: MCP tool name, risk level (safe, customer confirms, staff approves), allowed playbooks |
-| `runs` | one per conversation turn: playbook version, current step, waiting for (approval, customer, none) |
-| `run_steps` | each step: inputs, tool result, decision, reason, tokens, time |
-| `approvals` | action, amount, requested at, decided by, decided at |
-| `memories` | short facts per customer |
-| `outcomes` | per conversation: solved by agent, handed off (reason category), reopened, survey score |
-| `eval_cases` | test conversations per team and playbook, with expected results |
+| `teams`, `inbox_settings` | mode, caps, hook ID (hashed), bot key (encrypted), hours, handoff team |
+| `knowledge_sources`, `knowledge_chunks` | sources and searchable pieces (`vector`, full-text) |
+| `playbooks`, `playbook_versions`, `guidelines`, `approved_replies` | the team's procedures and rules, synced to Parlant |
+| `tools` | MCP tool name, risk level, limits, allowed playbooks |
+| `runs`, `run_steps`, `approvals` | each turn, each step, waiting state and approvals |
+| `memories`, `outcomes` | customer facts; solved, handed off (reason), reopened, survey score |
+| `eval_cases`, `eval_runs` | replay, simulated and golden tests with results |
+| `watch_checks`, `watch_scores`, `monitors`, `monitor_hits` | quality checks and theme tracking |
+| `incidents` | grouped tickets during an outage |
 
-Jobs live in the `pgboss` schema.
+## 6. Build order
 
-## 3. One customer message, through every piece
-
-1. **App:** the customer writes, and the app marks the conversation pending (the bot has it) and calls the agent webhook.
-2. **Agent API:** checks the hook ID, skips duplicates, saves the event and queues `turn` for this conversation, delayed 4 seconds so a burst of messages becomes one turn.
-3. **pg-boss:** runs one `turn` job per conversation at a time (a singleton key per conversation).
-4. **Worker, gather:** reads messages, contact and account through the app API; reads memories, rules and the team's tools from the `agent` schema.
-5. **Understand (Haiku):** topic, language, mood, risk. Quick exits go to handoff: the customer asks for a person, is very upset, or the topic is on the "people only" list.
-6. **Pick a playbook (Haiku):** match against each live playbook's `when` line and examples, plus any guidelines that apply right now.
-7. **Run the playbook (Mastra workflow):**
-   - Code steps (verify identity, ask, hand off) run in code.
-   - Tool steps call MCP tools through the gateway, with identity fields filled by code.
-   - Judgment steps ask Sonnet a narrow question about a tool result.
-   - Reply steps ask Sonnet to write the message with the sources.
-   - If a step needs approval or a customer answer, the run saves its state as **waiting** and the job ends. The approval or reply queues a `resume` job later.
-   - With no playbook, the agent answers from knowledge search only, with no actions.
-8. **Check (Haiku):** every claim is backed by a source or tool result, and no rule is broken. On failure, it rewrites once, then hands off.
-9. **Deliver:** posts the reply, or a private note plus `toggle_status: open` and an assignment for a handoff. In draft mode, the reply goes into the panel for approval instead.
-10. **Record:** run steps, tokens, time and cost to the `agent` tables (the Traces page reads them).
-11. **Later jobs:**
-    - **Quiet sweep:** after N quiet minutes, Haiku judges whether to resolve or hand off.
-    - **Outcome scoring:** when the conversation resolves or reopens, or a survey comes in.
-    - **Learning:** suggested articles from handoffs with no source.
-
-## 4. Playbooks (our AOPs)
-
-- **Guidelines:** short always-on rules, like "When the customer mentions a chargeback, hand off to Billing." Before each turn, Haiku picks the ones that apply and adds only those to the prompt.
-- **Journeys (playbooks):**
-  1. The team writes in plain English.
-  2. **Build steps** (Sonnet) turns it into structured steps.
-  3. The team reviews them.
-  4. The checker validates them: tools connected, safe inputs, approvals on money and identity, no dead ends.
-  5. Each version becomes a Mastra workflow at load time.
-- **State:** saved in `runs` after each step, so a run can pause for days and resume.
-- **Going Live:** a playbook goes Live only when its tests pass.
-
-## 5. Testing and monitoring
-
-- **Before go-live (per team):**
-  - replay the last few hundred real conversations
-  - simulate customers built from past failures and handoffs
-  - report solved, wrong and handed-off counts per playbook
-- **On every change (CI):** promptfoo runs the golden questions and attack tests (prompt injection, trying to get refunds outside the rules). A drop in scores blocks the deploy.
-- **Live:**
-  - Every step of every turn is saved in `run_steps` and shown on the Traces page in `/admin`.
-  - Haiku scores every conversation against the team's plain-language checks.
-  - Alerts fire on error spikes, slow replies, handoff jumps and teams near their spending cap.
-- **Kill switches:** per team, per inbox and one global switch, all in `/admin`.
-
-## 6. Security
-
-- **Team separation:** team ID on every row and every search; gateway keys scoped to one team; separate tool bundles per team.
-- **Secrets:** bot keys and tool tokens encrypted at rest (tool tokens live in ContextForge). Nothing secret goes into prompts, traces or logs; card numbers and passwords are masked.
-- **Prompt injection:** customer text, articles and tool results are passed as data. Actions are allowed only by playbook steps and risk levels, never by text.
-- **Writes:** every write action has a unique key so a retry can't repeat it.
-- **Database:** the agent role can read only what it needs from `public` and write only to `agent` and `pgboss`.
-
-## 7. Code layout
-
-```
-agent/
-  src/
-    http/          webhook, panel, admin, health
-    jobs/          turn, resume, sync-knowledge, sweep, score
-    brain/         understand, pick-playbook, check, reply
-    playbooks/     compiler (plain English → steps), checker, Mastra workflow builder
-    tools/         MCP client to ContextForge, risk rules, identity filling
-    knowledge/     crawl, split, embed, search
-    chatwoot/      typed client for the app API
-    db/            migrations for the agent schema
-  evals/           promptfoo configs and golden questions
-  Dockerfile
-fly.agent.toml     magpie-agent (processes: api, worker)
-fly.gateway.toml   magpie-gateway (ContextForge image)
-```
-
-Deploys go through GitHub Actions: lint, unit tests and promptfoo on every push; `flyctl deploy` for `magpie-agent` and `magpie-gateway` on the main branch.
-
-## 8. Build order
-
-| Phase | What ships | Done when |
+| Phase | What ships | Weeks |
 |---|---|---|
-| 0. Groundwork (1 week) | `agent/` service skeleton on Fly; `agent` schema; pg-boss; bot API access change in the app; agent bot setup per team; webhook to queue | A customer message in a test inbox shows up as a saved event and a queued job |
-| 1. Answers from knowledge (2 weeks) | Help center sync, search, Sonnet answers with sources, grounding check, handoff note, draft mode in the panel | In draft mode, 70%+ of a test team's simple questions get correct, cited drafts |
-| 2. Testing and auto mode (1 to 2 weeks) | Replay tests, golden questions in CI, Traces page, outcome scoring, auto mode per inbox, kill switches | A team can see its replay report and turn on auto mode with confidence |
-| 3. Tools, read-only (2 weeks) | ContextForge on Fly, per-team virtual servers, Connect buttons for Stripe, Shopify, HubSpot and Linear first, identity filling, lookups in answers | "Where's my order?" and "What plan am I on?" are answered from live data |
-| 4. Playbooks and actions (3 weeks) | Guidelines, playbook editor with Build steps, checker, Mastra workflows, pause and resume, approvals in the panel, customer confirm buttons | The duplicate-charge playbook runs end to end with a staff approval |
-| 5. More connections and learning (2 weeks) | One-click Connect for the rest of the MCP list, custom API tools, suggested articles, memories, quiet sweep, out-of-office on handoff | A team connects any app on the list, plus one in-house API, and suggested articles appear from handoffs |
-| 6. Simulations and monitoring (2 weeks) | Simulated customers, per-conversation scoring with team checks, alerts | A playbook can only go Live after its simulations pass |
+| 0. Groundwork | Bridge on Fly, agent schema, pg-boss, bot API access in the app, webhook to queue, Parlant trial (one journey, Stripe through the gateway) | 1 to 2 |
+| 1. Answers | Knowledge sync (help center, Crawl4AI, Docling), search with FlashRank, sourced replies, fact check, handoff notes, Draft mode, side panel | 2 |
+| 2. Trust | Replay tests, golden tests in CI, Ragas, Traces page, outcome scoring, Auto mode, kill switches, spending caps, Presidio, LLM Guard | 2 |
+| 3. Apps, read-only | Gateway on Fly, per-team bundles, one-click Stripe, Shopify, HubSpot and Linear, identity filling, verification codes | 2 |
+| 4. Playbooks and actions | Playbook editor, checker, journeys and rules in Parlant, approved wording, confirm buttons, approvals, pause and resume | 3 |
+| 5. Copilot | Draft, improve and translate on Claude, Ask Copilot, summaries, suggested next step, Investigate | 2 |
+| 6. Learning and triage | Suggested articles, knowledge health, style learning, memories, quiet sweep, auto-sort, out-of-office | 2 |
+| 7. Watch and simulations | Simulated customers, Watch scoring, Monitors, alerts, outage detection | 2 |
+| 8. Connections and insights | The rest of the MCP list, custom tools, Omniscient MCP, MagpieReply MCP server, reports, topic trends, revenue signals, closing the loop | 3 |
+| 9. Voice | Phone agent on Twilio | 3 |
 
-About 13 to 14 weeks for one engineer working with an AI assistant. Phases 0 to 2 (about 4 to 5 weeks) are enough for a first paying beta.
+About 22 to 23 weeks to phase 8, plus 3 for voice, for one engineer working with an AI assistant. **Phases 0 to 3 (about 7 to 8 weeks) are enough for a paid beta.**
 
-## 9. Running cost
+## 7. Running cost
 
-Assumes 1,000 conversations per team each month. Claude and Voyage prices from `omniscient/scripts/cost-model.mjs` (checked October 2026); Fly and Upstash from their pricing pages (November 2026).
+Assumes 1,000 customer conversations per team each month, 5 staff per team using Copilot about 10 times a working day, and investigations on 10% of conversations. Claude and Voyage prices from `omniscient/scripts/cost-model.mjs` (October 2026); Fly, Upstash and Render from their pricing pages (November 2026). Tokens assume the savings in section 8; the worst case is about 2.5 times higher.
 
 | Item | Beta (50 teams) | Growth (500 teams) |
 |---|---|---|
-| Claude: answers, checks and sorting | ~$2,000 | ~$20,000 |
-| Claude: tool lookups and actions | ~$450 | ~$4,500 |
-| Claude: playbooks (picking, rule checks, tests) | ~$95 | ~$950 |
-| Voyage search vectors | ~$0 (inside the free amount) | ~$150 |
-| `magpie-agent` on Fly (api + worker) | ~$27 (2 × shared-cpu-2x) | ~$132 (2 × performance-2x) |
+| Agent answers and actions (about $0.018 per conversation) | ~$900 | ~$9,000 |
+| Copilot (about $0.008 per use) | ~$440 | ~$4,400 |
+| Investigate (Opus, 10% of conversations) | ~$375 | ~$3,750 |
+| Simulations (run on each change) | ~$200 | ~$2,000 |
+| Watch scoring every conversation (Haiku) | ~$50 | ~$500 |
+| Auto-sort, Monitors, quiet sweep, translations (Haiku) | ~$60 | ~$600 |
+| Ragas and DeepEval scoring in CI | ~$20 | ~$200 |
+| **Claude subtotal** | **~$2,045** | **~$20,450** |
+| `magpie-agent` (bridge) | ~$27 | ~$132 |
+| `magpie-brain` (Parlant + Python tools) | ~$26 | ~$132 |
 | `magpie-gateway` (ContextForge) | ~$13 | ~$66 |
-| Supabase (agent schema and vectors in the existing project, larger compute at Growth, check) | ~$0 | ~$60 |
-| **Added monthly total** | **~$2,585** | **~$25,858** |
+| MongoDB for Parlant (Atlas, check) | ~$57 | ~$200 |
+| Qdrant on Fly (check) | ~$13 | ~$66 |
+| Voyage vectors | ~$0 (free amount) | ~$150 |
+| Supabase compute for agent tables (check) | ~$0 | ~$60 |
+| Uptime Kuma, PostHog (free tier, check) | ~$2 | ~$52 |
+| **Infrastructure subtotal** | **~$138** | **~$858** |
+| **Magpie AI total** | **~$2,183** | **~$21,308** |
+| MagpieReply app itself (`docs/fly.md`) | ~$37 | ~$409 |
+| **Everything** | **~$2,220** | **~$21,717** |
 
-This is on top of the app itself (about $37 a month today; see `docs/fly.md`). These token numbers are a worst case (Sonnet for everything, no caching). With the savings below, a conversation should cost about $0.015 to $0.02, or roughly $750 to $1,000 a month at Beta (check once there's real traffic). The biggest savings:
+That's about $44 per team per month at Beta and $43 at Growth. Voice (phase 9) is extra and usage-based: about $15 to $25 per team for 1,000 call minutes (Twilio and transcription, check).
 
-- send easy questions to Haiku
-- cache the fixed prompt
-- cache answers to repeated questions
-- run simulations only when something changes
+## 8. Keeping tokens down
 
-## 10. Option: Parlant as the brain
+- **Haiku for easy turns.** Simple questions ("where's my order") skip Sonnet.
+- **Prompt caching** for rules, playbooks and tool lists, which are reread at a 90% discount.
+- **FlashRank** so each answer reads 3 to 5 pieces instead of 8.
+- **Lingua** instead of a model call for language.
+- **Answer cache** for repeated questions.
+- **Simulations only when something changes.**
+- **Per-team caps,** so no team can run up the bill.
 
-[Parlant](https://github.com/emcie-co/parlant) (Apache 2.0, version 4.0.3, Python, by Emcie) is built for customer-facing agents. It covers most of sections 3 and 4 out of the box:
-
-- **Guidelines and journeys:** on every turn it works out which policies, procedures, tools and canned responses apply, and gives the model only those.
-- **Checks:** reviews actions (like refunds) before they run, and replies before they're sent.
-- **Testing and visibility:** simulated test conversations, conversation analytics, and traces linking each reply to the rules and tool calls behind it.
-- **Models and tools:** works with Claude (an `anthropic` extra) and lets each kind of work use a different model, for example Haiku for matching and reviews and Sonnet for replies. It ships with the MCP libraries, but how it connects to remote MCP servers needs checking.
-
-**How it fits:** `magpie-agent` stays as the TypeScript bridge (webhook, job queue, app client, approvals panel, admin, ContextForge). The thinking moves into a Parlant server on Fly (`magpie-brain`), with one Parlant agent per team.
-
-**Trade-offs:**
-- **A second language:** Parlant is Python.
-- **Its own storage:** it stores data in MongoDB and searches with Chroma or Qdrant instead of Postgres and `pgvector`.
-- **Token use:** it makes several model calls per turn, so measure tokens per turn before committing.
-
-**Next step:** a 1-week trial with one team's help center, the duplicate-charge playbook as a Parlant journey and Stripe through ContextForge. Measure correct answers, tokens and seconds per turn. If it holds up, it replaces most of phases 4 and 6 (about 5 weeks of work).
-
-**Added cost if used (check):**
-
-| Item | Beta (50 teams) | Growth (500 teams) |
-|---|---|---|
-| `magpie-brain` (Parlant) on Fly | ~$13 | ~$132 |
-| MongoDB (Atlas, smallest production tier, check) | ~$57 | ~$200 |
-| Qdrant (self-hosted on Fly, check) | ~$13 | ~$66 |
-| **Added** | **~$83** | **~$398** |
-
-## 11. Risks
+## 9. Risks
 
 | Risk | What we do |
 |---|---|
-| Wrong answers hurt trust | Draft mode first, the grounding check, the "Live only when tests pass" rule, and watching the wrong-answer rate above all else |
-| ContextForge is early and IBM offers no official support | Keep our MCP client able to call servers directly; the gateway can be swapped |
-| A team's tool changes or breaks | Tool errors hand off cleanly; gateway logs show which tool failed |
-| Token costs grow faster than revenue | Per-team spending caps, plan-based limits, Haiku routing and caching |
-| Upstream app changes break the bot API | The phase 0 app change is small and covered by tests; check it on every upstream sync |
+| Wrong answers hurt trust | Draft mode first, fact check, Live only when tests pass, Watch on every chat; wrong-answer rate is the number we watch hardest |
+| Parlant doesn't fit (MCP connection, token use) | Decided in the phase 0 trial; fallback is our own Mastra engine in the bridge |
+| ContextForge is early and IBM offers no official support | Our MCP client can call servers directly; the gateway can be swapped |
+| A team's app changes or breaks | Tool errors hand off cleanly; gateway logs show which tool failed |
+| Token costs outrun revenue | Caps per plan, Haiku routing, caching, and pricing at least 3 times cost per team |
+| Upstream app changes break the bot API | The app change is small and tested; checked on every upstream sync |
+| Personal data in prompts and logs | Presidio masking, identity-locked lookups, encrypted tokens, team separation on every row |
