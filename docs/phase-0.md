@@ -22,7 +22,8 @@ Two weeks. Part of `docs/ai-agent-plan.md`.
 | Deploy `magpie-agent` to Fly | Done. `/health` answers ok |
 | Week 2: sample help articles | Done: 29 articles for a made-up store in `agent/evals/trial/` (not loaded into the app yet) |
 | Week 2: test set | Done: 40 cases and the 8 Stripe test customers they use, in `agent/evals/trial/`, checked by `agent/test/trial-cases.test.ts` |
-| Week 2: gateway, Stripe test data in Stripe, Parlant trial | Not started |
+| Week 2: MCP gateway | Ready to deploy: `gateway/` (ContextForge 1.1.0, own `gateway` schema in Supabase, Stripe sign-in by self-registration). Tested locally; waiting on `fly deploy` and the Stripe sign-in |
+| Week 2: Stripe test data in Stripe, Parlant trial | Not started |
 
 ## What you need to provide
 
@@ -108,7 +109,7 @@ The agent bot's API key can't yet read message history, contacts or help article
 
 ### Day 6: the MCP gateway
 
-- **Deploy ContextForge** to Fly as `magpie-gateway` in Tokyo, with its own database (check which databases it supports, and whether it can share the Supabase project).
+- **Deploy ContextForge** to Fly as `magpie-gateway` in Tokyo. It supports Postgres and shares the Supabase project in its own `gateway` schema. Steps: `gateway/README.md`.
 - **Create one virtual server** for the test team with **Stripe's official MCP server** (`mcp.stripe.com`) connected through Stripe's sign-in, in **test mode**.
 - **Check:** list the tools, then call "list charges" for a test customer through the gateway with the MCP SDK.
 
