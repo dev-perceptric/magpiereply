@@ -23,7 +23,8 @@ Two weeks. Part of `docs/ai-agent-plan.md`.
 | Week 2: sample help articles | Done: 29 articles for a made-up store in `agent/evals/trial/` (not loaded into the app yet) |
 | Week 2: test set | Done: 40 cases and the 8 Stripe test customers they use, in `agent/evals/trial/`, checked by `agent/test/trial-cases.test.ts` |
 | Week 2: MCP gateway | Ready to deploy: `gateway/` (ContextForge 1.1.0, own `gateway` schema in Supabase, Stripe sign-in by self-registration). Tested locally; waiting on `fly deploy` and the Stripe sign-in |
-| Week 2: Stripe test data in Stripe, Parlant trial | Not started |
+| Week 2: test runner | Done: `npm run trial` in `agent/` plays, scores, grades and compares (`agent/src/evals/`). Setups not plugged in yet |
+| Week 2: Stripe test data in Stripe, baseline and Parlant setups, the trial run | Not started |
 
 ## What you need to provide
 

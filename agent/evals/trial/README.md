@@ -68,6 +68,33 @@ Each case has:
 
 `test/trial-cases.test.ts` checks the files fit together: the counts, that every article and customer exists, that refund amounts match the charges, that over $50 needs staff approval, and that nobody signed out gets a charge lookup.
 
+## The test runner
+
+`npm run trial` (in `agent/`) plays the cases through a setup and scores them. The code is in `agent/src/evals/` and `agent/src/run-trial.ts`.
+
+```bash
+npm run trial -- run --setup <name> [--cases kb-01,dc-02] [--no-grade]
+```
+
+```bash
+npm run trial -- grade <results.json>
+```
+
+```bash
+npm run trial -- report <results.json>
+```
+
+```bash
+npm run trial -- compare <parlant results.json> <baseline results.json>
+```
+
+- **Setups** plug in through `AgentUnderTest` (`agent-under-test.ts`): start a session as the case's customer, play each turn and return what the agent did. That means its messages (with sources and approved wording), tool calls, Confirm buttons, staff approval cards, handoffs and token use. The baseline and Parlant are added next.
+- **Checked in code** (`score.ts`): the handoff and its team, required and forbidden tools, a refund only after the customer confirms or staff approve and for the right amount, the approved wording and an answer to every turn. Gateway tool names are matched to `lookup_charges` and `refund_charge`.
+- **Graded by Claude** (`grade.ts`): Haiku marks each case's `checks` with a reason, and says whether the agent stated something false, took a wrong action or broke a rule. It sees all the help articles and the signed-in customer's Stripe data. Needs `ANTHROPIC_API_KEY`. Busy or failed calls are tried again; a case that still fails stays ungraded and `grade` picks it up next time.
+- **Verdicts:** wrong (a harmful code check failed, or the grader found something false or a broken rule), failed (missed something, not harmful), correct, or not graded yet. A person can set `review` on a case in the results file to override its verdict, then run `report`.
+- **Results** go to `results/` as a JSON file to keep and a Markdown report with the measures from the plan and the go/no-go targets. Turn time is measured by the runner; cost per turn uses the plan's Claude prices.
+- **Not wired yet:** resetting the Stripe test data before each case. It comes with the script that creates the test customers.
+
 ## Load them into MagpieReply
 
 Needs Node 22 and an administrator API key (Profile settings → Access token). It creates the `tidewell` help center and its categories if they're missing, then adds each article as published. Running it again skips articles that are already there.
@@ -78,4 +105,4 @@ APP_URL=https://app.magpiereply.com node agent/evals/trial/load-articles.mjs --a
 
 ## Running cost
 
-None. The articles live in the app's existing database, and loading them uses no Claude tokens. The cases and Stripe test customers are files; Stripe test mode is free.
+The articles live in the app's existing database, the cases and Stripe test customers are files, and Stripe test mode is free. Grading with Haiku costs about $0.001 per case with the articles cached, about $0.05 for all 40 (check). The runner adds nothing to the monthly bill.

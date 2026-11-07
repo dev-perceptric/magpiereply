@@ -1,74 +1,18 @@
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { z } from 'zod';
+import {
+  loadArticles,
+  loadCases,
+  loadStripeCustomers,
+  STAFF_APPROVAL_FROM_CENTS,
+  TRIAL_DIR,
+  type Charge,
+} from '../src/evals/cases.js';
 
 // Checks the Parlant trial's test data (evals/trial) so the cases, the Stripe test customers
 // and the help articles stay in step with each other.
-const trialDir = new URL('../evals/trial/', import.meta.url);
-const STAFF_APPROVAL_FROM_CENTS = 5000;
-
-const turnSchema = z.union([
-  z.object({ from: z.literal('customer'), text: z.string().min(1) }),
-  z.object({ from: z.literal('customer'), action: z.enum(['confirm', 'decline']) }),
-  z.object({ from: z.literal('staff'), action: z.enum(['approve', 'reject']) }),
-]);
-
-const toolSchema = z.enum(['lookup_charges', 'refund_charge']);
-
-const caseSchema = z.object({
-  id: z.string().regex(/^[a-z]{2}-\d{2}$/),
-  group: z.enum(['knowledge', 'duplicate_charge', 'rules', 'attack']),
-  title: z.string().min(1),
-  customer: z.union([
-    z.object({ verified: z.literal(false) }),
-    z.object({ verified: z.literal(true), stripe_customer: z.string() }),
-  ]),
-  turns: z.array(turnSchema).min(1),
-  expected: z.object({
-    outcome: z.enum(['answer', 'handoff', 'refund', 'no_refund', 'ask_to_sign_in', 'refuse']),
-    handoff_team: z.enum(['Support', 'Billing']).nullable(),
-    refund: z
-      .object({
-        charge_any_of: z.array(z.string()).min(1),
-        amount_cents: z.number().int().positive(),
-        gate: z.enum(['customer_confirm', 'staff_approval']),
-      })
-      .nullable(),
-    tools_required: z.array(toolSchema),
-    tools_forbidden: z.array(toolSchema),
-    approved_reply: z.enum(['refund_started', 'handing_off']).nullable(),
-    sources: z.array(z.string()),
-    checks: z.array(z.string().min(1)).min(1),
-  }),
-});
-
-const chargeSchema = z.object({
-  id: z.string(),
-  amount_cents: z.number().int().positive(),
-  days_ago: z.number().int().min(0),
-  description: z.string(),
-  metadata: z.record(z.string(), z.string()),
-});
-
-const stripeSchema = z.object({
-  customers: z.array(
-    z.object({
-      id: z.string(),
-      name: z.string(),
-      email: z.string().email(),
-      kind: z.enum(['duplicate_under_50', 'duplicate_over_50', 'not_duplicate', 'no_charges']),
-      charges: z.array(chargeSchema),
-    }),
-  ),
-});
-
-function readJson(name: string): unknown {
-  return JSON.parse(readFileSync(new URL(name, trialDir), 'utf8'));
-}
-
-const caseFiles = ['knowledge', 'duplicate-charges', 'rules-and-handoff', 'attacks'];
-const cases = caseFiles.flatMap(name => z.array(caseSchema).parse(readJson(`cases/${name}.json`)));
-const { customers } = stripeSchema.parse(readJson('stripe-customers.json'));
+const cases = loadCases();
+const customers = loadStripeCustomers();
 const customersById = new Map(customers.map(customer => [customer.id, customer]));
 
 function countBy<T>(items: T[], key: (item: T) => string): Record<string, number> {
@@ -78,6 +22,10 @@ function countBy<T>(items: T[], key: (item: T) => string): Record<string, number
 }
 
 describe('trial test data', () => {
+  it('reads all 29 help articles', () => {
+    expect(loadArticles()).toHaveLength(29);
+  });
+
   it('has the 40 cases from the plan, with unique ids', () => {
     expect(countBy(cases, item => item.group)).toEqual({ knowledge: 20, duplicate_charge: 10, rules: 6, attack: 4 });
     expect(new Set(cases.map(item => item.id)).size).toBe(40);
@@ -96,7 +44,7 @@ describe('trial test data', () => {
     for (const customer of customers.filter(item => item.kind.startsWith('duplicate'))) {
       const duplicates = customer.charges.filter(charge => charge.id.includes('-dup-'));
       expect(duplicates, customer.id).toHaveLength(2);
-      const [first, second] = duplicates as [z.infer<typeof chargeSchema>, z.infer<typeof chargeSchema>];
+      const [first, second] = duplicates as [Charge, Charge];
       expect(second.amount_cents).toBe(first.amount_cents);
       expect(second.days_ago).toBe(first.days_ago);
       expect(second.metadata).toEqual(first.metadata);
@@ -116,7 +64,7 @@ describe('trial test data', () => {
   it('only points at articles and customers that exist', () => {
     for (const item of cases) {
       for (const slug of item.expected.sources) {
-        expect(existsSync(new URL(`articles/${slug}.md`, trialDir)), `${item.id}: ${slug}`).toBe(true);
+        expect(existsSync(new URL(`articles/${slug}.md`, TRIAL_DIR)), `${item.id}: ${slug}`).toBe(true);
       }
       if (item.customer.verified) {
         expect(customersById.has(item.customer.stripe_customer), item.id).toBe(true);
