@@ -1,11 +1,10 @@
 // Grades a case's plain-language checks with Claude (Haiku by default), and asks whether the agent
 // said anything false or did anything it shouldn't. A person reviews the result afterwards.
+import { createMessage, type AnthropicOptions } from '../anthropic.js';
 import type { Article, StripeCustomer, TrialCase } from './cases.js';
 import type { PlayedTurn } from './score.js';
 
 export const DEFAULT_GRADER_MODEL = 'claude-haiku-5-5';
-const API_URL = 'https://api.anthropic.com/v1/messages';
-const MAX_TRIES = 4;
 
 export type Grade = {
   checks: { check: string; pass: boolean; reason: string }[];
@@ -16,7 +15,9 @@ export type Grade = {
   outputTokens: number;
 };
 
-export type GraderOptions = { apiKey: string; model?: string; fetchImpl?: typeof fetch; retryDelayMs?: number };
+export type GraderOptions = AnthropicOptions & { model?: string };
+
+type GradeInput = { checks: { pass: boolean; reason: string }[]; wrong: boolean; wrong_reason: string };
 
 const GRADE_TOOL = {
   name: 'record_grade',
@@ -91,10 +92,6 @@ export function renderTranscript(played: PlayedTurn[]): string {
   return lines.join('\n');
 }
 
-function isRetryable(status: number): boolean {
-  return status === 429 || status === 529 || status >= 500;
-}
-
 export async function gradeCase(
   trialCase: TrialCase,
   played: PlayedTurn[],
@@ -103,8 +100,6 @@ export async function gradeCase(
   options: GraderOptions,
 ): Promise<Grade> {
   const model = options.model ?? DEFAULT_GRADER_MODEL;
-  const fetchImpl = options.fetchImpl ?? fetch;
-  const retryDelayMs = options.retryDelayMs ?? 1000;
   const checks = trialCase.expected.checks.map((check, index) => `${index + 1}. ${check}`).join('\n');
   const body = {
     model,
@@ -124,45 +119,22 @@ export async function gradeCase(
     ],
   };
 
-  for (let attempt = 1; ; attempt += 1) {
-    let response: Response;
-    try {
-      response = await fetchImpl(API_URL, {
-        method: 'POST',
-        headers: { 'x-api-key': options.apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-        body: JSON.stringify(body),
-      });
-    } catch (error) {
-      if (attempt >= MAX_TRIES) throw error;
-      await new Promise(resolve => setTimeout(resolve, 2 ** attempt * retryDelayMs));
-      continue;
-    }
-    if (isRetryable(response.status) && attempt < MAX_TRIES) {
-      await new Promise(resolve => setTimeout(resolve, 2 ** attempt * retryDelayMs));
-      continue;
-    }
-    if (!response.ok) throw new Error(`Grader answered ${response.status}: ${await response.text()}`);
-
-    const data = (await response.json()) as {
-      content: { type: string; name?: string; input?: { checks: { pass: boolean; reason: string }[]; wrong: boolean; wrong_reason: string } }[];
-      usage: { input_tokens: number; output_tokens: number; cache_read_input_tokens?: number; cache_creation_input_tokens?: number };
-    };
-    const input = data.content.find(block => block.type === 'tool_use' && block.name === GRADE_TOOL.name)?.input;
-    if (!input || input.checks.length !== trialCase.expected.checks.length) {
-      throw new Error(`${trialCase.id}: the grader returned ${input?.checks.length ?? 0} checks, expected ${trialCase.expected.checks.length}`);
-    }
-    return {
-      checks: trialCase.expected.checks.map((check, index) => ({
-        check,
-        pass: input.checks[index]?.pass ?? false,
-        reason: input.checks[index]?.reason ?? '',
-      })),
-      wrong: input.wrong,
-      wrongReason: input.wrong_reason,
-      model,
-      inputTokens:
-        data.usage.input_tokens + (data.usage.cache_read_input_tokens ?? 0) + (data.usage.cache_creation_input_tokens ?? 0),
-      outputTokens: data.usage.output_tokens,
-    };
+  const data = await createMessage(body, options);
+  const block = data.content.find(entry => entry.type === 'tool_use' && entry.name === GRADE_TOOL.name);
+  const input = block?.type === 'tool_use' ? (block.input as GradeInput) : undefined;
+  if (!input || input.checks.length !== trialCase.expected.checks.length) {
+    throw new Error(`${trialCase.id}: the grader returned ${input?.checks.length ?? 0} checks, expected ${trialCase.expected.checks.length}`);
   }
+  return {
+    checks: trialCase.expected.checks.map((check, index) => ({
+      check,
+      pass: input.checks[index]?.pass ?? false,
+      reason: input.checks[index]?.reason ?? '',
+    })),
+    wrong: input.wrong,
+    wrongReason: input.wrong_reason,
+    model,
+    inputTokens: data.usage.input_tokens + (data.usage.cache_read_input_tokens ?? 0) + (data.usage.cache_creation_input_tokens ?? 0),
+    outputTokens: data.usage.output_tokens,
+  };
 }

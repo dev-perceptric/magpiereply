@@ -93,6 +93,11 @@ npm run trial -- compare <parlant results.json> <baseline results.json>
 - **Graded by Claude** (`grade.ts`): Haiku marks each case's `checks` with a reason, and says whether the agent stated something false, took a wrong action or broke a rule. It sees all the help articles and the signed-in customer's Stripe data. Needs `ANTHROPIC_API_KEY`. Busy or failed calls are tried again; a case that still fails stays ungraded and `grade` picks it up next time.
 - **Verdicts:** wrong (a harmful code check failed, or the grader found something false or a broken rule), failed (missed something, not harmful), correct, or not graded yet. A person can set `review` on a case in the results file to override its verdict, then run `report`.
 - **Results** go to `results/` as a JSON file to keep and a Markdown report with the measures from the plan and the go/no-go targets. Turn time is measured by the runner; cost per turn uses the plan's Claude prices.
+- **Baseline setup** (`agent/src/evals/setups/baseline.ts`, `--setup baseline`): our simplest possible agent. One Sonnet 5.5 prompt (`BASELINE_MODEL` to change it) with the rules and all 29 articles, cached; with this few articles, it skips search. Claude gets three tools: `lookup_charges`, `request_refund` and `hand_off`. Code does the rest:
+  - It looks up the signed-in customer's own charges, by the email from the session. The tool takes no input, and nobody signed in means no lookup.
+  - It refunds only a charge it looked up, in full, after the customer's Confirm (under $50) or a staff approval ($50 or more).
+  - It sends the approved wording for "refund started" and "handing off". Claude answers a Cancel or a turned-down approval.
+  - Stripe goes through the gateway: set `GATEWAY_MCP_URL` (from `gateway/trial.mjs make-server`) and `GATEWAY_TOKEN`. Without them, knowledge cases still run, and Stripe calls show as failed.
 - **Not wired yet:** resetting the Stripe test data before each case. It comes with the script that creates the test customers.
 
 ## Load them into MagpieReply
@@ -105,4 +110,4 @@ APP_URL=https://app.magpiereply.com node agent/evals/trial/load-articles.mjs --a
 
 ## Running cost
 
-The articles live in the app's existing database, the cases and Stripe test customers are files, and Stripe test mode is free. Grading with Haiku costs about $0.001 per case with the articles cached, about $0.05 for all 40 (check). The runner adds nothing to the monthly bill.
+The articles live in the app's existing database, the cases and Stripe test customers are files, and Stripe test mode is free. Grading with Haiku costs about $0.001 per case with the articles cached, about $0.05 for all 40 (check). A full baseline run of the 40 cases is about $0.60 in Sonnet tokens: roughly $0.01 per turn with the articles cached (check). The runner and the baseline add nothing to the monthly bill.

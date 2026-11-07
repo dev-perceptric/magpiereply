@@ -4,6 +4,7 @@
 //   report <results.json>                                    rescore and rewrite the Markdown report
 //   compare <candidate.json> <baseline.json>                 the go/no-go table
 // Grading needs ANTHROPIC_API_KEY. TRIAL_GRADER_MODEL picks the model (default claude-haiku-5-5).
+// The baseline needs ANTHROPIC_API_KEY, and GATEWAY_MCP_URL and GATEWAY_TOKEN for Stripe.
 // Results go to evals/trial/results/: a JSON file to keep and review, and a Markdown report.
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { parseArgs } from 'node:util';
@@ -12,9 +13,37 @@ import { loadArticles, loadCases, loadStripeCustomers, TRIAL_DIR } from './evals
 import { comparisonReport, markdownReport, type TrialResults } from './evals/report.js';
 import { gradeResults, runCase } from './evals/runner.js';
 import { scoreCase, sourcesFound } from './evals/score.js';
+import { createBaseline } from './evals/setups/baseline.js';
+import { createDisconnectedStripe, createGatewayStripe } from './evals/setups/stripe.js';
+import { createMcpClient } from './mcp-client.js';
 
-// The setups under test. Each one is added with its adapter: the one-prompt baseline and Parlant.
-const SETUPS: Record<string, () => Promise<AgentUnderTest>> = {};
+function requiredEnv(name: string): string {
+  const value = process.env[name];
+  if (!value) throw new Error(`${name} is not set`);
+  return value;
+}
+
+// Stripe through the team's gateway server (GATEWAY_MCP_URL and GATEWAY_TOKEN, from
+// gateway/trial.mjs make-server). Without them, Stripe calls fail and show as failed tool calls.
+function stripeFromEnv() {
+  const url = process.env.GATEWAY_MCP_URL;
+  if (!url) {
+    console.log('GATEWAY_MCP_URL is not set: Stripe calls will fail.');
+    return createDisconnectedStripe();
+  }
+  return createGatewayStripe(createMcpClient(url, requiredEnv('GATEWAY_TOKEN')));
+}
+
+// The setups under test. Parlant is added with its adapter.
+const SETUPS: Record<string, () => Promise<AgentUnderTest>> = {
+  baseline: async () =>
+    createBaseline({
+      anthropic: { apiKey: requiredEnv('ANTHROPIC_API_KEY') },
+      stripe: stripeFromEnv(),
+      articles: loadArticles(),
+      model: process.env.BASELINE_MODEL,
+    }),
+};
 
 const RESULTS_DIR = new URL('results/', TRIAL_DIR);
 
