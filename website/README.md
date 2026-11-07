@@ -61,19 +61,25 @@ After the site changes, publish the branch:
 bash website/tools/publish-hostinger.sh
 ```
 
-Then click **Deploy** in hPanel, or turn on auto-deploy once (see below).
+Hostinger deploys it on its own.
 
 ### First-time setup in hPanel
 
-1. Open **Websites**, pick magpiereply.com and click **Dashboard**.
-2. Go to **Advanced > Git**.
-3. Under **Create a new repository**, fill in:
-   - **Repository:** `https://github.com/dev-perceptric/magpiereply.git`
-   - **Branch:** `hostinger-site`
-   - **Directory:** leave empty, so it deploys into `public_html`. The folder must be empty first, so delete Hostinger's default files there.
-4. Click **Create**, then **Deploy**.
-5. To deploy on every push, click **Auto deployment**, copy the webhook URL and add it in GitHub under the repo's **Settings > Webhooks** (content type `application/json`, push events).
-6. In **Security > SSL**, make sure the free SSL is on for magpiereply.com and www.
+Add the site in hPanel as a Node.js project connected to GitHub, then use these build settings:
+
+| Setting | Value |
+|---|---|
+| Repository | `dev-perceptric/magpiereply` |
+| Branch | `hostinger-site` |
+| Framework preset | Vite (or Other) |
+| Root directory | `./` |
+| Build command | `npm run build` |
+| Package manager | npm |
+| Output directory | `dist` |
+
+The build only copies the public files into `dist/` (`tools/build.mjs`); there's nothing to compile and no packages to install. Hostinger deploys again on every push to `hostinger-site`.
+
+magpiereply.com is registered elsewhere, so add the DNS records or nameservers hPanel shows at the domain's registrar, then turn on SSL in hPanel.
 
 `.htaccess` sets the 404 page, forces HTTPS and hides the `partials/` and `tools/` folders.
 
