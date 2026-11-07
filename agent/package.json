@@ -1,0 +1,34 @@
+{
+  "name": "magpie-agent",
+  "private": true,
+  "description": "Magpie AI agent service: webhook, job queue and worker for MagpieReply.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && mkdir -p dist/db && cp -r src/db/migrations dist/db/",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "migrate": "node dist/migrate.js",
+    "start:api": "node dist/api.js",
+    "start:worker": "node dist/worker.js",
+    "dev:api": "tsx watch src/api.ts",
+    "dev:worker": "tsx watch src/worker.ts",
+    "enable-team": "tsx src/enable-team.ts"
+  },
+  "dependencies": {
+    "@hono/node-server": "2.1.6",
+    "hono": "4.13.16",
+    "pg": "8.23.1",
+    "pg-boss": "12.38.1",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "@types/pg": "8.23.1",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "vitest": "5.1.0"
+  }
+}
