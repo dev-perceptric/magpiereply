@@ -3,6 +3,7 @@
   "private": true,
   "description": "MagpieReply marketing site. Plain HTML and CSS; the build only copies the public files into dist/.",
   "scripts": {
-    "build": "node tools/build.mjs"
+    "build": "node tools/build.mjs",
+    "build:sdk": "npm run build"
   }
 }
