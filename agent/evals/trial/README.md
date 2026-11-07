@@ -98,6 +98,7 @@ npm run trial -- compare <parlant results.json> <baseline results.json>
   - It refunds only a charge it looked up, in full, after the customer's Confirm (under $50) or a staff approval ($50 or more).
   - It sends the approved wording for "refund started" and "handing off". Claude answers a Cancel or a turned-down approval.
   - Stripe goes through the gateway: set `GATEWAY_MCP_URL` (from `gateway/trial.mjs make-server`) and `GATEWAY_TOKEN`. Without them, knowledge cases still run, and Stripe calls show as failed.
+- **Parlant setup** (`agent/src/evals/setups/parlant.ts`, `--setup parlant`): drives `magpie-brain` (`brain/`) over Parlant's HTTP API with `PARLANT_URL` and `PARLANT_ADMIN_API_KEY`. Parlant picks the reply and the tools; the adapter plays the bridge, as the baseline's code does. It makes a Parlant customer with the signed-in email, turns the brain's refund requests into Confirm buttons or staff cards, makes the refund through the gateway, asks Parlant to answer a Cancel, and sends the approved wording. Token use per turn comes from Parlant's session usage. Parlant doesn't name its sources, so "Expected sources cited" stays at 0 for it.
 - **Not wired yet:** resetting the Stripe test data before each case. It comes with the script that creates the test customers.
 
 ## Load them into MagpieReply

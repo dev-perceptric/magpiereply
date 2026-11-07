@@ -25,7 +25,8 @@ Two weeks. Part of `docs/ai-agent-plan.md`.
 | Week 2: MCP gateway | Ready to deploy: `gateway/` (ContextForge 1.1.0, own `gateway` schema in Supabase, Stripe sign-in by self-registration). Tested locally; waiting on `fly deploy` and the Stripe sign-in |
 | Week 2: test runner | Done: `npm run trial` in `agent/` plays, scores, grades and compares (`agent/src/evals/`). Setups not plugged in yet |
 | Week 2: baseline setup | Done: one Sonnet prompt with three tools, refunds and identity handled in code (`agent/src/evals/setups/baseline.ts`). Waiting on an Anthropic key to run it |
-| Week 2: Stripe test data in Stripe, Parlant setup, the trial run | Not started |
+| Week 2: Parlant setup | Done: `brain/` (Parlant 4.0.3, policies, tools through the gateway with the MCP Python SDK) and its adapter (`agent/src/evals/setups/parlant.ts`). Parlant 4.0 has no journeys and no MCP client; see `brain/README.md`. Waiting on the Anthropic and Voyage keys to start it |
+| Week 2: Stripe test data in Stripe, the trial run | Not started |
 
 ## What you need to provide
 

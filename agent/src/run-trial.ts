@@ -4,7 +4,8 @@
 //   report <results.json>                                    rescore and rewrite the Markdown report
 //   compare <candidate.json> <baseline.json>                 the go/no-go table
 // Grading needs ANTHROPIC_API_KEY. TRIAL_GRADER_MODEL picks the model (default claude-haiku-5-5).
-// The baseline needs ANTHROPIC_API_KEY, and GATEWAY_MCP_URL and GATEWAY_TOKEN for Stripe.
+// The baseline needs ANTHROPIC_API_KEY. Parlant needs PARLANT_URL and PARLANT_ADMIN_API_KEY (magpie-brain).
+// Both use GATEWAY_MCP_URL and GATEWAY_TOKEN for Stripe.
 // Results go to evals/trial/results/: a JSON file to keep and review, and a Markdown report.
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { parseArgs } from 'node:util';
@@ -14,6 +15,7 @@ import { comparisonReport, markdownReport, type TrialResults } from './evals/rep
 import { gradeResults, runCase } from './evals/runner.js';
 import { scoreCase, sourcesFound } from './evals/score.js';
 import { createBaseline } from './evals/setups/baseline.js';
+import { createParlant } from './evals/setups/parlant.js';
 import { createDisconnectedStripe, createGatewayStripe } from './evals/setups/stripe.js';
 import { createMcpClient } from './mcp-client.js';
 
@@ -34,8 +36,14 @@ function stripeFromEnv() {
   return createGatewayStripe(createMcpClient(url, requiredEnv('GATEWAY_TOKEN')));
 }
 
-// The setups under test. Parlant is added with its adapter.
+// The setups under test: the one-prompt baseline, and Parlant on magpie-brain.
 const SETUPS: Record<string, () => Promise<AgentUnderTest>> = {
+  parlant: async () =>
+    createParlant({
+      url: requiredEnv('PARLANT_URL'),
+      adminKey: requiredEnv('PARLANT_ADMIN_API_KEY'),
+      stripe: stripeFromEnv(),
+    }),
   baseline: async () =>
     createBaseline({
       anthropic: { apiKey: requiredEnv('ANTHROPIC_API_KEY') },

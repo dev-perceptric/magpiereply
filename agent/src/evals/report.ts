@@ -21,8 +21,10 @@ export type CaseResult = {
 
 export type TrialResults = { setup: string; startedAt: string; cases: CaseResult[] };
 
-// Claude prices per million tokens, from omniscient/scripts/cost-model.mjs (October 2026).
+// Prices per million tokens, from omniscient/scripts/cost-model.mjs (October 2026). Voyage
+// (Parlant's search vectors) has no output tokens.
 const PRICES = [
+  { match: /voyage/, input: 0.06, output: 0, cacheRead: 0 },
   { match: /opus/, input: 4.0, output: 20.0, cacheRead: 0.2 },
   { match: /sonnet/, input: 2.0, output: 10.0, cacheRead: 0.2 },
   { match: /haiku/, input: 0.1, output: 0.5, cacheRead: 0.01 },
