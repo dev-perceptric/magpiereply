@@ -1,30 +1,42 @@
 class ArticlePolicy < ApplicationPolicy
   def index?
-    @account.users.include?(@user)
+    agent_bot? || @account.users.include?(@user)
   end
 
   def update?
-    @account_user.administrator?
+    administrator?
   end
 
   def show?
-    @account_user.administrator?
+    agent_bot? || administrator?
   end
 
   def edit?
-    @account_user.administrator?
+    administrator?
   end
 
   def create?
-    @account_user.administrator?
+    administrator?
   end
 
   def destroy?
-    @account_user.administrator?
+    administrator?
   end
 
   def reorder?
-    @account_user.administrator?
+    administrator?
+  end
+
+  private
+
+  # The Magpie AI agent bot reads help articles to answer customers. It never changes them.
+  def agent_bot?
+    @user.is_a?(AgentBot)
+  end
+
+  # Agent bots have no account user, so they are never administrators.
+  def administrator?
+    @account_user.present? && @account_user.administrator?
   end
 end
 

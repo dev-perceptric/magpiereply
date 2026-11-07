@@ -1,9 +1,12 @@
 module AccessTokenAuthHelper
   BOT_ACCESSIBLE_ENDPOINTS = {
     'api/v1/accounts/conversations' => %w[show toggle_status toggle_typing_status toggle_priority create update custom_attributes],
-    'api/v1/accounts/conversations/messages' => ['create'],
+    'api/v1/accounts/conversations/messages' => %w[index create],
     'api/v1/accounts/conversations/assignments' => ['create'],
-    'api/v1/accounts/conversations/labels' => %w[index create]
+    'api/v1/accounts/conversations/labels' => %w[index create],
+    # Read-only context for the Magpie AI agent bot: the customer and the team's help articles.
+    'api/v1/accounts/contacts' => ['show'],
+    'api/v1/accounts/articles' => %w[index show]
   }.freeze
 
   def authenticate_by_access_token?
