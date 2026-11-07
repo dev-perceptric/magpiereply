@@ -11,7 +11,8 @@ primary_region = 'nrt'
 
 [env]
   PORT = '8080'
-  APP_URL = 'https://app.magpiereply.com'
+  # The app's Fly address, so the agent never waits on the public domain's DNS.
+  APP_URL = 'https://magpiereply-web.fly.dev'
   PUBLIC_URL = 'https://magpie-agent.fly.dev'
   TURN_DELAY_SECONDS = '4'
 
