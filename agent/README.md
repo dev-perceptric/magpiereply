@@ -26,7 +26,15 @@ npm ci && npm test
 1. In Supabase's SQL editor, create the agent's own database login. It gets its own schemas and nothing in the app's `public` schema:
 
 ```sql
-create role magpie_agent login password '<strong-password>';
+do $$
+begin
+  if not exists (select from pg_roles where rolname = 'magpie_agent') then
+    create role magpie_agent login password '<strong-password>';
+  end if;
+end $$;
+
+-- Supabase's postgres user isn't a superuser, so it must join the role before it can give it schemas.
+grant magpie_agent to postgres;
 create schema if not exists agent authorization magpie_agent;
 create schema if not exists pgboss authorization magpie_agent;
 grant create on database postgres to magpie_agent;
