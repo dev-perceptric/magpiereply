@@ -197,6 +197,7 @@ h1, h2, h3, h4 { margin: 0; text-wrap: balance; }
 
 .sticker .chip svg { width: 13px; height: 13px; }
 
+.sticker { align-self: flex-start; }
 .sticker.tilt { transform: rotate(-3deg); }
 .sticker.tilt-r { transform: rotate(2.5deg); }
 
