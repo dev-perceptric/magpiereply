@@ -40,7 +40,9 @@ const onToggle = () => {
     >
       <div class="flex justify-between">
         <EmojiOrIcon class="inline-block w-5" :icon="icon" :emoji="emoji" />
-        <h5 class="text-n-slate-12 text-sm mb-0 py-0 pr-2 pl-0">
+        <h5
+          class="text-n-slate-11 font-mono text-xxs font-medium uppercase tracking-label mb-0 py-0 pr-2 pl-0"
+        >
           {{ title }}
         </h5>
       </div>

@@ -7,7 +7,8 @@
       "WELCOME_MESSAGE_LABEL": "Pre-filled message: ",
       "REPLIED_BELOW": "Customer replied below"
     },
-    "SELECT_A_CONVERSATION": "Please select a conversation from left pane",
+    "SELECT_A_CONVERSATION": "Pick a conversation from the list",
+    "EMPTY_STATE_LABEL": "Inbox",
     "CSAT_REPLY_MESSAGE": "Please rate the conversation",
     "404": "Sorry, we cannot find the conversation. Please try again",
     "SWITCH_VIEW_LAYOUT": "Switch the layout",

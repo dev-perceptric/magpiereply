@@ -27,6 +27,14 @@ const emit = defineEmits([
   'filtersModal',
 ]);
 
+const STATUS_DOT_CLASSES = {
+  open: 'bg-n-teal-9',
+  pending: 'bg-n-amber-9',
+  snoozed: 'bg-n-slate-9',
+  resolved: 'bg-n-brand',
+  all: 'bg-n-slate-9',
+};
+
 const { uiSettings, updateUISettings } = useUISettings();
 
 const onBasicFilterChange = (value, type) => {
@@ -39,6 +47,9 @@ const hasAppliedFiltersOrActiveFolders = computed(() => {
 
 const allCount = computed(() => props.conversationStats?.allCount || 0);
 const formattedAllCount = computed(() => formatNumber(allCount.value));
+const statusDotClass = computed(
+  () => STATUS_DOT_CLASSES[props.activeStatus] || STATUS_DOT_CLASSES.all
+);
 
 // While filters narrow the list, the header names it and the back button exits.
 const showFilterScope = computed(
@@ -89,22 +100,30 @@ const toggleConversationLayout = () => {
         ghost
         @click="emit('resetFilters')"
       />
-      <h1 class="text-base font-medium truncate text-n-slate-12" :title="title">
+      <h1
+        class="text-base font-semibold tracking-display truncate text-n-slate-12"
+        :title="title"
+      >
         {{ title }}
       </h1>
       <span
         v-if="
           allCount > 0 && hasAppliedFiltersOrActiveFolders && !isListLoading
         "
-        class="px-2 py-1 my-0.5 mx-1 rounded-md capitalize bg-n-slate-3 text-xxs text-n-slate-12 shrink-0"
+        class="inline-flex items-center gap-1.5 px-1.5 py-0.5 my-0.5 mx-1 rounded capitalize bg-n-surface-1 shadow-ring text-xxs font-semibold text-n-slate-12 shrink-0"
         :title="allCount"
       >
         {{ formattedAllCount }}
       </span>
       <span
         v-if="!hasAppliedFiltersOrActiveFolders"
-        class="px-2 py-1 my-0.5 mx-1 rounded-md capitalize bg-n-slate-3 text-xxs text-n-slate-12 shrink-0"
+        class="inline-flex items-center gap-1.5 px-1.5 py-0.5 my-0.5 mx-1 rounded capitalize bg-n-surface-1 shadow-ring text-xxs font-semibold text-n-slate-12 shrink-0"
       >
+        <span
+          class="size-1.5 rounded-sm"
+          :class="statusDotClass"
+          aria-hidden="true"
+        />
         {{ $t(`CHAT_LIST.CHAT_STATUS_FILTER_ITEMS.${activeStatus}.TEXT`) }}
       </span>
     </div>

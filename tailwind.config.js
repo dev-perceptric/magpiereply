@@ -74,6 +74,32 @@ const tailwindConfig = {
         520: '520',
         620: '620',
       },
+      // MagpieReply edges and texture, matching the marketing site.
+      boxShadow: {
+        ring: 'inset 0 0 0 1px rgb(var(--ring-strong))',
+        'ring-soft': 'inset 0 0 0 1px rgb(var(--ring-weak))',
+        lift: '0 1px 2px rgb(var(--shadow-tint) / 0.06)',
+        'ring-lift':
+          'inset 0 0 0 1px rgb(var(--ring-weak)), 0 1px 2px rgb(var(--shadow-tint) / 0.06)',
+        'ring-brand': 'inset 0 0 0 1px rgb(var(--blue-5))',
+        card: '0 0 0 1px rgb(var(--ring-weak)), 0 1px 2px rgb(var(--shadow-tint) / 0.04), 0 8px 24px -12px rgb(var(--shadow-tint) / 0.12)',
+        sticker:
+          '0 0 0 1.5px rgb(var(--slate-12)), 3px 3px 0 rgb(var(--slate-12))',
+      },
+      letterSpacing: {
+        label: '0.12em',
+        display: '-0.03em',
+      },
+      transitionTimingFunction: {
+        standard: 'cubic-bezier(0.4, 0, 0.2, 1)',
+      },
+      backgroundImage: {
+        'dot-grid':
+          'radial-gradient(rgb(var(--dot-ground)) 0.05rem, transparent 0.075rem)',
+      },
+      backgroundSize: {
+        dots: '0.625rem 0.625rem',
+      },
       typography: {
         bubble: {
           css: {

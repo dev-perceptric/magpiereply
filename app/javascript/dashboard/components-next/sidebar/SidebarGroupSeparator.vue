@@ -70,7 +70,7 @@ const TREE_ELBOW =
       <div class="inline-flex min-w-0 items-center gap-2">
         <Icon v-if="icon" :icon="icon" class="size-4 flex-shrink-0" />
         <span
-          class="flex-grow truncate text-start text-sm font-medium leading-5"
+          class="flex-grow truncate text-start font-mono text-xxs font-medium uppercase tracking-label leading-5"
         >
           {{ label }}
         </span>
