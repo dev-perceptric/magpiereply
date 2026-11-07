@@ -87,7 +87,8 @@ magpiereply.com is registered elsewhere, so add the DNS records or nameservers h
 
 - Prices on `/pricing/` and the homepage are early access prices. Starter is $49 ($44 yearly) and Growth is $149 ($134 yearly), at least 3 times the AI cost per team in `docs/ai-agent-plan.md`. Confirm them before launch.
 - Have a lawyer review `/terms/` and `/privacy/`. They're plain-language drafts with no company name or governing law yet.
-- Check the placeholder addresses: `hello@magpiereply.com`, `security@magpiereply.com`, `privacy@magpiereply.com` and `/app/login`.
+- Check the placeholder addresses: `hello@magpiereply.com`, `security@magpiereply.com` and `privacy@magpiereply.com`.
+- Sign in goes to `https://app.magpiereply.com/app/login`, because the app runs on its own domain.
 - Book a demo and Get early access open an email. Swap in a form or a booking link when there is one.
 
 ## Running cost
