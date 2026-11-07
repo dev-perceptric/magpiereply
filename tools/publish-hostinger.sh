@@ -9,4 +9,4 @@ cd "$(git rev-parse --show-toplevel)"
 git subtree split --prefix=website -b hostinger-site
 git push origin hostinger-site:hostinger-site
 git branch -D hostinger-site
-echo "Pushed. In hPanel, open Advanced > Git and click Deploy (or let auto-deploy run)."
+echo "Pushed hostinger-site. Hostinger deploys it on its own."

@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('..', import.meta.url));
 const nav = readFileSync(join(root, 'partials/nav.html'), 'utf8').trim();
 const footer = readFileSync(join(root, 'partials/footer.html'), 'utf8').trim();
-const skip = new Set(['partials', 'tools', 'assets']);
+const skip = new Set(['partials', 'tools', 'assets', 'dist', 'node_modules']);
 
 function findPages(dir) {
   const pages = [];
