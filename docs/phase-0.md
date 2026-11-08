@@ -20,14 +20,20 @@ Two weeks. Part of `docs/ai-agent-plan.md`.
 | Day 4: team setup script | Done |
 | Day 5: webhook → queue → worker → private note | Done. Tested end to end against a local MagpieReply: one message, a burst of three (one turn), duplicates, bad signatures, other accounts |
 | Deploy `magpie-agent` | Done. `agent-api` and `agent-worker` run on the Hostinger VPS; `https://agent.magpiereply.com/health` answers `ok` |
-| Week 2: gateway, test data, Parlant trial | Not started. The `magpie-gateway` project is made on the VPS and stopped |
+| Week 2, brain: `brain/`, Parlant 4.0.3 on Claude, the duplicate-charge procedure, 8 rules, 2 approved replies, Stripe tools, the one-prompt baseline | Built, 23 tests pass. Image `ghcr.io/dev-perceptric/magpie-brain` builds in CI |
+| Week 2, bridge: the turn job sends new customer messages to the brain and posts its draft as a private note | Built, 27 tests pass. Turned on by `BRAIN_URL` and `BRAIN_API_KEY`; not turned on yet |
+| Week 2, test data: 24 help articles for a made-up store, 8 Stripe test customers, 40 test conversations, the grading runner | Built (`brain/trial/`) |
+| Week 2, brain on the VPS | Made as the `magpie-brain` project, then stopped: Omniscient's Voyage key is rejected by Voyage (401). Needs a working key |
+| Week 2, gateway | Made on the VPS and stopped. Needs the `gateway.magpiereply.com` DNS record and Stripe's test-mode sign-in |
+| Day 10: run, measure, decide | Waiting on the brain. Until Stripe is connected, the trial runs on the made-up Stripe data (`STRIPE_MODE=fixture`) |
 
 ## What you need to provide
 
 | Item | Why | Where it goes |
 |---|---|---|
-| Anthropic API key | Claude for the trial | `/docker/magpie-brain/.env` on the VPS |
-| Voyage API key | Parlant uses Voyage for search vectors when the models are Claude | `/docker/magpie-brain/.env` on the VPS |
+| Anthropic API key | Claude for the trial | Done: the shared key, copied into `/docker/magpie-brain/.env` |
+| Voyage API key | Parlant uses Voyage for search vectors when the models are Claude. The key copied from Omniscient is rejected, so Omniscient's own search vectors are failing too | `/docker/magpie-brain/.env` on the VPS (hPanel → VPS → Docker Manager → `magpie-brain` → environment) |
+| DNS record `gateway` → `45.90.109.7` for `magpiereply.com` | So Stripe's sign-in can return to the gateway | Hostinger DNS |
 | A Stripe account in **test mode** | Fake customers and duplicate charges for the trial; no real money | Connected through the gateway's sign-in |
 | A MagpieReply admin API key | To create the agent bot for the test account (Profile settings → Access token) | Typed in when running the setup script; not stored in the repo |
 | 20 to 30 help articles | Knowledge for the trial. Real ones from a friendly team are best; otherwise we write a sample set for a made-up store | MagpieReply help center |
@@ -123,7 +129,7 @@ The agent bot's API key can't yet read message history, contacts or help article
 
 **In the MagpieReply help center,** load 20 to 30 articles: billing, refunds, shipping, accounts, plus one outdated article on purpose.
 
-**Write the test set** (`agent/evals/trial/`), 40 conversations, each with its expected outcome:
+**Write the test set** (`brain/trial/cases.json`), 40 conversations, each with its expected outcome:
 
 | Group | Count | Examples |
 |---|---|---|
@@ -137,11 +143,12 @@ The agent bot's API key can't yet read message history, contacts or help article
 - **Add a `magpie-brain` project** on the VPS: Python 3.12, `parlant[anthropic]` 4.0.3, a 2 GB memory limit, on the agent's Docker network with no public route. Add its image to `build-images.yml` and its project to `autodeploy`.
   - **Models:** Haiku 5.5 for matching and reviews, Sonnet 5.5 for replies, Voyage for search vectors.
   - **Storage:** for the trial, Parlant's built-in local storage on a Docker volume. MongoDB comes only if we go ahead.
-- **Load the agent:**
-  - the help articles as knowledge
-  - the **duplicate-charge journey**
-  - 4 rules (chargebacks to Billing, never promise a refund under 5 days, hand off when asked for a person, ask unverified customers to sign in)
+- **Load the agent** (`brain/magpie_brain/agent.py`). Parlant 4 calls journeys and guidelines "policies":
+  - the help articles as knowledge, through a retriever on every turn
+  - the **duplicate-charge policy**, with its tools
+  - 7 more rules: sign in first, chargebacks to Billing, never promise a refund under 5 days, a person on request, upset or legal to Support, no answer in the articles to Support, other people's data
   - 2 approved replies (refund started, handing off)
+  - message review on, so Haiku checks each reply before it's used
 - **The Stripe tool:**
   - **First choice:** Parlant calls the gateway's MCP server directly.
   - **If Parlant can't use a remote MCP server:** a small Python tool that calls the gateway with the official MCP Python SDK. Record which way worked; it decides how every app connects later.
@@ -177,6 +184,8 @@ The agent bot's API key can't yet read message history, contacts or help article
 
 **Write `docs/decisions/0001-brain.md`:** the numbers for both setups, the decision and anything surprising.
 
+**How to run it.** On the VPS, create a one-off project `magpie-trial` from the brain image, with the brain's `.env`, `BRAIN_URL=http://brain:8800`, the `magpiereply_default` network, `restart: "no"` and the command `python -m trial.run_trial`. Its log prints each setup's numbers, every failed case and the pass or fail of each go rule, and the full results land in the brain's volume under `/data/trial/`. `--only parlant`, `--cases d01,r03` and `--repeat 5` narrow or repeat a run. For Stripe through the gateway, run `python -m trial.seed_stripe` once with a test-mode key, then set `STRIPE_MODE=gateway`.
+
 ## Running cost of phase 0
 
 Everything in phase 0 fits on the shared KVM 2 that already runs the app. Hostinger prices from its billing catalog (November 2026).
@@ -186,7 +195,7 @@ Everything in phase 0 fits on the shared KVM 2 that already runs the app. Hostin
 | Server: `magpie-agent` (2 × 256 MB), `magpie-gateway` (1 GB), `magpie-brain` (2 GB and a volume) on the shared KVM 2 | $0 more (MagpieReply's share stays ~$3) | $0 more |
 | Gateway and agent tables in `sb-magpiereply` | $0 | $0 |
 | Claude for the trial (40 tests × 2 setups × about 5 runs while tuning) | ~$10 one time | — |
-| Voyage | ~$0 (free amount) | ~$0 |
+| Voyage (voyage-3.5 at $0.06 per million tokens, no free amount now) | under $1 | under $1 |
 | Stripe test mode | $0 | $0 |
 | **Total** | **~$0 a month more + ~$10 once** | **~$0 a month more** |
 

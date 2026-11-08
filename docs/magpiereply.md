@@ -71,10 +71,11 @@ What the fork costs to run before the AI agent ships: the app, Sidekiq, Postgres
 | Item | Beta (50 teams) | Growth (500 teams) |
 |---|---|---|
 | Server (a fifth of the shared KVM 2 at Beta, its own KVM 8 at Growth) | ~$3 | $49.99 |
+| Hosted Supabase in Tokyo, until the database moves to the server (check) | ~$10 | $0 |
 | Postgres with pgvector, Redis, file storage (containers on the server) | $0 | $0 |
 | Off-site backups (check) | ~$1 | ~$5 |
 | Email sending (Resend Pro at Beta, larger plan at Growth, check) | $20 | $90 |
 | Claude tokens | $0 | $0 |
-| **Monthly total** | **~$24** | **~$145** |
+| **Monthly total** | **~$34** (~$24 once the database moves) | **~$145** |
 
 The AI agent adds its own cost when it ships: about $2,071 a month at Beta and $20,650 at Growth, assuming 1,000 conversations per team each month with about 2.5 agent replies each (`docs/ai-agent-plan.md`).

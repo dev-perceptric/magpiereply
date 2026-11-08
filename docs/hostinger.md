@@ -12,13 +12,14 @@ Each piece is a Docker Compose project in `/docker/<name>/docker-compose.yml`.
 |---|---|---|---|
 | `magpiereply` | `web` (Rails), `worker` (Sidekiq), `redis` | `app.magpiereply.com` | 1.5 GB, 1.25 GB, 256 MB |
 | `magpiereply` | `agent-api`, `agent-worker` (`agent/`) | `agent.magpiereply.com` | 256 MB each |
-| `sb-magpiereply` | Supabase: Postgres 17 with pgvector, auth, REST, storage, gateway | `db.magpiereply.com` | about 1.4 GB in all |
+| `sb-magpiereply` | Self-hosted Supabase: Postgres 17 with pgvector, auth, REST, storage. Running, but the app doesn't use it yet | `db.magpiereply.com` | about 1.4 GB in all |
+| `magpie-brain` | The Magpie AI brain (`brain/`), Parlant on Claude. Stopped until it has a working Voyage key | inside Docker only, `http://brain:8800` on `magpiereply_default` | 2 GB |
 | `magpie-gateway` | ContextForge MCP gateway, made but stopped (profile `trial`) | none yet | 1 GB |
 | `traefik` | HTTPS and routing for every app (Let's Encrypt) | | |
 | `autodeploy` | Pulls new images every 5 minutes and restarts what changed | | 64 MB |
 | `uptime` | Gatus, with alerts to ntfy | | 96 MB |
 
-File attachments live in the `sb-magpiereply` storage volume on the server's disk.
+**The database is still in Tokyo.** The app's `DATABASE_URL` and the agent's `AGENT_DATABASE_URL` point at the hosted Supabase project `jxsddbtdpypwfcjogxym` (Tokyo pooler), and so does the gateway's. Every query crosses from Phoenix to Tokyo. Moving the data into `sb-magpiereply` on the server is the next hosting step: dump the hosted database, restore it into `sb-magpiereply`, then switch the three connection strings.
 
 ## How a change goes live
 
@@ -59,7 +60,7 @@ docker exec -it sb-magpiereply-db-1 psql -U postgres
 
 ## Secrets
 
-Secrets live in `/docker/<project>/.env` on the server and never in this repo. The app reads `DATABASE_URL`, `REDIS_URL`, `SECRET_KEY_BASE`, the `STORAGE_*` keys and `MAILER_SENDER_EMAIL`. The agent reads `AGENT_DATABASE_URL` and `AGENT_ENCRYPTION_KEY`, passed in as `DATABASE_URL` and `ENCRYPTION_KEY`. Keys for later phases (Anthropic, Voyage) go in `/docker/magpie-brain/.env`.
+Secrets live in `/docker/<project>/.env` on the server and never in this repo. The brain's `.env` holds `BRAIN_API_KEY` (made for it), `ANTHROPIC_API_KEY` (the key the other apps share), `VOYAGE_API_KEY`, `STRIPE_MODE` and, for Stripe through the gateway, `GATEWAY_URL` and `GATEWAY_TOKEN`. The app reads `DATABASE_URL`, `REDIS_URL`, `SECRET_KEY_BASE`, the `STORAGE_*` keys and `MAILER_SENDER_EMAIL`. The agent reads `AGENT_DATABASE_URL` and `AGENT_ENCRYPTION_KEY`, passed in as `DATABASE_URL` and `ENCRYPTION_KEY`. Keys for later phases (Anthropic, Voyage) go in `/docker/magpie-brain/.env`.
 
 ## Backups
 
@@ -90,10 +91,11 @@ Hostinger prices are the renewal prices on a 2-year term, from Hostinger's own b
 | Item | Beta (50 teams) | Growth (500 teams) |
 |---|---|---|
 | Server | ~$3 (a fifth of the shared $14.99 KVM 2) | $49.99 (KVM 8 for the app and database) |
+| Hosted Supabase in Tokyo, until the database moves (check) | ~$10 | $0 once moved |
 | Postgres, Redis, file storage, Gatus | $0 (containers on the server) | $0 |
 | Off-site backups (check) | ~$1 | ~$5 |
 | Email sending (Resend Pro at Beta, larger plan at Growth, check) | $20 | $90 |
 | Claude tokens | $0 | $0 |
-| **Monthly total** | **~$24** | **~$145** |
+| **Monthly total** | **~$34** (~$24 once the database moves) | **~$145** |
 
 The AI agent adds its own servers and tokens (see `docs/ai-agent-plan.md`).
