@@ -1,0 +1,2 @@
+# Pinned for the phase 0 trial. Parlant brings anthropic, httpx, fastapi and fastmcp.
+parlant[anthropic]==4.0.3

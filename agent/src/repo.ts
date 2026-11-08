@@ -124,3 +124,37 @@ export async function finishRun(db: Db, runId: number, outcome: { status: 'done'
     outcome.error ?? null,
   ]);
 }
+
+export interface ConversationState {
+  brainSessionId: string | null;
+  lastMessageId: number;
+  pendingNote: string | null;
+  handedOff: boolean;
+}
+
+export async function getConversationState(db: Db, teamId: number, conversationId: number): Promise<ConversationState> {
+  const result = await db.query<{ brain_session_id: string | null; last_message_id: string; pending_note: string | null; handed_off: boolean }>(
+    `select brain_session_id, last_message_id, pending_note, handed_off
+     from agent.conversations where team_id = $1 and conversation_id = $2`,
+    [teamId, conversationId],
+  );
+  const row = result.rows[0];
+  if (!row) return { brainSessionId: null, lastMessageId: 0, pendingNote: null, handedOff: false };
+  return {
+    brainSessionId: row.brain_session_id,
+    lastMessageId: Number(row.last_message_id),
+    pendingNote: row.pending_note,
+    handedOff: row.handed_off,
+  };
+}
+
+export async function saveConversationState(db: Db, teamId: number, conversationId: number, state: ConversationState): Promise<void> {
+  await db.query(
+    `insert into agent.conversations (team_id, conversation_id, brain_session_id, last_message_id, pending_note, handed_off)
+     values ($1, $2, $3, $4, $5, $6)
+     on conflict (team_id, conversation_id) do update set
+       brain_session_id = excluded.brain_session_id, last_message_id = excluded.last_message_id,
+       pending_note = excluded.pending_note, handed_off = excluded.handed_off, updated_at = now()`,
+    [teamId, conversationId, state.brainSessionId, state.lastMessageId, state.pendingNote, state.handedOff],
+  );
+}

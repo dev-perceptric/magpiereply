@@ -1,0 +1,146 @@
+[
+  {
+    "id": "shipping-us",
+    "title": "Shipping in the US",
+    "body": "We ship to all 50 US states, Puerto Rico and APO/FPO addresses.\n\nStandard shipping takes 3 to 6 business days after your order leaves our warehouse. Express takes 1 to 2 business days. Orders placed before 1 pm Eastern on a business day leave the same day.\n\nStandard shipping is free on orders of $50 or more. Under $50 it costs $6.95. Express costs $18 on any order.",
+    "url": "https://help.fernhillgoods.example/shipping-us"
+  },
+  {
+    "id": "shipping-canada",
+    "title": "Shipping to Canada",
+    "body": "Yes, we ship to every Canadian province and territory.\n\nCanadian orders take 5 to 9 business days. Shipping costs $14 on any order, and there's no free shipping to Canada.\n\nPrices are in US dollars. Canada Post may collect duties and taxes on delivery; we can't prepay them.",
+    "url": "https://help.fernhillgoods.example/shipping-canada"
+  },
+  {
+    "id": "shipping-international",
+    "title": "Shipping outside the US and Canada",
+    "body": "We ship to the UK, Ireland, Australia and New Zealand. We don't ship to other countries yet.\n\nInternational orders take 7 to 14 business days and cost $24 to ship. Local duties and taxes are paid by the customer on delivery.",
+    "url": "https://help.fernhillgoods.example/shipping-international"
+  },
+  {
+    "id": "tracking",
+    "title": "Tracking your order",
+    "body": "When your order ships, we email you a tracking link. You can also find it under Account \u2192 Orders.\n\nTracking can take up to 24 hours to show the first scan. If it hasn't moved in 5 business days, contact us and we'll open a trace with the carrier.",
+    "url": "https://help.fernhillgoods.example/tracking"
+  },
+  {
+    "id": "free-shipping-2024",
+    "title": "Free shipping over $35 (2024 offer)",
+    "body": "For orders placed in 2024, standard shipping was free on orders of $35 or more.\n\nThis offer ended on December 31, 2024.",
+    "url": "https://help.fernhillgoods.example/free-shipping-2024"
+  },
+  {
+    "id": "returns",
+    "title": "Returns",
+    "body": "You can return most items within 30 days of delivery for a refund to your original payment method.\n\nItems must be unused and in their original packaging. Candles that have been burned, opened bedding and final-sale items can't be returned.\n\nStart a return under Account \u2192 Orders \u2192 Return items. We email you a prepaid label. Return shipping costs $5.95, taken from your refund, unless the item arrived damaged or wrong.",
+    "url": "https://help.fernhillgoods.example/returns"
+  },
+  {
+    "id": "refund-timing",
+    "title": "When you'll get your refund",
+    "body": "We refund returns within 2 business days of the item reaching our warehouse.\n\nAfter that, refunds take 5 to 10 business days to show on your statement, depending on your bank. Refunds to store credit show up right away.",
+    "url": "https://help.fernhillgoods.example/refund-timing"
+  },
+  {
+    "id": "exchanges",
+    "title": "Exchanges",
+    "body": "We don't do direct exchanges. Return the item for a refund and place a new order for the one you want.\n\nIf you'd like the new item sooner, place the new order first; we'll refund the return as usual when it arrives.",
+    "url": "https://help.fernhillgoods.example/exchanges"
+  },
+  {
+    "id": "damaged-items",
+    "title": "Damaged or wrong items",
+    "body": "If something arrives broken or isn't what you ordered, tell us within 14 days of delivery. Send a photo of the item and the box through the chat or to hello@fernhillgoods.example.\n\nWe'll send a replacement for free, or a full refund if it's out of stock. You don't need to send the damaged item back unless we ask.",
+    "url": "https://help.fernhillgoods.example/damaged-items"
+  },
+  {
+    "id": "change-cancel-order",
+    "title": "Changing or cancelling an order",
+    "body": "You can change or cancel an order within 1 hour of placing it, under Account \u2192 Orders.\n\nAfter an hour, the order is already being packed and can't be changed. You can return it once it arrives.",
+    "url": "https://help.fernhillgoods.example/change-cancel-order"
+  },
+  {
+    "id": "change-email",
+    "title": "Changing your email address",
+    "body": "Go to Account \u2192 Settings \u2192 Email, enter your new address and click Save. We send a link to the new address; your email changes when you click it.\n\nYour order history stays with your account.",
+    "url": "https://help.fernhillgoods.example/change-email"
+  },
+  {
+    "id": "reset-password",
+    "title": "Resetting your password",
+    "body": "On the sign-in page, click Forgot password and enter your email. We send a reset link that works for 1 hour.\n\nIf the email doesn't arrive in 10 minutes, check your spam folder.",
+    "url": "https://help.fernhillgoods.example/reset-password"
+  },
+  {
+    "id": "delete-account",
+    "title": "Deleting your account",
+    "body": "You can delete your account under Account \u2192 Settings \u2192 Delete account.\n\nDeleting removes your saved addresses, payment methods and order history after 30 days. Orders that haven't shipped yet still ship.",
+    "url": "https://help.fernhillgoods.example/delete-account"
+  },
+  {
+    "id": "payment-methods",
+    "title": "Ways to pay",
+    "body": "We take Visa, Mastercard, American Express, Discover, Apple Pay, Google Pay, PayPal and Fernhill gift cards.\n\nWe don't take cash on delivery, checks or cryptocurrency. You can pay over 4 installments with Shop Pay on orders over $100.",
+    "url": "https://help.fernhillgoods.example/payment-methods"
+  },
+  {
+    "id": "pending-charges",
+    "title": "Pending charges and holds",
+    "body": "When you place an order, your bank may show a pending hold for the order total. If you change or cancel the order, a second hold can appear for a short time.\n\nHolds aren't charges. A hold that doesn't become a charge drops off within 3 to 5 business days, depending on your bank.",
+    "url": "https://help.fernhillgoods.example/pending-charges"
+  },
+  {
+    "id": "receipts",
+    "title": "Receipts and invoices",
+    "body": "We email a receipt when you place an order. You can download a PDF invoice for any order under Account \u2192 Orders \u2192 Invoice.\n\nInvoices show your billing address. To add a company name or tax ID, update your billing address before you download it.",
+    "url": "https://help.fernhillgoods.example/receipts"
+  },
+  {
+    "id": "promo-codes",
+    "title": "Promo codes",
+    "body": "Enter a promo code at checkout in the Discount code box. Only one code works per order.\n\nCodes can't be added after an order is placed, and they don't apply to gift cards or shipping.",
+    "url": "https://help.fernhillgoods.example/promo-codes"
+  },
+  {
+    "id": "gift-cards",
+    "title": "Gift cards",
+    "body": "Gift cards come in $25, $50, $100 and $200 and are sent by email. They never expire.\n\nCheck a gift card's balance at checkout. Gift cards can't be returned or exchanged for cash.",
+    "url": "https://help.fernhillgoods.example/gift-cards"
+  },
+  {
+    "id": "fernhill-box",
+    "title": "The Fernhill Box subscription",
+    "body": "The Fernhill Box is a seasonal box of 4 to 6 home goods, sent 4 times a year for $65 a box.\n\nYou can skip a box or cancel any time before the 1st of the month it ships, under Account \u2192 Subscriptions. Shipping is free on every box.",
+    "url": "https://help.fernhillgoods.example/fernhill-box"
+  },
+  {
+    "id": "warranty",
+    "title": "Warranty",
+    "body": "Furniture and lighting have a 2-year warranty against defects. Textiles and kitchenware have a 1-year warranty.\n\nThe warranty doesn't cover normal wear, misuse or damage from moving. To make a claim, send your order number and a photo of the problem.",
+    "url": "https://help.fernhillgoods.example/warranty"
+  },
+  {
+    "id": "care-linen",
+    "title": "Caring for linen",
+    "body": "Wash linen in cold or warm water on a gentle cycle with mild detergent. Don't use bleach.\n\nTumble dry on low or hang to dry. Linen softens with every wash. Iron while slightly damp if you like a crisp look.",
+    "url": "https://help.fernhillgoods.example/care-linen"
+  },
+  {
+    "id": "care-candles",
+    "title": "Candle care",
+    "body": "Trim the wick to about a quarter inch before each burn. Burn for 2 to 3 hours at a time so the wax melts evenly to the edge.\n\nNever leave a burning candle alone, and stop burning when half an inch of wax is left.",
+    "url": "https://help.fernhillgoods.example/care-candles"
+  },
+  {
+    "id": "contact-hours",
+    "title": "Contacting us",
+    "body": "Our team answers chat and email Monday to Friday, 9 am to 6 pm Eastern. We reply within one business day.\n\nWe don't have a phone line. Our warehouse is closed to visitors.",
+    "url": "https://help.fernhillgoods.example/contact-hours"
+  },
+  {
+    "id": "price-match",
+    "title": "Price changes after you buy",
+    "body": "If an item's price drops within 7 days of your order, we refund the difference to your original payment method. Ask us in the chat with your order number.\n\nThis doesn't apply to final-sale items or prices with a promo code.",
+    "url": "https://help.fernhillgoods.example/price-match"
+  }
+]

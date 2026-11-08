@@ -1,0 +1,185 @@
+[
+  {
+    "email": "maya.chen@example.com",
+    "name": "Maya Chen",
+    "kind": "duplicate_small",
+    "charges": [
+      {
+        "id": "pi_trial_maya_1",
+        "amount_cents": 3400,
+        "currency": "usd",
+        "created": 1793196120,
+        "description": "Order FG-10411",
+        "refunded": false
+      },
+      {
+        "id": "pi_trial_maya_2",
+        "amount_cents": 3400,
+        "currency": "usd",
+        "created": 1793196180,
+        "description": "Order FG-10411",
+        "refunded": false
+      },
+      {
+        "id": "pi_trial_maya_0",
+        "amount_cents": 1895,
+        "currency": "usd",
+        "created": 1789208400,
+        "description": "Order FG-09877",
+        "refunded": false
+      }
+    ]
+  },
+  {
+    "email": "omar.haddad@example.com",
+    "name": "Omar Haddad",
+    "kind": "duplicate_small",
+    "charges": [
+      {
+        "id": "pi_trial_omar_1",
+        "amount_cents": 2650,
+        "currency": "usd",
+        "created": 1793648400,
+        "description": "Order FG-10522",
+        "refunded": false
+      },
+      {
+        "id": "pi_trial_omar_2",
+        "amount_cents": 2650,
+        "currency": "usd",
+        "created": 1793654100,
+        "description": "Order FG-10522",
+        "refunded": false
+      }
+    ]
+  },
+  {
+    "email": "lena.fischer@example.com",
+    "name": "Lena Fischer",
+    "kind": "duplicate_small",
+    "charges": [
+      {
+        "id": "pi_trial_lena_1",
+        "amount_cents": 4999,
+        "currency": "usd",
+        "created": 1793866260,
+        "description": "Order FG-10601",
+        "refunded": false
+      },
+      {
+        "id": "pi_trial_lena_2",
+        "amount_cents": 4999,
+        "currency": "usd",
+        "created": 1793866320,
+        "description": "Order FG-10601",
+        "refunded": false
+      }
+    ]
+  },
+  {
+    "email": "dev.patel@example.com",
+    "name": "Dev Patel",
+    "kind": "duplicate_large",
+    "charges": [
+      {
+        "id": "pi_trial_dev_1",
+        "amount_cents": 12800,
+        "currency": "usd",
+        "created": 1793378700,
+        "description": "Order FG-10455",
+        "refunded": false
+      },
+      {
+        "id": "pi_trial_dev_2",
+        "amount_cents": 12800,
+        "currency": "usd",
+        "created": 1793378760,
+        "description": "Order FG-10455",
+        "refunded": false
+      }
+    ]
+  },
+  {
+    "email": "sofia.romero@example.com",
+    "name": "Sofia Romero",
+    "kind": "duplicate_large",
+    "charges": [
+      {
+        "id": "pi_trial_sofia_0",
+        "amount_cents": 6500,
+        "currency": "usd",
+        "created": 1785585600,
+        "description": "Fernhill Box, summer",
+        "refunded": false
+      },
+      {
+        "id": "pi_trial_sofia_1",
+        "amount_cents": 6500,
+        "currency": "usd",
+        "created": 1793534400,
+        "description": "Fernhill Box, autumn",
+        "refunded": false
+      },
+      {
+        "id": "pi_trial_sofia_2",
+        "amount_cents": 6500,
+        "currency": "usd",
+        "created": 1793534640,
+        "description": "Fernhill Box, autumn",
+        "refunded": false
+      }
+    ]
+  },
+  {
+    "email": "noah.williams@example.com",
+    "name": "Noah Williams",
+    "kind": "similar_not_duplicate",
+    "charges": [
+      {
+        "id": "pi_trial_noah_1",
+        "amount_cents": 4200,
+        "currency": "usd",
+        "created": 1792575000,
+        "description": "Order FG-10302",
+        "refunded": false
+      },
+      {
+        "id": "pi_trial_noah_2",
+        "amount_cents": 4200,
+        "currency": "usd",
+        "created": 1792861500,
+        "description": "Order FG-10367",
+        "refunded": false
+      }
+    ]
+  },
+  {
+    "email": "grace.okafor@example.com",
+    "name": "Grace Okafor",
+    "kind": "similar_not_duplicate",
+    "charges": [
+      {
+        "id": "pi_trial_grace_1",
+        "amount_cents": 6500,
+        "currency": "usd",
+        "created": 1785585600,
+        "description": "Fernhill Box, summer",
+        "refunded": false
+      },
+      {
+        "id": "pi_trial_grace_2",
+        "amount_cents": 6500,
+        "currency": "usd",
+        "created": 1793534400,
+        "description": "Fernhill Box, autumn",
+        "refunded": false
+      }
+    ]
+  },
+  {
+    "email": "ivan.petrov@example.com",
+    "name": "Ivan Petrov",
+    "kind": "no_charges",
+    "charges": []
+  }
+]

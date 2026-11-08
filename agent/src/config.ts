@@ -15,6 +15,12 @@ const ConfigSchema = z.object({
     .refine(value => Buffer.from(value, 'base64').length === 32, 'must be 32 bytes, base64-encoded'),
   // Seconds to wait after a customer message before answering, so a burst becomes one turn.
   TURN_DELAY_SECONDS: z.coerce.number().int().min(0).default(4),
+  // The brain (brain/ in this repo). Without it, turns only post a "received" note, as in week 1.
+  BRAIN_URL: z.string().url().optional(),
+  BRAIN_API_KEY: z.string().min(20).optional(),
+}).refine(config => Boolean(config.BRAIN_URL) === Boolean(config.BRAIN_API_KEY), {
+  message: 'set BRAIN_URL and BRAIN_API_KEY together',
+  path: ['BRAIN_URL'],
 });
 
 export type Config = z.infer<typeof ConfigSchema>;

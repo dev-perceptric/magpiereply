@@ -1,19 +1,23 @@
 import type { Db } from '../db.js';
-import type { AppClient } from '../chatwoot.js';
+import type { AppClient, AppConversation, AppMessage } from '../chatwoot.js';
+import type { BrainClient, BrainTurnResult } from '../brain.js';
 import { decrypt } from '../crypto.js';
-import { finishRun, findTeam, recordStep, startRun } from '../repo.js';
+import { finishRun, findTeam, getConversationState, recordStep, saveConversationState, startRun } from '../repo.js';
 import type { TurnJob } from '../queue.js';
 
 const HISTORY_LIMIT = 20;
+const EMAIL_CHANNEL = 'Channel::Email';
 
 export interface TurnDeps {
   db: Db;
   encryptionKey: string;
   appClientFor: (botToken: string) => AppClient;
+  // Without a brain, a turn only posts a "received" note (week 1).
+  brain?: BrainClient;
 }
 
-// Phase 0 turn: read the conversation and leave a private note proving the round trip works.
-// Later phases replace the note with understanding, search, playbooks, tools and a reply.
+// One turn: read the conversation, send the new customer messages to the brain and post its draft
+// as a private note (Draft mode). Nothing reaches the customer in phase 0.
 export async function handleTurn(deps: TurnDeps, job: { id: string; data: TurnJob; retryCount?: number }): Promise<void> {
   const team = await findTeam(deps.db, job.data.teamId);
   if (!team || team.mode === 'off') return;
@@ -30,7 +34,7 @@ export async function handleTurn(deps: TurnDeps, job: { id: string; data: TurnJo
 
     const loadStart = Date.now();
     const messages = (await app.listMessages(team.accountId, job.data.conversationId)).slice(-HISTORY_LIMIT);
-    const lastCustomerMessage = [...messages].reverse().find(message => isIncoming(message.message_type) && !message.private);
+    const lastCustomerMessage = [...messages].reverse().find(isCustomerMessage);
     await recordStep(deps.db, {
       runId,
       name: 'load_messages',
@@ -39,9 +43,13 @@ export async function handleTurn(deps: TurnDeps, job: { id: string; data: TurnJo
       durationMs: Date.now() - loadStart,
     });
 
-    const noteStart = Date.now();
-    await app.createPrivateNote(team.accountId, job.data.conversationId, `Magpie received this (run #${runId}).`);
-    await recordStep(deps.db, { runId, name: 'post_note', durationMs: Date.now() - noteStart });
+    if (deps.brain) {
+      await draftWithBrain(deps, deps.brain, app, { teamId: team.id, accountId: team.accountId, runId }, job.data.conversationId, messages);
+    } else {
+      const noteStart = Date.now();
+      await app.createPrivateNote(team.accountId, job.data.conversationId, `Magpie received this (run #${runId}).`);
+      await recordStep(deps.db, { runId, name: 'post_note', durationMs: Date.now() - noteStart });
+    }
 
     await finishRun(deps.db, runId, { status: 'done' });
   } catch (error) {
@@ -50,7 +58,116 @@ export async function handleTurn(deps: TurnDeps, job: { id: string; data: TurnJo
   }
 }
 
+async function draftWithBrain(
+  deps: TurnDeps,
+  brain: BrainClient,
+  app: AppClient,
+  ids: { teamId: number; accountId: number; runId: number },
+  conversationId: number,
+  messages: AppMessage[],
+): Promise<void> {
+  let state = await getConversationState(deps.db, ids.teamId, conversationId);
+
+  // A draft from an earlier try that didn't get posted: post it before anything new.
+  if (state.pendingNote) {
+    await postNote(deps, app, ids, conversationId, state.pendingNote);
+    state = { ...state, pendingNote: null };
+    await saveConversationState(deps.db, ids.teamId, conversationId, state);
+  }
+
+  const fresh = messages.filter(message => isCustomerMessage(message) && message.id > state.lastMessageId && message.content);
+  if (state.handedOff || fresh.length === 0) {
+    await recordStep(deps.db, {
+      runId: ids.runId,
+      name: 'skip',
+      output: { reason: state.handedOff ? 'with_people' : 'no_new_messages' },
+      durationMs: 0,
+    });
+    return;
+  }
+
+  const conversation = await app.getConversation(ids.accountId, conversationId);
+  const brainStart = Date.now();
+  const result = await brain.runTurn({
+    team_id: String(ids.teamId),
+    conversation_id: String(conversationId),
+    session_id: state.brainSessionId,
+    customer: customerOf(conversation),
+    messages: fresh.map(message => ({ id: String(message.id), content: message.content ?? '' })),
+  });
+  await recordStep(deps.db, {
+    runId: ids.runId,
+    name: 'brain',
+    input: { messageIds: fresh.map(message => message.id), sessionId: state.brainSessionId },
+    output: {
+      reply: result.reply,
+      tools: result.tools.map(tool => tool.name),
+      proposals: result.proposals,
+      handoff: result.handoff,
+      alreadyWithPeople: result.already_with_people,
+      seconds: result.seconds,
+      costUsd: result.cost_usd,
+    },
+    durationMs: Date.now() - brainStart,
+    tokensIn: (result.tokens.input_tokens ?? 0) + (result.tokens.cached_input_tokens ?? 0),
+    tokensOut: result.tokens.output_tokens ?? 0,
+  });
+
+  // Save first, so a retry never sends these messages to the brain twice.
+  const note = draftNote(result, ids.runId);
+  state = {
+    brainSessionId: result.session_id,
+    lastMessageId: Math.max(...fresh.map(message => message.id)),
+    pendingNote: note,
+    handedOff: Boolean(result.handoff) || result.already_with_people,
+  };
+  await saveConversationState(deps.db, ids.teamId, conversationId, state);
+
+  if (note) {
+    await postNote(deps, app, ids, conversationId, note);
+    await saveConversationState(deps.db, ids.teamId, conversationId, { ...state, pendingNote: null });
+  }
+}
+
+async function postNote(
+  deps: TurnDeps,
+  app: AppClient,
+  ids: { accountId: number; runId: number },
+  conversationId: number,
+  note: string,
+): Promise<void> {
+  const noteStart = Date.now();
+  await app.createPrivateNote(ids.accountId, conversationId, note);
+  await recordStep(deps.db, { runId: ids.runId, name: 'post_note', durationMs: Date.now() - noteStart });
+}
+
+// Only a widget identity check or the email channel's sender counts as verified. Never the message text.
+export function customerOf(conversation: AppConversation): {
+  id: string;
+  name: string;
+  email: string | null;
+  verified: boolean;
+} {
+  const sender = conversation.meta.sender ?? {};
+  const email = sender.email ?? null;
+  const verified = Boolean(email) && (conversation.meta.hmac_verified === true || conversation.meta.channel === EMAIL_CHANNEL);
+  return { id: String(sender.id ?? `conversation-${conversation.id}`), name: sender.name || 'Customer', email, verified };
+}
+
+export function draftNote(result: BrainTurnResult, runId: number): string | null {
+  if (result.already_with_people) return null;
+  const lines = [`Magpie draft (run #${runId}):`, '', result.reply ?? '(no reply)'];
+  for (const proposal of result.proposals) {
+    const who = proposal.approval === 'staff_approves' ? 'needs a teammate to approve' : 'needs the customer to confirm';
+    lines.push('', `Proposed refund: ${proposal.amount} for ${proposal.charge_id}, ${who}.`);
+  }
+  if (result.handoff) {
+    lines.push('', `Suggested handoff to ${result.handoff.team}: ${result.handoff.reason}`);
+  }
+  return lines.join('\n');
+}
+
 // The messages API returns message_type as a number (0 = incoming) and the webhook as a string.
-function isIncoming(messageType: number | string): boolean {
-  return messageType === 0 || messageType === 'incoming';
+function isCustomerMessage(message: AppMessage): boolean {
+  return (message.message_type === 0 || message.message_type === 'incoming') && !message.private;
 }
