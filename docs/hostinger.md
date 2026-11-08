@@ -12,14 +12,14 @@ Each piece is a Docker Compose project in `/docker/<name>/docker-compose.yml`.
 |---|---|---|---|
 | `magpiereply` | `web` (Rails), `worker` (Sidekiq), `redis` | `app.magpiereply.com` | 1.5 GB, 1.25 GB, 256 MB |
 | `magpiereply` | `agent-api`, `agent-worker` (`agent/`) | `agent.magpiereply.com` | 256 MB each |
-| `sb-magpiereply` | Self-hosted Supabase: Postgres 17 with pgvector, auth, REST, storage. Running, but the app doesn't use it yet | `db.magpiereply.com` | about 1.4 GB in all |
+| `sb-magpiereply` | Self-hosted Supabase: Postgres 17 with pgvector, auth, REST, storage. The app, the agent and the gateway use its `db` container over the `sb-magpiereply` network | `db.magpiereply.com` | about 1.4 GB in all |
 | `magpie-brain` | The Magpie AI brain (`brain/`), Parlant on Claude. Stopped until it has a working Voyage key | inside Docker only, `http://brain:8800` on `magpiereply_default` | 2 GB |
 | `magpie-gateway` | ContextForge MCP gateway, made but stopped (profile `trial`) | none yet | 1 GB |
 | `traefik` | HTTPS and routing for every app (Let's Encrypt) | | |
 | `autodeploy` | Pulls new images every 5 minutes and restarts what changed | | 64 MB |
 | `uptime` | Gatus, with alerts to ntfy | | 96 MB |
 
-**The database is still in Tokyo.** The app's `DATABASE_URL` and the agent's `AGENT_DATABASE_URL` point at the hosted Supabase project `jxsddbtdpypwfcjogxym` (Tokyo pooler), and so does the gateway's. Every query crosses from Phoenix to Tokyo. Moving the data into `sb-magpiereply` on the server is the next hosting step: dump the hosted database, restore it into `sb-magpiereply`, then switch the three connection strings.
+**Database and files.** Since November 8, 2026 the app (`postgres` login), the agent (`magpie_agent`) and the gateway (`magpie_gateway`) connect to `db:5432` in `sb-magpiereply`, so every query stays on the server. File attachments are on the `storage-data` volume (`ACTIVE_STORAGE_SERVICE=local`, mounted at `/app/storage` in `web` and `worker`). The old hosted Supabase project in Tokyo (`jxsddbtdpypwfcjogxym`) is no longer used and can be paused, then deleted after a week.
 
 ## How a change goes live
 
@@ -91,11 +91,10 @@ Hostinger prices are the renewal prices on a 2-year term, from Hostinger's own b
 | Item | Beta (50 teams) | Growth (500 teams) |
 |---|---|---|
 | Server | ~$3 (a fifth of the shared $14.99 KVM 2) | $49.99 (KVM 8 for the app and database) |
-| Hosted Supabase in Tokyo, until the database moves (check) | ~$10 | $0 once moved |
 | Postgres, Redis, file storage, Gatus | $0 (containers on the server) | $0 |
 | Off-site backups (check) | ~$1 | ~$5 |
 | Email sending (Resend Pro at Beta, larger plan at Growth, check) | $20 | $90 |
 | Claude tokens | $0 | $0 |
-| **Monthly total** | **~$34** (~$24 once the database moves) | **~$145** |
+| **Monthly total** | **~$24** | **~$145** |
 
 The AI agent adds its own servers and tokens (see `docs/ai-agent-plan.md`).

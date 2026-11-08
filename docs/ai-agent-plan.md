@@ -28,7 +28,7 @@ Magpie AI is MagpieReply's AI layer. It answers customers from the team's own kn
 | **magpie-agent** (TypeScript, `agent/` in this repo) | The bridge: webhook, job queue, app client, approvals panel, admin, MCP client, traces | VPS project `magpiereply`: `agent-api`, `agent-worker` (`agent.magpiereply.com`) | ours |
 | **magpie-brain** (Python) | The thinking brain: Parlant, plus Docling, Crawl4AI, FlashRank, Presidio, LLM Guard, Lingua | VPS project `magpie-brain`, reached only inside Docker | Apache 2.0 / MIT |
 | **magpie-gateway** | ContextForge MCP gateway: each team's private bundle of app tools and sign-ins | VPS project `magpie-gateway` | Apache 2.0 |
-| Postgres (Supabase) | App tables (`public`), agent tables (`agent`), jobs (`pgboss`), search (`pgvector`) | Hosted Supabase in Tokyo today; moving to the VPS project `sb-magpiereply` (`db.magpiereply.com`) | Apache 2.0 / PostgreSQL |
+| Postgres (Supabase) | App tables (`public`), agent tables (`agent`), jobs (`pgboss`), search (`pgvector`) | VPS project `sb-magpiereply` (`db.magpiereply.com`) | Apache 2.0 / PostgreSQL |
 | MongoDB + Qdrant | Parlant's storage and its knowledge search | Containers in `magpie-brain` (MongoDB only if Parlant goes ahead) | SSPL / Apache 2.0 |
 | Claude | Haiku 5.5 for sorting, matching and checks; Sonnet 5.5 for replies; Opus for investigations | API | paid |
 | Voyage | Meaning vectors for search | API | paid |
