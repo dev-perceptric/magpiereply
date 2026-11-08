@@ -24,16 +24,18 @@ Magpie AI is MagpieReply's AI layer. It answers customers from the team's own kn
 
 | Piece | Role | Runs on | License |
 |---|---|---|---|
-| MagpieReply app | The inbox: channels, conversations, help center | Fly `magpiereply-web` + `magpiereply-worker` | MIT |
-| **magpie-agent** (TypeScript, `agent/` in this repo) | The bridge: webhook, job queue, app client, approvals panel, admin, MCP client, traces | Fly, processes `api` + `worker` | ours |
-| **magpie-brain** (Python) | The thinking brain: Parlant, plus Docling, Crawl4AI, FlashRank, Presidio, LLM Guard, Lingua | Fly | Apache 2.0 / MIT |
-| **magpie-gateway** | ContextForge MCP gateway: each team's private bundle of app tools and sign-ins | Fly | Apache 2.0 |
-| Supabase Postgres | App tables (`public`), agent tables (`agent`), jobs (`pgboss`), search (`pgvector`) | Supabase, Tokyo | managed |
-| MongoDB + Qdrant | Parlant's storage and its knowledge search | Atlas (check) + Fly | managed / Apache 2.0 |
+| MagpieReply app | The inbox: channels, conversations, help center | VPS project `magpiereply`: `web`, `worker`, `redis` (`app.magpiereply.com`) | MIT |
+| **magpie-agent** (TypeScript, `agent/` in this repo) | The bridge: webhook, job queue, app client, approvals panel, admin, MCP client, traces | VPS project `magpiereply`: `agent-api`, `agent-worker` (`agent.magpiereply.com`) | ours |
+| **magpie-brain** (Python) | The thinking brain: Parlant, plus Docling, Crawl4AI, FlashRank, Presidio, LLM Guard, Lingua | VPS project `magpie-brain`, reached only inside Docker | Apache 2.0 / MIT |
+| **magpie-gateway** | ContextForge MCP gateway: each team's private bundle of app tools and sign-ins | VPS project `magpie-gateway` | Apache 2.0 |
+| Postgres (self-hosted Supabase) | App tables (`public`), agent tables (`agent`), jobs (`pgboss`), search (`pgvector`) | VPS project `sb-magpiereply` (`db.magpiereply.com`) | Apache 2.0 / PostgreSQL |
+| MongoDB + Qdrant | Parlant's storage and its knowledge search | Containers in `magpie-brain` (MongoDB only if Parlant goes ahead) | SSPL / Apache 2.0 |
 | Claude | Haiku 5.5 for sorting, matching and checks; Sonnet 5.5 for replies; Opus for investigations | API | paid |
 | Voyage | Meaning vectors for search | API | paid |
 | promptfoo, Ragas, DeepEval | Tests and quality scores in CI | GitHub Actions | MIT / Apache 2.0 |
-| OpenTelemetry, Uptime Kuma | Traces across services, uptime and status page | inside services / Fly | Apache 2.0 / MIT |
+| OpenTelemetry, Gatus | Traces across services, uptime checks with ntfy alerts | inside services / VPS project `uptime` | Apache 2.0 |
+
+Everything runs as Docker Compose projects on the Hostinger VPS, behind Traefik. Pushes build images in GitHub Actions, and the server's `autodeploy` picks them up within 5 minutes. Today MagpieReply shares a KVM 2 with the other products; it gets its own KVM 4 before phase 1 and two KVM 8 servers at Growth (`docs/hostinger.md`). The bridge, brain, gateway and database talk over the server's own Docker networks, so only the app and the bridge's webhook face the internet.
 
 ```
 Customer ─► MagpieReply app ──webhook──► magpie-agent (bridge) ──► magpie-brain (Parlant + Python tools) ──► Claude
@@ -41,7 +43,7 @@ Customer ─► MagpieReply app ──webhook──► magpie-agent (bridge) ─
                  └── reply / note / handoff ┘   └──── tool calls ─────────┘
                                             │
                                             ├─► magpie-gateway (ContextForge) ─► Stripe, Shopify, HubSpot, Linear, Slack… (MCP)
-                                            ├─► Supabase: agent tables, pg-boss jobs, pgvector, traces
+                                            ├─► Postgres (sb-magpiereply): agent tables, pg-boss jobs, pgvector, traces
                                             └─► /admin, side panel, reports
 ```
 
@@ -168,10 +170,10 @@ The bridge owns everything specific to MagpieReply. The brain owns deciding what
 
 | Phase | What ships | Weeks |
 |---|---|---|
-| 0. Groundwork | Bridge on Fly, agent schema, pg-boss, bot API access in the app, webhook to queue, Parlant trial (one journey, Stripe through the gateway) | 1 to 2 |
-| 1. Answers | Knowledge sync (help center, Crawl4AI, Docling), search with FlashRank, sourced replies, fact check, handoff notes, Draft mode, side panel | 2 |
+| 0. Groundwork | Bridge on the VPS, agent schema, pg-boss, bot API access in the app, webhook to queue, Parlant trial on the shared server (one journey, Stripe through the gateway) | 1 to 2 |
+| 1. Answers | MagpieReply moves to its own KVM 4, knowledge sync (help center, Crawl4AI, Docling), search with FlashRank, sourced replies, fact check, handoff notes, Draft mode, side panel | 2 |
 | 2. Trust | Replay tests, golden tests in CI, Ragas, Traces page, outcome scoring, Auto mode, kill switches, spending caps, Presidio, LLM Guard | 2 |
-| 3. Apps, read-only | Gateway on Fly, per-team bundles, one-click Stripe, Shopify, HubSpot and Linear, identity filling, verification codes | 2 |
+| 3. Apps, read-only | Gateway live on the VPS, per-team bundles, one-click Stripe, Shopify, HubSpot and Linear, identity filling, verification codes | 2 |
 | 4. Playbooks and actions | Playbook editor, checker, journeys and rules in Parlant, approved wording, confirm buttons, approvals, pause and resume | 3 |
 | 5. Copilot | Draft, improve and translate on Claude, Ask Copilot, summaries, suggested next step, Investigate | 2 |
 | 6. Learning and triage | Suggested articles, knowledge health, style learning, memories, quiet sweep, auto-sort, out-of-office | 2 |
@@ -183,7 +185,7 @@ About 22 to 23 weeks to phase 8, plus 3 for voice, for one engineer working with
 
 ## 7. Running cost
 
-Assumes 1,000 customer conversations per team each month, 5 staff per team using Copilot about 10 times a working day, and investigations on 10% of conversations. Claude and Voyage prices from `omniscient/scripts/cost-model.mjs` (October 2026); Fly, Upstash and Render from their pricing pages (November 2026). Tokens assume the savings in section 8; the worst case is about 2.5 times higher.
+Assumes 1,000 customer conversations per team each month, 5 staff per team using Copilot about 10 times a working day, and investigations on 10% of conversations. Claude and Voyage prices from `omniscient/scripts/cost-model.mjs` (October 2026); Hostinger prices are renewal prices on a 2-year term from Hostinger's own billing catalog (November 2026). Tokens assume the savings in section 8; the worst case is about 2.5 times higher.
 
 | Item | Beta (50 teams) | Growth (500 teams) |
 |---|---|---|
@@ -195,20 +197,15 @@ Assumes 1,000 customer conversations per team each month, 5 staff per team using
 | Auto-sort, Monitors, quiet sweep, translations (Haiku) | ~$60 | ~$600 |
 | Ragas and DeepEval scoring in CI | ~$20 | ~$200 |
 | **Claude subtotal** | **~$2,045** | **~$20,450** |
-| `magpie-agent` (bridge) | ~$27 | ~$132 |
-| `magpie-brain` (Parlant + Python tools) | ~$26 | ~$132 |
-| `magpie-gateway` (ContextForge) | ~$13 | ~$66 |
-| MongoDB for Parlant (Atlas, check) | ~$57 | ~$200 |
-| Qdrant on Fly (check) | ~$13 | ~$66 |
+| Servers: one KVM 4 at Beta (app, database, bridge, brain, gateway, search), two KVM 8 at Growth | $28.99 | $99.98 |
+| Postgres, Redis, Qdrant, MongoDB, Gatus (containers on the servers) | $0 | $0 |
 | Voyage vectors | ~$0 (free amount) | ~$150 |
-| Supabase compute for agent tables (check) | ~$0 | ~$60 |
-| Uptime Kuma, PostHog (free tier, check) | ~$2 | ~$52 |
-| **Infrastructure subtotal** | **~$138** | **~$858** |
-| **Magpie AI total** | **~$2,183** | **~$21,308** |
-| MagpieReply app itself (`docs/fly.md`) | ~$37 | ~$409 |
-| **Everything** | **~$2,220** | **~$21,717** |
+| Off-site backups (check) | ~$1 | ~$5 |
+| Email sending (Resend, check) | $20 | $90 |
+| **Servers and services subtotal** | **~$50** | **~$345** |
+| **Everything, the MagpieReply app included** | **~$2,095** | **~$20,795** |
 
-That's about $44 per team per month at Beta and $43 at Growth. Voice (phase 9) is extra and usage-based: about $15 to $25 per team for 1,000 call minutes (Twilio and transcription, check).
+That's about $42 per team per month at both stages. Next to the app on its own (`docs/hostinger.md`: ~$24 and ~$145), Magpie AI adds about $2,071 at Beta and $20,650 at Growth. Moving off Fly, Atlas, Upstash and hosted Supabase saves about $125 a month at Beta and $920 at Growth. Voice (phase 9) is extra and usage-based: about $15 to $25 per team for 1,000 call minutes (Twilio and transcription, check).
 
 ## 8. Keeping tokens down
 
@@ -230,4 +227,6 @@ That's about $44 per team per month at Beta and $43 at Growth. Voice (phase 9) i
 | A team's app changes or breaks | Tool errors hand off cleanly; gateway logs show which tool failed |
 | Token costs outrun revenue | Caps per plan, Haiku routing, caching, and pricing at least 3 times cost per team |
 | Upstream app changes break the bot API | The app change is small and tested; checked on every upstream sync |
+| One server holds the app, the database and the agent | Gatus alerts on ntfy, nightly database and file copies off the server, a snapshot before each upgrade, a monthly restore test, and its own server before phase 1 so other products can't starve it |
+| No managed database restore (self-hosted Supabase) | Nightly `pg_dump` kept 30 days off-site; restore tested each month |
 | Personal data in prompts and logs | Presidio masking, identity-locked lookups, encrypted tokens, team separation on every row |

@@ -21,9 +21,13 @@ Needs Postgres. Uses `postgres://postgres:postgres@localhost:5432/magpie_agent_t
 npm ci && npm test
 ```
 
-## Deploy to Fly
+## Deploy on the Hostinger VPS
 
-1. In Supabase's SQL editor, create the agent's own database login. It gets its own schemas and nothing in the app's `public` schema:
+The agent runs as `agent-api` and `agent-worker` in the VPS `magpiereply` project, at `agent.magpiereply.com` (`docs/hostinger.md`). A push builds `ghcr.io/dev-perceptric/magpie-agent`, and the server's `autodeploy` restarts both within 5 minutes. Both run the migrations when they start.
+
+First-time setup, on the server:
+
+1. Open the database shell with `docker exec -it sb-magpiereply-db-1 psql -U postgres` and create the agent's own login. It gets its own schemas and nothing in the app's `public` schema:
 
 ```sql
 do $$
@@ -40,28 +44,24 @@ create schema if not exists pgboss authorization magpie_agent;
 grant create on database postgres to magpie_agent;
 ```
 
-2. Set the secrets (use the session pooler connection string with the `magpie_agent` login, port 5432):
+2. In `/docker/magpiereply/.env`, set `AGENT_DATABASE_URL` to that login on the `sb-magpiereply` database, and `AGENT_ENCRYPTION_KEY` to the output of `openssl rand -base64 32`.
+
+3. Start it:
 
 ```bash
-fly secrets set --app magpie-agent DATABASE_URL='<connection string>' ENCRYPTION_KEY="$(openssl rand -base64 32)"
-```
-
-3. Deploy from this folder:
-
-```bash
-fly deploy
+cd /docker/magpiereply && docker compose up -d agent-api agent-worker
 ```
 
 4. Connect a team (asks for an administrator API key from Profile settings → Access token):
 
 ```bash
-fly ssh console --app magpie-agent -C "node dist/enable-team.js --account <id> --inboxes <id,id>"
+cd /docker/magpiereply && docker compose exec agent-worker node dist/enable-team.js --account <id> --inboxes <id,id>
 ```
 
 ## Running cost
 
 | Item | Beta (50 teams) | Growth (500 teams) |
 |---|---|---|
-| `api` + `worker`, shared-cpu-1x 1 GB each (check) | ~$13 | ~$132 (2 × performance-2x each, later phases) |
-| Supabase (tables in the existing project) | $0 | $0 |
+| `agent-api` + `agent-worker`, 256 MB each on the VPS | $0 more (inside MagpieReply's server cost) | $0 more (on the KVM 8 for the brain, `docs/hostinger.md`) |
+| Tables in `sb-magpiereply` | $0 | $0 |
 | Claude | $0 in phase 0 | $0 in phase 0 |

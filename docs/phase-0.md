@@ -14,20 +14,20 @@ Two weeks. Part of `docs/ai-agent-plan.md`.
 
 | Part | Status |
 |---|---|
-| Day 1: agent service skeleton (`agent/`), Docker image, Fly config, CI | Done |
+| Day 1: agent service skeleton (`agent/`), Docker image, image build, CI | Done |
 | Day 2: `agent` schema and migrations | Done |
 | Day 3: app change, bot read access (messages, contacts, articles) | Done, with request and policy specs |
 | Day 4: team setup script | Done |
 | Day 5: webhook → queue → worker → private note | Done. Tested end to end against a local MagpieReply: one message, a burst of three (one turn), duplicates, bad signatures, other accounts |
-| Deploy `magpie-agent` to Fly | Waiting on the Supabase login and secrets (see `agent/README.md`) |
-| Week 2: gateway, test data, Parlant trial | Not started |
+| Deploy `magpie-agent` | Done. `agent-api` and `agent-worker` run on the Hostinger VPS; `https://agent.magpiereply.com/health` answers `ok` |
+| Week 2: gateway, test data, Parlant trial | Not started. The `magpie-gateway` project is made on the VPS and stopped |
 
 ## What you need to provide
 
 | Item | Why | Where it goes |
 |---|---|---|
-| Anthropic API key | Claude for the trial | Fly secret on `magpie-brain` |
-| Voyage API key | Parlant uses Voyage for search vectors when the models are Claude | Fly secret on `magpie-brain` |
+| Anthropic API key | Claude for the trial | `/docker/magpie-brain/.env` on the VPS |
+| Voyage API key | Parlant uses Voyage for search vectors when the models are Claude | `/docker/magpie-brain/.env` on the VPS |
 | A Stripe account in **test mode** | Fake customers and duplicate charges for the trial; no real money | Connected through the gateway's sign-in |
 | A MagpieReply admin API key | To create the agent bot for the test account (Profile settings → Access token) | Typed in when running the setup script; not stored in the repo |
 | 20 to 30 help articles | Knowledge for the trial. Real ones from a friendly team are best; otherwise we write a sample set for a made-up store | MagpieReply help center |
@@ -39,13 +39,13 @@ Two weeks. Part of `docs/ai-agent-plan.md`.
 - **Create `agent/`** in this repo: TypeScript on Node 22.
   - Hono for the web server, pg-boss for the job queue, zod for checking inputs, Vitest for tests.
   - One Docker image with two process groups: `api` (web) and `worker` (jobs).
-- **Add `fly.agent.toml`:** app `magpie-agent`, Tokyo, shared-cpu-1x 1 GB for each process to start.
+- **Ship it to the VPS:** the agent image builds in `.github/workflows/build-images.yml`, and the VPS `magpiereply` project runs it as `agent-api` and `agent-worker`, 256 MB each, with Traefik serving `agent.magpiereply.com`.
 - **CI:** a GitHub Actions job for `agent/` (lint, typecheck, Vitest) on every push.
 - **Health check:** `GET /health` answers `ok` once the database and queue are reachable.
 
 ### Day 2: the database
 
-- A new `agent` schema in the existing Supabase project, created by SQL migration files in `agent/src/db/migrations`, run by a small migration script on deploy.
+- A new `agent` schema in the self-hosted `sb-magpiereply` database, created by SQL migration files in `agent/src/db/migrations`, run when the api and worker start.
 - A database role `magpie_agent`:
   - read and write on `agent` and `pgboss`
   - no access to the app's `public` tables (the agent reads app data through the app's API instead)
@@ -53,7 +53,7 @@ Two weeks. Part of `docs/ai-agent-plan.md`.
 
 | Table | Holds |
 |---|---|
-| `teams` | app account ID, mode (`off`, `draft`, `auto`), hook ID (hashed), bot key (encrypted with a key from Fly secrets) |
+| `teams` | app account ID, mode (`off`, `draft`, `auto`), hook ID (hashed), bot key (encrypted with `ENCRYPTION_KEY` from the server's `.env`) |
 | `inbox_settings` | inbox ID, on or off |
 | `events` | every webhook event: type, message ID (unique, so duplicates are skipped), conversation ID, received at, raw body |
 | `runs` | one per conversation turn: status (`queued`, `running`, `done`, `failed`), started and finished at |
@@ -76,13 +76,13 @@ The agent bot's API key can't yet read message history, contacts or help article
   - a bot key gets 401 in another account
   - a bot key still can't use endpoints outside the list (for example, deleting a contact)
 - Run RuboCop and the touched specs.
-- Ship it to `magpiereply-web` (build the image, then `fly deploy` with the new image).
+- Ship it: push, and `autodeploy` restarts `web` and `worker` with the new image within 5 minutes.
 
 ### Day 4: connecting a team
 
 - **A setup script,** `agent/scripts/enable-team.ts --account <id> --inboxes <ids>`:
   1. Asks for an admin API key (typed in, never saved).
-  2. Creates an agent bot in that account through the app's API, with its webhook set to `https://magpie-agent.fly.dev/hooks/chatwoot/<hook-id>`. The hook ID is long and random, and stored hashed.
+  2. Creates an agent bot in that account through the app's API, with its webhook set to `https://agent.magpiereply.com/hooks/chatwoot/<hook-id>`. The hook ID is long and random, and stored hashed.
   3. Attaches the bot to the chosen inboxes (`set_agent_bot`).
   4. Saves the team, the encrypted bot key and the inbox settings.
 - **Later:** this becomes a button in `/admin`.
@@ -106,7 +106,10 @@ The agent bot's API key can't yet read message history, contacts or help article
 
 ### Day 6: the MCP gateway
 
-- **Deploy ContextForge** to Fly as `magpie-gateway` in Tokyo, with its own database (check which databases it supports, and whether it can share the Supabase project).
+- **Start ContextForge** on the VPS. The `magpie-gateway` project is already made (v1.1.0, 1 GB, profile `trial`).
+  - Give it its own `gateway` database in `sb-magpiereply` (check that ContextForge v1.1.0 runs on Postgres 17).
+  - Add a Traefik route for `gateway.magpiereply.com`, so Stripe's sign-in can send people back to it.
+  - Put it on the same Docker network as the agent, then run `docker compose --profile trial up -d`.
 - **Create one virtual server** for the test team with **Stripe's official MCP server** (`mcp.stripe.com`) connected through Stripe's sign-in, in **test mode**.
 - **Check:** list the tools, then call "list charges" for a test customer through the gateway with the MCP SDK.
 
@@ -131,9 +134,9 @@ The agent bot's API key can't yet read message history, contacts or help article
 
 ### Days 8 and 9: Parlant setup
 
-- **Deploy `magpie-brain`** to Fly: Python 3.12, `parlant[anthropic]` 4.0.3, shared-cpu-2x 2 GB.
+- **Add a `magpie-brain` project** on the VPS: Python 3.12, `parlant[anthropic]` 4.0.3, a 2 GB memory limit, on the agent's Docker network with no public route. Add its image to `build-images.yml` and its project to `autodeploy`.
   - **Models:** Haiku 5.5 for matching and reviews, Sonnet 5.5 for replies, Voyage for search vectors.
-  - **Storage:** for the trial, Parlant's built-in local storage on a Fly volume. MongoDB comes only if we go ahead.
+  - **Storage:** for the trial, Parlant's built-in local storage on a Docker volume. MongoDB comes only if we go ahead.
 - **Load the agent:**
   - the help articles as knowledge
   - the **duplicate-charge journey**
@@ -176,23 +179,24 @@ The agent bot's API key can't yet read message history, contacts or help article
 
 ## Running cost of phase 0
 
+Everything in phase 0 fits on the shared KVM 2 that already runs the app. Hostinger prices from its billing catalog (November 2026).
+
 | Item | During the trial | After phase 0 (Beta, 50 teams, until later phases add load) |
 |---|---|---|
-| `magpie-agent` (2 × shared-cpu-1x 1 GB) | ~$13 | ~$13 |
-| `magpie-gateway` (shared-cpu-2x 2 GB) | ~$13 | ~$13 |
-| `magpie-brain` (shared-cpu-2x 2 GB, plus a 1 GB volume) | ~$14 | ~$14 |
+| Server: `magpie-agent` (2 × 256 MB), `magpie-gateway` (1 GB), `magpie-brain` (2 GB and a volume) on the shared KVM 2 | $0 more (MagpieReply's share stays ~$3) | $0 more |
+| Gateway and agent tables in `sb-magpiereply` | $0 | $0 |
 | Claude for the trial (40 tests × 2 setups × about 5 runs while tuning) | ~$10 one time | — |
 | Voyage | ~$0 (free amount) | ~$0 |
-| Supabase (agent tables in the existing project) | $0 | $0 |
 | Stripe test mode | $0 | $0 |
-| **Total** | **~$40 a month + ~$10 once** | **~$40 a month** |
+| **Total** | **~$0 a month more + ~$10 once** | **~$0 a month more** |
 
-If the trial is a no-go, `magpie-brain` is shut down, and the monthly cost drops to about $26.
+Phase 1 moves MagpieReply to its own KVM 4 ($28.99 a month), which replaces its ~$3 share of the shared server (`docs/hostinger.md`). If the trial is a no-go, `magpie-brain` is removed and nothing else changes.
 
 ## Risks in phase 0
 
 | Risk | What we do |
 |---|---|
+| The trial runs short of memory on the shared server | Memory limits on every container; if the server stays above 75% for a day, move MagpieReply to its KVM 4 early |
 | Parlant can't call a remote MCP server | The Python MCP SDK wrapper on day 9 |
 | ContextForge setup is heavy or unstable | Call Stripe's MCP server directly from the brain for the trial, and choose the gateway after |
 | The app change conflicts with upstream later | It's a small list of allowed endpoints with request specs; checked on every upstream sync |
