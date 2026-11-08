@@ -4,7 +4,7 @@ name: Build images
 
 on:
   push:
-    branches: [claude/brave-mayer-66phgz, claude/relaxed-fermat-jk5bjb]
+    branches: [claude/brave-mayer-66phgz]
   workflow_dispatch:
 
 permissions:
