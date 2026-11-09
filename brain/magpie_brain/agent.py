@@ -132,6 +132,14 @@ async def recall_articles(context: p.RetrieverContext) -> p.RetrieverResult | No
     return p.RetrieverResult(data="Help articles:\n\n" + format_hits(hits))
 
 
+async def sign_in_status(context: p.RetrieverContext) -> p.RetrieverResult:
+    """Tells the model, on every turn, whether this customer is signed in. Only the bridge's identity check sets it."""
+    _, email, verified = _identity()
+    if verified and email:
+        return p.RetrieverResult(data="The customer is signed in: their identity is verified, so their own charges can be looked up.")
+    return p.RetrieverResult(data="The customer is not signed in.")
+
+
 async def build_agent(server: p.Server, reply_model: str, check_model: str) -> p.Agent:
     agent = await server.create_agent(
         id=AGENT_ID,
@@ -147,6 +155,7 @@ async def build_agent(server: p.Server, reply_model: str, check_model: str) -> p
         message_review=True,
     )
     await agent.attach_retriever(recall_articles, id="help_articles")
+    await agent.attach_retriever(sign_in_status, id="sign_in_status")
 
     refund_started = await agent.create_canned_response(
         "I've set up the refund for the duplicate charge. Refunds take 5 to 10 business days to show on your statement.",

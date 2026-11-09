@@ -139,7 +139,8 @@ def code_check(case: dict[str, Any], turns: list[dict[str, Any]]) -> dict[str, A
         problems.append("handoff not needed")
 
     if expect["outcome"] == "refund_proposed":
-        match = [proposal for proposal in proposals if proposal.get("charge_id") == expect["charge_id"]]
+        accepted = expect.get("charge_ids") or [expect["charge_id"]]
+        match = [proposal for proposal in proposals if proposal.get("charge_id") in accepted]
         if not match:
             problems.append("refund not proposed")
         elif match[0].get("approval") != expect["approval"]:
@@ -268,10 +269,16 @@ async def main() -> None:
     cases = load("cases.json")
     if os.environ.get("STRIPE_MODE") == "gateway":
         # Real Stripe ids come from seed_stripe.py; the fixture's ids stand in for them in cases.json.
+        # Real Stripe stamps both charges of a pair in the same second, so either one can be "the duplicate".
         real_ids = json.loads(ids_path().read_text())
+        fixture = {charge["id"]: charge for row in load("stripe_fixture.json") for charge in row["charges"]}
         for case in cases:
-            if case["expect"].get("charge_id"):
-                case["expect"]["charge_id"] = real_ids[case["expect"]["charge_id"]]
+            wanted = case["expect"].get("charge_id")
+            if wanted:
+                pair = [cid for cid, charge in fixture.items()
+                        if charge["description"] == fixture[wanted]["description"] and charge["amount_cents"] == fixture[wanted]["amount_cents"]]
+                case["expect"]["charge_id"] = real_ids[wanted]
+                case["expect"]["charge_ids"] = [real_ids[cid] for cid in pair]
     if args.cases:
         wanted = set(args.cases.split(","))
         cases = [case for case in cases if case["id"] in wanted]
