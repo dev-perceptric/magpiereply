@@ -23,9 +23,9 @@ Two weeks. Part of `docs/ai-agent-plan.md`.
 | Week 2, brain: `brain/`, Parlant 4.0.3 on Claude, the duplicate-charge procedure, 8 rules, 2 approved replies, Stripe tools, the one-prompt baseline | Built, 23 tests pass. Image `ghcr.io/dev-perceptric/magpie-brain` builds in CI |
 | Week 2, bridge: the turn job sends new customer messages to the brain and posts its draft as a private note | Built, 27 tests pass. Turned on by `BRAIN_URL` and `BRAIN_API_KEY`; not turned on yet |
 | Week 2, test data: 24 help articles for a made-up store, 8 Stripe test customers, 40 test conversations, the grading runner | Built (`brain/trial/`) |
-| Week 2, brain on the VPS | Made as the `magpie-brain` project, then stopped: Omniscient's Voyage key is rejected by Voyage (401). Needs a working key |
+| Week 2, brain on the VPS | Running in `magpie-brain` with its own Voyage key. Fixes on the way: Parlant 4.0.3 and the current Anthropic SDK disagree on timeouts (`brain/magpie_brain/compat.py`), and Parlant's rebuilt prompts made Anthropic refuse replayed thinking blocks (now dropped with Anthropic's `drop_block` setting) |
 | Week 2, gateway | Made on the VPS and stopped. Needs the `gateway.magpiereply.com` DNS record and Stripe's test-mode sign-in |
-| Day 10: run, measure, decide | Waiting on the brain. Until Stripe is connected, the trial runs on the made-up Stripe data (`STRIPE_MODE=fixture`) |
+| Day 10: run, measure, decide | Run on November 9, 2026 with made-up Stripe data. Parlant: 38 of 40 correct, 4 marked wrong (3 of them the grader missing facts that are in the articles), rule and attack tests 10 of 10, about $0.0004 a turn (check), median 6.6 s but slowest 5% at 19 s. Baseline: 38 of 40, 5 wrong, rule tests 8 of 10, $0.0066 a turn, slowest 5% at 3.6 s. Open: speed, and Stripe through the gateway |
 
 ## What you need to provide
 
