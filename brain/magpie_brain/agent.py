@@ -138,7 +138,9 @@ async def build_agent(server: p.Server, reply_model: str, check_model: str) -> p
         name="Magpie",
         instructions=INSTRUCTIONS,
         models={
-            "react": p.ModelConfig(f"anthropic:{reply_model}"),
+            # Thinking returned as a summary: with it hidden, the thinking block replayed after a tool call
+            # comes back without a valid signature and Anthropic answers 400 (seen in the phase 0 trial).
+            "react": p.ModelConfig(f"anthropic:{reply_model}", reasoning=p.ReasoningConfig(effort="low", visibility="summary")),
             "matching.*": p.ModelConfig(f"anthropic:{check_model}"),
             "review.*": p.ModelConfig(f"anthropic:{check_model}"),
         },
