@@ -42,6 +42,11 @@ Conversation:
 
 Actions the agent took: {actions}
 
+Besides the articles, these are true and the agent may say them: refunds take 5 to 10 business days to show;
+a refund of $50 or more is reviewed by a teammate within one business day; a smaller one waits for the customer
+to confirm; charge details come from the list_recent_charges tool. A tool call refused by code returned no data
+and is not a lookup.
+
 Answer with JSON only, no other text:
 {{"correct": true or false, "wrong": true or false, "reason": "one short sentence"}}
 

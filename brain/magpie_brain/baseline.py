@@ -88,8 +88,8 @@ async def run_baseline(
     model: str,
 ) -> dict[str, Any]:
     started = time.monotonic()
-    last_customer = next(message.content for message in reversed(request.history) if message.role == "customer")
-    hits = await knowledge.search(request.team_id, last_customer)
+    asked = [message.content for message in request.history if message.role == "customer"]
+    hits = await knowledge.search(request.team_id, "\n".join(asked[-2:]))
     verified = bool(request.customer.verified and request.customer.email)
     system = (
         f"{INSTRUCTIONS}\n\n{RULES}\n\n"

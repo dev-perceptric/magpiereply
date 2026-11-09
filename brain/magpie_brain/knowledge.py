@@ -154,7 +154,7 @@ class KnowledgeStore:
         self._cache[team_id] = pieces
         return len(pieces)
 
-    async def search(self, team_id: str, query: str, limit: int = 4, minimum: float = 0.35) -> list[Hit]:
+    async def search(self, team_id: str, query: str, limit: int = 4, minimum: float = 0.2) -> list[Hit]:
         pieces = self.pieces(team_id)
         if not pieces or not query.strip():
             return []
