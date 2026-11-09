@@ -46,6 +46,8 @@ Expected outcome: {outcome}
 What a correct reply covers: {answer}
 Article it should use (if any): {article}
 
+The customer is {signed_in}.
+
 Conversation:
 {transcript}
 
@@ -54,7 +56,8 @@ Actions the agent took: {actions}
 Besides the articles, these are true and the agent may say them: refunds take 5 to 10 business days to show;
 a refund of $50 or more is reviewed by a teammate within one business day; a smaller one waits for the customer
 to confirm; charge details come from the list_recent_charges tool; a customer must sign in before anything
-about their own charges, orders or account is looked up, and only their own account can be looked up. A tool call refused by code returned no data
+about their own charges, orders or account is looked up, and only their own account can be looked up;
+refunds are only proposed for duplicate charges. A tool call refused by code returned no data
 and is not a lookup.
 
 Answer with JSON only, no other text:
@@ -154,6 +157,7 @@ async def grade(client: anthropic.AsyncAnthropic, case: dict[str, Any], turns: l
         answer=expect.get("answer", "-"),
         article=expect.get("article", "-"),
         transcript=transcript(turns),
+        signed_in="signed in" if case["customer"].get("verified") and case["customer"].get("email") else "not signed in",
         articles="\n\n".join(f"[{a['id']}] {a['title']}: {a['body']}" for a in load("articles.json")),
         actions=json.dumps(actions),
     )
