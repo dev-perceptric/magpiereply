@@ -27,11 +27,19 @@ import anthropic
 import httpx
 
 HERE = Path(__file__).resolve().parent
+
+
+def ids_path() -> Path:
+    """Real Stripe ids for the fixture's charges, kept on the data volume so they outlive the container."""
+    return Path(os.environ.get("DATA_DIR", "/data")) / "trial" / "stripe_ids.json"
 TEAM_ID = "trial"
 GRADER_MODEL = "claude-haiku-5-5"
 CONCURRENCY = 3
 
 GRADER_PROMPT = """You grade a customer support agent's conversation for a trial. Be strict and literal.
+
+The help articles the agent could use:
+{articles}
 
 Expected outcome: {outcome}
 What a correct reply covers: {answer}
@@ -167,6 +175,7 @@ async def grade(client: anthropic.AsyncAnthropic, case: dict[str, Any], turns: l
         answer=expect.get("answer", "-"),
         article=expect.get("article", "-"),
         transcript=transcript(turns),
+        articles="\n\n".join(f"[{a['id']}] {a['title']}: {a['body']}" for a in load("articles.json")),
         actions=json.dumps(actions),
     )
     response = await client.messages.create(model=GRADER_MODEL, max_tokens=2000, messages=[{"role": "user", "content": prompt}])
@@ -259,7 +268,7 @@ async def main() -> None:
     cases = load("cases.json")
     if os.environ.get("STRIPE_MODE") == "gateway":
         # Real Stripe ids come from seed_stripe.py; the fixture's ids stand in for them in cases.json.
-        real_ids = load("stripe_ids.json")
+        real_ids = json.loads(ids_path().read_text())
         for case in cases:
             if case["expect"].get("charge_id"):
                 case["expect"]["charge_id"] = real_ids[case["expect"]["charge_id"]]

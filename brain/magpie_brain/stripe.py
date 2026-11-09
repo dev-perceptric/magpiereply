@@ -113,15 +113,21 @@ class GatewayStripe:
         transport = StreamableHttpTransport(self._url, headers={"authorization": f"Bearer {self._token}"})
         async with Client(transport) as client:
             names = [tool.name for tool in await client.list_tools()]
-            customers = _rows(_result_json(await client.call_tool(_tool_named(names, "list_customers"), {"email": email})))
+
+            async def read(operation: str, legacy_tool: str, parameters: dict[str, Any]) -> list[dict[str, Any]]:
+                # Stripe's own MCP server has one generic read tool; older servers and gateways have one tool per list.
+                if "stripe_api_read" in names:
+                    call = await client.call_tool("stripe_api_read", {"stripe_api_operation_id": operation, "parameters": parameters})
+                else:
+                    call = await client.call_tool(_tool_named(names, legacy_tool), parameters)
+                return _rows(_result_json(call))
+
+            customers = await read("GetCustomers", "list_customers", {"email": email, "limit": 10})
             charges: list[Charge] = []
             for customer in customers:
                 if str(customer.get("email", "")).lower() != email.lower():
                     continue  # never trust a loose match on someone else's account
-                payload = await client.call_tool(
-                    _tool_named(names, "list_payment_intents"), {"customer": customer["id"], "limit": 20}
-                )
-                for intent in _rows(_result_json(payload)):
+                for intent in await read("GetPaymentIntents", "list_payment_intents", {"customer": customer["id"], "limit": 20}):
                     if intent.get("status") != "succeeded":
                         continue
                     charges.append(

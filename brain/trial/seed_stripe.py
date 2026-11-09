@@ -16,6 +16,11 @@ from pathlib import Path
 import httpx
 
 HERE = Path(__file__).resolve().parent
+
+
+def ids_path() -> Path:
+    """Real Stripe ids for the fixture's charges, kept on the data volume so they outlive the container."""
+    return Path(os.environ.get("DATA_DIR", "/data")) / "trial" / "stripe_ids.json"
 API = "https://api.stripe.com/v1"
 
 
@@ -49,7 +54,8 @@ def main() -> None:
             ).raise_for_status().json()
             ids[charge["id"]] = intent["id"]
         print(f"{row['email']}: {customer['id']} with {len(row['charges'])} charges")
-    path = HERE / "stripe_ids.json"
+    path = ids_path()
+    path.parent.mkdir(parents=True, exist_ok=True)
     existing = json.loads(path.read_text()) if path.exists() else {}
     path.write_text(json.dumps({**existing, **ids}, indent=2))
     print(f"saved {path}")
