@@ -19,8 +19,15 @@ import httpx
 VOYAGE_URL = "https://api.voyageai.com/v1/embeddings"
 VOYAGE_MODEL = "voyage-3.5"
 PIECE_TARGET_CHARS = 900
-MEANING_WEIGHT = 0.65
-KEYWORD_WEIGHT = 0.35
+# Meaning decides; matching words only nudge. In the phase 0 trial, a heavier keyword share let words like
+# "you" and "hours" pull Tracking above Contacting us.
+MEANING_WEIGHT = 1.0
+KEYWORD_WEIGHT = 0.15
+STOPWORDS = frozenset(
+    "a an and are as at be but by can could did do does for from had has have how i if in is it its me my no not "
+    "of on or our please so that the them then there they this to was we were what when where which who why will "
+    "with would you your yours".split()
+)
 
 # Takes texts and whether they are documents or a query, returns one vector per text.
 Embed = Callable[[Sequence[str], str], Awaitable[list[list[float]]]]
@@ -83,7 +90,7 @@ def split_article(article: Article) -> list[str]:
 
 
 def words(text: str) -> list[str]:
-    return re.findall(r"[a-z0-9]+", text.lower())
+    return [word for word in re.findall(r"[a-z0-9]+", text.lower()) if word not in STOPWORDS]
 
 
 def cosine(left: Sequence[float], right: Sequence[float]) -> float:
@@ -154,7 +161,7 @@ class KnowledgeStore:
         self._cache[team_id] = pieces
         return len(pieces)
 
-    async def search(self, team_id: str, query: str, limit: int = 4, minimum: float = 0.2) -> list[Hit]:
+    async def search(self, team_id: str, query: str, limit: int = 4, minimum: float = 0.35) -> list[Hit]:
         pieces = self.pieces(team_id)
         if not pieces or not query.strip():
             return []

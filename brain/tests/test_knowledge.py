@@ -43,3 +43,10 @@ async def test_search_is_per_team_and_survives_a_restart(tmp_path):
     reopened = KnowledgeStore(tmp_path, fake_embed_factory())
     assert (await reopened.search("one", "do gift cards expire"))[0].article_id == "x"
     assert await reopened.search("two", "do gift cards expire") == []
+
+
+def test_common_words_do_not_count_as_matches():
+    pieces = [Piece("a", "A", None, "Tracking can take up to 24 hours. You can find it in your account.", []),
+              Piece("b", "B", None, "Our team answers chat Monday to Friday.", [])]
+    scores = keyword_scores("Can you tell me if you are open?", pieces)
+    assert scores == [0.0, 0.0]
