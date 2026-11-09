@@ -1,4 +1,7 @@
-# Pinned for the phase 0 trial. Parlant brings httpx, fastapi and fastmcp.
-parlant[anthropic]==4.0.3
-# Parlant 4.0.3 passes httpx timeouts, which this SDK rejects; magpie_brain/compat.py converts them.
 anthropic==2.6.0
+fastapi==0.162.2
+uvicorn==0.54.0
+httpx==0.28.1
+# Stripe's MCP server, and later the gateway.
+fastmcp==4.1.6
+pydantic==2.14.3

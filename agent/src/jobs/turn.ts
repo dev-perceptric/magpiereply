@@ -16,7 +16,7 @@ export interface TurnDeps {
   brain?: BrainClient;
 }
 
-// One turn: read the conversation, send the new customer messages to the brain and post its draft
+// One turn: read the conversation, send it to the brain when the customer wrote something new, and post its draft
 // as a private note (Draft mode). Nothing reaches the customer in phase 0.
 export async function handleTurn(deps: TurnDeps, job: { id: string; data: TurnJob; retryCount?: number }): Promise<void> {
   const team = await findTeam(deps.db, job.data.teamId);
@@ -90,21 +90,18 @@ async function draftWithBrain(
   const brainStart = Date.now();
   const result = await brain.runTurn({
     team_id: String(ids.teamId),
-    conversation_id: String(conversationId),
-    session_id: state.brainSessionId,
     customer: customerOf(conversation),
-    messages: fresh.map(message => ({ id: String(message.id), content: message.content ?? '' })),
+    history: historyOf(messages),
   });
   await recordStep(deps.db, {
     runId: ids.runId,
     name: 'brain',
-    input: { messageIds: fresh.map(message => message.id), sessionId: state.brainSessionId },
+    input: { messageIds: fresh.map(message => message.id) },
     output: {
       reply: result.reply,
       tools: result.tools.map(tool => tool.name),
       proposals: result.proposals,
       handoff: result.handoff,
-      alreadyWithPeople: result.already_with_people,
       seconds: result.seconds,
       costUsd: result.cost_usd,
     },
@@ -116,17 +113,14 @@ async function draftWithBrain(
   // Save first, so a retry never sends these messages to the brain twice.
   const note = draftNote(result, ids.runId);
   state = {
-    brainSessionId: result.session_id,
     lastMessageId: Math.max(...fresh.map(message => message.id)),
     pendingNote: note,
-    handedOff: Boolean(result.handoff) || result.already_with_people,
+    handedOff: Boolean(result.handoff),
   };
   await saveConversationState(deps.db, ids.teamId, conversationId, state);
 
-  if (note) {
-    await postNote(deps, app, ids, conversationId, note);
-    await saveConversationState(deps.db, ids.teamId, conversationId, { ...state, pendingNote: null });
-  }
+  await postNote(deps, app, ids, conversationId, note);
+  await saveConversationState(deps.db, ids.teamId, conversationId, { ...state, pendingNote: null });
 }
 
 async function postNote(
@@ -154,8 +148,7 @@ export function customerOf(conversation: AppConversation): {
   return { id: String(sender.id ?? `conversation-${conversation.id}`), name: sender.name || 'Customer', email, verified };
 }
 
-export function draftNote(result: BrainTurnResult, runId: number): string | null {
-  if (result.already_with_people) return null;
+export function draftNote(result: BrainTurnResult, runId: number): string {
   const lines = [`Magpie draft (run #${runId}):`, '', result.reply ?? '(no reply)'];
   for (const proposal of result.proposals) {
     const who = proposal.approval === 'staff_approves' ? 'needs a teammate to approve' : 'needs the customer to confirm';
@@ -167,7 +160,22 @@ export function draftNote(result: BrainTurnResult, runId: number): string | null
   return lines.join('\n');
 }
 
-// The messages API returns message_type as a number (0 = incoming) and the webhook as a string.
+// The conversation as the customer saw it, for the engine: customer messages and replies sent to them, oldest
+// first. Private notes (Magpie's own drafts included) and activity messages stay out. The engine needs the
+// history to end on the customer, so a trailing reply is dropped.
+export function historyOf(messages: AppMessage[]): Array<{ role: 'customer' | 'agent'; content: string }> {
+  const history = messages
+    .filter(message => !message.private && message.content && (isCustomerMessage(message) || isOutgoing(message)))
+    .map(message => ({ role: isCustomerMessage(message) ? ('customer' as const) : ('agent' as const), content: message.content ?? '' }));
+  while (history.length > 0 && history[history.length - 1]!.role === 'agent') history.pop();
+  return history;
+}
+
+// The messages API returns message_type as a number (0 = incoming, 1 = outgoing) and the webhook as a string.
 function isCustomerMessage(message: AppMessage): boolean {
   return (message.message_type === 0 || message.message_type === 'incoming') && !message.private;
+}
+
+function isOutgoing(message: AppMessage): boolean {
+  return message.message_type === 1 || message.message_type === 'outgoing';
 }

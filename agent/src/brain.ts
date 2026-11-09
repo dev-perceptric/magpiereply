@@ -1,11 +1,10 @@
-// The client for the brain (brain/ in this repo): one conversation turn through Parlant.
+// The client for the brain (brain/ in this repo): one reply from the Magpie engine.
 
 export interface BrainTurnRequest {
   team_id: string;
-  conversation_id: string;
-  session_id: string | null;
   customer: { id: string; name: string; email: string | null; verified: boolean };
-  messages: Array<{ id: string; content: string }>;
+  // The conversation so far, oldest first, ending with the customer's newest message(s).
+  history: Array<{ role: 'customer' | 'agent'; content: string }>;
 }
 
 export interface BrainProposal {
@@ -16,12 +15,10 @@ export interface BrainProposal {
 }
 
 export interface BrainTurnResult {
-  session_id: string;
   reply: string | null;
   tools: Array<{ name: string; arguments: Record<string, unknown> }>;
   proposals: BrainProposal[];
   handoff: { team: string; reason: string } | null;
-  already_with_people: boolean;
   seconds: number;
   cost_usd: string | null;
   tokens: { input_tokens?: number; cached_input_tokens?: number; output_tokens?: number };
@@ -40,13 +37,13 @@ export class BrainError extends Error {
   }
 }
 
-// The brain waits up to 90 seconds for Parlant; allow a little more here.
-const BRAIN_TIMEOUT_MS = 120_000;
+// A reply with tool calls takes a few seconds; anything past a minute is treated as a failure and retried.
+const BRAIN_TIMEOUT_MS = 60_000;
 
 export function createBrainClient(baseUrl: string, apiKey: string): BrainClient {
   return {
     async runTurn(request) {
-      const response = await fetch(new URL('/magpie/turn', baseUrl), {
+      const response = await fetch(new URL('/magpie/reply', baseUrl), {
         method: 'POST',
         headers: { authorization: `Bearer ${apiKey}`, 'content-type': 'application/json' },
         body: JSON.stringify(request),

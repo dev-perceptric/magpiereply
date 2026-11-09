@@ -1,6 +1,6 @@
-# Magpie AI brain (Parlant). Build context: the brain/ folder.
+# Magpie AI brain: the Magpie engine. Build context: the brain/ folder.
 FROM python:3.12.12-slim
-ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 DATA_DIR=/data PARLANT_HOME=/data/parlant
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 DATA_DIR=/data
 WORKDIR /app
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt

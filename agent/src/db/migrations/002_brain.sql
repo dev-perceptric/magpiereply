@@ -2,8 +2,6 @@
 create table agent.conversations (
   team_id bigint not null references agent.teams (id) on delete cascade,
   conversation_id bigint not null,
-  -- The brain's (Parlant's) session for this conversation.
-  brain_session_id text,
   -- The newest customer message already sent to the brain, so a retry never sends one twice.
   last_message_id bigint not null default 0,
   -- A draft saved before posting, so a failed post is retried without asking the brain again.

@@ -2,7 +2,7 @@ import { afterAll, beforeEach, describe, expect, it } from 'vitest';
 import type { AppClient, AppConversation, AppMessage } from '../src/chatwoot.js';
 import type { BrainClient, BrainTurnRequest, BrainTurnResult } from '../src/brain.js';
 import type { Db } from '../src/db.js';
-import { customerOf, handleTurn } from '../src/jobs/turn.js';
+import { customerOf, handleTurn, historyOf } from '../src/jobs/turn.js';
 import { createTestTeam, ENCRYPTION_KEY, freshDb } from './helpers.js';
 
 let db: Db;
@@ -88,12 +88,10 @@ function fakeBrain(result: Partial<BrainTurnResult> = {}, options: { fail?: bool
       requests.push(request);
       if (options.fail) throw new Error('brain unavailable');
       return {
-        session_id: 'sess-1',
         reply: 'I see two charges of $34.00. Shall I refund the duplicate?',
         tools: [{ name: 'list_recent_charges', arguments: {} }],
         proposals: [{ action: 'refund', charge_id: 'pi_2', amount: '34.00 USD', approval: 'customer_confirms' }],
         handoff: null,
-        already_with_people: false,
         seconds: 3.2,
         cost_usd: '0.01200',
         tokens: { input_tokens: 900, cached_input_tokens: 100, output_tokens: 80 },
@@ -105,7 +103,7 @@ function fakeBrain(result: Partial<BrainTurnResult> = {}, options: { fail?: bool
 }
 
 describe('handleTurn with the brain', () => {
-  it('sends only new customer messages with the verified customer and posts the draft as a note', async () => {
+  it('sends the conversation with the verified customer and posts the draft as a note', async () => {
     const { teamId } = await createTestTeam(db, { accountId: 4 });
     const { appClientFor, calls } = fakeApp();
     const { brain, requests } = fakeBrain();
@@ -113,23 +111,23 @@ describe('handleTurn with the brain', () => {
     await handleTurn({ db, encryptionKey: ENCRYPTION_KEY, appClientFor, brain }, { id: 'job-b1', data: { teamId, conversationId: 55 } });
 
     expect(requests).toHaveLength(1);
-    expect(requests[0]!.messages).toEqual([
-      { id: '1', content: 'Hi' },
-      { id: '3', content: 'I was charged twice' },
+    expect(requests[0]!.history).toEqual([
+      { role: 'customer', content: 'Hi' },
+      { role: 'agent', content: 'Looking into it' },
+      { role: 'customer', content: 'I was charged twice' },
     ]);
     expect(requests[0]!.customer).toEqual({ id: '9', name: 'Maya', email: 'maya@example.com', verified: true });
-    expect(requests[0]!.session_id).toBeNull();
     expect(calls.notes).toHaveLength(1);
     expect(calls.notes[0]!.content).toContain('Shall I refund the duplicate?');
     expect(calls.notes[0]!.content).toContain('Proposed refund: 34.00 USD for pi_2, needs the customer to confirm.');
 
-    const state = (await db.query('select brain_session_id, last_message_id, pending_note from agent.conversations')).rows[0];
-    expect(state).toEqual({ brain_session_id: 'sess-1', last_message_id: '3', pending_note: null });
+    const state = (await db.query('select last_message_id, pending_note from agent.conversations')).rows[0];
+    expect(state).toEqual({ last_message_id: '3', pending_note: null });
     const step = (await db.query("select tokens_in, tokens_out from agent.run_steps where name = 'brain'")).rows[0];
     expect(step).toEqual({ tokens_in: 1000, tokens_out: 80 });
   });
 
-  it('never sends the same messages twice, and keeps the session on the next turn', async () => {
+  it('asks the brain only when the customer wrote something new, and leaves private drafts out', async () => {
     const { teamId } = await createTestTeam(db);
     const first = fakeApp();
     const { brain, requests } = fakeBrain();
@@ -146,8 +144,10 @@ describe('handleTurn with the brain', () => {
     });
     await handleTurn({ db, encryptionKey: ENCRYPTION_KEY, appClientFor: later.appClientFor, brain }, { id: 'j3', data: { teamId, conversationId: 55 } });
     expect(requests).toHaveLength(2);
-    expect(requests[1]!.messages).toEqual([{ id: '5', content: 'Yes please refund it' }]);
-    expect(requests[1]!.session_id).toBe('sess-1');
+    expect(requests[1]!.history).toEqual([
+      { role: 'customer', content: 'I was charged twice' },
+      { role: 'customer', content: 'Yes please refund it' },
+    ]);
   });
 
   it('posts a saved draft on retry without asking the brain again when the note failed', async () => {
@@ -206,5 +206,23 @@ describe('customerOf', () => {
 
   it('is never verified without an email', () => {
     expect(customerOf({ id: 55, meta: { sender: { id: 9, email: null }, channel: 'Channel::Email' } }).verified).toBe(false);
+  });
+});
+
+describe('historyOf', () => {
+  it('ends on the customer, without private notes or activity messages', () => {
+    const history = historyOf([
+      { id: 1, content: 'Hi', message_type: 0, private: false, created_at: 1 },
+      { id: 2, content: 'Conversation assigned', message_type: 2, private: false, created_at: 2 },
+      { id: 3, content: 'Magpie draft', message_type: 1, private: true, created_at: 3 },
+      { id: 4, content: 'How can we help?', message_type: 1, private: false, created_at: 4 },
+      { id: 5, content: 'Charged twice', message_type: 0, private: false, created_at: 5 },
+      { id: 6, content: 'Looking now', message_type: 1, private: false, created_at: 6 },
+    ]);
+    expect(history).toEqual([
+      { role: 'customer', content: 'Hi' },
+      { role: 'agent', content: 'How can we help?' },
+      { role: 'customer', content: 'Charged twice' },
+    ]);
   });
 });

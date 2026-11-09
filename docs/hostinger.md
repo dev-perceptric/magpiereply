@@ -13,7 +13,7 @@ Each piece is a Docker Compose project in `/docker/<name>/docker-compose.yml`.
 | `magpiereply` | `web` (Rails), `worker` (Sidekiq), `redis` | `app.magpiereply.com` | 1.5 GB, 1.25 GB, 256 MB |
 | `magpiereply` | `agent-api`, `agent-worker` (`agent/`) | `agent.magpiereply.com` | 256 MB each |
 | `sb-magpiereply` | Self-hosted Supabase: Postgres 17 with pgvector, auth, REST, storage. The app, the agent and the gateway use its `db` container over the `sb-magpiereply` network | `db.magpiereply.com` | about 1.4 GB in all |
-| `magpie-brain` | The Magpie AI brain (`brain/`), Parlant on Claude. Stopped until it has a working Voyage key | inside Docker only, `http://brain:8800` on `magpiereply_default` | 2 GB |
+| `magpie-brain` | The Magpie AI brain (`brain/`): the Magpie engine on Claude, Voyage for search, Stripe over MCP in test mode | inside Docker only, `http://brain:8800` on `magpiereply_default` | 512 MB |
 | `magpie-gateway` | ContextForge MCP gateway, made but stopped (profile `trial`) | none yet | 1 GB |
 | `traefik` | HTTPS and routing for every app (Let's Encrypt) | | |
 | `autodeploy` | Pulls new images every 5 minutes and restarts what changed | | 64 MB |
@@ -72,7 +72,7 @@ The database and attachments live on this one server, so they need copies off it
 
 ## When to give MagpieReply its own server
 
-The shared server uses about 3.9 GB of its 8 GB. The phase 0 brain trial fits in what's left (2 GB for `magpie-brain`, 1 GB for `magpie-gateway`).
+The shared server uses about 3.9 GB of its 8 GB. The phase 0 brain trial fits in what's left (512 MB for `magpie-brain`, 1 GB for `magpie-gateway`).
 
 Move MagpieReply to its own **KVM 4** (4 vCPU, 16 GB) before phase 1, when Docling, Crawl4AI and FlashRank join the brain, or sooner if the shared server's memory stays above 75% for a day. The move:
 

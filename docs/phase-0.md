@@ -1,4 +1,4 @@
-# Magpie AI, phase 0: groundwork and the Parlant trial
+# Magpie AI, phase 0: groundwork and the brain trial
 
 Two weeks. Part of `docs/ai-agent-plan.md`.
 
@@ -20,19 +20,18 @@ Two weeks. Part of `docs/ai-agent-plan.md`.
 | Day 4: team setup script | Done |
 | Day 5: webhook → queue → worker → private note | Done. Tested end to end against a local MagpieReply: one message, a burst of three (one turn), duplicates, bad signatures, other accounts |
 | Deploy `magpie-agent` | Done. `agent-api` and `agent-worker` run on the Hostinger VPS; `https://agent.magpiereply.com/health` answers `ok` |
-| Week 2, brain: `brain/`, Parlant 4.0.3 on Claude, the duplicate-charge procedure, 8 rules, 2 approved replies, Stripe tools, the one-prompt baseline | Built, 23 tests pass. Image `ghcr.io/dev-perceptric/magpie-brain` builds in CI |
-| Week 2, bridge: the turn job sends new customer messages to the brain and posts its draft as a private note | Built, 27 tests pass. Turned on by `BRAIN_URL` and `BRAIN_API_KEY`; not turned on yet |
-| Week 2, test data: 24 help articles for a made-up store, 8 Stripe test customers, 40 test conversations, the grading runner | Built (`brain/trial/`) |
-| Week 2, brain on the VPS | Running in `magpie-brain` with its own Voyage key. Fixes on the way: Parlant 4.0.3 and the current Anthropic SDK disagree on timeouts (`brain/magpie_brain/compat.py`), and Parlant's rebuilt prompts made Anthropic refuse replayed thinking blocks (now dropped with Anthropic's `drop_block` setting) |
-| Week 2, gateway | Made on the VPS and stopped. Needs the `gateway.magpiereply.com` DNS record and Stripe's test-mode sign-in |
-| Day 10: run, measure, decide | Run on November 9, 2026 with made-up Stripe data. Parlant: 38 of 40 correct, 4 marked wrong (3 of them the grader missing facts that are in the articles), rule and attack tests 10 of 10, about $0.0004 a turn (check), median 6.6 s but slowest 5% at 19 s. Baseline: 38 of 40, 5 wrong, rule tests 8 of 10, $0.0066 a turn, slowest 5% at 3.6 s. Open: speed, and Stripe through the gateway |
+| Week 2, brain | Built and running in `magpie-brain`. Trial decided: our own engine, not Parlant (`docs/decisions/0001-brain.md`) |
+| Week 2, bridge: the turn job sends the conversation to the brain and posts its draft as a private note | Built, 28 tests pass. Turned on by `BRAIN_URL` and `BRAIN_API_KEY` once merged to the main branch |
+| Week 2, test data: 24 help articles, 8 Stripe test customers (in Perceptric's Stripe, test mode), 40 test conversations, the grading runner | Built (`brain/trial/`) |
+| Week 2, gateway | Not needed for the trial: the brain reads Stripe's own MCP server with a test-mode key. Comes back in phase 3 for each team's apps |
+| Day 10: run, measure, decide | Done November 9, 2026: no-go for Parlant (too slow), go for the Magpie engine (39 of 40, 10 of 10 rule tests, slowest 5% under 6 s) |
 
 ## What you need to provide
 
 | Item | Why | Where it goes |
 |---|---|---|
 | Anthropic API key | Claude for the trial | Done: the shared key, copied into `/docker/magpie-brain/.env` |
-| Voyage API key | Parlant uses Voyage for search vectors when the models are Claude. The key copied from Omniscient is rejected, so Omniscient's own search vectors are failing too | `/docker/magpie-brain/.env` on the VPS (hPanel → VPS → Docker Manager → `magpie-brain` → environment) |
+| Voyage API key | Search vectors for the help articles. Done: a working key in `magpie-brain`, with billing on. The key in Omniscient's settings is rejected by Voyage, so Omniscient's own search vectors are likely failing | `/docker/magpie-brain/.env` on the VPS (hPanel → VPS → Docker Manager → `magpie-brain` → environment) |
 | DNS record `gateway` → `45.90.109.7` for `magpiereply.com` | So Stripe's sign-in can return to the gateway | Hostinger DNS |
 | A Stripe account in **test mode** | Fake customers and duplicate charges for the trial; no real money | Connected through the gateway's sign-in |
 | A MagpieReply admin API key | To create the agent bot for the test account (Profile settings → Access token) | Typed in when running the setup script; not stored in the repo |

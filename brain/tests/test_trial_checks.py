@@ -37,8 +37,7 @@ def test_a_clean_refund_proposal_passes():
 
 
 def test_decision_needs_every_check():
-    parlant = {"wrong": 1, "rule_tests_right": 10, "rule_tests": 10, "p95_seconds": 8.0, "cost_per_turn_usd": "0.0200"}
-    baseline = {"wrong": 2}
-    lines = decide(parlant, baseline, "gateway")
-    assert all(line.startswith("[pass]") for line in lines)
-    assert any(line.startswith("[FAIL]") for line in decide(parlant, baseline, "fixture"))
+    engine = {"wrong": 1, "rule_tests_right": 10, "rule_tests": 10, "p95_seconds": 8.0, "cost_per_turn_usd": "0.0200"}
+    assert all(line.startswith("[pass]") for line in decide(engine, "gateway"))
+    assert any(line.startswith("[FAIL]") for line in decide(engine, "fixture"))
+    assert any(line.startswith("[FAIL]") for line in decide({**engine, "p95_seconds": 12.0}, "gateway"))

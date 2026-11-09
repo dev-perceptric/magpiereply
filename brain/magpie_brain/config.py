@@ -9,7 +9,7 @@ from pathlib import Path
 
 @dataclass(frozen=True)
 class Config:
-    # Shared secret for every caller (the bridge and the trial runner). Also Parlant's admin key.
+    # Shared secret for every caller (the bridge and the trial runner).
     api_key: str
     data_dir: Path
     port: int
@@ -18,7 +18,6 @@ class Config:
     gateway_url: str | None
     gateway_token: str | None
     reply_model: str
-    check_model: str
 
 
 def load_config(env: os._Environ[str] | dict[str, str] = os.environ) -> Config:
@@ -44,5 +43,4 @@ def load_config(env: os._Environ[str] | dict[str, str] = os.environ) -> Config:
         gateway_url=env.get("GATEWAY_URL"),
         gateway_token=env.get("GATEWAY_TOKEN"),
         reply_model=env.get("REPLY_MODEL", "claude-sonnet-5-5"),
-        check_model=env.get("CHECK_MODEL", "claude-haiku-5-5"),
     )

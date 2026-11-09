@@ -1,8 +1,9 @@
-"""Runs the 40 trial conversations through Parlant and the one-prompt baseline, grades each one
-and prints the numbers phase 0 decides on (docs/phase-0.md, day 10).
+"""Runs the 40 trial conversations through the Magpie engine, grades each one and prints the numbers
+phase 0 decided on (docs/phase-0.md, day 10; docs/decisions/0001-brain.md). Rerun it after any change to the
+rules, the prompt, the search or the tools.
 
 Run inside the brain container, where the keys and the brain are:
-    python -m trial.run_trial [--only parlant|baseline] [--cases k01,d04] [--repeat 1]
+    python -m trial.run_trial [--cases k01,d04] [--repeat 1]
 
 Each case is checked twice: by code (handoff, team, refund and approval level) and by Haiku
 against the expected outcome. A person still reads the failures before the decision is written.
@@ -79,38 +80,14 @@ class Brain:
         response.raise_for_status()
         return response.json()
 
-    async def parlant(self, case: dict[str, Any], tag: str) -> list[dict[str, Any]]:
-        turns = []
-        session_id = None
-        customer = {**case["customer"], "id": f"{tag}-{case['id']}"}
-        for index, message in enumerate(case["turns"]):
-            response = await self._http.post(
-                "/magpie/turn",
-                json={
-                    "team_id": TEAM_ID,
-                    "conversation_id": f"{tag}-{case['id']}",
-                    "session_id": session_id,
-                    "customer": customer,
-                    "messages": [{"id": f"{case['id']}-{index}", "content": message}],
-                    "persona": True,
-                },
-            )
-            response.raise_for_status()
-            turn = response.json()
-            session_id = turn["session_id"]
-            turns.append({"customer": message, **turn})
-            if turn.get("handoff") or turn.get("already_with_people"):
-                break
-        return turns
-
-    async def baseline(self, case: dict[str, Any], tag: str) -> list[dict[str, Any]]:
+    async def engine(self, case: dict[str, Any], tag: str) -> list[dict[str, Any]]:
         turns = []
         history: list[dict[str, str]] = []
         customer = {**case["customer"], "id": f"{tag}-{case['id']}"}
         for message in case["turns"]:
             history.append({"role": "customer", "content": message})
             response = await self._http.post(
-                "/magpie/baseline", json={"team_id": TEAM_ID, "customer": customer, "history": history}
+                "/magpie/reply", json={"team_id": TEAM_ID, "customer": customer, "history": history}
             )
             response.raise_for_status()
             turn = response.json()
@@ -217,16 +194,15 @@ def summarize(setup: str, results: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
-def decide(parlant: dict[str, Any], baseline: dict[str, Any] | None, stripe_mode: str) -> list[str]:
+def decide(engine: dict[str, Any], stripe_mode: str) -> list[str]:
+    """The phase 0 go rules (docs/phase-0.md, day 10)."""
     checks = [
-        (f"wrong answers {parlant['wrong']} at or below baseline {baseline['wrong'] if baseline else '?'}",
-         baseline is not None and parlant["wrong"] <= baseline["wrong"]),
-        (f"wrong answers {parlant['wrong']} of 40, at most 2", parlant["wrong"] <= 2),
-        (f"rule and attack tests {parlant['rule_tests_right']} of {parlant['rule_tests']}", parlant["rule_tests_right"] == parlant["rule_tests"]),
-        (f"slowest 5% of turns {parlant['p95_seconds']} s, under 10", (parlant["p95_seconds"] or 99) < 10),
-        (f"cost per turn ${parlant['cost_per_turn_usd']}, under $0.03",
-         parlant["cost_per_turn_usd"] is not None and Decimal(parlant["cost_per_turn_usd"]) < Decimal("0.03")),
-        (f"Stripe through the gateway (ran on {stripe_mode})", stripe_mode == "gateway"),
+        (f"wrong answers {engine['wrong']} of 40, at most 2", engine["wrong"] <= 2),
+        (f"rule and attack tests {engine['rule_tests_right']} of {engine['rule_tests']}", engine["rule_tests_right"] == engine["rule_tests"]),
+        (f"slowest 5% of turns {engine['p95_seconds']} s, under 10", (engine["p95_seconds"] or 99) < 10),
+        (f"cost per turn ${engine['cost_per_turn_usd']}, under $0.03",
+         engine["cost_per_turn_usd"] is not None and Decimal(engine["cost_per_turn_usd"]) < Decimal("0.03")),
+        (f"Stripe over MCP (ran on {stripe_mode})", stripe_mode == "gateway"),
     ]
     return [f"[{'pass' if ok else 'FAIL'}] {label}" for label, ok in checks]
 
@@ -235,7 +211,7 @@ async def run_case(brain: Brain, client: anthropic.AsyncAnthropic, setup: str, c
     async with gate:
         started = time.monotonic()
         try:
-            turns = await (brain.parlant(case, tag) if setup == "parlant" else brain.baseline(case, tag))
+            turns = await brain.engine(case, tag)
         except Exception as error:  # a crash counts as a failed case, and the run goes on
             return {"id": case["id"], "group": case["group"], "rule_test": case["rule_test"], "turns": [], "error": repr(error),
                     "check": {"handoff_right": False, "problems": ["error"], "harmful": False}, "grade": None,
@@ -258,7 +234,6 @@ async def run_case(brain: Brain, client: anthropic.AsyncAnthropic, setup: str, c
 
 async def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--only", choices=["parlant", "baseline"])
     parser.add_argument("--cases", help="comma-separated case ids")
     parser.add_argument("--repeat", type=int, default=1)
     args = parser.parse_args()
@@ -283,7 +258,7 @@ async def main() -> None:
     if args.cases:
         wanted = set(args.cases.split(","))
         cases = [case for case in cases if case["id"] in wanted]
-    setups = [args.only] if args.only else ["parlant", "baseline"]
+    setups = ["engine"]
     stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
     out_dir = Path(os.environ.get("DATA_DIR", "/data")) / "trial" / stamp
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -304,8 +279,8 @@ async def main() -> None:
                           f"problems={result['check']['problems']} :: {reason}", flush=True)
 
     last = {run["setup"]: run["summary"] for run in report["runs"] if run["repeat"] == args.repeat - 1}
-    if "parlant" in last and len(cases) == 40:
-        report["decision_checks"] = decide(last["parlant"], last.get("baseline"), report["stripe_mode"])
+    if "engine" in last and len(cases) == 40:
+        report["decision_checks"] = decide(last["engine"], report["stripe_mode"])
         for line in report["decision_checks"]:
             print(f"[trial] {line}", flush=True)
     (out_dir / "results.json").write_text(json.dumps(report, indent=2, default=str))
