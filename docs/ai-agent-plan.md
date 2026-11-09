@@ -7,7 +7,7 @@ Magpie AI is MagpieReply's AI layer. It answers customers from the team's own kn
 | Area | Decagon (public info) | Chatwoot Captain (public page and code) | Magpie AI |
 |---|---|---|---|
 | Answers on its own | Yes | Yes, from help center, past chats and FAQs | Yes, with sources on every answer and a fact check before sending |
-| Step-by-step procedures | AOPs: plain-language procedures | Not shown | Playbooks: plain English turned into checked steps, run by Parlant |
+| Step-by-step procedures | AOPs: plain-language procedures | Not shown | Playbooks: plain English turned into checked steps, run by the Magpie engine |
 | Actions in other apps | Yes, with guardrails | Custom tools and MCP servers (paid) | 45+ apps through MCP, one-click Connect, risk levels and approvals |
 | Handoff | Yes | Model-chosen handoff, failures, credit limits, quiet sweep | All of those, plus hard rules (upset, two failed tries, fact check fails) |
 | Help for staff | Duet | Copilot: draft, improve, translate, ask about history | Copilot plus Investigate: root cause across Stripe, Sentry, GitHub and Slack |
@@ -24,28 +24,29 @@ Magpie AI is MagpieReply's AI layer. It answers customers from the team's own kn
 
 | Piece | Role | Runs on | License |
 |---|---|---|---|
-| MagpieReply app | The inbox: channels, conversations, help center | Fly `magpiereply-web` + `magpiereply-worker` | MIT |
-| **magpie-agent** (TypeScript, `agent/` in this repo) | The bridge: webhook, job queue, app client, approvals panel, admin, MCP client, traces | Fly, processes `api` + `worker` | ours |
-| **magpie-brain** (Python) | The thinking brain: Parlant, plus Docling, Crawl4AI, FlashRank, Presidio, LLM Guard, Lingua | Fly | Apache 2.0 / MIT |
-| **magpie-gateway** | ContextForge MCP gateway: each team's private bundle of app tools and sign-ins | Fly | Apache 2.0 |
-| Supabase Postgres | App tables (`public`), agent tables (`agent`), jobs (`pgboss`), search (`pgvector`) | Supabase, Tokyo | managed |
-| MongoDB + Qdrant | Parlant's storage and its knowledge search | Atlas (check) + Fly | managed / Apache 2.0 |
+| MagpieReply app | The inbox: channels, conversations, help center | VPS project `magpiereply`: `web`, `worker`, `redis` (`app.magpiereply.com`) | MIT |
+| **magpie-agent** (TypeScript, `agent/` in this repo) | The bridge: webhook, job queue, app client, approvals panel, admin, MCP client, traces | VPS project `magpiereply`: `agent-api`, `agent-worker` (`agent.magpiereply.com`) | ours |
+| **magpie-brain** (Python, `brain/` in this repo) | The thinking brain: the Magpie engine (one Sonnet call with rules, articles and tools; `docs/decisions/0001-brain.md`), plus Docling, Crawl4AI, FlashRank, Presidio, LLM Guard, Lingua | VPS project `magpie-brain`, reached only inside Docker | Apache 2.0 / MIT |
+| **magpie-gateway** | ContextForge MCP gateway: each team's private bundle of app tools and sign-ins | VPS project `magpie-gateway` | Apache 2.0 |
+| Postgres (Supabase) | App tables (`public`), agent tables (`agent`), jobs (`pgboss`), search (`pgvector`) | VPS project `sb-magpiereply` (`db.magpiereply.com`) | Apache 2.0 / PostgreSQL |
 | Claude | Haiku 5.5 for sorting, matching and checks; Sonnet 5.5 for replies; Opus for investigations | API | paid |
 | Voyage | Meaning vectors for search | API | paid |
 | promptfoo, Ragas, DeepEval | Tests and quality scores in CI | GitHub Actions | MIT / Apache 2.0 |
-| OpenTelemetry, Uptime Kuma | Traces across services, uptime and status page | inside services / Fly | Apache 2.0 / MIT |
+| OpenTelemetry, Gatus | Traces across services, uptime checks with ntfy alerts | inside services / VPS project `uptime` | Apache 2.0 |
+
+Everything runs as Docker Compose projects on the Hostinger VPS, behind Traefik. Pushes build images in GitHub Actions, and the server's `autodeploy` picks them up within 5 minutes. Today MagpieReply shares a KVM 2 with the other products; it gets its own KVM 4 before phase 1 and two KVM 8 servers at Growth (`docs/hostinger.md`). The bridge, brain, gateway and database talk over the server's own Docker networks, so only the app and the bridge's webhook face the internet.
 
 ```
-Customer ─► MagpieReply app ──webhook──► magpie-agent (bridge) ──► magpie-brain (Parlant + Python tools) ──► Claude
+Customer ─► MagpieReply app ──webhook──► magpie-agent (bridge) ──► magpie-brain (Magpie engine + Python tools) ──► Claude
                  ▲                          │   ▲                         │
                  └── reply / note / handoff ┘   └──── tool calls ─────────┘
                                             │
                                             ├─► magpie-gateway (ContextForge) ─► Stripe, Shopify, HubSpot, Linear, Slack… (MCP)
-                                            ├─► Supabase: agent tables, pg-boss jobs, pgvector, traces
+                                            ├─► Postgres (sb-magpiereply): agent tables, pg-boss jobs, pgvector, traces
                                             └─► /admin, side panel, reports
 ```
 
-The bridge owns everything specific to MagpieReply. The brain owns deciding what to say and do. The gateway owns the keys to each team's apps. If the Parlant trial fails, the brain becomes a TypeScript engine (Mastra workflows) inside the bridge; the rest of the plan stays the same.
+The bridge owns everything specific to MagpieReply. The brain owns deciding what to say and do. The gateway owns the keys to each team's apps. The phase 0 trial chose our own engine over Parlant: as accurate and three to five times faster (`docs/decisions/0001-brain.md`).
 
 ## 3. Every feature
 
@@ -53,7 +54,7 @@ The bridge owns everything specific to MagpieReply. The brain owns deciding what
 
 1. **Answers from knowledge, with sources.** Help center, websites (Crawl4AI), PDFs and docs (Docling), and approved solved chats. Hybrid search (meaning plus keywords), re-ranked by FlashRank.
 2. **Playbooks.** The team writes how to handle a case in plain English. Sonnet turns it into steps, the checker validates them (tools connected, safe inputs, approvals on money and identity, no dead ends) and Parlant runs them as journeys. Versions, and Draft, Testing or Live status.
-3. **Rules.** "When X, do Y" policies (Parlant guidelines), applied only when they fit the moment.
+3. **Rules.** "When X, do Y" policies in the engine's prompt, with money and identity limits enforced by code in the tools.
 4. **Approved wording.** Fixed replies for sensitive moments, like refunds, legal or outages.
 5. **Actions in the team's apps.** Through MCP, with three risk levels:
    - safe (runs on its own)
@@ -142,10 +143,10 @@ The bridge owns everything specific to MagpieReply. The brain owns deciding what
 2. **Bridge:** checks the address, skips duplicates, saves the event and queues a turn after a 4-second wait, one job per conversation at a time.
 3. **Bridge:** gathers messages, contact, verified identity, memories, team rules and tool list.
 4. **Brain:** Lingua detects the language, LLM Guard scans for attacks and Haiku sorts topic, mood and risk. Quick exits go to handoff.
-5. **Brain:** Parlant matches the journey step, rules and approved wording that apply.
+5. **Brain:** the engine puts the team's rules, playbook steps and approved wording in the prompt (cached, so they cost a tenth on reread).
 6. **Brain:** searches knowledge; FlashRank keeps the best 3 to 5 pieces.
 7. **Bridge to gateway:** runs the tool calls the matched step allows, through the team's MCP bundle, with identity filled by code.
-8. **Brain:** Sonnet writes the reply. Parlant reviews the reply and any action against the rules, and the fact check confirms each claim has a source.
+8. **Brain:** Sonnet writes the reply. Code checks every action against its limits, and one Haiku pass (phase 2) confirms each claim has a source.
 9. **Bridge:** replies, pauses for a confirm or approval (saving the run, resuming later with a unique key), or hands off with a note.
 10. **Bridge:** saves the trace (Presidio-masked), tokens, time and cost.
 11. **Later jobs:** quiet sweep, outcome scoring, Watch, Monitors, suggested articles and closing the loop.
@@ -156,7 +157,7 @@ The bridge owns everything specific to MagpieReply. The brain owns deciding what
 |---|---|
 | `teams`, `inbox_settings` | mode, caps, hook ID (hashed), bot key (encrypted), hours, handoff team |
 | `knowledge_sources`, `knowledge_chunks` | sources and searchable pieces (`vector`, full-text) |
-| `playbooks`, `playbook_versions`, `guidelines`, `approved_replies` | the team's procedures and rules, synced to Parlant |
+| `playbooks`, `playbook_versions`, `guidelines`, `approved_replies` | the team's procedures and rules, read by the engine |
 | `tools` | MCP tool name, risk level, limits, allowed playbooks |
 | `runs`, `run_steps`, `approvals` | each turn, each step, waiting state and approvals |
 | `memories`, `outcomes` | customer facts; solved, handed off (reason), reopened, survey score |
@@ -168,11 +169,11 @@ The bridge owns everything specific to MagpieReply. The brain owns deciding what
 
 | Phase | What ships | Weeks |
 |---|---|---|
-| 0. Groundwork | Bridge on Fly, agent schema, pg-boss, bot API access in the app, webhook to queue, Parlant trial (one journey, Stripe through the gateway) | 1 to 2 |
-| 1. Answers | Knowledge sync (help center, Crawl4AI, Docling), search with FlashRank, sourced replies, fact check, handoff notes, Draft mode, side panel | 2 |
+| 0. Groundwork | Bridge on the VPS, agent schema, pg-boss, bot API access in the app, webhook to queue, brain trial on the shared server (Parlant against our own engine, Stripe over MCP): our engine chosen | 1 to 2 |
+| 1. Answers | MagpieReply moves to its own KVM 4, knowledge sync (help center, Crawl4AI, Docling), search with FlashRank, sourced replies, fact check, handoff notes, Draft mode, side panel | 2 |
 | 2. Trust | Replay tests, golden tests in CI, Ragas, Traces page, outcome scoring, Auto mode, kill switches, spending caps, Presidio, LLM Guard | 2 |
-| 3. Apps, read-only | Gateway on Fly, per-team bundles, one-click Stripe, Shopify, HubSpot and Linear, identity filling, verification codes | 2 |
-| 4. Playbooks and actions | Playbook editor, checker, journeys and rules in Parlant, approved wording, confirm buttons, approvals, pause and resume | 3 |
+| 3. Apps, read-only | Gateway live on the VPS, per-team bundles, one-click Stripe, Shopify, HubSpot and Linear, identity filling, verification codes | 2 |
+| 4. Playbooks and actions | Playbook editor, checker, playbooks and rules in the engine, approved wording, confirm buttons, approvals, pause and resume | 3 |
 | 5. Copilot | Draft, improve and translate on Claude, Ask Copilot, summaries, suggested next step, Investigate | 2 |
 | 6. Learning and triage | Suggested articles, knowledge health, style learning, memories, quiet sweep, auto-sort, out-of-office | 2 |
 | 7. Watch and simulations | Simulated customers, Watch scoring, Monitors, alerts, outage detection | 2 |
@@ -183,7 +184,7 @@ About 22 to 23 weeks to phase 8, plus 3 for voice, for one engineer working with
 
 ## 7. Running cost
 
-Assumes 1,000 customer conversations per team each month, 5 staff per team using Copilot about 10 times a working day, and investigations on 10% of conversations. Claude and Voyage prices from `omniscient/scripts/cost-model.mjs` (October 2026); Fly, Upstash and Render from their pricing pages (November 2026). Tokens assume the savings in section 8; the worst case is about 2.5 times higher.
+Assumes 1,000 customer conversations per team each month, 5 staff per team using Copilot about 10 times a working day, and investigations on 10% of conversations. Claude and Voyage prices from `omniscient/scripts/cost-model.mjs` (October 2026); Hostinger prices are renewal prices on a 2-year term from Hostinger's own billing catalog (November 2026). Tokens assume the savings in section 8; the worst case is about 2.5 times higher.
 
 | Item | Beta (50 teams) | Growth (500 teams) |
 |---|---|---|
@@ -195,20 +196,15 @@ Assumes 1,000 customer conversations per team each month, 5 staff per team using
 | Auto-sort, Monitors, quiet sweep, translations (Haiku) | ~$60 | ~$600 |
 | Ragas and DeepEval scoring in CI | ~$20 | ~$200 |
 | **Claude subtotal** | **~$2,045** | **~$20,450** |
-| `magpie-agent` (bridge) | ~$27 | ~$132 |
-| `magpie-brain` (Parlant + Python tools) | ~$26 | ~$132 |
-| `magpie-gateway` (ContextForge) | ~$13 | ~$66 |
-| MongoDB for Parlant (Atlas, check) | ~$57 | ~$200 |
-| Qdrant on Fly (check) | ~$13 | ~$66 |
+| Servers: one KVM 4 at Beta (app, database, bridge, brain, gateway, search), two KVM 8 at Growth | $28.99 | $99.98 |
+| Postgres, Redis, Gatus (containers on the servers) | $0 | $0 |
 | Voyage vectors | ~$0 (free amount) | ~$150 |
-| Supabase compute for agent tables (check) | ~$0 | ~$60 |
-| Uptime Kuma, PostHog (free tier, check) | ~$2 | ~$52 |
-| **Infrastructure subtotal** | **~$138** | **~$858** |
-| **Magpie AI total** | **~$2,183** | **~$21,308** |
-| MagpieReply app itself (`docs/fly.md`) | ~$37 | ~$409 |
-| **Everything** | **~$2,220** | **~$21,717** |
+| Off-site backups (check) | ~$1 | ~$5 |
+| Email sending (Resend, check) | $20 | $90 |
+| **Servers and services subtotal** | **~$50** | **~$345** |
+| **Everything, the MagpieReply app included** | **~$2,095** | **~$20,795** |
 
-That's about $44 per team per month at Beta and $43 at Growth. Voice (phase 9) is extra and usage-based: about $15 to $25 per team for 1,000 call minutes (Twilio and transcription, check).
+That's about $42 per team per month at both stages. Next to the app on its own (`docs/hostinger.md`: ~$24 and ~$145), Magpie AI adds about $2,071 at Beta and $20,650 at Growth. Moving off Fly, Atlas, Upstash and hosted Supabase saves about $125 a month at Beta and $920 at Growth. Voice (phase 9) is extra and usage-based: about $15 to $25 per team for 1,000 call minutes (Twilio and transcription, check).
 
 ## 8. Keeping tokens down
 
@@ -225,9 +221,11 @@ That's about $44 per team per month at Beta and $43 at Growth. Voice (phase 9) i
 | Risk | What we do |
 |---|---|
 | Wrong answers hurt trust | Draft mode first, fact check, Live only when tests pass, Watch on every chat; wrong-answer rate is the number we watch hardest |
-| Parlant doesn't fit (MCP connection, token use) | Decided in the phase 0 trial; fallback is our own Mastra engine in the bridge |
+| Our own engine drifts as rules grow | The 40-case trial runs after every change to rules, prompt, search or tools; failures are read by a person |
 | ContextForge is early and IBM offers no official support | Our MCP client can call servers directly; the gateway can be swapped |
 | A team's app changes or breaks | Tool errors hand off cleanly; gateway logs show which tool failed |
 | Token costs outrun revenue | Caps per plan, Haiku routing, caching, and pricing at least 3 times cost per team |
 | Upstream app changes break the bot API | The app change is small and tested; checked on every upstream sync |
+| One server holds the app, the database and the agent | Gatus alerts on ntfy, nightly database and file copies off the server, a snapshot before each upgrade, a monthly restore test, and its own server before phase 1 so other products can't starve it |
+| No managed database restore (self-hosted Supabase) | Nightly `pg_dump` kept 30 days off-site; restore tested each month |
 | Personal data in prompts and logs | Presidio masking, identity-locked lookups, encrypted tokens, team separation on every row |

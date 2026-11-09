@@ -66,17 +66,15 @@ After each sync:
 
 ## Running cost
 
-What the fork costs to run before the AI agent ships: one web server, one background worker, Postgres, Redis, file storage and email. Prices come from `omniscient/scripts/cost-model.mjs` (checked October 2026) unless marked "check".
+What the fork costs to run before the AI agent ships: the app, Sidekiq, Postgres, Redis and file storage, all as containers on the Hostinger VPS (`docs/hostinger.md`), plus email. Hostinger prices come from its billing catalog (November 2026).
 
 | Item | Beta (50 teams) | Growth (500 teams) |
 |---|---|---|
-| Web server (Render: standard at Beta, 2× pro at Growth) | $25 | $170 |
-| Background worker, Sidekiq (same sizes) | $25 | $170 |
-| Postgres with pgvector (Supabase Pro, plus large compute at Growth, check) | $25 | $135 |
-| Redis (check) | $10 | $32 |
-| File storage, attachments (check) | $5 | $25 |
+| Server (a fifth of the shared KVM 2 at Beta, its own KVM 8 at Growth) | ~$3 | $49.99 |
+| Postgres with pgvector, Redis, file storage (containers on the server) | $0 | $0 |
+| Off-site backups (check) | ~$1 | ~$5 |
 | Email sending (Resend Pro at Beta, larger plan at Growth, check) | $20 | $90 |
 | Claude tokens | $0 | $0 |
-| **Monthly total** | **~$110** | **~$622** |
+| **Monthly total** | **~$24** | **~$145** |
 
-The AI agent adds its own cost when it ships: about $2,015 a month at Beta and $20,100 at Growth, assuming 1,000 conversations per team each month with about 2.5 agent replies each.
+The AI agent adds its own cost when it ships: about $2,071 a month at Beta and $20,650 at Growth, assuming 1,000 conversations per team each month with about 2.5 agent replies each (`docs/ai-agent-plan.md`).

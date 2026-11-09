@@ -1,0 +1,100 @@
+# Running MagpieReply on the Hostinger VPS
+
+MagpieReply runs on a Hostinger VPS with Docker and Traefik. Today it shares one server with Arrowsterr, Claritia, Omniscient and Capybaroar.
+
+| Server | Plan | Size | Where |
+|---|---|---|---|
+| `srv2139771.hstgr.cloud` (45.90.109.7) | KVM 2 | 2 vCPU, 8 GB, 100 GB disk | Phoenix, US |
+
+Each piece is a Docker Compose project in `/docker/<name>/docker-compose.yml`.
+
+| Project | Containers | Address | Memory limit |
+|---|---|---|---|
+| `magpiereply` | `web` (Rails), `worker` (Sidekiq), `redis` | `app.magpiereply.com` | 1.5 GB, 1.25 GB, 256 MB |
+| `magpiereply` | `agent-api`, `agent-worker` (`agent/`) | `agent.magpiereply.com` | 256 MB each |
+| `sb-magpiereply` | Self-hosted Supabase: Postgres 17 with pgvector, auth, REST, storage. The app, the agent and the gateway use its `db` container over the `sb-magpiereply` network | `db.magpiereply.com` | about 1.4 GB in all |
+| `magpie-brain` | The Magpie AI brain (`brain/`): the Magpie engine on Claude, Voyage for search, Stripe over MCP in test mode | inside Docker only, `http://brain:8800` on `magpiereply_default` | 512 MB |
+| `magpie-gateway` | ContextForge MCP gateway, made but stopped (profile `trial`) | none yet | 1 GB |
+| `traefik` | HTTPS and routing for every app (Let's Encrypt) | | |
+| `autodeploy` | Pulls new images every 5 minutes and restarts what changed | | 64 MB |
+| `uptime` | Gatus, with alerts to ntfy | | 96 MB |
+
+**Database and files.** Since November 8, 2026 the app (`postgres` login), the agent (`magpie_agent`) and the gateway (`magpie_gateway`) connect to `db:5432` in `sb-magpiereply`, so every query stays on the server. File attachments are on the `storage-data` volume (`ACTIVE_STORAGE_SERVICE=local`, mounted at `/app/storage` in `web` and `worker`). The old hosted Supabase project in Tokyo (`jxsddbtdpypwfcjogxym`) is no longer used and can be paused, then deleted after a week.
+
+## How a change goes live
+
+1. Push to `claude/brave-mayer-66phgz`.
+2. `.github/workflows/build-images.yml` builds `ghcr.io/dev-perceptric/magpiereply` and `ghcr.io/dev-perceptric/magpie-agent` and tags them `latest`.
+3. Within 5 minutes, `autodeploy` pulls the new images and restarts `web`, `worker`, `agent-api` and `agent-worker`.
+4. Rails runs its migrations on start (`docker/entrypoints/rails.sh`). The agent runs its own on start of `agent-api` and `agent-worker`.
+
+Gatus checks `https://app.magpiereply.com/api` (database and queue both `ok`) and `https://agent.magpiereply.com/health` every 2 minutes and sends an ntfy alert after 3 misses.
+
+## Everyday commands
+
+Run these on the server over SSH.
+
+Logs:
+
+```bash
+cd /docker/magpiereply && docker compose logs -f --tail 200 web worker agent-worker
+```
+
+Rails console:
+
+```bash
+cd /docker/magpiereply && docker compose exec web bundle exec rails c
+```
+
+Connect a team to the agent (asks for an administrator API key from Profile settings → Access token):
+
+```bash
+cd /docker/magpiereply && docker compose exec agent-worker node dist/enable-team.js --account <id> --inboxes <id,id>
+```
+
+Database shell:
+
+```bash
+docker exec -it sb-magpiereply-db-1 psql -U postgres
+```
+
+## Secrets
+
+Secrets live in `/docker/<project>/.env` on the server and never in this repo. The brain's `.env` holds `BRAIN_API_KEY` (made for it), `ANTHROPIC_API_KEY` (the key the other apps share), `VOYAGE_API_KEY`, `STRIPE_MODE` and, for Stripe through the gateway, `GATEWAY_URL` and `GATEWAY_TOKEN`. The app reads `DATABASE_URL`, `REDIS_URL`, `SECRET_KEY_BASE`, the `STORAGE_*` keys and `MAILER_SENDER_EMAIL`. The agent reads `AGENT_DATABASE_URL` and `AGENT_ENCRYPTION_KEY`, passed in as `DATABASE_URL` and `ENCRYPTION_KEY`. Keys for later phases (Anthropic, Voyage) go in `/docker/magpie-brain/.env`.
+
+## Backups
+
+The database and attachments live on this one server, so they need copies off it.
+
+- **Nightly:** a `pg_dump` of the `sb-magpiereply` database and a copy of the storage volume, sent to off-site object storage (Backblaze B2 or Cloudflare R2, check) and kept for 30 days. Still to set up.
+- **Before each upgrade:** a Hostinger snapshot from hPanel (VPS → Snapshots & Backups).
+- **Once a month:** restore last night's dump into a scratch database and open the app against it.
+
+## When to give MagpieReply its own server
+
+The shared server uses about 3.9 GB of its 8 GB. The phase 0 brain trial fits in what's left (512 MB for `magpie-brain`, 1 GB for `magpie-gateway`).
+
+Move MagpieReply to its own **KVM 4** (4 vCPU, 16 GB) before phase 1, when Docling, Crawl4AI and FlashRank join the brain, or sooner if the shared server's memory stays above 75% for a day. The move:
+
+1. Buy the KVM 4 with the same "Ubuntu 24.04 with Docker and Traefik" template, in Phoenix.
+2. Copy `/docker/traefik`, `/docker/autodeploy` (listing only MagpieReply's projects), `/docker/magpiereply`, `/docker/sb-magpiereply`, `/docker/magpie-gateway` and `/docker/magpie-brain`.
+3. Stop `magpiereply` on the old server, dump and restore the database and storage volume, then start it on the new one.
+4. Point `app`, `agent` and `db` for `magpiereply.com` at the new IP in DNS. Traefik gets new certificates on its own.
+5. Remove MagpieReply's projects from the old server and from its `autodeploy` list.
+
+At Growth (500 teams) it splits across two **KVM 8** servers (8 vCPU, 32 GB each): one for the app and database, one for the brain, gateway and search.
+
+## Running cost
+
+Hostinger prices are the renewal prices on a 2-year term, from Hostinger's own billing catalog (November 2026).
+
+| Item | Beta (50 teams) | Growth (500 teams) |
+|---|---|---|
+| Server | ~$3 (a fifth of the shared $14.99 KVM 2) | $49.99 (KVM 8 for the app and database) |
+| Postgres, Redis, file storage, Gatus | $0 (containers on the server) | $0 |
+| Off-site backups (check) | ~$1 | ~$5 |
+| Email sending (Resend Pro at Beta, larger plan at Growth, check) | $20 | $90 |
+| Claude tokens | $0 | $0 |
+| **Monthly total** | **~$24** | **~$145** |
+
+The AI agent adds its own servers and tokens (see `docs/ai-agent-plan.md`).

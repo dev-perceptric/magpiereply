@@ -19,6 +19,15 @@ export interface AppMessage {
   sender?: { id: number; type?: string; name?: string } | null;
 }
 
+export interface AppConversation {
+  id: number;
+  meta: {
+    sender?: { id?: number; name?: string | null; email?: string | null } | null;
+    channel?: string | null;
+    hmac_verified?: boolean | null;
+  };
+}
+
 export interface CreatedBot {
   id: number;
   access_token: string;
@@ -26,6 +35,7 @@ export interface CreatedBot {
 }
 
 export interface AppClient {
+  getConversation(accountId: number, conversationId: number): Promise<AppConversation>;
   listMessages(accountId: number, conversationId: number): Promise<AppMessage[]>;
   createPrivateNote(accountId: number, conversationId: number, content: string): Promise<void>;
 }
@@ -51,6 +61,9 @@ async function request<T>(baseUrl: string, token: string, method: string, path: 
 
 export function createAppClient(baseUrl: string, botToken: string): AppClient {
   return {
+    async getConversation(accountId, conversationId) {
+      return request<AppConversation>(baseUrl, botToken, 'GET', `/api/v1/accounts/${accountId}/conversations/${conversationId}`);
+    },
     async listMessages(accountId, conversationId) {
       const data = await request<{ payload: AppMessage[] }>(
         baseUrl,

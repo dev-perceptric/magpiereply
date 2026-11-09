@@ -1,0 +1,7 @@
+anthropic==2.6.0
+fastapi==0.162.2
+uvicorn==0.54.0
+httpx==0.28.1
+# Stripe's MCP server, and later the gateway.
+fastmcp==4.1.6
+pydantic==2.14.3

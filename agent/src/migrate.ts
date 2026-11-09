@@ -1,7 +1,7 @@
 import { loadConfig } from './config.js';
 import { createDb, migrate } from './db.js';
 
-// Runs on deploy before the new version starts (Fly release command).
+// Runs the agent migrations by hand. The api and worker also run them when they start.
 const config = loadConfig();
 const db = createDb(config.DATABASE_URL);
 const applied = await migrate(db);
