@@ -38,22 +38,28 @@ def test_a_turn_is_finished_only_when_its_own_trace_is_ready():
     assert turn_finished([event("status", "ai_agent", 1, data={"status": "error"})], "t1")
 
 
-def test_usage_adds_only_this_turns_traces():
+def test_usage_adds_only_records_written_during_the_turn():
     session = {"usage": {
         "warmup": {"requests": {"anthropic:claude-haiku-5-5": {"input_tokens": 999, "cached_input_tokens": 0, "output_tokens": 1}}, "costs": {"total": "1"}},
         "t1": {"requests": {"anthropic:claude-sonnet-5-5": {"input_tokens": 100, "cached_input_tokens": 50, "output_tokens": 20}}, "costs": {"total": "0.0012"}},
     }}
     result = TurnResult(session_id="s")
-    add_usage(result, session, {"t1"})
+    add_usage(result, session, {"warmup"})
     assert result.tokens == {"input_tokens": 100, "cached_input_tokens": 50, "output_tokens": 20}
     assert result.cost_usd == "0.00120"
 
 
 def test_unpriced_usage_gives_no_cost():
     result = TurnResult(session_id="s")
-    add_usage(result, {"usage": {"t1": {"requests": {}, "costs": None}}}, {"t1"})
+    add_usage(result, {"usage": {"t1": {"requests": {}, "costs": None}}}, set())
     assert result.cost_usd is None
 
 
 def test_tool_name_strips_the_service():
     assert tool_name("built-in:propose_refund") == "propose_refund"
+
+
+def test_nothing_new_gives_no_cost():
+    result = TurnResult(session_id="s")
+    add_usage(result, {"usage": {"old": {"requests": {}, "costs": {"total": "1"}}}}, {"old"})
+    assert result.cost_usd is None

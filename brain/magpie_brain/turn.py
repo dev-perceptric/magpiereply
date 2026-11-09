@@ -100,14 +100,15 @@ def turn_finished(events: Sequence[dict[str, Any]], trace_id: str) -> bool:
     )
 
 
-def add_usage(result: TurnResult, session: dict[str, Any], trace_ids: set[str]) -> None:
-    """Adds up the tokens and cost Parlant recorded for this turn's traces."""
+def add_usage(result: TurnResult, session: dict[str, Any], earlier: set[str]) -> None:
+    """Adds up the tokens and cost of every usage record Parlant wrote during this turn (keys not in `earlier`).
+    A new session's prompt-cache warm-up lands in its first turn, as it should."""
     usage = session.get("usage") or {}
     total = Decimal("0")
     priced = True
-    for trace_id, record in usage.items():
-        if trace_id not in trace_ids:
-            continue
+    new = [key for key in usage if key not in earlier]
+    for key in new:
+        record = usage[key]
         for model in (record.get("requests") or {}).values():
             for key in ("input_tokens", "cached_input_tokens", "output_tokens"):
                 result.tokens[key] = result.tokens.get(key, 0) + int(model.get(key) or 0)
@@ -116,7 +117,7 @@ def add_usage(result: TurnResult, session: dict[str, Any], trace_ids: set[str]) 
             priced = False
         else:
             total += Decimal(str(costs.get("total") or 0))
-    result.cost_usd = f"{total:.5f}" if priced and trace_ids & set(usage) else None
+    result.cost_usd = f"{total:.5f}" if priced and new else None
 
 
 class ParlantClient:
@@ -176,6 +177,7 @@ class ParlantClient:
                 },
             )
         result = TurnResult(session_id=session["id"])
+        earlier = set(session.get("usage") or {})
         if session["mode"] == "manual":
             result.already_with_people = True
             return result
@@ -214,5 +216,5 @@ class ParlantClient:
         read_events(result, events)
         result.seconds = time.monotonic() - started
         session = await self._call("GET", f"/sessions/{result.session_id}")
-        add_usage(result, session, {event["trace_id"] for event in events})
+        add_usage(result, session, earlier)
         return result

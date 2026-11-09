@@ -160,7 +160,7 @@ async def grade(client: anthropic.AsyncAnthropic, case: dict[str, Any], turns: l
         transcript=transcript(turns),
         actions=json.dumps(actions),
     )
-    response = await client.messages.create(model=GRADER_MODEL, max_tokens=300, messages=[{"role": "user", "content": prompt}])
+    response = await client.messages.create(model=GRADER_MODEL, max_tokens=2000, messages=[{"role": "user", "content": prompt}])
     text = "".join(block.text for block in response.content if block.type == "text")
     found = re.search(r"\{.*\}", text, re.S)
     verdict = json.loads(found.group(0)) if found else {"correct": False, "wrong": False, "reason": f"grader said: {text[:200]}"}

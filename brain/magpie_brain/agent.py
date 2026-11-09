@@ -43,9 +43,14 @@ def set_deps(value: Deps) -> None:
     _deps = value
 
 
-def _identity() -> tuple[str, str | None, bool]:
+def _customer_value(key: str) -> str:
+    """The customer's metadata as it was when the turn started. (Parlant's metadata.get is async and reads the store.)"""
     metadata = p.Customer.current.metadata
-    return metadata.get("team_id", ""), metadata.get("email") or None, metadata.get("verified") == "true"
+    return metadata[key] if key in metadata else ""
+
+
+def _identity() -> tuple[str, str | None, bool]:
+    return _customer_value("team_id"), _customer_value("email") or None, _customer_value("verified") == "true"
 
 
 @p.tool
@@ -118,7 +123,7 @@ async def recall_articles(context: p.RetrieverContext) -> p.RetrieverResult | No
     message = context.interaction.last_customer_message
     if not message or not message.content:
         return None
-    team_id = p.Customer.current.metadata.get("team_id", "")
+    team_id = _customer_value("team_id")
     hits = await deps().knowledge.search(team_id, message.content)
     if not hits:
         return p.RetrieverResult(data="No help article matches this message.")
