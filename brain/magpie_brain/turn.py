@@ -84,7 +84,8 @@ def read_events(result: TurnResult, events: Sequence[dict[str, Any]]) -> None:
             for call in (event.get("data") or {}).get("tool_calls", []):
                 name = tool_name(call.get("tool_id", ""))
                 data = ((call.get("result") or {}).get("data")) or {}
-                result.tools.append({"name": name, "arguments": call.get("arguments") or {}})
+                refused = data.get("error") if isinstance(data, dict) else None
+                result.tools.append({"name": name, "arguments": call.get("arguments") or {}, "refused": refused})
                 if isinstance(data, dict) and data.get("proposal"):
                     result.proposals.append(data["proposal"])
                 if isinstance(data, dict) and data.get("handoff"):

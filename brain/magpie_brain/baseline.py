@@ -121,8 +121,8 @@ async def run_baseline(
         messages.append({"role": "assistant", "content": [block.model_dump() for block in response.content]})
         results = []
         for call in calls:
-            tools_used.append({"name": call.name, "arguments": call.input})
             output = await _run_tool(call.name, call.input, request.customer, stripe)
+            tools_used.append({"name": call.name, "arguments": call.input, "refused": output.get("error")})
             if output.get("proposal"):
                 proposals.append(output["proposal"])
             if output.get("handoff"):

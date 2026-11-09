@@ -150,7 +150,11 @@ def transcript(turns: list[dict[str, Any]]) -> str:
 async def grade(client: anthropic.AsyncAnthropic, case: dict[str, Any], turns: list[dict[str, Any]]) -> tuple[dict[str, Any], Decimal]:
     expect = case["expect"]
     actions = [
-        {"tools": [tool["name"] for tool in turn.get("tools", [])], "proposals": turn.get("proposals"), "handoff": turn.get("handoff")}
+        {
+            "tools": [tool["name"] + (f" (refused by code: {tool['refused']}, no data returned)" if tool.get("refused") else "") for tool in turn.get("tools", [])],
+            "proposals": turn.get("proposals"),
+            "handoff": turn.get("handoff"),
+        }
         for turn in turns
     ]
     prompt = GRADER_PROMPT.format(

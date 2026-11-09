@@ -20,6 +20,7 @@ def test_reads_replies_tools_proposals_and_handoff():
     read_events(result, events)
     assert result.replies == ["Shall I refund it?"]
     assert [tool["name"] for tool in result.tools] == ["list_recent_charges", "propose_refund"]
+    assert [tool["refused"] for tool in result.tools] == [None, None]
     assert result.proposals == [{"charge_id": "pi_2", "approval": "customer_confirms"}]
     assert result.handoff is None
 
