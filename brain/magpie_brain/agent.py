@@ -155,6 +155,8 @@ async def build_agent(server: p.Server, reply_model: str, check_model: str) -> p
         # Parlant's reply check rewrote some drafts up to 5 times (29 s on one trial turn). The fact check comes
         # back in phase 2 as one check after the reply.
         message_review=False,
+        # Drafts are posted whole, so the reply comes as one block instead of a stream of pieces.
+        output_mode=p.OutputMode.BLOCK,
     )
     await agent.attach_retriever(recall_articles, id="help_articles")
     await agent.attach_retriever(sign_in_status, id="sign_in_status")

@@ -214,7 +214,11 @@ class ParlantClient:
             events.extend(response.json())
             await asyncio.sleep(0)
 
-        read_events(result, events)
+        # A streamed message is updated in place as it's written; read the turn again once it's done.
+        final = await self._call(
+            "GET", f"/sessions/{result.session_id}/events", params={"min_offset": start_offset, "wait_for_data": 0}
+        )
+        read_events(result, final)
         result.seconds = time.monotonic() - started
         session = await self._call("GET", f"/sessions/{result.session_id}")
         add_usage(result, session, earlier)
