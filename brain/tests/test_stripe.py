@@ -60,3 +60,12 @@ def test_gateway_tool_names_match_on_their_ending():
     assert _tool_named(names, "list_payment_intents") == "stripe-list-payment-intents"
     with pytest.raises(LookupError):
         _tool_named(names, "list_charges")
+
+
+def test_a_hidden_email_from_the_filtered_search_counts_and_a_different_one_does_not():
+    from magpie_brain.stripe import _same_customer
+
+    assert _same_customer({"email": "[REDACTED]"}, "maya.chen@example.com")
+    assert _same_customer({"email": "Maya.Chen@example.com"}, "maya.chen@example.com")
+    assert not _same_customer({"email": "someone@else.com"}, "maya.chen@example.com")
+    assert not _same_customer({}, "maya.chen@example.com")

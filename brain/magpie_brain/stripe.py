@@ -104,6 +104,16 @@ def _rows(payload: Any) -> list[dict[str, Any]]:
     return []
 
 
+REDACTED = "[REDACTED]"
+
+
+def _same_customer(customer: dict[str, Any], email: str) -> bool:
+    """Stripe's email filter is an exact match on Stripe's side. Stripe's MCP server hides the email in its
+    answer, so a hidden email from that filtered search is the customer we asked for; a visible one must match."""
+    shown = str(customer.get("email") or "")
+    return shown == REDACTED or shown.lower() == email.lower()
+
+
 class GatewayStripe:
     def __init__(self, url: str, token: str):
         self._url = url
@@ -125,7 +135,7 @@ class GatewayStripe:
             customers = await read("GetCustomers", "list_customers", {"email": email, "limit": 10})
             charges: list[Charge] = []
             for customer in customers:
-                if str(customer.get("email", "")).lower() != email.lower():
+                if not _same_customer(customer, email):
                     continue  # never trust a loose match on someone else's account
                 for intent in await read("GetPaymentIntents", "list_payment_intents", {"customer": customer["id"], "limit": 20}):
                     if intent.get("status") != "succeeded":
