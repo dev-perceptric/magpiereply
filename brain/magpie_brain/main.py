@@ -15,6 +15,8 @@ import os
 from decimal import Decimal
 from pathlib import Path
 
+from . import compat  # noqa: F401  (must load before Parlant builds its Anthropic clients)
+
 import anthropic
 import parlant.sdk as p
 from fastapi import Depends, FastAPI, Header, HTTPException
