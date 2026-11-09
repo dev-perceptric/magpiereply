@@ -45,6 +45,20 @@ RSpec.describe 'Agent bot read access', type: :request do
     expect(response.parsed_body['payload']['title']).to eq('Refund policy')
   end
 
+  it 'lists the help centers of its account' do
+    get "/api/v1/accounts/#{account.id}/portals", headers: headers, as: :json
+
+    expect(response).to have_http_status(:success)
+    expect(response.parsed_body['payload'].pluck('slug')).to eq([portal.slug])
+  end
+
+  it 'cannot change a help center' do
+    patch "/api/v1/accounts/#{account.id}/portals/#{portal.slug}", params: { portal: { name: 'Changed' } }, headers: headers, as: :json
+
+    expect(response).to have_http_status(:unauthorized)
+    expect(portal.reload.name).not_to eq('Changed')
+  end
+
   it 'cannot read another account' do
     other_account = create(:account)
     other_contact = create(:contact, account: other_account)

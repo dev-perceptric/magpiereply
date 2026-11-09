@@ -1,6 +1,6 @@
 class PortalPolicy < ApplicationPolicy
   def index?
-    @account.users.include?(@user)
+    agent_bot? || @account.users.include?(@user)
   end
 
   def update?
@@ -33,6 +33,13 @@ class PortalPolicy < ApplicationPolicy
 
   def ssl_status?
     @account.users.include?(@user)
+  end
+
+  private
+
+  # The Magpie AI agent bot lists the account's help centers to sync their articles (read-only).
+  def agent_bot?
+    @user.is_a?(AgentBot)
   end
 end
 

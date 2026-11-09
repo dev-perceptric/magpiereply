@@ -2,7 +2,7 @@ import type { Db } from '../db.js';
 import type { AppClient, AppConversation, AppMessage } from '../chatwoot.js';
 import type { BrainClient, BrainTurnResult } from '../brain.js';
 import { decrypt } from '../crypto.js';
-import { finishRun, findTeam, getConversationState, recordStep, saveConversationState, startRun } from '../repo.js';
+import { finishRun, findTeam, getConversationState, recordStep, saveConversationState, saveDraft, startRun } from '../repo.js';
 import type { TurnJob } from '../queue.js';
 
 const HISTORY_LIMIT = 20;
@@ -111,6 +111,14 @@ async function draftWithBrain(
   });
 
   // Save first, so a retry never sends these messages to the brain twice.
+  await saveDraft(deps.db, {
+    teamId: ids.teamId,
+    conversationId,
+    runId: ids.runId,
+    reply: result.reply,
+    proposals: result.proposals,
+    handoff: result.handoff,
+  });
   const note = draftNote(result, ids.runId);
   state = {
     lastMessageId: Math.max(...fresh.map(message => message.id)),

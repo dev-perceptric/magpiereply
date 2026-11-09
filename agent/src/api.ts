@@ -1,6 +1,7 @@
 import { serve } from '@hono/node-server';
 import { loadConfig } from './config.js';
 import { createDb, migrate } from './db.js';
+import { createAppClient } from './chatwoot.js';
 import { createHttpApp } from './http.js';
 import { enqueueTurn, startQueue } from './queue.js';
 
@@ -15,6 +16,10 @@ const app = createHttpApp({
   enqueueTurn: job => enqueueTurn(boss, job, config.TURN_DELAY_SECONDS),
   healthCheck: async () => {
     await db.query('select 1');
+  },
+  panel: {
+    appClientFor: token => createAppClient(config.APP_URL, token),
+    publicAppUrl: config.APP_PUBLIC_URL ?? config.APP_URL,
   },
 });
 

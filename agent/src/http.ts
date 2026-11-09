@@ -2,6 +2,7 @@ import { Hono } from 'hono';
 import type { Db } from './db.js';
 import { decrypt, hashHookId, verifyWebhookSignature } from './crypto.js';
 import { findTeamByHookHash, isInboxEnabled, saveEvent } from './repo.js';
+import { createPanelRoutes, type PanelDeps } from './panel.js';
 
 // What the app sends for a new message (only the fields we use).
 interface MessageEvent {
@@ -20,6 +21,8 @@ export interface HttpDeps {
   // Queues a turn; returns false when one is already waiting for this conversation.
   enqueueTurn: (job: { teamId: number; conversationId: number }) => Promise<boolean>;
   healthCheck: () => Promise<void>;
+  // The drafts side panel; left out where it isn't needed (the webhook tests).
+  panel?: Omit<PanelDeps, 'db' | 'encryptionKey'>;
 }
 
 // A new customer message we should answer. Everything else is acknowledged and ignored.
@@ -84,6 +87,10 @@ export function createHttpApp(deps: HttpDeps): Hono {
     const queued = await deps.enqueueTurn({ teamId: team.id, conversationId });
     return c.json({ status: queued ? 'queued' : 'already queued' });
   });
+
+  if (deps.panel) {
+    app.route('/panel', createPanelRoutes({ db: deps.db, encryptionKey: deps.encryptionKey, ...deps.panel }));
+  }
 
   return app;
 }

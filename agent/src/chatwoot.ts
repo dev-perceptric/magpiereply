@@ -28,6 +28,23 @@ export interface AppConversation {
   };
 }
 
+export interface AppPortal {
+  id: number;
+  slug: string;
+  name: string;
+  custom_domain: string | null;
+  archived: boolean;
+}
+
+export interface AppArticle {
+  id: number;
+  slug: string;
+  title: string;
+  content: string | null;
+  status: string;
+  updated_at: number;
+}
+
 export interface CreatedBot {
   id: number;
   access_token: string;
@@ -38,11 +55,16 @@ export interface AppClient {
   getConversation(accountId: number, conversationId: number): Promise<AppConversation>;
   listMessages(accountId: number, conversationId: number): Promise<AppMessage[]>;
   createPrivateNote(accountId: number, conversationId: number, content: string): Promise<void>;
+  // A reply the customer sees. Only ever called when a teammate clicks Send in the side panel.
+  sendReply(accountId: number, conversationId: number, content: string): Promise<void>;
+  listPortals(accountId: number): Promise<AppPortal[]>;
+  listPublishedArticles(accountId: number, portalSlug: string, page: number): Promise<AppArticle[]>;
 }
 
 export interface AppAdminClient {
   createAgentBot(accountId: number, bot: { name: string; description: string; outgoingUrl: string }): Promise<CreatedBot>;
   setInboxBot(accountId: number, inboxId: number, botId: number): Promise<void>;
+  createDashboardApp(accountId: number, app: { title: string; url: string }): Promise<{ id: number }>;
 }
 
 async function request<T>(baseUrl: string, token: string, method: string, path: string, body?: unknown): Promise<T> {
@@ -80,6 +102,26 @@ export function createAppClient(baseUrl: string, botToken: string): AppClient {
         message_type: 'outgoing',
       });
     },
+    async sendReply(accountId, conversationId, content) {
+      await request(baseUrl, botToken, 'POST', `/api/v1/accounts/${accountId}/conversations/${conversationId}/messages`, {
+        content,
+        private: false,
+        message_type: 'outgoing',
+      });
+    },
+    async listPortals(accountId) {
+      const data = await request<{ payload: AppPortal[] }>(baseUrl, botToken, 'GET', `/api/v1/accounts/${accountId}/portals`);
+      return data.payload;
+    },
+    async listPublishedArticles(accountId, portalSlug, page) {
+      const data = await request<{ payload: AppArticle[] }>(
+        baseUrl,
+        botToken,
+        'GET',
+        `/api/v1/accounts/${accountId}/portals/${encodeURIComponent(portalSlug)}/articles?status=published&page=${page}`,
+      );
+      return data.payload.filter(article => article.status === 'published');
+    },
   };
 }
 
@@ -96,6 +138,11 @@ export function createAppAdminClient(baseUrl: string, adminToken: string): AppAd
     async setInboxBot(accountId, inboxId, botId) {
       await request(baseUrl, adminToken, 'POST', `/api/v1/accounts/${accountId}/inboxes/${inboxId}/set_agent_bot`, {
         agent_bot: botId,
+      });
+    },
+    async createDashboardApp(accountId, app) {
+      return request<{ id: number }>(baseUrl, adminToken, 'POST', `/api/v1/accounts/${accountId}/dashboard_apps`, {
+        dashboard_app: { title: app.title, content: [{ type: 'frame', url: app.url }] },
       });
     },
   };

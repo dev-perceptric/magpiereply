@@ -1,6 +1,9 @@
 import { PgBoss } from 'pg-boss';
 
 export const TURN_QUEUE = 'turn';
+export const SYNC_QUEUE = 'sync_knowledge';
+// Help center changes reach the brain within 15 minutes.
+export const SYNC_SCHEDULE = '*/15 * * * *';
 
 export interface TurnJob {
   teamId: number;
@@ -20,6 +23,8 @@ export async function startQueue(databaseUrl: string): Promise<PgBoss> {
     retryBackoff: true,
     expireInSeconds: 120,
   });
+  // One sync at a time; a slow one simply delays the next.
+  await boss.createQueue(SYNC_QUEUE, { policy: 'singleton', retryLimit: 2, retryDelay: 60, expireInSeconds: 600 });
   return boss;
 }
 
