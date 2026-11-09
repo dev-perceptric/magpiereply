@@ -1,2 +1,4 @@
-# Pinned for the phase 0 trial. Parlant brings anthropic, httpx, fastapi and fastmcp.
+# Pinned for the phase 0 trial. Parlant brings httpx, fastapi and fastmcp.
 parlant[anthropic]==4.0.3
+# Parlant 4.0.3's Anthropic adapter passes httpx timeouts; anthropic 1.0 and later moved to httpx2 and reject them.
+anthropic==0.125.0
