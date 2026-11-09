@@ -24,8 +24,17 @@ export interface BrainTurnResult {
   tokens: { input_tokens?: number; cached_input_tokens?: number; output_tokens?: number };
 }
 
+export interface BrainArticle {
+  id: string;
+  title: string;
+  body: string;
+  url: string | null;
+}
+
 export interface BrainClient {
   runTurn(request: BrainTurnRequest): Promise<BrainTurnResult>;
+  // Replaces everything the brain knows for this team.
+  putKnowledge(teamId: string, articles: BrainArticle[]): Promise<{ articles: number; pieces: number }>;
 }
 
 export class BrainError extends Error {
@@ -53,6 +62,18 @@ export function createBrainClient(baseUrl: string, apiKey: string): BrainClient 
         throw new BrainError(`brain turn failed with ${response.status}`, response.status);
       }
       return (await response.json()) as BrainTurnResult;
+    },
+    async putKnowledge(teamId, articles) {
+      const response = await fetch(new URL(`/magpie/knowledge/${encodeURIComponent(teamId)}`, baseUrl), {
+        method: 'PUT',
+        headers: { authorization: `Bearer ${apiKey}`, 'content-type': 'application/json' },
+        body: JSON.stringify({ articles }),
+        signal: AbortSignal.timeout(BRAIN_TIMEOUT_MS),
+      });
+      if (!response.ok) {
+        throw new BrainError(`brain knowledge update failed with ${response.status}`, response.status);
+      }
+      return (await response.json()) as { articles: number; pieces: number };
     },
   };
 }

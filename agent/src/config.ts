@@ -7,6 +7,9 @@ const ConfigSchema = z.object({
   PORT: z.coerce.number().int().positive().default(8080),
   // Where the MagpieReply app's API lives, for example https://app.magpiereply.com
   APP_URL: z.string().url(),
+  // Where people reach the app, for help center links in answers and the side panel's frame check.
+  // Defaults to APP_URL, which is right whenever the app's API address is also its public one.
+  APP_PUBLIC_URL: z.string().url().optional(),
   // This service's own public address, used in the webhook URL given to the app.
   PUBLIC_URL: z.string().url(),
   // 32 random bytes, base64. Encrypts bot keys and signing secrets at rest.

@@ -4,8 +4,9 @@ module AccessTokenAuthHelper
     'api/v1/accounts/conversations/messages' => %w[index create],
     'api/v1/accounts/conversations/assignments' => ['create'],
     'api/v1/accounts/conversations/labels' => %w[index create],
-    # Read-only context for the Magpie AI agent bot: the customer and the team's help articles.
+    # Read-only context for the Magpie AI agent bot: the customer, and the team's help centers and their articles.
     'api/v1/accounts/contacts' => ['show'],
+    'api/v1/accounts/portals' => ['index'],
     'api/v1/accounts/articles' => %w[index show]
   }.freeze
 

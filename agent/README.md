@@ -11,6 +11,8 @@ Customer message → app → signed webhook → api: verify, save, queue
 - `src/queue.ts`: pg-boss in the `pgboss` schema. One waiting and one running turn per conversation, so a burst of messages becomes one turn. 3 retries with growing waits.
 - `src/jobs/turn.ts`: phase 0 turn. Reads the last 20 messages and posts a private note. Later phases add the brain.
 - `src/db/migrations`: the `agent` schema, applied on deploy (`node dist/migrate.js`).
+- `src/jobs/sync-knowledge.ts`: every 15 minutes, sends each team's published help center articles to the brain when they changed.
+- `src/panel.ts`: the drafts side panel (a Dashboard App), with Send, Copy and Discard. `src/add-panel.ts` adds it to an account.
 - `src/enable-team.ts`: connects an account. Creates the agent bot, attaches it to inboxes, and stores the bot key and signing secret encrypted.
 
 ## Run the tests

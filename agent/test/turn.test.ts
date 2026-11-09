@@ -27,6 +27,11 @@ function fakeApp(options: { messages?: AppMessage[]; failNote?: boolean; convers
         if (options.failNote) throw new Error('app unavailable');
         calls.notes.push({ accountId, conversationId, content });
       },
+      sendReply: async () => {
+        throw new Error('a turn never sends to the customer');
+      },
+      listPortals: async () => [],
+      listPublishedArticles: async () => [],
     };
   };
   return { appClientFor, calls };
@@ -98,6 +103,7 @@ function fakeBrain(result: Partial<BrainTurnResult> = {}, options: { fail?: bool
         ...result,
       };
     },
+    putKnowledge: async () => ({ articles: 0, pieces: 0 }),
   };
   return { brain, requests };
 }
@@ -125,6 +131,13 @@ describe('handleTurn with the brain', () => {
     expect(state).toEqual({ last_message_id: '3', pending_note: null });
     const step = (await db.query("select tokens_in, tokens_out from agent.run_steps where name = 'brain'")).rows[0];
     expect(step).toEqual({ tokens_in: 1000, tokens_out: 80 });
+    const draft = (await db.query('select conversation_id, reply, proposals, status from agent.drafts')).rows[0];
+    expect(draft).toEqual({
+      conversation_id: '55',
+      reply: 'I see two charges of $34.00. Shall I refund the duplicate?',
+      proposals: [{ action: 'refund', charge_id: 'pi_2', amount: '34.00 USD', approval: 'customer_confirms' }],
+      status: 'pending',
+    });
   });
 
   it('asks the brain only when the customer wrote something new, and leaves private drafts out', async () => {
