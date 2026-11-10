@@ -3,6 +3,7 @@ import type { Db } from './db.js';
 import { decrypt, hashHookId, verifyWebhookSignature } from './crypto.js';
 import { findTeamByHookHash, isInboxEnabled, saveEvent } from './repo.js';
 import { createPanelRoutes, type PanelDeps } from './panel.js';
+import { createInternalRoutes, type InternalDeps } from './internal.js';
 
 // What the app sends for a new message (only the fields we use).
 interface MessageEvent {
@@ -23,6 +24,8 @@ export interface HttpDeps {
   healthCheck: () => Promise<void>;
   // The drafts side panel; left out where it isn't needed (the webhook tests).
   panel?: Omit<PanelDeps, 'db' | 'encryptionKey'>;
+  // The app's Settings → AI agent page; left out when INTERNAL_API_KEY isn't set.
+  internal?: Omit<InternalDeps, 'db' | 'encryptionKey'>;
 }
 
 // A new customer message we should answer. Everything else is acknowledged and ignored.
@@ -87,6 +90,10 @@ export function createHttpApp(deps: HttpDeps): Hono {
     const queued = await deps.enqueueTurn({ teamId: team.id, conversationId });
     return c.json({ status: queued ? 'queued' : 'already queued' });
   });
+
+  if (deps.internal) {
+    app.route('/internal', createInternalRoutes({ db: deps.db, encryptionKey: deps.encryptionKey, ...deps.internal }));
+  }
 
   if (deps.panel) {
     app.route('/panel', createPanelRoutes({ db: deps.db, encryptionKey: deps.encryptionKey, ...deps.panel }));

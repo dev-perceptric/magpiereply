@@ -18,6 +18,8 @@ const ConfigSchema = z.object({
     .refine(value => Buffer.from(value, 'base64').length === 32, 'must be 32 bytes, base64-encoded'),
   // Seconds to wait after a customer message before answering, so a burst becomes one turn.
   TURN_DELAY_SECONDS: z.coerce.number().int().min(0).default(4),
+  // Shared with the app, for its Settings → AI agent page (src/internal.ts). Without it those routes are off.
+  INTERNAL_API_KEY: z.string().min(32).optional(),
   // The brain (brain/ in this repo). Without it, turns only post a "received" note, as in week 1.
   BRAIN_URL: z.string().url().optional(),
   BRAIN_API_KEY: z.string().min(20).optional(),
