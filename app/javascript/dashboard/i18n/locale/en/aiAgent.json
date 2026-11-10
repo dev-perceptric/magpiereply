@@ -1,0 +1,28 @@
+{
+  "AI_AGENT_SETTINGS": {
+    "HEADER": "AI agent",
+    "DESCRIPTION": "Magpie AI reads each new customer message and writes a draft reply in the Magpie side panel. A teammate checks it and sends it.",
+    "LOADING": "Loading Magpie AI",
+    "UNAVAILABLE": "Magpie AI isn't set up on this installation yet.",
+    "TOGGLE": {
+      "HEADER": "Magpie AI",
+      "DESCRIPTION": "Write a draft for every new customer message in the inboxes below."
+    },
+    "INBOXES": {
+      "HEADER": "Inboxes",
+      "EMPTY": "Add an inbox first."
+    },
+    "MODE": {
+      "HEADER": "Mode",
+      "DRAFT": "Draft",
+      "DRAFT_DESCRIPTION": "Magpie writes the reply, a teammate sends it.",
+      "AUTO": "Auto",
+      "AUTO_DESCRIPTION": "Magpie sends simple replies on its own.",
+      "IN_USE": "In use",
+      "COMING_SOON": "Coming soon"
+    },
+    "SAVE": "Save",
+    "SAVED": "Saved.",
+    "ERROR": "Couldn't save. Try again."
+  }
+}

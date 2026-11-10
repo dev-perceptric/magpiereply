@@ -17,6 +17,7 @@ const app = createHttpApp({
   healthCheck: async () => {
     await db.query('select 1');
   },
+  internal: config.INTERNAL_API_KEY ? { internalApiKey: config.INTERNAL_API_KEY, publicUrl: config.PUBLIC_URL } : undefined,
   panel: {
     appClientFor: token => createAppClient(config.APP_URL, token),
     publicAppUrl: config.APP_PUBLIC_URL ?? config.APP_URL,

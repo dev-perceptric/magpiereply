@@ -31,6 +31,10 @@
 
 en:
   hello: 'Hello world'
+  magpie:
+    ai_agent:
+      bot_description: 'Drafts replies from your help center for your team to send.'
+      unreachable: 'Magpie AI is unreachable right now. Try again in a minute.'
   administrator_notifications:
     captain:
       response_usage_alert:

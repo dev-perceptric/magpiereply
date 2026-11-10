@@ -8,13 +8,14 @@ import { createTestTeam, ENCRYPTION_KEY, freshDb } from './helpers.js';
 let db: Db;
 
 function fakeApp(options: { messages?: AppMessage[]; failNote?: boolean; conversation?: AppConversation } = {}) {
-  const calls = { tokens: [] as string[], notes: [] as Array<{ accountId: number; conversationId: number; content: string }> };
+  const calls = { tokens: [] as string[], notes: [] as Array<{ accountId: number; conversationId: number; content: string }>, opened: [] as number[] };
   const appClientFor = (token: string): AppClient => {
     calls.tokens.push(token);
     return {
       getConversation: async () =>
         options.conversation ?? {
           id: 55,
+          status: 'pending',
           meta: { sender: { id: 9, name: 'Maya', email: 'maya@example.com' }, channel: 'Channel::WebWidget', hmac_verified: true },
         },
       listMessages: async () =>
@@ -26,6 +27,9 @@ function fakeApp(options: { messages?: AppMessage[]; failNote?: boolean; convers
       createPrivateNote: async (accountId, conversationId, content) => {
         if (options.failNote) throw new Error('app unavailable');
         calls.notes.push({ accountId, conversationId, content });
+      },
+      openConversation: async (_accountId, conversationId) => {
+        calls.opened.push(conversationId);
       },
       sendReply: async () => {
         throw new Error('a turn never sends to the customer');
@@ -126,6 +130,7 @@ describe('handleTurn with the brain', () => {
     expect(calls.notes).toHaveLength(1);
     expect(calls.notes[0]!.content).toContain('Shall I refund the duplicate?');
     expect(calls.notes[0]!.content).toContain('Proposed refund: 34.00 USD for pi_2, needs the customer to confirm.');
+    expect(calls.opened).toEqual([55]);
 
     const state = (await db.query('select last_message_id, pending_note from agent.conversations')).rows[0];
     expect(state).toEqual({ last_message_id: '3', pending_note: null });

@@ -21,6 +21,7 @@ export interface AppMessage {
 
 export interface AppConversation {
   id: number;
+  status?: string;
   meta: {
     sender?: { id?: number; name?: string | null; email?: string | null } | null;
     channel?: string | null;
@@ -55,6 +56,8 @@ export interface AppClient {
   getConversation(accountId: number, conversationId: number): Promise<AppConversation>;
   listMessages(accountId: number, conversationId: number): Promise<AppMessage[]>;
   createPrivateNote(accountId: number, conversationId: number, content: string): Promise<void>;
+  // Moves a conversation to Open, so the team sees it. A bot on an inbox files new conversations as Pending.
+  openConversation(accountId: number, conversationId: number): Promise<void>;
   // A reply the customer sees. Only ever called when a teammate clicks Send in the side panel.
   sendReply(accountId: number, conversationId: number, content: string): Promise<void>;
   listPortals(accountId: number): Promise<AppPortal[]>;
@@ -100,6 +103,11 @@ export function createAppClient(baseUrl: string, botToken: string): AppClient {
         content,
         private: true,
         message_type: 'outgoing',
+      });
+    },
+    async openConversation(accountId, conversationId) {
+      await request(baseUrl, botToken, 'POST', `/api/v1/accounts/${accountId}/conversations/${conversationId}/toggle_status`, {
+        status: 'open',
       });
     },
     async sendReply(accountId, conversationId, content) {

@@ -54,7 +54,9 @@ grant create on database postgres to magpie_agent;
 cd /docker/magpiereply && docker compose up -d agent-api agent-worker
 ```
 
-4. Connect a team (asks for an administrator API key from Profile settings → Access token):
+4. Set `INTERNAL_API_KEY` (`openssl rand -hex 32`) on `agent-api` and `agent-worker`, and the same value as `MAGPIE_AGENT_KEY`, with `MAGPIE_AGENT_URL=http://agent-api:8080`, on `web` and `worker`. Teams then turn Magpie on from Settings → AI agent.
+
+5. Or connect a team by hand (asks for an administrator API key from Profile settings → Access token):
 
 ```bash
 cd /docker/magpiereply && docker compose exec agent-worker node dist/enable-team.js --account <id> --inboxes <id,id>

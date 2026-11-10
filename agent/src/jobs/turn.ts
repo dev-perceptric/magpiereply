@@ -129,6 +129,8 @@ async function draftWithBrain(
 
   await postNote(deps, app, ids, conversationId, note);
   await saveConversationState(deps.db, ids.teamId, conversationId, { ...state, pendingNote: null });
+  // Draft mode: people answer, so the conversation belongs in their Open view, not Pending.
+  if (conversation.status === 'pending') await app.openConversation(ids.accountId, conversationId);
 }
 
 async function postNote(

@@ -283,3 +283,45 @@ export async function reopenDraft(db: Db, teamId: number, draftId: number): Prom
     [teamId, draftId],
   );
 }
+
+export interface AccountState {
+  teamId: number;
+  mode: Team['mode'];
+  inboxIds: number[];
+}
+
+export async function getAccountState(db: Db, accountId: number): Promise<AccountState | null> {
+  const team = await db.query<{ id: string; mode: Team['mode'] }>('select id, mode from agent.teams where account_id = $1', [accountId]);
+  if (!team.rows[0]) return null;
+  const inboxes = await db.query<{ inbox_id: string }>(
+    'select inbox_id from agent.inbox_settings where team_id = $1 and enabled order by inbox_id',
+    [team.rows[0].id],
+  );
+  return { teamId: Number(team.rows[0].id), mode: team.rows[0].mode, inboxIds: inboxes.rows.map(row => Number(row.inbox_id)) };
+}
+
+// Turns the agent on or off for an account and sets exactly which inboxes it works in.
+export async function setAccountSettings(db: Db, teamId: number, settings: { mode: Team['mode']; inboxIds: number[] }): Promise<void> {
+  const client = await db.connect();
+  try {
+    await client.query('begin');
+    await client.query('update agent.teams set mode = $2, updated_at = now() where id = $1', [teamId, settings.mode]);
+    await client.query('update agent.inbox_settings set enabled = false where team_id = $1 and not (inbox_id = any($2::bigint[]))', [
+      teamId,
+      settings.inboxIds,
+    ]);
+    for (const inboxId of settings.inboxIds) {
+      await client.query(
+        `insert into agent.inbox_settings (team_id, inbox_id, enabled) values ($1, $2, true)
+         on conflict (team_id, inbox_id) do update set enabled = true`,
+        [teamId, inboxId],
+      );
+    }
+    await client.query('commit');
+  } catch (error) {
+    await client.query('rollback');
+    throw error;
+  } finally {
+    client.release();
+  }
+}

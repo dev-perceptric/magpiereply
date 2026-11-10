@@ -15,6 +15,7 @@ function setup(options: { failSend?: boolean } = {}) {
     getConversation: async () => ({ id: 1, meta: {} }),
     listMessages: async () => [],
     createPrivateNote: async () => undefined,
+    openConversation: async () => undefined,
     sendReply: async (accountId, conversationId, content) => {
       if (options.failSend) throw new Error('app down');
       sent.push({ accountId, conversationId, content });
