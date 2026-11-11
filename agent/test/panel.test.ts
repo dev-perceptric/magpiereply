@@ -58,6 +58,8 @@ describe('the drafts side panel', () => {
     const page = await http.request(`/panel/${PANEL_KEY}`);
     expect(page.status).toBe(200);
     expect(page.headers.get('content-security-policy')).toBe('frame-ancestors https://app.example.com');
+    const script = (await page.text()).split('<script>')[1]!.split('</script>')[0]!;
+    expect(() => new Function(script)).not.toThrow(); // the page's script still parses
     expect((await http.request('/panel/wrong-key')).status).toBe(404);
   });
 

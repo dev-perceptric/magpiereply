@@ -14,6 +14,7 @@ Each piece is a Docker Compose project in `/docker/<name>/docker-compose.yml`.
 | `magpiereply` | `agent-api`, `agent-worker` (`agent/`) | `agent.magpiereply.com` | 256 MB each |
 | `sb-magpiereply` | Self-hosted Supabase: Postgres 17 with pgvector, auth, REST, storage. The app, the agent and the gateway use its `db` container over the `sb-magpiereply` network | `db.magpiereply.com` | about 1.4 GB in all |
 | `magpie-brain` | The Magpie AI brain (`brain/`): the Magpie engine on Claude, Voyage for search, Stripe over MCP in test mode | inside Docker only, `http://brain:8800` on `magpiereply_default` | 512 MB |
+| `magpie-reader` | The reader (`brain/magpie_reader`): websites with Crawl4AI and files with Docling, for Magpie's knowledge. On its own `magpie-reader` network; only `agent-worker` joins it | inside Docker only, `http://reader:8810` | 2.5 GB |
 | `magpie-gateway` | ContextForge MCP gateway, made but stopped (profile `trial`) | none yet | 1 GB |
 | `traefik` | HTTPS and routing for every app (Let's Encrypt) | | |
 | `autodeploy` | Pulls new images every 5 minutes and restarts what changed | | 64 MB |
@@ -24,8 +25,8 @@ Each piece is a Docker Compose project in `/docker/<name>/docker-compose.yml`.
 ## How a change goes live
 
 1. Push to `claude/brave-mayer-66phgz`.
-2. `.github/workflows/build-images.yml` builds `ghcr.io/dev-perceptric/magpiereply` and `ghcr.io/dev-perceptric/magpie-agent` and tags them `latest`.
-3. Within 5 minutes, `autodeploy` pulls the new images and restarts `web`, `worker`, `agent-api` and `agent-worker`.
+2. `.github/workflows/build-images.yml` builds `ghcr.io/dev-perceptric/magpiereply`, `magpie-agent`, `magpie-brain` and `magpie-reader` and tags them `latest`.
+3. Within 5 minutes, `autodeploy` pulls the new images and restarts `web`, `worker`, `agent-api`, `agent-worker`, `brain` and `reader`.
 4. Rails runs its migrations on start (`docker/entrypoints/rails.sh`). The agent runs its own on start of `agent-api` and `agent-worker`.
 
 Gatus checks `https://app.magpiereply.com/api` (database and queue both `ok`) and `https://agent.magpiereply.com/health` every 2 minutes and sends an ntfy alert after 3 misses.
@@ -77,7 +78,7 @@ The shared server uses about 3.9 GB of its 8 GB. The phase 0 brain trial fits in
 Move MagpieReply to its own **KVM 4** (4 vCPU, 16 GB) before phase 1, when Docling, Crawl4AI and FlashRank join the brain, or sooner if the shared server's memory stays above 75% for a day. The move:
 
 1. Buy the KVM 4 with the same "Ubuntu 24.04 with Docker and Traefik" template, in Phoenix.
-2. Copy `/docker/traefik`, `/docker/autodeploy` (listing only MagpieReply's projects), `/docker/magpiereply`, `/docker/sb-magpiereply`, `/docker/magpie-gateway` and `/docker/magpie-brain`.
+2. Copy `/docker/traefik`, `/docker/autodeploy` (listing only MagpieReply's projects), `/docker/magpiereply`, `/docker/sb-magpiereply`, `/docker/magpie-gateway`, `/docker/magpie-brain` and `/docker/magpie-reader`.
 3. Stop `magpiereply` on the old server, dump and restore the database and storage volume, then start it on the new one.
 4. Point `app`, `agent` and `db` for `magpiereply.com` at the new IP in DNS. Traefik gets new certificates on its own.
 5. Remove MagpieReply's projects from the old server and from its `autodeploy` list.

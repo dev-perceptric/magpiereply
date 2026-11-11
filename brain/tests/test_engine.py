@@ -95,3 +95,42 @@ async def test_handoff_and_articles_reach_the_model(knowledge):
 def test_cache_writes_cost_a_quarter_more_than_input():
     usage = SimpleNamespace(input_tokens=0, output_tokens=0, cache_read_input_tokens=0, cache_creation_input_tokens=1_000_000)
     assert cost_of("claude-sonnet-5-5", usage) == Decimal("2.5")
+
+
+async def test_the_sources_line_becomes_the_articles_magpie_read(knowledge):
+    await knowledge.replace("t1", [Article(id="12", title="Shipping to Canada", body="We ship to Canada in 5 days.", url="https://help.example.com/a/12")])
+    claude = ScriptedClaude([[block("text", text="Yes, we ship to Canada in 5 days.\n\nSources: 12, 99")]])
+    out = await run_reply(request(text="do you ship to canada"), knowledge, FixtureStripe(FIXTURE), claude, "claude-sonnet-5-5")
+    assert out["reply"] == "Yes, we ship to Canada in 5 days."
+    assert out["sources"] == [{"id": "12", "title": "Shipping to Canada", "url": "https://help.example.com/a/12"}]
+    assert out["check"] is None  # no review model, no check
+
+
+async def test_the_review_flags_what_the_articles_do_not_support(knowledge):
+    await knowledge.replace("t1", [Article(id="12", title="Shipping to Canada", body="We ship to Canada in 5 days.")])
+    claude = ScriptedClaude([
+        [block("text", text="We ship to Canada in 2 days, for free.\n\nSources: 12")],
+        [block("tool_use", id="r1", name="report", input={"unsupported": ["in 2 days", "for free"], "handoff_note": ""})],
+    ])
+    out = await run_reply(request(text="do you ship to canada"), knowledge, FixtureStripe(FIXTURE), claude, "claude-sonnet-5-5", "claude-haiku-5-5")
+    assert out["check"] == {"passed": False, "unsupported": ["in 2 days", "for free"]}
+    assert out["handoff_note"] is None
+    review = claude.calls[1]
+    assert review["model"] == "claude-haiku-5-5"
+    assert review["tool_choice"] == {"type": "tool", "name": "report"}
+    assert "We ship to Canada in 5 days." in review["messages"][0]["content"]
+    # Sonnet: 1,000 in and 100 out is $0.003. Haiku: 1,000 in and 100 out is $0.00015.
+    assert out["cost_usd"] == "0.00315"
+
+
+async def test_a_handoff_gets_a_note_for_the_person_taking_over(knowledge):
+    claude = ScriptedClaude([
+        [block("tool_use", id="c1", name="transfer_to_human", input={"team": "Billing", "reason": "chargeback"})],
+        [block("text", text="I'm passing you to our billing team.\n\nSources: none")],
+        [block("tool_use", id="r1", name="report", input={"unsupported": [], "handoff_note": "Maya wants to reverse a charge. Nothing looked up yet."})],
+    ])
+    out = await run_reply(request(text="I'll file a chargeback"), knowledge, FixtureStripe(FIXTURE), claude, "claude-sonnet-5-5", "claude-haiku-5-5")
+    assert out["check"] == {"passed": True, "unsupported": []}
+    assert out["handoff_note"] == "Maya wants to reverse a charge. Nothing looked up yet."
+    assert out["sources"] == []
+    assert "Handoff to Billing: chargeback" in claude.calls[2]["messages"][0]["content"]

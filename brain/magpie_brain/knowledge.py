@@ -1,11 +1,14 @@
-"""Each team's help articles, cut into pieces and searched by meaning plus keywords.
+"""Each team's knowledge (help center articles, website pages and files), cut into pieces and searched by
+meaning plus keywords, then re-ranked by FlashRank.
 
-Phase 0 keeps it small: pieces and their vectors live in one JSON file per team on the data volume.
-Phase 1 replaces this with pgvector, Docling, Crawl4AI and FlashRank.
+Pieces and their vectors live in one JSON file per team on the data volume. A piece whose text didn't change
+keeps its vector, so a sync only pays Voyage for new or edited text.
 """
 
 from __future__ import annotations
 
+import asyncio
+import hashlib
 import json
 import math
 import re
@@ -29,8 +32,14 @@ STOPWORDS = frozenset(
     "with would you your yours".split()
 )
 
+# How many pieces hybrid search hands to the re-ranker, and how many the model reads.
+CANDIDATES = 12
+ANSWER_PIECES = 4
+
 # Takes texts and whether they are documents or a query, returns one vector per text.
 Embed = Callable[[Sequence[str], str], Awaitable[list[list[float]]]]
+# Takes the query and the candidate pieces, returns them best first.
+Rerank = Callable[[str, list["Hit"]], list["Hit"]]
 
 
 @dataclass
@@ -123,10 +132,29 @@ def keyword_scores(query: str, pieces: Sequence[Piece]) -> list[float]:
     return [score / best if best else 0.0 for score in scores]
 
 
+def flashrank_reranker(model_name: str, cache_dir: str) -> Rerank:
+    """Re-ranks with a small cross-encoder that runs on the CPU (FlashRank). The model is baked into the image."""
+    from flashrank import Ranker, RerankRequest
+
+    ranker = Ranker(model_name=model_name, cache_dir=cache_dir)
+
+    def rerank(query: str, hits: list[Hit]) -> list[Hit]:
+        passages = [{"id": index, "text": hit.text} for index, hit in enumerate(hits)]
+        ranked = ranker.rerank(RerankRequest(query=query, passages=passages))
+        return [hits[row["id"]] for row in ranked]
+
+    return rerank
+
+
+def text_key(text: str) -> str:
+    return hashlib.sha256(text.encode()).hexdigest()
+
+
 class KnowledgeStore:
-    def __init__(self, directory: Path, embed: Embed):
+    def __init__(self, directory: Path, embed: Embed, rerank: Rerank | None = None):
         self._directory = directory
         self._embed = embed
+        self._rerank = rerank
         self._cache: dict[str, list[Piece]] = {}
 
     def _path(self, team_id: str) -> Path:
@@ -147,9 +175,13 @@ class KnowledgeStore:
             for text in split_article(article):
                 texts.append(text)
                 owners.append(article)
-        vectors: list[list[float]] = []
-        for start in range(0, len(texts), 64):
-            vectors.extend(await self._embed(texts[start : start + 64], "document"))
+        known = {text_key(piece.text): piece.vector for piece in self.pieces(team_id)}
+        missing = list(dict.fromkeys(text for text in texts if text_key(text) not in known))
+        for start in range(0, len(missing), 64):
+            batch = missing[start : start + 64]
+            for text, vector in zip(batch, await self._embed(batch, "document")):
+                known[text_key(text)] = vector
+        vectors = [known[text_key(text)] for text in texts]
         pieces = [
             Piece(article_id=owner.id, title=owner.title, url=owner.url, text=text, vector=vector)
             for owner, text, vector in zip(owners, texts, vectors)
@@ -161,7 +193,7 @@ class KnowledgeStore:
         self._cache[team_id] = pieces
         return len(pieces)
 
-    async def search(self, team_id: str, query: str, limit: int = 4, minimum: float = 0.35) -> list[Hit]:
+    async def search(self, team_id: str, query: str, limit: int = ANSWER_PIECES, minimum: float = 0.35) -> list[Hit]:
         pieces = self.pieces(team_id)
         if not pieces or not query.strip():
             return []
@@ -178,7 +210,10 @@ class KnowledgeStore:
             for index, piece in enumerate(pieces)
         ]
         scored.sort(key=lambda hit: hit.score, reverse=True)
-        return [hit for hit in scored[:limit] if hit.score >= minimum]
+        candidates = [hit for hit in scored[:CANDIDATES] if hit.score >= minimum]
+        if self._rerank and len(candidates) > 1:
+            candidates = await asyncio.to_thread(self._rerank, query, candidates)
+        return candidates[:limit]
 
 
 def format_hits(hits: Sequence[Hit]) -> str:

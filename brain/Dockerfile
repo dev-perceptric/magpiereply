@@ -4,6 +4,8 @@ ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 DATA_DIR=/data
 WORKDIR /app
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
+RUN python -c "from flashrank import Ranker; Ranker(model_name='ms-marco-MiniLM-L-12-v2', cache_dir='/opt/flashrank')" \
+    && chmod -R a+rX /opt/flashrank
 COPY magpie_brain ./magpie_brain
 COPY trial ./trial
 RUN useradd --create-home --uid 10001 brain && mkdir -p /data && chown brain /data

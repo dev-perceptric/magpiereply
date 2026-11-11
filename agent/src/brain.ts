@@ -14,8 +14,25 @@ export interface BrainProposal {
   approval: 'customer_confirms' | 'staff_approves';
 }
 
+export interface BrainSource {
+  id: string;
+  title: string;
+  url: string | null;
+}
+
+// The small model's check of the reply against what Magpie read. Null when there was no reply.
+export interface BrainCheck {
+  passed: boolean;
+  unsupported: string[];
+}
+
 export interface BrainTurnResult {
   reply: string | null;
+  // The help articles, website pages and files the reply used.
+  sources: BrainSource[];
+  check: BrainCheck | null;
+  // For the person taking over, when Magpie hands off.
+  handoff_note: string | null;
   tools: Array<{ name: string; arguments: Record<string, unknown> }>;
   proposals: BrainProposal[];
   handoff: { team: string; reason: string } | null;

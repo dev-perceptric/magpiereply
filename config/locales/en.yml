@@ -33,8 +33,9 @@ en:
   hello: 'Hello world'
   magpie:
     ai_agent:
-      bot_description: 'Drafts replies from your help center for your team to send.'
+      bot_description: 'Drafts replies from your help center, websites and files for your team to send.'
       unreachable: 'Magpie AI is unreachable right now. Try again in a minute.'
+      source_missing: 'That website or file was already removed.'
   administrator_notifications:
     captain:
       response_usage_alert:

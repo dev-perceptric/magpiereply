@@ -4,6 +4,7 @@ import type { BrainClient, BrainTurnRequest, BrainTurnResult } from '../src/brai
 import type { Db } from '../src/db.js';
 import { customerOf, handleTurn, historyOf } from '../src/jobs/turn.js';
 import { createTestTeam, ENCRYPTION_KEY, freshDb } from './helpers.js';
+import { latestDraft } from '../src/repo.js';
 
 let db: Db;
 
@@ -98,6 +99,9 @@ function fakeBrain(result: Partial<BrainTurnResult> = {}, options: { fail?: bool
       if (options.fail) throw new Error('brain unavailable');
       return {
         reply: 'I see two charges of $34.00. Shall I refund the duplicate?',
+        sources: [],
+        check: { passed: true, unsupported: [] },
+        handoff_note: null,
         tools: [{ name: 'list_recent_charges', arguments: {} }],
         proposals: [{ action: 'refund', charge_id: 'pi_2', amount: '34.00 USD', approval: 'customer_confirms' }],
         handoff: null,
@@ -215,6 +219,32 @@ describe('handleTurn with the brain', () => {
 
 describe('customerOf', () => {
   const base = { id: 55, meta: { sender: { id: 9, name: 'Maya', email: 'maya@example.com' } } };
+
+  it('puts the sources, the fact check and the handoff note in the note and the draft', async () => {
+    const { teamId } = await createTestTeam(db, { accountId: 4 });
+    const { appClientFor, calls } = fakeApp();
+    const { brain } = fakeBrain({
+      reply: 'Refunds take 2 days.',
+      sources: [{ id: '12', title: 'Refunds', url: 'https://app.example.com/hc/help/articles/refunds' }],
+      check: { passed: false, unsupported: ['Refunds take 2 days.'] },
+      proposals: [],
+      handoff: { team: 'Billing', reason: 'chargeback' },
+      handoff_note: 'Maya wants to reverse a March charge.',
+    });
+
+    await handleTurn({ db, encryptionKey: ENCRYPTION_KEY, appClientFor, brain }, { id: 'job-s1', data: { teamId, conversationId: 55 } });
+
+    const note = calls.notes[0]!.content;
+    expect(note).toContain('Check before sending. Not found in your knowledge:\n- Refunds take 2 days.');
+    expect(note).toContain('Sources:\n- Refunds (https://app.example.com/hc/help/articles/refunds)');
+    expect(note).toContain('For the person taking over: Maya wants to reverse a March charge.');
+    const draft = await latestDraft(db, teamId, 55);
+    expect(draft).toMatchObject({
+      sources: [{ id: '12', title: 'Refunds' }],
+      factCheck: { passed: false, unsupported: ['Refunds take 2 days.'] },
+      handoffNote: 'Maya wants to reverse a March charge.',
+    });
+  });
 
   it('trusts the widget identity check or the email channel only', () => {
     expect(customerOf({ ...base, meta: { ...base.meta, channel: 'Channel::WebWidget', hmac_verified: true } }).verified).toBe(true);

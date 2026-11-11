@@ -8,7 +8,11 @@ import AiAgent from '../Index.vue';
 vi.mock('dashboard/composables/store');
 vi.mock('dashboard/composables', () => ({ useAlert: vi.fn() }));
 vi.mock('dashboard/api/aiAgent', () => ({
-  default: { show: vi.fn(), update: vi.fn() },
+  default: {
+    show: vi.fn(),
+    update: vi.fn(),
+    sources: vi.fn(() => Promise.resolve({ data: { sources: [] } })),
+  },
 }));
 
 const inboxes = [
@@ -33,6 +37,7 @@ const mountPage = async state => {
 describe('Settings → AI agent', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    aiAgentAPI.sources.mockResolvedValue({ data: { sources: [] } });
     useMapGetter.mockReturnValue(ref(inboxes));
   });
 
@@ -65,6 +70,7 @@ describe('Settings → AI agent', () => {
       inboxIds: [2],
     });
     expect(useAlert).toHaveBeenCalledWith('AI_AGENT_SETTINGS.SAVED');
+    expect(aiAgentAPI.sources).toHaveBeenCalled(); // knowledge shows once Magpie is on
   });
 
   it('shows the error the server gives', async () => {

@@ -23,6 +23,26 @@
     },
     "SAVE": "Save",
     "SAVED": "Saved.",
-    "ERROR": "Couldn't save. Try again."
+    "ERROR": "Couldn't save. Try again.",
+    "KNOWLEDGE": {
+      "HEADER": "Knowledge",
+      "DESCRIPTION": "Magpie answers from your published help center articles, plus the websites and files you add here.",
+      "HELP_CENTER": "Help center",
+      "HELP_CENTER_DESCRIPTION": "Published articles, read every 15 minutes.",
+      "WEBSITES": "Websites",
+      "WEBSITES_DESCRIPTION": "Up to 50 pages each, read again every day.",
+      "WEBSITE_PLACEHOLDER": "https://example.com/help",
+      "ADD_WEBSITE": "Add website",
+      "FILES": "Files",
+      "FILES_DESCRIPTION": "PDF, Word, PowerPoint, Excel, HTML, Markdown or text, up to 20 MB.",
+      "UPLOAD_FILE": "Upload file",
+      "EMPTY": "None yet.",
+      "READING": "Reading",
+      "READY": "{n} page | {n} pages",
+      "FAILED": "Couldn't read",
+      "READ_AGAIN": "Read again",
+      "REMOVE": "Remove",
+      "ERROR": "Something went wrong. Try again."
+    }
   }
 }

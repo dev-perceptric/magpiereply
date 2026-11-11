@@ -107,6 +107,9 @@ function panelPage(appOrigin: string): string {
   textarea:focus { outline: 2px solid var(--brand); outline-offset: 1px; }
   .tag { display: inline-block; margin: 8px 0 0; padding: 4px 8px; border-radius: 4px; font-size: 12px; background: var(--soft); }
   .tag.warn { background: var(--warn-soft); color: var(--warn); }
+  .claims { margin: 4px 0 0; padding-left: 18px; }
+  .sources { display: flex; flex-direction: column; gap: 2px; margin-top: 10px; font-size: 13px; }
+  .sources a { color: var(--brand); overflow-wrap: anywhere; }
   .row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
   button { font: inherit; font-weight: 500; border-radius: 6px; padding: 7px 14px; cursor: pointer; border: 1px solid var(--line); background: var(--card); color: var(--text); }
   button.primary { background: var(--brand); border-color: var(--brand); color: #fff; }
@@ -154,7 +157,25 @@ function panelPage(appOrigin: string): string {
       var who = p.approval === 'staff_approves' ? 'needs a teammate to approve' : 'needs the customer to confirm';
       card.appendChild(el('div', { class: 'tag' }, 'Refund ' + p.amount + ' for ' + p.charge_id + ', ' + who));
     });
+    if (draft.factCheck && !draft.factCheck.passed) {
+      var check = el('div', { class: 'tag warn' }, 'Check before sending. Not found in your knowledge:');
+      var claims = el('ul', { class: 'claims' });
+      draft.factCheck.unsupported.forEach(function (claim) { claims.appendChild(el('li', {}, claim)); });
+      check.appendChild(claims);
+      card.appendChild(check);
+    }
     if (draft.handoff) card.appendChild(el('div', { class: 'tag warn' }, 'Suggests handing off to ' + draft.handoff.team + ': ' + draft.handoff.reason));
+    if (draft.handoffNote) card.appendChild(el('div', { class: 'tag' }, 'For the person taking over: ' + draft.handoffNote));
+    if ((draft.sources || []).length) {
+      var sources = el('div', { class: 'sources' });
+      sources.appendChild(el('div', { class: 'muted' }, 'Sources'));
+      draft.sources.forEach(function (source) {
+        var safe = /^https?:\\/\\//.test(source.url || '');
+        var item = safe ? el('a', { href: source.url, target: '_blank', rel: 'noopener noreferrer' }, source.title) : el('span', {}, source.title);
+        sources.appendChild(item);
+      });
+      card.appendChild(sources);
+    }
     var row = el('div', { class: 'row' });
     var send = el('button', { class: 'primary', type: 'button' }, 'Send');
     var copy = el('button', { type: 'button' }, 'Copy');

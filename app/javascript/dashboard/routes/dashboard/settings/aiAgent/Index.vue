@@ -11,6 +11,7 @@ import SettingsToggleSection from 'dashboard/components-next/Settings/SettingsTo
 import Checkbox from 'dashboard/components-next/checkbox/Checkbox.vue';
 import Label from 'dashboard/components-next/label/Label.vue';
 import Button from 'dashboard/components-next/button/Button.vue';
+import KnowledgeSources from './components/KnowledgeSources.vue';
 
 const { t } = useI18n();
 const inboxes = useMapGetter('inboxes/getInboxes');
@@ -20,10 +21,13 @@ const isSaving = ref(false);
 const available = ref(false);
 const enabled = ref(false);
 const selectedInboxIds = ref([]);
+// What the server last saved: knowledge can be added once Magpie is on.
+const isOn = ref(false);
 
 const applyState = state => {
   available.value = state.available;
   enabled.value = Boolean(state.enabled);
+  isOn.value = Boolean(state.enabled);
   selectedInboxIds.value = state.inbox_ids || [];
 };
 
@@ -161,6 +165,8 @@ onMounted(load);
             @click="save"
           />
         </div>
+
+        <KnowledgeSources v-if="isOn" />
       </div>
     </template>
   </SettingsLayout>
