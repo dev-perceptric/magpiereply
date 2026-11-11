@@ -193,7 +193,11 @@ Rails.application.routes.draw do
             end
           end
           resources :dashboard_apps, only: [:index, :show, :create, :update, :destroy]
-          resource :ai_agent, only: [:show, :update]
+          resource :ai_agent, only: [:show, :update] do
+            resources :sources, only: [:index, :create, :destroy], controller: 'ai_agents/sources' do
+              post :read, on: :member
+            end
+          end
           namespace :channels do
             resource :twilio_channel, only: [:create]
           end

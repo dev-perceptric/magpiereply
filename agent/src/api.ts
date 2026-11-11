@@ -3,7 +3,7 @@ import { loadConfig } from './config.js';
 import { createDb, migrate } from './db.js';
 import { createAppClient } from './chatwoot.js';
 import { createHttpApp } from './http.js';
-import { enqueueTurn, startQueue } from './queue.js';
+import { enqueueRead, enqueueSync, enqueueTurn, startQueue } from './queue.js';
 
 const config = loadConfig();
 const db = createDb(config.DATABASE_URL);
@@ -17,7 +17,14 @@ const app = createHttpApp({
   healthCheck: async () => {
     await db.query('select 1');
   },
-  internal: config.INTERNAL_API_KEY ? { internalApiKey: config.INTERNAL_API_KEY, publicUrl: config.PUBLIC_URL } : undefined,
+  internal: config.INTERNAL_API_KEY
+    ? {
+        internalApiKey: config.INTERNAL_API_KEY,
+        publicUrl: config.PUBLIC_URL,
+        enqueueRead: sourceId => enqueueRead(boss, { sourceId }),
+        enqueueSync: teamId => enqueueSync(boss, { teamId }),
+      }
+    : undefined,
   panel: {
     appClientFor: token => createAppClient(config.APP_URL, token),
     publicAppUrl: config.APP_PUBLIC_URL ?? config.APP_URL,

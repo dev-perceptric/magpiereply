@@ -50,3 +50,31 @@ def test_common_words_do_not_count_as_matches():
               Piece("b", "B", None, "Our team answers chat Monday to Friday.", [])]
     scores = keyword_scores("Can you tell me if you are open?", pieces)
     assert scores == [0.0, 0.0]
+
+
+async def test_unchanged_pieces_keep_their_vectors(tmp_path):
+    seen = []
+
+    async def embed(texts, input_type):
+        seen.append(list(texts))
+        return [[1.0, float(len(text))] for text in texts]
+
+    store = KnowledgeStore(tmp_path, embed)
+    await store.replace("t", [Article(id="a", title="A", body="Alpha."), Article(id="b", title="B", body="Beta.")])
+    await store.replace("t", [Article(id="a", title="A", body="Alpha."), Article(id="b", title="B", body="Beta, edited.")])
+    assert seen == [["A\n\nAlpha.", "B\n\nBeta."], ["B\n\nBeta, edited."]]
+    assert len(store.pieces("t")) == 2
+
+
+async def test_the_reranker_orders_the_candidates(tmp_path):
+    def reverse(query, hits):
+        return list(reversed(hits))
+
+    store = KnowledgeStore(tmp_path, fake_embed_factory(), reverse)
+    await store.replace("t", [
+        Article(id="ship", title="Shipping", body="We ship to Canada. Shipping to Canada takes 5 days."),
+        Article(id="canada", title="Canada", body="Canada orders ship from Toronto."),
+    ])
+    plain = await KnowledgeStore(tmp_path, fake_embed_factory()).search("t", "ship to canada")
+    reranked = await store.search("t", "ship to canada")
+    assert [hit.article_id for hit in reranked] == [hit.article_id for hit in reversed(plain)]

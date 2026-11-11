@@ -2,8 +2,9 @@
 
 Routes (all need "Authorization: Bearer <BRAIN_API_KEY>" except health):
 - GET  /healthz                       {"status": "healthy"}, for Docker
-- PUT  /magpie/knowledge/{team_id}    replace a team's help articles
-- POST /magpie/reply                  one reply: the conversation so far in, the reply, tools, proposals and handoff out
+- PUT  /magpie/knowledge/{team_id}    replace a team's knowledge (help center, website pages and files)
+- POST /magpie/reply                  one reply: the conversation so far in; the reply, its sources, the fact check,
+                                      tools, proposals, handoff and handoff note out
 """
 
 import hmac
@@ -17,7 +18,7 @@ from pydantic import BaseModel, Field
 
 from .config import load_config
 from .engine import ReplyRequest, run_reply
-from .knowledge import Article, KnowledgeStore, voyage_embedder
+from .knowledge import Article, KnowledgeStore, flashrank_reranker, voyage_embedder
 from .stripe import FixtureStripe, GatewayStripe
 
 FIXTURE_PATH = Path(__file__).resolve().parent.parent / "trial" / "stripe_fixture.json"
@@ -29,7 +30,11 @@ class KnowledgeBody(BaseModel):
 
 def create_app() -> FastAPI:
     config = load_config()
-    knowledge = KnowledgeStore(config.data_dir / "knowledge", voyage_embedder(os.environ["VOYAGE_API_KEY"]))
+    knowledge = KnowledgeStore(
+        config.data_dir / "knowledge",
+        voyage_embedder(os.environ["VOYAGE_API_KEY"]),
+        flashrank_reranker(config.rerank_model, config.rerank_cache),
+    )
     stripe = (
         GatewayStripe(config.gateway_url or "", config.gateway_token or "")
         if config.stripe_mode == "gateway"
@@ -53,7 +58,7 @@ def create_app() -> FastAPI:
 
     @api.post("/magpie/reply", dependencies=[Depends(require_key)])
     async def post_reply(body: ReplyRequest) -> dict:
-        return await run_reply(body, knowledge, stripe, claude, config.reply_model)
+        return await run_reply(body, knowledge, stripe, claude, config.reply_model, config.review_model)
 
     print(f"[brain] ready on port {config.port}, Stripe from {config.stripe_mode}", flush=True)
     return api

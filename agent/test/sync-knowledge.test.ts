@@ -3,6 +3,7 @@ import type { AppArticle, AppClient, AppPortal } from '../src/chatwoot.js';
 import type { BrainArticle, BrainClient } from '../src/brain.js';
 import type { Db } from '../src/db.js';
 import { articleUrl, syncKnowledge } from '../src/jobs/sync-knowledge.js';
+import { addFile, addWebsite, saveRead } from '../src/sources.js';
 import { createTestTeam, ENCRYPTION_KEY, freshDb } from './helpers.js';
 
 let db: Db;
@@ -96,5 +97,28 @@ describe('syncKnowledge', () => {
 
   it('builds help center links that are safe for any slug', () => {
     expect(articleUrl('https://app.example.com', 'help desk', 'a/b')).toBe('https://app.example.com/hc/help%20desk/articles/a%2Fb');
+  });
+});
+
+describe('syncKnowledge with websites and files', () => {
+  it('adds the pages read from websites and files after the help center, and syncs only the team asked for', async () => {
+    const { teamId } = await createTestTeam(db);
+    const other = await createTestTeam(db, { accountId: 2 });
+    const website = await addWebsite(db, teamId, 'https://shop.example.com/');
+    await saveRead(db, website!.id, [{ url: 'https://shop.example.com/returns', title: 'Returns', body: 'Returns within 30 days.' }]);
+    const file = await addFile(db, teamId, { name: 'Care.pdf', type: 'application/pdf', data: Buffer.from('%PDF') });
+    await saveRead(db, file.id, [{ url: null, title: 'Caring for linen', body: 'Wash cold.' }]);
+    const app = fakeApp([portal('help')], { help: [[article(1)]] });
+    const { brain, sent } = fakeBrain();
+
+    await syncKnowledge({ db, encryptionKey: ENCRYPTION_KEY, appClientFor: () => app, brain, publicAppUrl: 'https://app.example.com' }, teamId);
+
+    expect(sent.map(call => call.teamId)).toEqual([String(teamId)]);
+    expect(sent[0]!.articles.map(row => [row.id.replace(/\d+$/, 'N'), row.title, row.url])).toEqual([
+      ['N', 'Article 1', 'https://app.example.com/hc/help/articles/article-1'],
+      ['web-N', 'Returns', 'https://shop.example.com/returns'],
+      ['file-N', 'Caring for linen', null],
+    ]);
+    expect(other.teamId).not.toBe(teamId);
   });
 });

@@ -6,6 +6,7 @@ import { findTeamByHookHash, findTeamByPanelHash } from '../src/repo.js';
 import { ENCRYPTION_KEY, freshDb } from './helpers.js';
 
 let db: Db;
+const queued = { reads: [] as number[], syncs: [] as number[] };
 const KEY = 'internal-key-that-is-at-least-32-chars';
 
 function app() {
@@ -14,7 +15,16 @@ function app() {
     encryptionKey: ENCRYPTION_KEY,
     enqueueTurn: async () => true,
     healthCheck: async () => undefined,
-    internal: { internalApiKey: KEY, publicUrl: 'https://agent.example.com' },
+    internal: {
+      internalApiKey: KEY,
+      publicUrl: 'https://agent.example.com',
+      enqueueRead: async sourceId => {
+        queued.reads.push(sourceId);
+      },
+      enqueueSync: async teamId => {
+        queued.syncs.push(teamId);
+      },
+    },
   });
 }
 
@@ -28,6 +38,8 @@ const connect = { name: 'Acme', bot_id: 7, bot_token: 'bot-key', bot_secret: 'bo
 beforeEach(async () => {
   db ??= await freshDb();
   await db.query('truncate agent.teams restart identity cascade');
+  queued.reads = [];
+  queued.syncs = [];
 });
 
 afterAll(async () => {
@@ -86,5 +98,63 @@ describe('the internal API for the settings page', () => {
   it('is off entirely when no key is configured', async () => {
     const plain = createHttpApp({ db, encryptionKey: ENCRYPTION_KEY, enqueueTurn: async () => true, healthCheck: async () => undefined });
     expect((await plain.request('/internal/accounts/4', call('GET'))).status).toBe(404);
+  });
+});
+
+describe('websites and files', () => {
+  const upload = (name: string, content: string) => {
+    const form = new FormData();
+    form.append('file', new Blob([content]), name);
+    return { method: 'POST', headers: { authorization: `Bearer ${KEY}` }, body: form };
+  };
+
+  it('adds a website, queues a read and lists it', async () => {
+    await app().request('/internal/accounts/4/connect', call('POST', connect));
+    const added = await app().request('/internal/accounts/4/sources', call('POST', { url: 'https://tidewell.example.com/help' }));
+    expect(added.status).toBe(201);
+    const { source } = (await added.json()) as { source: { id: number } };
+    expect(queued.reads).toEqual([source.id]);
+
+    const listed = (await (await app().request('/internal/accounts/4/sources', call('GET'))).json()) as { sources: unknown[] };
+    expect(listed.sources).toEqual([
+      { id: source.id, kind: 'website', name: 'https://tidewell.example.com/help', status: 'reading', error: null, pages: 0, read_at: null },
+    ]);
+  });
+
+  it('refuses a duplicate website, a bad address and a site without http', async () => {
+    await app().request('/internal/accounts/4/connect', call('POST', connect));
+    await app().request('/internal/accounts/4/sources', call('POST', { url: 'https://tidewell.example.com' }));
+    const again = await app().request('/internal/accounts/4/sources', call('POST', { url: 'https://tidewell.example.com/' }));
+    expect(await again.json()).toEqual({ error: 'That website is already added.' });
+    expect((await app().request('/internal/accounts/4/sources', call('POST', { url: 'not a url' }))).status).toBe(422);
+    expect((await app().request('/internal/accounts/4/sources', call('POST', { url: 'file:///etc/passwd' }))).status).toBe(422);
+  });
+
+  it('stores an uploaded file until it is read and refuses other types', async () => {
+    await app().request('/internal/accounts/4/connect', call('POST', connect));
+    const added = await app().request('/internal/accounts/4/sources', upload('Returns policy.pdf', '%PDF-1.4 hello'));
+    expect(added.status).toBe(201);
+    const row = (await db.query("select file_name, file_type, file_data from agent.knowledge_sources where kind = 'file'")).rows[0];
+    expect(row).toMatchObject({ file_name: 'Returns policy.pdf', file_type: 'application/pdf' });
+    expect(row.file_data.toString()).toBe('%PDF-1.4 hello');
+
+    const refused = await app().request('/internal/accounts/4/sources', upload('virus.exe', 'MZ'));
+    expect(refused.status).toBe(422);
+  });
+
+  it('removes a source and syncs, and reads one again on request', async () => {
+    await app().request('/internal/accounts/4/connect', call('POST', connect));
+    const added = await app().request('/internal/accounts/4/sources', call('POST', { url: 'https://tidewell.example.com' }));
+    const { source } = (await added.json()) as { source: { id: number } };
+    await db.query("update agent.knowledge_sources set status = 'failed'");
+
+    expect((await app().request(`/internal/accounts/4/sources/${source.id}/read`, call('POST'))).status).toBe(200);
+    expect(queued.reads).toEqual([source.id, source.id]);
+    expect((await db.query('select status from agent.knowledge_sources')).rows[0].status).toBe('reading');
+
+    expect((await app().request(`/internal/accounts/5/sources/${source.id}`, call('DELETE'))).status).toBe(404);
+    expect((await app().request(`/internal/accounts/4/sources/${source.id}`, call('DELETE'))).status).toBe(200);
+    expect(queued.syncs).toHaveLength(1);
+    expect((await db.query('select count(*)::int as n from agent.knowledge_sources')).rows[0].n).toBe(0);
   });
 });

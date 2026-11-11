@@ -18,6 +18,11 @@ class Config:
     gateway_url: str | None
     gateway_token: str | None
     reply_model: str
+    # The small model for the fact check and handoff notes.
+    review_model: str
+    # FlashRank's re-ranking model, downloaded into the image at build time.
+    rerank_model: str
+    rerank_cache: str
 
 
 def load_config(env: os._Environ[str] | dict[str, str] = os.environ) -> Config:
@@ -43,4 +48,7 @@ def load_config(env: os._Environ[str] | dict[str, str] = os.environ) -> Config:
         gateway_url=env.get("GATEWAY_URL"),
         gateway_token=env.get("GATEWAY_TOKEN"),
         reply_model=env.get("REPLY_MODEL", "claude-sonnet-5-5"),
+        review_model=env.get("REVIEW_MODEL", "claude-haiku-5-5"),
+        rerank_model=env.get("RERANK_MODEL", "ms-marco-MiniLM-L-12-v2"),
+        rerank_cache=env.get("RERANK_CACHE", "/opt/flashrank"),
     )

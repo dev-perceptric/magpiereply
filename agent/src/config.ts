@@ -23,9 +23,15 @@ const ConfigSchema = z.object({
   // The brain (brain/ in this repo). Without it, turns only post a "received" note, as in week 1.
   BRAIN_URL: z.string().url().optional(),
   BRAIN_API_KEY: z.string().min(20).optional(),
+  // The reader (brain/magpie_reader): websites and files. Without it, Magpie knows only the help center.
+  READER_URL: z.string().url().optional(),
+  READER_API_KEY: z.string().min(20).optional(),
 }).refine(config => Boolean(config.BRAIN_URL) === Boolean(config.BRAIN_API_KEY), {
   message: 'set BRAIN_URL and BRAIN_API_KEY together',
   path: ['BRAIN_URL'],
+}).refine(config => Boolean(config.READER_URL) === Boolean(config.READER_API_KEY), {
+  message: 'set READER_URL and READER_API_KEY together',
+  path: ['READER_URL'],
 });
 
 export type Config = z.infer<typeof ConfigSchema>;

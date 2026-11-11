@@ -1,0 +1,9 @@
+# The reader (magpie_reader): websites with Crawl4AI, files with Docling. CPU-only torch keeps the image small.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.14.1+cpu
+torchvision==0.29.2+cpu
+docling==2.142.1
+crawl4ai==0.9.5
+fastapi==0.162.2
+uvicorn==0.54.0
+python-multipart==0.0.33

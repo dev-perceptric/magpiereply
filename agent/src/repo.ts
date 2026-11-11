@@ -200,6 +200,9 @@ export interface Draft {
   reply: string | null;
   proposals: unknown[];
   handoff: { team: string; reason: string } | null;
+  sources: Array<{ id: string; title: string; url: string | null }>;
+  factCheck: { passed: boolean; unsupported: string[] } | null;
+  handoffNote: string | null;
   status: 'pending' | 'sent' | 'discarded' | 'replaced';
   createdAt: string;
 }
@@ -210,6 +213,9 @@ interface DraftRow {
   reply: string | null;
   proposals: unknown[];
   handoff: { team: string; reason: string } | null;
+  sources: Draft['sources'];
+  fact_check: Draft['factCheck'];
+  handoff_note: string | null;
   status: Draft['status'];
   created_at: Date;
 }
@@ -221,6 +227,9 @@ function toDraft(row: DraftRow): Draft {
     reply: row.reply,
     proposals: row.proposals,
     handoff: row.handoff,
+    sources: row.sources,
+    factCheck: row.fact_check,
+    handoffNote: row.handoff_note,
     status: row.status,
     createdAt: row.created_at.toISOString(),
   };
@@ -229,7 +238,17 @@ function toDraft(row: DraftRow): Draft {
 // A new draft replaces any earlier one still waiting in the same conversation.
 export async function saveDraft(
   db: Db,
-  draft: { teamId: number; conversationId: number; runId: number; reply: string | null; proposals: unknown[]; handoff: unknown },
+  draft: {
+    teamId: number;
+    conversationId: number;
+    runId: number;
+    reply: string | null;
+    proposals: unknown[];
+    handoff: unknown;
+    sources?: Draft['sources'];
+    factCheck?: Draft['factCheck'];
+    handoffNote?: string | null;
+  },
 ): Promise<number> {
   const client = await db.connect();
   try {
@@ -239,9 +258,19 @@ export async function saveDraft(
       [draft.teamId, draft.conversationId],
     );
     const result = await client.query<{ id: string }>(
-      `insert into agent.drafts (team_id, conversation_id, run_id, reply, proposals, handoff)
-       values ($1, $2, $3, $4, $5, $6) returning id`,
-      [draft.teamId, draft.conversationId, draft.runId, draft.reply, JSON.stringify(draft.proposals), draft.handoff === null ? null : JSON.stringify(draft.handoff)],
+      `insert into agent.drafts (team_id, conversation_id, run_id, reply, proposals, handoff, sources, fact_check, handoff_note)
+       values ($1, $2, $3, $4, $5, $6, $7, $8, $9) returning id`,
+      [
+        draft.teamId,
+        draft.conversationId,
+        draft.runId,
+        draft.reply,
+        JSON.stringify(draft.proposals),
+        draft.handoff === null ? null : JSON.stringify(draft.handoff),
+        JSON.stringify(draft.sources ?? []),
+        draft.factCheck ? JSON.stringify(draft.factCheck) : null,
+        draft.handoffNote ?? null,
+      ],
     );
     await client.query('commit');
     return Number(result.rows[0]!.id);
@@ -253,7 +282,7 @@ export async function saveDraft(
   }
 }
 
-const DRAFT_COLUMNS = 'id, conversation_id, reply, proposals, handoff, status, created_at';
+const DRAFT_COLUMNS = 'id, conversation_id, reply, proposals, handoff, sources, fact_check, handoff_note, status, created_at';
 
 export async function latestDraft(db: Db, teamId: number, conversationId: number): Promise<Draft | null> {
   const result = await db.query<DraftRow>(

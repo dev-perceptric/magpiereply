@@ -4,6 +4,18 @@ import { z } from 'zod';
 import { encrypt, hashHookId, newHookId } from './crypto.js';
 import type { Db } from './db.js';
 import { getAccountState, setAccountSettings, setPanelKeyHash, upsertTeam } from './repo.js';
+import {
+  addFile,
+  addWebsite,
+  countSources,
+  listSources,
+  markReading,
+  MAX_FILE_BYTES,
+  MAX_FILES,
+  MAX_WEBSITES,
+  removeSource,
+  type KnowledgeSource,
+} from './sources.js';
 
 // The app's side door into the agent: MagpieReply's Settings → AI agent page turns the agent on and off through
 // these routes. Only the app calls them, on the servers' private network, with the shared INTERNAL_API_KEY.
@@ -14,6 +26,41 @@ export interface InternalDeps {
   internalApiKey: string;
   // This service's public address, for the webhook and panel URLs it hands back.
   publicUrl: string;
+  // Queue a read of a website or file, and a fresh sync of a team's knowledge to the brain.
+  enqueueRead: (sourceId: number) => Promise<void>;
+  enqueueSync: (teamId: number) => Promise<void>;
+}
+
+// What a file can be: the formats Docling reads, plus plain text and Markdown.
+const FILE_TYPES: Record<string, string> = {
+  pdf: 'application/pdf',
+  docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+  xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  html: 'text/html',
+  htm: 'text/html',
+  md: 'text/markdown',
+  txt: 'text/plain',
+};
+
+const WebsiteBody = z.object({
+  url: z
+    .string()
+    .trim()
+    .max(2000)
+    .refine(value => URL.canParse(value) && ['http:', 'https:'].includes(new URL(value).protocol), 'must start with http or https'),
+});
+
+function sourceJson(source: KnowledgeSource) {
+  return {
+    id: source.id,
+    kind: source.kind,
+    name: source.kind === 'website' ? source.url : source.fileName,
+    status: source.status,
+    error: source.error,
+    pages: source.pages,
+    read_at: source.readAt,
+  };
 }
 
 const AccountId = z.coerce.number().int().positive();
@@ -84,6 +131,68 @@ export function createInternalRoutes(deps: InternalDeps): Hono {
     await setAccountSettings(deps.db, state.teamId, { mode: body.data.mode, inboxIds: body.data.inbox_ids });
     const updated = await getAccountState(deps.db, accountId.data);
     return c.json({ connected: true, mode: updated!.mode, inbox_ids: updated!.inboxIds });
+  });
+
+  internal.get('/accounts/:accountId/sources', async c => {
+    const accountId = AccountId.safeParse(c.req.param('accountId'));
+    if (!accountId.success) return c.json({ error: 'invalid account' }, 422);
+    const state = await getAccountState(deps.db, accountId.data);
+    if (!state) return c.json({ sources: [] });
+    return c.json({ sources: (await listSources(deps.db, state.teamId)).map(sourceJson) });
+  });
+
+  // A website (JSON with a url) or a file (multipart with a file).
+  internal.post('/accounts/:accountId/sources', async c => {
+    const accountId = AccountId.safeParse(c.req.param('accountId'));
+    if (!accountId.success) return c.json({ error: 'invalid account' }, 422);
+    const state = await getAccountState(deps.db, accountId.data);
+    if (!state) return c.json({ error: 'not connected' }, 409);
+
+    let source: KnowledgeSource | null;
+    if ((c.req.header('content-type') ?? '').startsWith('multipart/form-data')) {
+      const form = await c.req.parseBody().catch(() => null);
+      const file = form?.file;
+      if (!(file instanceof File)) return c.json({ error: 'Choose a file.' }, 422);
+      const extension = file.name.split('.').pop()?.toLowerCase() ?? '';
+      if (!FILE_TYPES[extension]) return c.json({ error: 'Use a PDF, Word, PowerPoint, Excel, HTML, Markdown or text file.' }, 422);
+      if (file.size > MAX_FILE_BYTES) return c.json({ error: 'Files can be up to 20 MB.' }, 422);
+      if ((await countSources(deps.db, state.teamId, 'file')) >= MAX_FILES) return c.json({ error: `Up to ${MAX_FILES} files.` }, 422);
+      source = await addFile(deps.db, state.teamId, {
+        name: file.name.slice(0, 255),
+        type: FILE_TYPES[extension]!,
+        data: Buffer.from(await file.arrayBuffer()),
+      });
+    } else {
+      const body = WebsiteBody.safeParse(await c.req.json().catch(() => null));
+      if (!body.success) return c.json({ error: 'Enter a website address that starts with https://' }, 422);
+      if ((await countSources(deps.db, state.teamId, 'website')) >= MAX_WEBSITES) {
+        return c.json({ error: `Up to ${MAX_WEBSITES} websites.` }, 422);
+      }
+      source = await addWebsite(deps.db, state.teamId, new URL(body.data.url).toString());
+      if (!source) return c.json({ error: 'That website is already added.' }, 422);
+    }
+    await deps.enqueueRead(source.id);
+    return c.json({ source: sourceJson(source) }, 201);
+  });
+
+  internal.post('/accounts/:accountId/sources/:sourceId/read', async c => {
+    const accountId = AccountId.safeParse(c.req.param('accountId'));
+    const sourceId = AccountId.safeParse(c.req.param('sourceId'));
+    if (!accountId.success || !sourceId.success) return c.json({ error: 'invalid request' }, 422);
+    const state = await getAccountState(deps.db, accountId.data);
+    if (!state || !(await markReading(deps.db, state.teamId, sourceId.data))) return c.json({ error: 'not found' }, 404);
+    await deps.enqueueRead(sourceId.data);
+    return c.json({ status: 'reading' });
+  });
+
+  internal.delete('/accounts/:accountId/sources/:sourceId', async c => {
+    const accountId = AccountId.safeParse(c.req.param('accountId'));
+    const sourceId = AccountId.safeParse(c.req.param('sourceId'));
+    if (!accountId.success || !sourceId.success) return c.json({ error: 'invalid request' }, 422);
+    const state = await getAccountState(deps.db, accountId.data);
+    if (!state || !(await removeSource(deps.db, state.teamId, sourceId.data))) return c.json({ error: 'not found' }, 404);
+    await deps.enqueueSync(state.teamId);
+    return c.json({ status: 'removed' });
   });
 
   return internal;

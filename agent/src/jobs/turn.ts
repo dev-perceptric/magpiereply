@@ -99,6 +99,8 @@ async function draftWithBrain(
     input: { messageIds: fresh.map(message => message.id) },
     output: {
       reply: result.reply,
+      sources: (result.sources ?? []).map(source => source.id),
+      check: result.check ?? null,
       tools: result.tools.map(tool => tool.name),
       proposals: result.proposals,
       handoff: result.handoff,
@@ -118,6 +120,9 @@ async function draftWithBrain(
     reply: result.reply,
     proposals: result.proposals,
     handoff: result.handoff,
+    sources: result.sources ?? [],
+    factCheck: result.check ?? null,
+    handoffNote: result.handoff_note ?? null,
   });
   const note = draftNote(result, ids.runId);
   state = {
@@ -160,12 +165,19 @@ export function customerOf(conversation: AppConversation): {
 
 export function draftNote(result: BrainTurnResult, runId: number): string {
   const lines = [`Magpie draft (run #${runId}):`, '', result.reply ?? '(no reply)'];
+  if (result.check && !result.check.passed) {
+    lines.push('', 'Check before sending. Not found in your knowledge:', ...result.check.unsupported.map(claim => `- ${claim}`));
+  }
+  if (result.sources?.length) {
+    lines.push('', 'Sources:', ...result.sources.map(source => `- ${source.title}${source.url ? ` (${source.url})` : ''}`));
+  }
   for (const proposal of result.proposals) {
     const who = proposal.approval === 'staff_approves' ? 'needs a teammate to approve' : 'needs the customer to confirm';
     lines.push('', `Proposed refund: ${proposal.amount} for ${proposal.charge_id}, ${who}.`);
   }
   if (result.handoff) {
     lines.push('', `Suggested handoff to ${result.handoff.team}: ${result.handoff.reason}`);
+    if (result.handoff_note) lines.push('', `For the person taking over: ${result.handoff_note}`);
   }
   return lines.join('\n');
 }
