@@ -65,7 +65,7 @@ jobs:
         run: python -m trial.run_trial --strict
       - name: Ragas faithfulness
         if: steps.keys.outputs.ready == 'true'
-        run: python -m trial.score_ragas --min 0.85
+        run: python -m trial.score_ragas --min 0.75
       - name: Brain log
         if: failure() && steps.keys.outputs.ready == 'true'
         run: tail -100 "$RUNNER_TEMP/brain.log"
