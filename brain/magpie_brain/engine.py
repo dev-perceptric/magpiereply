@@ -74,7 +74,8 @@ You get the help articles and tool results the reply could use, the customer's l
 List every statement in the reply about policies, prices, dates, times, features or the customer's account that the
 articles and tool results don't support. Greetings, apologies, questions to the customer and offers to help are fine.
 When there is a handoff, also write a note for the person taking over: two or three short lines on what the customer
-wants, what Magpie found and what's left to do. Plain words. Otherwise leave the note empty."""
+wants, what Magpie found and what's left to do. Plain words. Don't mention this check or article numbers.
+Otherwise leave the note empty."""
 
 REVIEW_TOOL: dict[str, Any] = {
     "name": "report",
@@ -223,7 +224,9 @@ async def run_reply(
             tools_used.append({"name": call.name, "arguments": call.input, "refused": output.get("error")})
             if output.get("proposal"):
                 proposals.append(output["proposal"])
-            if output.get("handoff"):
+            # The first handoff stands: the rules put the specific team (Billing for a chargeback) before the
+            # general one, and the model sometimes calls the tool again for Support.
+            if output.get("handoff") and handoff is None:
                 handoff = output["handoff"]
             results.append({"type": "tool_result", "tool_use_id": call.id, "content": json.dumps(output)})
         messages.append({"role": "user", "content": results})

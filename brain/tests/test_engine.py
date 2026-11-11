@@ -134,3 +134,15 @@ async def test_a_handoff_gets_a_note_for_the_person_taking_over(knowledge):
     assert out["handoff_note"] == "Maya wants to reverse a charge. Nothing looked up yet."
     assert out["sources"] == []
     assert "Handoff to Billing: chargeback" in claude.calls[2]["messages"][0]["content"]
+
+
+async def test_the_first_handoff_stands_when_the_model_hands_off_twice(knowledge):
+    claude = ScriptedClaude([
+        [
+            block("tool_use", id="c1", name="transfer_to_human", input={"team": "Billing", "reason": "chargeback"}),
+            block("tool_use", id="c2", name="transfer_to_human", input={"team": "Support", "reason": "asked for a manager"}),
+        ],
+        [block("text", text="I'm passing you to our billing team.\n\nSources: none")],
+    ])
+    out = await run_reply(request(text="manager, chargeback"), knowledge, FixtureStripe(FIXTURE), claude, "claude-sonnet-5-5")
+    assert out["handoff"] == {"team": "Billing", "reason": "chargeback"}
