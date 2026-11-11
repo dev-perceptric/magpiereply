@@ -7,10 +7,10 @@ import aiAgentAPI from 'dashboard/api/aiAgent';
 import Button from 'dashboard/components-next/button/Button.vue';
 import Label from 'dashboard/components-next/label/Label.vue';
 
+const emit = defineEmits(['finished']);
+
 const POLL_MS = 5000;
 const VERDICT_COLORS = { same: 'teal', fine: 'blue', wrong: 'ruby' };
-
-const emit = defineEmits(['finished']);
 const { t } = useI18n();
 
 const tests = ref([]);
