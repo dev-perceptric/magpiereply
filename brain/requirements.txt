@@ -7,3 +7,8 @@ fastmcp==4.1.6
 pydantic==2.14.3
 # Re-ranks search results on the CPU (model baked into the image).
 flashrank==0.2.10
+# Masks card, ID and contact numbers before Claude (magpie_brain/safety.py).
+presidio-analyzer==2.2.366
+presidio-anonymizer==2.2.366
+spacy==3.8.18
+en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl

@@ -3,7 +3,7 @@ import { loadConfig } from './config.js';
 import { createDb, migrate } from './db.js';
 import { createAppClient } from './chatwoot.js';
 import { createHttpApp } from './http.js';
-import { enqueueRead, enqueueSync, enqueueTurn, startQueue } from './queue.js';
+import { enqueueRead, enqueueReplay, enqueueSync, enqueueTurn, startQueue } from './queue.js';
 
 const config = loadConfig();
 const db = createDb(config.DATABASE_URL);
@@ -23,6 +23,7 @@ const app = createHttpApp({
         publicUrl: config.PUBLIC_URL,
         enqueueRead: sourceId => enqueueRead(boss, { sourceId }),
         enqueueSync: teamId => enqueueSync(boss, { teamId }),
+        enqueueReplay: evalRunId => enqueueReplay(boss, { evalRunId }),
       }
     : undefined,
   panel: {

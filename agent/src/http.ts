@@ -2,6 +2,7 @@ import { Hono } from 'hono';
 import type { Db } from './db.js';
 import { decrypt, hashHookId, verifyWebhookSignature } from './crypto.js';
 import { findTeamByHookHash, isInboxEnabled, saveEvent } from './repo.js';
+import { markPersonReplied, markReopened, markResolved } from './trust.js';
 import { createPanelRoutes, type PanelDeps } from './panel.js';
 import { createInternalRoutes, type InternalDeps } from './internal.js';
 
@@ -11,6 +12,7 @@ interface MessageEvent {
   id?: number;
   message_type?: string;
   private?: boolean;
+  sender?: { type?: string };
   account?: { id?: number };
   inbox?: { id?: number };
   conversation?: { id?: number };
@@ -38,6 +40,25 @@ function isCustomerMessage(event: MessageEvent): boolean {
     typeof event.conversation?.id === 'number' &&
     typeof event.inbox?.id === 'number'
   );
+}
+
+// Outcomes for the AI agent page: a teammate replied, or the conversation was resolved or reopened. Returns true when
+// the event was one of these. Only conversations Magpie worked on are updated.
+async function recordOutcome(db: Db, teamId: number, event: MessageEvent): Promise<boolean> {
+  if (event.event === 'conversation_resolved' && typeof event.id === 'number') {
+    await markResolved(db, teamId, event.id);
+    return true;
+  }
+  if (event.event === 'conversation_opened' && typeof event.id === 'number') {
+    await markReopened(db, teamId, event.id);
+    return true;
+  }
+  const byPerson = event.message_type === 'outgoing' && event.private !== true && event.sender?.type === 'user';
+  if (event.event === 'message_created' && byPerson && typeof event.conversation?.id === 'number') {
+    await markPersonReplied(db, teamId, event.conversation.id);
+    return true;
+  }
+  return false;
 }
 
 export function createHttpApp(deps: HttpDeps): Hono {
@@ -73,6 +94,7 @@ export function createHttpApp(deps: HttpDeps): Hono {
     }
 
     if (event.account?.id !== team.accountId) return c.json({ error: 'wrong account' }, 403);
+    if (await recordOutcome(deps.db, team.id, event)) return c.json({ status: 'recorded' });
     if (team.mode === 'off' || !isCustomerMessage(event)) return c.json({ status: 'ignored' });
     if (!(await isInboxEnabled(deps.db, team.id, event.inbox!.id!))) return c.json({ status: 'ignored' });
 

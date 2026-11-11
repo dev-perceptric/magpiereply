@@ -14,7 +14,10 @@ class Api::V1::Accounts::AiAgentsController < Api::V1::Accounts::BaseController
     return render json: { available: false }, status: :unprocessable_entity unless Magpie::AgentClient.configured?
 
     render json: ai_agent.update(enabled: ActiveModel::Type::Boolean.new.cast(ai_agent_params[:enabled]),
-                                 inbox_ids: Array(ai_agent_params[:inbox_ids]).map(&:to_i))
+                                 inbox_ids: Array(ai_agent_params[:inbox_ids]).map(&:to_i),
+                                 mode: ai_agent_params[:mode] == 'auto' ? 'auto' : 'draft')
+  rescue Magpie::AgentClient::Rejected => e
+    render json: { error: e.message }, status: :unprocessable_entity
   rescue Magpie::AgentClient::Error
     render json: { error: I18n.t('magpie.ai_agent.unreachable') }, status: :bad_gateway
   end
@@ -26,6 +29,6 @@ class Api::V1::Accounts::AiAgentsController < Api::V1::Accounts::BaseController
   end
 
   def ai_agent_params
-    params.require(:ai_agent).permit(:enabled, inbox_ids: [])
+    params.require(:ai_agent).permit(:enabled, :mode, inbox_ids: [])
   end
 end

@@ -58,7 +58,9 @@ cd /docker/magpiereply && docker compose up -d agent-api agent-worker
 
 5. For websites and files, start the `magpie-reader` project (`docs/phase-1.md`) and set `READER_URL` and `READER_API_KEY` on `agent-worker`.
 
-6. Or connect a team by hand (asks for an administrator API key from Profile settings → Access token):
+6. Kill switches for every team: `docker compose exec agent-worker node dist/pause.js auto on` (Auto acts as Draft) or `all on` (Magpie stops). `off` turns them back.
+
+7. Or connect a team by hand (asks for an administrator API key from Profile settings → Access token):
 
 ```bash
 cd /docker/magpiereply && docker compose exec agent-worker node dist/enable-team.js --account <id> --inboxes <id,id>

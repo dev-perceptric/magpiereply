@@ -4,6 +4,7 @@ import { createBrainClient } from './brain.js';
 import { createDb, migrate } from './db.js';
 import { createReaderClient } from './reader.js';
 import { readSource } from './jobs/read-source.js';
+import { runReplay } from './jobs/replay.js';
 import { syncKnowledge } from './jobs/sync-knowledge.js';
 import { handleTurn } from './jobs/turn.js';
 import { websitesDueForRead } from './sources.js';
@@ -14,11 +15,13 @@ import {
   READ_RETRY_LIMIT,
   REFRESH_QUEUE,
   REFRESH_SCHEDULE,
+  REPLAY_QUEUE,
   startQueue,
   SYNC_QUEUE,
   SYNC_SCHEDULE,
   TURN_QUEUE,
   type ReadJob,
+  type ReplayJob,
   type SyncJob,
   type TurnJob,
 } from './queue.js';
@@ -51,6 +54,11 @@ if (brain) {
     }
   });
   await boss.schedule(SYNC_QUEUE, SYNC_SCHEDULE);
+  await boss.work<ReplayJob>(REPLAY_QUEUE, async jobs => {
+    for (const job of jobs) {
+      await runReplay({ db, encryptionKey: config.ENCRYPTION_KEY, appClientFor, brain }, job.data.evalRunId);
+    }
+  });
   await boss.send(SYNC_QUEUE, {}); // once now, so a fresh start doesn't wait 15 minutes
 }
 if (config.READER_URL && config.READER_API_KEY) {

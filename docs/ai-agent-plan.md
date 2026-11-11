@@ -171,7 +171,7 @@ The bridge owns everything specific to MagpieReply. The brain owns deciding what
 |---|---|---|
 | 0. Groundwork | Bridge on the VPS, agent schema, pg-boss, bot API access in the app, webhook to queue, brain trial on the shared server (Parlant against our own engine, Stripe over MCP): our engine chosen | 1 to 2 |
 | 1. Answers | Knowledge sync (help center, Crawl4AI, Docling), search with FlashRank, sourced replies, fact check, handoff notes, Draft mode, side panel. Built November 2026 (`docs/phase-1.md`); the KVM 4 move waits until the shared server's memory runs high | 2 |
-| 2. Trust | Replay tests, golden tests in CI, Ragas, Traces page, outcome scoring, Auto mode, kill switches, spending caps, Presidio, LLM Guard | 2 |
+| 2. Trust | Replay tests, golden tests in CI, Ragas, Traces page, outcome scoring, Auto mode, kill switches, spending caps, Presidio, a prompt-attack check (in the Haiku review instead of LLM Guard). Built November 2026 (`docs/phase-2.md`) | 2 |
 | 3. Apps, read-only | Gateway live on the VPS, per-team bundles, one-click Stripe, Shopify, HubSpot and Linear, identity filling, verification codes | 2 |
 | 4. Playbooks and actions | Playbook editor, checker, playbooks and rules in the engine, approved wording, confirm buttons, approvals, pause and resume | 3 |
 | 5. Copilot | Draft, improve and translate on Claude, Ask Copilot, summaries, suggested next step, Investigate | 2 |

@@ -31,8 +31,19 @@ describe('#AiAgentAPI', () => {
     it('#update', () => {
       aiAgentAPI.update({ enabled: true, inboxIds: [1, 2] });
       expect(axiosMock.patch).toHaveBeenCalledWith('/api/v1/ai_agent', {
-        ai_agent: { enabled: true, inbox_ids: [1, 2] },
+        ai_agent: { enabled: true, mode: 'draft', inbox_ids: [1, 2] },
       });
     });
+  });
+
+  it('reads traces page by page', () => {
+    const axiosMock = { get: vi.fn(() => Promise.resolve()) };
+    const originalAxios = window.axios;
+    window.axios = axiosMock;
+    aiAgentAPI.runs(40);
+    expect(axiosMock.get).toHaveBeenCalledWith('/api/v1/ai_agent/runs', {
+      params: { before: 40 },
+    });
+    window.axios = originalAxios;
   });
 });

@@ -54,7 +54,8 @@ export interface CreatedBot {
 
 export interface AppClient {
   getConversation(accountId: number, conversationId: number): Promise<AppConversation>;
-  listMessages(accountId: number, conversationId: number): Promise<AppMessage[]>;
+  // The newest messages, or with `before` the ones older than that message id (about 20 at a time).
+  listMessages(accountId: number, conversationId: number, before?: number): Promise<AppMessage[]>;
   createPrivateNote(accountId: number, conversationId: number, content: string): Promise<void>;
   // Moves a conversation to Open, so the team sees it. A bot on an inbox files new conversations as Pending.
   openConversation(accountId: number, conversationId: number): Promise<void>;
@@ -89,12 +90,13 @@ export function createAppClient(baseUrl: string, botToken: string): AppClient {
     async getConversation(accountId, conversationId) {
       return request<AppConversation>(baseUrl, botToken, 'GET', `/api/v1/accounts/${accountId}/conversations/${conversationId}`);
     },
-    async listMessages(accountId, conversationId) {
+    async listMessages(accountId, conversationId, before) {
+      const query = before === undefined ? '' : `?before=${before}`;
       const data = await request<{ payload: AppMessage[] }>(
         baseUrl,
         botToken,
         'GET',
-        `/api/v1/accounts/${accountId}/conversations/${conversationId}/messages`,
+        `/api/v1/accounts/${accountId}/conversations/${conversationId}/messages${query}`,
       );
       return data.payload;
     },

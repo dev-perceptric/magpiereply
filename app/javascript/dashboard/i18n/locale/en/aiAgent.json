@@ -17,9 +17,9 @@
       "DRAFT": "Draft",
       "DRAFT_DESCRIPTION": "Magpie writes the reply, a teammate sends it.",
       "AUTO": "Auto",
-      "AUTO_DESCRIPTION": "Magpie sends simple replies on its own.",
-      "IN_USE": "In use",
-      "COMING_SOON": "Coming soon"
+      "AUTO_DESCRIPTION": "Magpie sends replies that pass its fact check. Refunds, flagged messages and handoffs still go to your team.",
+      "LOCKED": "Locked",
+      "PAUSED": "Auto is paused for every team right now. Magpie writes drafts until it's back."
     },
     "SAVE": "Save",
     "SAVED": "Saved.",
@@ -43,6 +43,62 @@
       "READ_AGAIN": "Read again",
       "REMOVE": "Remove",
       "ERROR": "Something went wrong. Try again."
+    },
+    "USAGE": {
+      "HEADER": "Usage",
+      "MONTH": "This month: {spent} of {cap}",
+      "CAP_REACHED": "Magpie reached this month's limit and stopped answering.",
+      "LAST_30_DAYS": "Last 30 days",
+      "DRAFTS": "Drafts",
+      "SENT_AS_IS": "Sent as written",
+      "SENT_EDITED": "Edited, then sent",
+      "DISCARDED": "Discarded",
+      "AUTO_SENT": "Sent by Magpie",
+      "HANDED_OFF": "Handed off",
+      "SOLVED": "Solved by Magpie",
+      "REOPENED": "Reopened",
+      "FLAGGED": "Flagged messages",
+      "TRACES": "View traces"
+    },
+    "TESTS": {
+      "HEADER": "Replay tests",
+      "DESCRIPTION": "Magpie answers up to 30 past conversations again and is checked against what your team sent.",
+      "RUN": "Run replay test",
+      "NONE": "No replay test yet.",
+      "RUNNING": "Running",
+      "FAILED": "Couldn't finish",
+      "RESULT": "{passed} of {cases} passed",
+      "SHOW": "Show answers",
+      "HIDE": "Hide answers",
+      "QUESTION": "Customer",
+      "REFERENCE": "Your team sent",
+      "CANDIDATE": "Magpie now",
+      "VERDICT": {
+        "same": "Same",
+        "fine": "Fine",
+        "wrong": "Wrong"
+      }
+    },
+    "TRACES": {
+      "HEADER": "Traces",
+      "DESCRIPTION": "Every turn Magpie took, step by step: what it read, what it called, what it decided and what it cost.",
+      "BACK": "AI agent",
+      "EMPTY": "No turns yet.",
+      "CONVERSATION": "Conversation #{id}",
+      "LOAD_MORE": "Load more",
+      "OUTCOME": {
+        "pending": "Draft waiting",
+        "sent_by_person": "Sent by a teammate",
+        "sent_by_magpie": "Sent by Magpie",
+        "discarded": "Discarded",
+        "replaced": "Replaced",
+        "no_new_messages": "Nothing new",
+        "with_people": "With people",
+        "monthly_limit": "Monthly limit reached",
+        "two_tries": "Handed off after two answers",
+        "paused": "Paused"
+      },
+      "FAILED": "Failed"
     }
   }
 }

@@ -144,7 +144,7 @@ function panelPage(appOrigin: string): string {
     view.textContent = '';
     if (!draft) { view.className = 'muted'; view.textContent = 'No draft yet. Magpie writes one when the customer sends a message.'; shownId = null; return; }
     if (draft.status !== 'pending') {
-      var done = { sent: 'Sent.', discarded: 'Discarded.', replaced: 'A newer draft replaced this one.' }[draft.status];
+      var done = { sent: draft.sentBy === 'magpie' ? 'Magpie sent this reply.' : 'Sent.', discarded: 'Discarded.', replaced: 'A newer draft replaced this one.' }[draft.status];
       view.className = 'muted'; view.textContent = done; shownId = draft.id; return;
     }
     if (shownId === draft.id) return; // keep what the teammate is typing
@@ -164,6 +164,7 @@ function panelPage(appOrigin: string): string {
       check.appendChild(claims);
       card.appendChild(check);
     }
+    if (draft.guard && draft.guard.flagged) card.appendChild(el('div', { class: 'tag warn' }, 'This message looks like an attempt to steer Magpie. Check it before sending.'));
     if (draft.handoff) card.appendChild(el('div', { class: 'tag warn' }, 'Suggests handing off to ' + draft.handoff.team + ': ' + draft.handoff.reason));
     if (draft.handoffNote) card.appendChild(el('div', { class: 'tag' }, 'For the person taking over: ' + draft.handoffNote));
     if ((draft.sources || []).length) {

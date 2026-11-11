@@ -33,6 +33,10 @@ export interface BrainTurnResult {
   check: BrainCheck | null;
   // For the person taking over, when Magpie hands off.
   handoff_note: string | null;
+  // The review's attack check: did the customer try to steer Magpie?
+  guard?: { flagged: boolean } | null;
+  // How many messages had card, ID or contact numbers masked before Claude saw them.
+  masked_messages?: number;
   tools: Array<{ name: string; arguments: Record<string, unknown> }>;
   proposals: BrainProposal[];
   handoff: { team: string; reason: string } | null;
@@ -48,8 +52,16 @@ export interface BrainArticle {
   url: string | null;
 }
 
+export interface BrainGrade {
+  verdict: 'same' | 'fine' | 'wrong';
+  reason: string;
+  cost_usd: string;
+}
+
 export interface BrainClient {
   runTurn(request: BrainTurnRequest): Promise<BrainTurnResult>;
+  // Replay tests: Magpie's reply now against the one a teammate sent.
+  grade(request: { history: BrainTurnRequest['history']; candidate: string; reference: string }): Promise<BrainGrade>;
   // Replaces everything the brain knows for this team.
   putKnowledge(teamId: string, articles: BrainArticle[]): Promise<{ articles: number; pieces: number }>;
 }
@@ -79,6 +91,18 @@ export function createBrainClient(baseUrl: string, apiKey: string): BrainClient 
         throw new BrainError(`brain turn failed with ${response.status}`, response.status);
       }
       return (await response.json()) as BrainTurnResult;
+    },
+    async grade(request) {
+      const response = await fetch(new URL('/magpie/grade', baseUrl), {
+        method: 'POST',
+        headers: { authorization: `Bearer ${apiKey}`, 'content-type': 'application/json' },
+        body: JSON.stringify(request),
+        signal: AbortSignal.timeout(BRAIN_TIMEOUT_MS),
+      });
+      if (!response.ok) {
+        throw new BrainError(`brain grade failed with ${response.status}`, response.status);
+      }
+      return (await response.json()) as BrainGrade;
     },
     async putKnowledge(teamId, articles) {
       const response = await fetch(new URL(`/magpie/knowledge/${encodeURIComponent(teamId)}`, baseUrl), {

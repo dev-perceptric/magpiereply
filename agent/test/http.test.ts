@@ -69,17 +69,16 @@ describe('POST /hooks/chatwoot/:hookId', () => {
     expect(await response.json()).toEqual({ status: 'already queued' });
   });
 
-  it('ignores agent replies, private notes and other events', async () => {
+  it('starts no turn for agent replies, private notes or conversation events', async () => {
     const { hookId, secret } = await createTestTeam(db);
 
-    for (const event of [
-      customerMessageEvent({ id: 201, message_type: 'outgoing' }),
-      customerMessageEvent({ id: 202, private: true }),
-      customerMessageEvent({ id: 203, event: 'conversation_resolved' }),
-    ]) {
+    for (const event of [customerMessageEvent({ id: 201, message_type: 'outgoing' }), customerMessageEvent({ id: 202, private: true })]) {
       const response = await post(hookId, secret, event);
       expect(await response.json()).toEqual({ status: 'ignored' });
     }
+    // A resolve is an outcome for the AI agent page, never a reason to answer.
+    const resolved = await post(hookId, secret, customerMessageEvent({ id: 203, event: 'conversation_resolved' }));
+    expect(await resolved.json()).toEqual({ status: 'recorded' });
     expect(queued).toHaveLength(0);
   });
 
@@ -127,5 +126,26 @@ describe('GET /health', () => {
     const response = await app().request('/health');
     expect(response.status).toBe(200);
     expect(await response.json()).toEqual({ status: 'ok' });
+  });
+});
+
+describe('outcomes from the app', () => {
+  it('records a teammate reply, a resolve and a reopen for conversations Magpie worked on', async () => {
+    const { teamId, hookId, secret } = await createTestTeam(db);
+    await db.query('insert into agent.conversations (team_id, conversation_id) values ($1, 55)', [teamId]);
+    const send = async (event: Record<string, unknown>) => {
+      const body = JSON.stringify({ account: { id: 1 }, ...event });
+      return (await app().request(`/hooks/chatwoot/${hookId}`, { method: 'POST', headers: signedHeaders(secret, body), body })).json();
+    };
+
+    expect(await send({ event: 'message_created', id: 200, message_type: 'outgoing', private: false, sender: { type: 'user' }, conversation: { id: 55 }, inbox: { id: 3 } })).toEqual({ status: 'recorded' });
+    expect(await send({ event: 'conversation_resolved', id: 55 })).toEqual({ status: 'recorded' });
+    let row = (await db.query('select person_replied, resolved_at, reopened from agent.conversations')).rows[0];
+    expect(row.person_replied).toBe(true);
+    expect(row.resolved_at).not.toBeNull();
+
+    await send({ event: 'conversation_opened', id: 55 });
+    row = (await db.query('select resolved_at, reopened from agent.conversations')).rows[0];
+    expect(row).toEqual({ resolved_at: null, reopened: 1 });
   });
 });

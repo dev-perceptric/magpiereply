@@ -30,6 +30,7 @@ function fakeBrain() {
     runTurn: async () => {
       throw new Error('not used');
     },
+    grade: async () => ({ verdict: 'same', reason: '', cost_usd: '0' }),
     putKnowledge: async (teamId, articles) => {
       sent.push({ teamId, articles });
       return { articles: articles.length, pieces: articles.length };

@@ -25,6 +25,30 @@ class Magpie::AgentClient
     request(:put, "/internal/accounts/#{account_id}", { mode: mode, inbox_ids: inbox_ids })
   end
 
+  def summary(account_id)
+    request(:get, "/internal/accounts/#{account_id}/summary")
+  end
+
+  def runs(account_id, before: nil)
+    request(:get, "/internal/accounts/#{account_id}/runs#{"?before=#{before.to_i}" if before.present?}")['runs']
+  end
+
+  def run(account_id, run_id)
+    request(:get, "/internal/accounts/#{account_id}/runs/#{run_id.to_i}")
+  end
+
+  def tests(account_id)
+    request(:get, "/internal/accounts/#{account_id}/tests")['tests']
+  end
+
+  def start_test(account_id)
+    request(:post, "/internal/accounts/#{account_id}/tests")
+  end
+
+  def test_cases(account_id, test_id)
+    request(:get, "/internal/accounts/#{account_id}/tests/#{test_id.to_i}")['cases']
+  end
+
   def sources(account_id)
     request(:get, "/internal/accounts/#{account_id}/sources")['sources']
   end

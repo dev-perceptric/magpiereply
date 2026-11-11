@@ -9,9 +9,11 @@ import SettingsLayout from '../SettingsLayout.vue';
 import BaseSettingsHeader from '../components/BaseSettingsHeader.vue';
 import SettingsToggleSection from 'dashboard/components-next/Settings/SettingsToggleSection.vue';
 import Checkbox from 'dashboard/components-next/checkbox/Checkbox.vue';
-import Label from 'dashboard/components-next/label/Label.vue';
 import Button from 'dashboard/components-next/button/Button.vue';
+import RadioCard from 'dashboard/components-next/radioCard/RadioCard.vue';
 import KnowledgeSources from './components/KnowledgeSources.vue';
+import UsageSummary from './components/UsageSummary.vue';
+import ReplayTests from './components/ReplayTests.vue';
 
 const { t } = useI18n();
 const inboxes = useMapGetter('inboxes/getInboxes');
@@ -21,14 +23,31 @@ const isSaving = ref(false);
 const available = ref(false);
 const enabled = ref(false);
 const selectedInboxIds = ref([]);
-// What the server last saved: knowledge can be added once Magpie is on.
+const mode = ref('draft');
+// What the server last saved: knowledge, usage and tests show once Magpie is on.
 const isOn = ref(false);
+const summary = ref(null);
+
+const autoAllowed = computed(() => Boolean(summary.value?.auto?.allowed));
+const autoReason = computed(() => summary.value?.auto?.reason || '');
+const autoPaused = computed(() => Boolean(summary.value?.auto?.paused));
+
+const loadSummary = async () => {
+  try {
+    const { data } = await aiAgentAPI.summary();
+    summary.value = data;
+  } catch {
+    summary.value = null;
+  }
+};
 
 const applyState = state => {
   available.value = state.available;
   enabled.value = Boolean(state.enabled);
   isOn.value = Boolean(state.enabled);
+  mode.value = state.mode === 'auto' ? 'auto' : 'draft';
   selectedInboxIds.value = state.inbox_ids || [];
+  if (isOn.value) loadSummary();
 };
 
 const isSelected = inboxId => selectedInboxIds.value.includes(inboxId);
@@ -62,6 +81,7 @@ const save = async () => {
     const { data } = await aiAgentAPI.update({
       enabled: enabled.value,
       inboxIds: selectedInboxIds.value,
+      mode: mode.value,
     });
     applyState(data);
     useAlert(t('AI_AGENT_SETTINGS.SAVED'));
@@ -123,38 +143,32 @@ onMounted(load);
           </template>
         </SettingsToggleSection>
 
-        <div
-          class="flex flex-col gap-3 p-4 outline outline-1 -outline-offset-1 outline-n-weak rounded-xl"
-        >
+        <div class="flex flex-col gap-3">
           <span class="text-heading-3 text-n-slate-12">
             {{ t('AI_AGENT_SETTINGS.MODE.HEADER') }}
           </span>
-          <div class="flex flex-col gap-1">
-            <div class="flex items-center gap-2">
-              <span class="text-body-main text-n-slate-12">
-                {{ t('AI_AGENT_SETTINGS.MODE.DRAFT') }}
-              </span>
-              <Label
-                :label="t('AI_AGENT_SETTINGS.MODE.IN_USE')"
-                color="blue"
-                compact
-              />
-            </div>
-            <span class="text-body-main text-n-slate-11">
-              {{ t('AI_AGENT_SETTINGS.MODE.DRAFT_DESCRIPTION') }}
-            </span>
-          </div>
-          <div class="flex flex-col gap-1 opacity-60">
-            <div class="flex items-center gap-2">
-              <span class="text-body-main text-n-slate-12">
-                {{ t('AI_AGENT_SETTINGS.MODE.AUTO') }}
-              </span>
-              <Label :label="t('AI_AGENT_SETTINGS.MODE.COMING_SOON')" compact />
-            </div>
-            <span class="text-body-main text-n-slate-11">
-              {{ t('AI_AGENT_SETTINGS.MODE.AUTO_DESCRIPTION') }}
-            </span>
-          </div>
+          <RadioCard
+            id="draft"
+            name="ai-agent-mode"
+            :label="t('AI_AGENT_SETTINGS.MODE.DRAFT')"
+            :description="t('AI_AGENT_SETTINGS.MODE.DRAFT_DESCRIPTION')"
+            :is-active="mode === 'draft'"
+            @select="mode = 'draft'"
+          />
+          <RadioCard
+            id="auto"
+            name="ai-agent-mode"
+            :label="t('AI_AGENT_SETTINGS.MODE.AUTO')"
+            :description="t('AI_AGENT_SETTINGS.MODE.AUTO_DESCRIPTION')"
+            :is-active="mode === 'auto'"
+            :disabled="!autoAllowed"
+            :disabled-label="t('AI_AGENT_SETTINGS.MODE.LOCKED')"
+            :disabled-message="autoReason"
+            @select="mode = 'auto'"
+          />
+          <p v-if="autoPaused" class="text-body-main text-n-amber-11">
+            {{ t('AI_AGENT_SETTINGS.MODE.PAUSED') }}
+          </p>
         </div>
 
         <div>
@@ -166,6 +180,8 @@ onMounted(load);
           />
         </div>
 
+        <UsageSummary v-if="isOn && summary" :summary="summary" />
+        <ReplayTests v-if="isOn" @finished="loadSummary" />
         <KnowledgeSources v-if="isOn" />
       </div>
     </template>

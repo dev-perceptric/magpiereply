@@ -3,7 +3,9 @@ import { Hono } from 'hono';
 import { z } from 'zod';
 import { encrypt, hashHookId, newHookId } from './crypto.js';
 import type { Db } from './db.js';
-import { getAccountState, setAccountSettings, setPanelKeyHash, upsertTeam } from './repo.js';
+import { findTeam, getAccountState, setAccountSettings, setPanelKeyHash, upsertTeam } from './repo.js';
+import { evalCases, listEvalRuns, startReplay } from './jobs/replay.js';
+import { autoGate, getFlag, listRuns, runSteps, setMonthlyCap, summaryFor } from './trust.js';
 import {
   addFile,
   addWebsite,
@@ -29,6 +31,7 @@ export interface InternalDeps {
   // Queue a read of a website or file, and a fresh sync of a team's knowledge to the brain.
   enqueueRead: (sourceId: number) => Promise<void>;
   enqueueSync: (teamId: number) => Promise<void>;
+  enqueueReplay: (evalRunId: number) => Promise<void>;
 }
 
 // What a file can be: the formats Docling reads, plus plain text and Markdown.
@@ -71,9 +74,10 @@ const ConnectBody = z.object({
   bot_secret: z.string().min(1),
 });
 const SettingsBody = z.object({
-  mode: z.enum(['off', 'draft']),
+  mode: z.enum(['off', 'draft', 'auto']),
   inbox_ids: z.array(z.number().int().positive()).max(500),
 });
+const CapBody = z.object({ monthly_cap_usd: z.number().min(0).max(100_000) });
 
 function sameKey(given: string, expected: string): boolean {
   const a = Buffer.from(given);
@@ -128,9 +132,93 @@ export function createInternalRoutes(deps: InternalDeps): Hono {
     if (!accountId.success || !body.success) return c.json({ error: 'invalid request' }, 422);
     const state = await getAccountState(deps.db, accountId.data);
     if (!state) return c.json({ error: 'not connected' }, 409);
+    if (body.data.mode === 'auto' && state.mode !== 'auto') {
+      const gate = await autoGate(deps.db, state.teamId);
+      if (!gate.allowed) return c.json({ error: gate.reason }, 422);
+    }
     await setAccountSettings(deps.db, state.teamId, { mode: body.data.mode, inboxIds: body.data.inbox_ids });
     const updated = await getAccountState(deps.db, accountId.data);
     return c.json({ connected: true, mode: updated!.mode, inbox_ids: updated!.inboxIds });
+  });
+
+  // Usage this month, how Magpie did in the last 30 days, and whether Auto is open to this team.
+  internal.get('/accounts/:accountId/summary', async c => {
+    const accountId = AccountId.safeParse(c.req.param('accountId'));
+    if (!accountId.success) return c.json({ error: 'invalid account' }, 422);
+    const state = await getAccountState(deps.db, accountId.data);
+    if (!state) return c.json({ error: 'not connected' }, 409);
+    const team = (await findTeam(deps.db, state.teamId))!;
+    const summary = await summaryFor(deps.db, team.id, team.monthlyCapUsd);
+    const gate = await autoGate(deps.db, team.id);
+    const [latestTest] = await listEvalRuns(deps.db, team.id);
+    return c.json({
+      month: { cost_usd: summary.month.costUsd, cap_usd: summary.month.capUsd, cap_reached: summary.month.capReached },
+      last_30_days: summary.last30Days,
+      auto: {
+        allowed: gate.allowed || state.mode === 'auto',
+        reason: state.mode === 'auto' ? null : gate.reason,
+        paused: (await getFlag(deps.db, 'auto_paused')) || (await getFlag(deps.db, 'all_paused')),
+      },
+      latest_test: latestTest ?? null,
+    });
+  });
+
+  internal.put('/accounts/:accountId/cap', async c => {
+    const accountId = AccountId.safeParse(c.req.param('accountId'));
+    const body = CapBody.safeParse(await c.req.json().catch(() => null));
+    if (!accountId.success || !body.success) return c.json({ error: 'invalid request' }, 422);
+    const state = await getAccountState(deps.db, accountId.data);
+    if (!state) return c.json({ error: 'not connected' }, 409);
+    await setMonthlyCap(deps.db, state.teamId, body.data.monthly_cap_usd);
+    return c.json({ monthly_cap_usd: body.data.monthly_cap_usd });
+  });
+
+  internal.get('/accounts/:accountId/runs', async c => {
+    const accountId = AccountId.safeParse(c.req.param('accountId'));
+    const before = c.req.query('before');
+    const beforeId = before === undefined ? undefined : AccountId.safeParse(before);
+    if (!accountId.success || (beforeId && !beforeId.success)) return c.json({ error: 'invalid request' }, 422);
+    const state = await getAccountState(deps.db, accountId.data);
+    if (!state) return c.json({ runs: [] });
+    return c.json({ runs: await listRuns(deps.db, state.teamId, beforeId?.data) });
+  });
+
+  internal.get('/accounts/:accountId/runs/:runId', async c => {
+    const accountId = AccountId.safeParse(c.req.param('accountId'));
+    const runId = AccountId.safeParse(c.req.param('runId'));
+    if (!accountId.success || !runId.success) return c.json({ error: 'invalid request' }, 422);
+    const state = await getAccountState(deps.db, accountId.data);
+    const found = state ? await runSteps(deps.db, state.teamId, runId.data) : null;
+    if (!found) return c.json({ error: 'not found' }, 404);
+    return c.json(found);
+  });
+
+  internal.get('/accounts/:accountId/tests', async c => {
+    const accountId = AccountId.safeParse(c.req.param('accountId'));
+    if (!accountId.success) return c.json({ error: 'invalid account' }, 422);
+    const state = await getAccountState(deps.db, accountId.data);
+    return c.json({ tests: state ? await listEvalRuns(deps.db, state.teamId) : [] });
+  });
+
+  internal.post('/accounts/:accountId/tests', async c => {
+    const accountId = AccountId.safeParse(c.req.param('accountId'));
+    if (!accountId.success) return c.json({ error: 'invalid account' }, 422);
+    const state = await getAccountState(deps.db, accountId.data);
+    if (!state) return c.json({ error: 'not connected' }, 409);
+    const [latest] = await listEvalRuns(deps.db, state.teamId);
+    if (latest?.status === 'running') return c.json({ error: 'A replay test is already running.' }, 422);
+    const evalRunId = await startReplay(deps.db, state.teamId);
+    await deps.enqueueReplay(evalRunId);
+    return c.json({ id: evalRunId, status: 'running' }, 201);
+  });
+
+  internal.get('/accounts/:accountId/tests/:testId', async c => {
+    const accountId = AccountId.safeParse(c.req.param('accountId'));
+    const testId = AccountId.safeParse(c.req.param('testId'));
+    if (!accountId.success || !testId.success) return c.json({ error: 'invalid request' }, 422);
+    const state = await getAccountState(deps.db, accountId.data);
+    if (!state) return c.json({ error: 'not found' }, 404);
+    return c.json({ cases: await evalCases(deps.db, state.teamId, testId.data) });
   });
 
   internal.get('/accounts/:accountId/sources', async c => {

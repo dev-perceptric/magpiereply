@@ -24,13 +24,15 @@ class Magpie::AiAgent
     }
   end
 
-  def update(enabled:, inbox_ids:)
+  # mode is draft (a person sends every reply) or auto (Magpie sends what passes its checks). The agent service
+  # refuses auto until the team's replay test passes, and that refusal reaches the person as Rejected.
+  def update(enabled:, inbox_ids:, mode: 'draft')
     inbox_ids = @account.inboxes.where(id: inbox_ids).pluck(:id)
     connect unless bot.present? && @client.state(@account.id)['connected']
 
     chosen = enabled ? inbox_ids : []
+    @client.update(@account.id, mode: enabled ? mode : 'off', inbox_ids: chosen)
     attach_bot(chosen)
-    @client.update(@account.id, mode: enabled ? 'draft' : 'off', inbox_ids: chosen)
     state
   end
 

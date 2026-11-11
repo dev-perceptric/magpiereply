@@ -8,6 +8,7 @@ export interface Team {
   botId: number;
   botTokenEnc: string;
   botSecretEnc: string;
+  monthlyCapUsd: number;
 }
 
 interface TeamRow {
@@ -18,6 +19,7 @@ interface TeamRow {
   bot_id: string;
   bot_token_enc: string;
   bot_secret_enc: string;
+  monthly_cap_usd: string;
 }
 
 function toTeam(row: TeamRow): Team {
@@ -29,10 +31,11 @@ function toTeam(row: TeamRow): Team {
     botId: Number(row.bot_id),
     botTokenEnc: row.bot_token_enc,
     botSecretEnc: row.bot_secret_enc,
+    monthlyCapUsd: Number(row.monthly_cap_usd),
   };
 }
 
-const TEAM_COLUMNS = 'id, account_id, name, mode, bot_id, bot_token_enc, bot_secret_enc';
+const TEAM_COLUMNS = 'id, account_id, name, mode, bot_id, bot_token_enc, bot_secret_enc, monthly_cap_usd';
 
 export async function findTeamByHookHash(db: Db, hookIdHash: string): Promise<Team | null> {
   const result = await db.query<TeamRow>(`select ${TEAM_COLUMNS} from agent.teams where hook_id_hash = $1`, [hookIdHash]);
@@ -129,31 +132,57 @@ export interface ConversationState {
   lastMessageId: number;
   pendingNote: string | null;
   handedOff: boolean;
+  // Auto mode: a reply saved before sending, so a retry sends it exactly once, and how often Magpie answered alone.
+  pendingReply?: string | null;
+  pendingReplyDraftId?: number | null;
+  autoReplies?: number;
 }
 
 export async function getConversationState(db: Db, teamId: number, conversationId: number): Promise<ConversationState> {
-  const result = await db.query<{ last_message_id: string; pending_note: string | null; handed_off: boolean }>(
-    `select last_message_id, pending_note, handed_off
+  const result = await db.query<{
+    last_message_id: string;
+    pending_note: string | null;
+    handed_off: boolean;
+    pending_reply: string | null;
+    pending_reply_draft_id: string | null;
+    auto_replies: number;
+  }>(
+    `select last_message_id, pending_note, handed_off, pending_reply, pending_reply_draft_id, auto_replies
      from agent.conversations where team_id = $1 and conversation_id = $2`,
     [teamId, conversationId],
   );
   const row = result.rows[0];
-  if (!row) return { lastMessageId: 0, pendingNote: null, handedOff: false };
+  if (!row) return { lastMessageId: 0, pendingNote: null, handedOff: false, pendingReply: null, pendingReplyDraftId: null, autoReplies: 0 };
   return {
     lastMessageId: Number(row.last_message_id),
     pendingNote: row.pending_note,
     handedOff: row.handed_off,
+    pendingReply: row.pending_reply,
+    pendingReplyDraftId: row.pending_reply_draft_id === null ? null : Number(row.pending_reply_draft_id),
+    autoReplies: row.auto_replies,
   };
 }
 
 export async function saveConversationState(db: Db, teamId: number, conversationId: number, state: ConversationState): Promise<void> {
   await db.query(
-    `insert into agent.conversations (team_id, conversation_id, last_message_id, pending_note, handed_off)
-     values ($1, $2, $3, $4, $5)
+    `insert into agent.conversations
+       (team_id, conversation_id, last_message_id, pending_note, handed_off, pending_reply, pending_reply_draft_id, auto_replies)
+     values ($1, $2, $3, $4, $5, $6, $7, $8)
      on conflict (team_id, conversation_id) do update set
        last_message_id = excluded.last_message_id,
-       pending_note = excluded.pending_note, handed_off = excluded.handed_off, updated_at = now()`,
-    [teamId, conversationId, state.lastMessageId, state.pendingNote, state.handedOff],
+       pending_note = excluded.pending_note, handed_off = excluded.handed_off,
+       pending_reply = excluded.pending_reply, pending_reply_draft_id = excluded.pending_reply_draft_id,
+       auto_replies = excluded.auto_replies, updated_at = now()`,
+    [
+      teamId,
+      conversationId,
+      state.lastMessageId,
+      state.pendingNote,
+      state.handedOff,
+      state.pendingReply ?? null,
+      state.pendingReplyDraftId ?? null,
+      state.autoReplies ?? 0,
+    ],
   );
 }
 
@@ -203,6 +232,8 @@ export interface Draft {
   sources: Array<{ id: string; title: string; url: string | null }>;
   factCheck: { passed: boolean; unsupported: string[] } | null;
   handoffNote: string | null;
+  guard: { flagged: boolean } | null;
+  sentBy: 'person' | 'magpie' | null;
   status: 'pending' | 'sent' | 'discarded' | 'replaced';
   createdAt: string;
 }
@@ -216,6 +247,8 @@ interface DraftRow {
   sources: Draft['sources'];
   fact_check: Draft['factCheck'];
   handoff_note: string | null;
+  guard: Draft['guard'];
+  sent_by: Draft['sentBy'];
   status: Draft['status'];
   created_at: Date;
 }
@@ -230,6 +263,8 @@ function toDraft(row: DraftRow): Draft {
     sources: row.sources,
     factCheck: row.fact_check,
     handoffNote: row.handoff_note,
+    guard: row.guard,
+    sentBy: row.sent_by,
     status: row.status,
     createdAt: row.created_at.toISOString(),
   };
@@ -248,6 +283,7 @@ export async function saveDraft(
     sources?: Draft['sources'];
     factCheck?: Draft['factCheck'];
     handoffNote?: string | null;
+    guard?: { flagged: boolean } | null;
   },
 ): Promise<number> {
   const client = await db.connect();
@@ -258,8 +294,8 @@ export async function saveDraft(
       [draft.teamId, draft.conversationId],
     );
     const result = await client.query<{ id: string }>(
-      `insert into agent.drafts (team_id, conversation_id, run_id, reply, proposals, handoff, sources, fact_check, handoff_note)
-       values ($1, $2, $3, $4, $5, $6, $7, $8, $9) returning id`,
+      `insert into agent.drafts (team_id, conversation_id, run_id, reply, proposals, handoff, sources, fact_check, handoff_note, guard)
+       values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) returning id`,
       [
         draft.teamId,
         draft.conversationId,
@@ -270,6 +306,7 @@ export async function saveDraft(
         JSON.stringify(draft.sources ?? []),
         draft.factCheck ? JSON.stringify(draft.factCheck) : null,
         draft.handoffNote ?? null,
+        draft.guard ? JSON.stringify(draft.guard) : null,
       ],
     );
     await client.query('commit');
@@ -282,7 +319,7 @@ export async function saveDraft(
   }
 }
 
-const DRAFT_COLUMNS = 'id, conversation_id, reply, proposals, handoff, sources, fact_check, handoff_note, status, created_at';
+const DRAFT_COLUMNS = 'id, conversation_id, reply, proposals, handoff, sources, fact_check, handoff_note, guard, sent_by, status, created_at';
 
 export async function latestDraft(db: Db, teamId: number, conversationId: number): Promise<Draft | null> {
   const result = await db.query<DraftRow>(
@@ -296,19 +333,27 @@ export async function latestDraft(db: Db, teamId: number, conversationId: number
 // so a double click can never send the same draft twice.
 export async function closeDraft(
   db: Db,
-  draft: { teamId: number; draftId: number; status: 'sent' | 'discarded'; sentContent?: string; actedBy: string },
+  draft: {
+    teamId: number;
+    draftId: number;
+    status: 'sent' | 'discarded';
+    sentContent?: string;
+    actedBy: string;
+    sentBy?: 'person' | 'magpie';
+  },
 ): Promise<Draft | null> {
   const result = await db.query<DraftRow>(
-    `update agent.drafts set status = $3, sent_content = $4, acted_by = $5, acted_at = now()
+    `update agent.drafts set status = $3, sent_content = $4, acted_by = $5, acted_at = now(),
+       sent_by = case when $3 = 'sent' then $6 else null end
      where id = $2 and team_id = $1 and status = 'pending' returning ${DRAFT_COLUMNS}`,
-    [draft.teamId, draft.draftId, draft.status, draft.sentContent ?? null, draft.actedBy],
+    [draft.teamId, draft.draftId, draft.status, draft.sentContent ?? null, draft.actedBy, draft.sentBy ?? 'person'],
   );
   return result.rows[0] ? toDraft(result.rows[0]) : null;
 }
 
 export async function reopenDraft(db: Db, teamId: number, draftId: number): Promise<void> {
   await db.query(
-    "update agent.drafts set status = 'pending', sent_content = null, acted_by = null, acted_at = null where id = $2 and team_id = $1",
+    "update agent.drafts set status = 'pending', sent_content = null, acted_by = null, acted_at = null, sent_by = null where id = $2 and team_id = $1",
     [teamId, draftId],
   );
 }
