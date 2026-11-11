@@ -23,6 +23,8 @@ class Config:
     # FlashRank's re-ranking model, downloaded into the image at build time.
     rerank_model: str
     rerank_cache: str
+    # Presidio masking of card, ID and contact numbers before Claude. On unless MASK_PERSONAL_DATA=off.
+    mask_personal_data: bool
 
 
 def load_config(env: os._Environ[str] | dict[str, str] = os.environ) -> Config:
@@ -51,4 +53,5 @@ def load_config(env: os._Environ[str] | dict[str, str] = os.environ) -> Config:
         review_model=env.get("REVIEW_MODEL", "claude-haiku-5-5"),
         rerank_model=env.get("RERANK_MODEL", "ms-marco-MiniLM-L-12-v2"),
         rerank_cache=env.get("RERANK_CACHE", "/opt/flashrank"),
+        mask_personal_data=env.get("MASK_PERSONAL_DATA", "on") != "off",
     )

@@ -11,10 +11,34 @@ class AiAgentAPI extends ApiClient {
     return axios.get(this.url);
   }
 
-  update({ enabled, inboxIds }) {
+  update({ enabled, inboxIds, mode = 'draft' }) {
     return axios.patch(this.url, {
-      ai_agent: { enabled, inbox_ids: inboxIds },
+      ai_agent: { enabled, mode, inbox_ids: inboxIds },
     });
+  }
+
+  summary() {
+    return axios.get(`${this.url}/summary`);
+  }
+
+  runs(before) {
+    return axios.get(`${this.url}/runs`, { params: before ? { before } : {} });
+  }
+
+  run(id) {
+    return axios.get(`${this.url}/runs/${id}`);
+  }
+
+  tests() {
+    return axios.get(`${this.url}/tests`);
+  }
+
+  startTest() {
+    return axios.post(`${this.url}/tests`);
+  }
+
+  testCases(id) {
+    return axios.get(`${this.url}/tests/${id}`);
   }
 
   sources() {

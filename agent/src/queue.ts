@@ -11,6 +11,12 @@ export const READ_RETRY_LIMIT = 2;
 // Websites are read again once a day.
 export const REFRESH_SCHEDULE = '17 3 * * *';
 
+export const REPLAY_QUEUE = 'replay_test';
+
+export interface ReplayJob {
+  evalRunId: number;
+}
+
 export interface SyncJob {
   // One team after its websites or files changed; all teams on the schedule.
   teamId?: number;
@@ -43,6 +49,8 @@ export async function startQueue(databaseUrl: string): Promise<PgBoss> {
   // At most one waiting and one running read per website or file. A crawl can take several minutes.
   await boss.createQueue(READ_QUEUE, { policy: 'stately', retryLimit: READ_RETRY_LIMIT, retryDelay: 120, retryBackoff: true, expireInSeconds: 1200 });
   await boss.createQueue(REFRESH_QUEUE, { policy: 'singleton', retryLimit: 1, expireInSeconds: 300 });
+  // A replay test reads up to 30 past replies again; no retry, a failed run just shows as failed.
+  await boss.createQueue(REPLAY_QUEUE, { policy: 'standard', retryLimit: 0, expireInSeconds: 1800 });
   return boss;
 }
 
@@ -62,4 +70,8 @@ export async function enqueueRead(boss: PgBoss, job: ReadJob): Promise<void> {
 
 export async function enqueueSync(boss: PgBoss, job: SyncJob): Promise<void> {
   await boss.send(SYNC_QUEUE, job);
+}
+
+export async function enqueueReplay(boss: PgBoss, job: ReplayJob): Promise<void> {
+  await boss.send(REPLAY_QUEUE, job);
 }

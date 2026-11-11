@@ -240,6 +240,7 @@ async def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--cases", help="comma-separated case ids")
     parser.add_argument("--repeat", type=int, default=1)
+    parser.add_argument("--strict", action="store_true", help="exit 1 when a decision check fails (CI)")
     args = parser.parse_args()
 
     brain = Brain(os.environ.get("BRAIN_URL", "http://127.0.0.1:8800"), os.environ["BRAIN_API_KEY"])
@@ -289,6 +290,8 @@ async def main() -> None:
             print(f"[trial] {line}", flush=True)
     (out_dir / "results.json").write_text(json.dumps(report, indent=2, default=str))
     print(f"[trial] saved {out_dir / 'results.json'}", flush=True)
+    if args.strict and any(line.startswith("[fail]") for line in report.get("decision_checks", [])):
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

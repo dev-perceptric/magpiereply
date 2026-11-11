@@ -111,6 +111,7 @@ function fakeBrain(result: Partial<BrainTurnResult> = {}, options: { fail?: bool
         ...result,
       };
     },
+    grade: async () => ({ verdict: 'same', reason: '', cost_usd: '0' }),
     putKnowledge: async () => ({ articles: 0, pieces: 0 }),
   };
   return { brain, requests };

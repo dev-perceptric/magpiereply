@@ -6,7 +6,7 @@ import { findTeamByHookHash, findTeamByPanelHash } from '../src/repo.js';
 import { ENCRYPTION_KEY, freshDb } from './helpers.js';
 
 let db: Db;
-const queued = { reads: [] as number[], syncs: [] as number[] };
+const queued = { reads: [] as number[], syncs: [] as number[], replays: [] as number[] };
 const KEY = 'internal-key-that-is-at-least-32-chars';
 
 function app() {
@@ -24,6 +24,9 @@ function app() {
       enqueueSync: async teamId => {
         queued.syncs.push(teamId);
       },
+      enqueueReplay: async evalRunId => {
+        queued.replays.push(evalRunId);
+      },
     },
   });
 }
@@ -40,6 +43,7 @@ beforeEach(async () => {
   await db.query('truncate agent.teams restart identity cascade');
   queued.reads = [];
   queued.syncs = [];
+  queued.replays = [];
 });
 
 afterAll(async () => {
@@ -156,5 +160,69 @@ describe('websites and files', () => {
     expect((await app().request(`/internal/accounts/4/sources/${source.id}`, call('DELETE'))).status).toBe(200);
     expect(queued.syncs).toHaveLength(1);
     expect((await db.query('select count(*)::int as n from agent.knowledge_sources')).rows[0].n).toBe(0);
+  });
+});
+
+describe('phase 2 routes', () => {
+  const connected = async () => {
+    await app().request('/internal/accounts/4/connect', call('POST', connect));
+    return Number((await db.query('select id from agent.teams where account_id = 4')).rows[0].id);
+  };
+
+  it('keeps Auto locked until a replay test passes', async () => {
+    const teamId = await connected();
+    const refused = await app().request('/internal/accounts/4', call('PUT', { mode: 'auto', inbox_ids: [] }));
+    expect(refused.status).toBe(422);
+    expect(((await refused.json()) as { error: string }).error).toContain('replay test of at least 10');
+
+    await db.query("insert into agent.eval_runs (team_id, status, cases, passed) values ($1, 'done', 20, 17)", [teamId]);
+    const low = await app().request('/internal/accounts/4', call('PUT', { mode: 'auto', inbox_ids: [] }));
+    expect(((await low.json()) as { error: string }).error).toBe('The last replay test passed 17 of 20. Auto needs 90%.');
+
+    await db.query("insert into agent.eval_runs (team_id, status, cases, passed) values ($1, 'done', 20, 19)", [teamId]);
+    const allowed = await app().request('/internal/accounts/4', call('PUT', { mode: 'auto', inbox_ids: [3] }));
+    expect(await allowed.json()).toEqual({ connected: true, mode: 'auto', inbox_ids: [3] });
+  });
+
+  it('reports usage this month, the last 30 days and the cap', async () => {
+    const teamId = await connected();
+    await db.query("insert into agent.runs (team_id, conversation_id, status, cost_usd) values ($1, 55, 'done', 0.25)", [teamId]);
+    await db.query(
+      `insert into agent.drafts (team_id, conversation_id, reply, status, sent_content, sent_by) values
+        ($1, 55, 'Hi there', 'sent', 'Hi there', 'person'), ($1, 56, 'Hi', 'sent', 'Hello, edited', 'person'),
+        ($1, 57, 'Yes', 'sent', 'Yes', 'magpie'), ($1, 58, 'No', 'discarded', null, null)`,
+      [teamId],
+    );
+    await db.query(
+      `insert into agent.conversations (team_id, conversation_id, auto_replies, resolved_at) values ($1, 57, 1, now()), ($1, 55, 0, now())`,
+      [teamId],
+    );
+    expect((await app().request('/internal/accounts/4/cap', call('PUT', { monthly_cap_usd: 20 }))).status).toBe(200);
+
+    const body = (await (await app().request('/internal/accounts/4/summary', call('GET'))).json()) as Record<string, any>;
+    expect(body.month).toEqual({ cost_usd: 0.25, cap_usd: 20, cap_reached: false });
+    expect(body.last_30_days).toMatchObject({ drafts: 4, sentAsIs: 1, sentEdited: 1, autoSent: 1, discarded: 1, resolved: 2, solvedByMagpie: 1 });
+    expect(body.auto).toMatchObject({ allowed: false, paused: false });
+  });
+
+  it('lists runs with their steps for the Traces page, and only the team’s own', async () => {
+    const teamId = await connected();
+    const run = (await db.query("insert into agent.runs (team_id, conversation_id, status, cost_usd) values ($1, 55, 'done', 0.004) returning id", [teamId])).rows[0].id;
+    await db.query("insert into agent.run_steps (run_id, name, output, duration_ms) values ($1, 'brain', '{\"reply\":\"Hi\"}', 900)", [run]);
+
+    const list = (await (await app().request('/internal/accounts/4/runs', call('GET'))).json()) as { runs: Array<{ id: number }> };
+    expect(list.runs.map(row => row.id)).toEqual([Number(run)]);
+    const detail = (await (await app().request(`/internal/accounts/4/runs/${run}`, call('GET'))).json()) as { steps: Array<{ name: string }> };
+    expect(detail.steps).toMatchObject([{ name: 'brain', output: { reply: 'Hi' }, durationMs: 900 }]);
+    expect((await app().request(`/internal/accounts/9/runs/${run}`, call('GET'))).status).toBe(404);
+  });
+
+  it('starts one replay test at a time', async () => {
+    await connected();
+    const first = await app().request('/internal/accounts/4/tests', call('POST'));
+    expect(first.status).toBe(201);
+    expect(queued.replays).toHaveLength(1);
+    const second = await app().request('/internal/accounts/4/tests', call('POST'));
+    expect(((await second.json()) as { error: string }).error).toBe('A replay test is already running.');
   });
 });
