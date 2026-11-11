@@ -17,6 +17,12 @@ Part of `docs/ai-agent-plan.md`. Phase 0 chose the brain (`docs/decisions/0001-b
 | FlashRank re-ranking: hybrid search finds 12 candidates, FlashRank (MiniLM, on the CPU) picks the best 4 | Built (`brain/magpie_brain/knowledge.py`). A piece whose text didn't change keeps its vector, so a daily re-read costs almost nothing |
 | MagpieReply on its own KVM 4 | Not now: the reader fits on the shared server while it reads one file at a time. Move when memory stays above 75% for a day (`docs/hostinger.md`) |
 
+## Checked on the live server (November 11, 2026)
+
+- The 40-case trial against the live brain, with the new prompt, FlashRank and the fact check: 40 of 40 correct, 0 wrong, 10 of 10 rule and attack tests, median 3.9 s and slowest 5% 7.4 s a turn, $0.0042 a turn with the fact check included.
+- magpiereply.com added as a website on account 1: 9 pages read in about 20 seconds, then sent to the brain with the help center (39 articles and pages). A question only the website answers got a reply citing two of its pages, with the fact check passed.
+- A chargeback plus a request for a manager hands off to Billing, with a note for the person taking over.
+
 ## Setting it up for a team
 
 An administrator opens Settings → AI agent, turns Magpie AI on, ticks the inboxes and clicks Save. Nothing else is needed.
