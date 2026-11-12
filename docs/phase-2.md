@@ -37,7 +37,7 @@ Add two repository secrets in GitHub (Settings → Secrets and variables → Act
 
 ## Server
 
-The brain's memory limit goes from 512 MB to 768 MB for Presidio (it idles at about 280 MB). No new containers.
+The brain's memory limit is 1 GB: it starts at about 265 MB and settles at about 670 MB once Presidio and FlashRank have answered a few requests. Each team's vectors take about 4 KB a piece. No new containers.
 
 ## Running cost
 
