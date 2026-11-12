@@ -13,7 +13,7 @@ Each piece is a Docker Compose project in `/docker/<name>/docker-compose.yml`.
 | `magpiereply` | `web` (Rails), `worker` (Sidekiq), `redis` | `app.magpiereply.com` | 1.5 GB, 1.25 GB, 256 MB |
 | `magpiereply` | `agent-api`, `agent-worker` (`agent/`) | `agent.magpiereply.com` | 256 MB each |
 | `sb-magpiereply` | Self-hosted Supabase: Postgres 17 with pgvector, auth, REST, storage. The app, the agent and the gateway use its `db` container over the `sb-magpiereply` network | `db.magpiereply.com` | about 1.4 GB in all |
-| `magpie-brain` | The Magpie AI brain (`brain/`): the Magpie engine on Claude, Voyage for search, Stripe over MCP in test mode | inside Docker only, `http://brain:8800` on `magpiereply_default` | 768 MB |
+| `magpie-brain` | The Magpie AI brain (`brain/`): the Magpie engine on Claude, Voyage for search, Stripe over MCP in test mode | inside Docker only, `http://brain:8800` on `magpiereply_default` | 1 GB |
 | `magpie-reader` | The reader (`brain/magpie_reader`): websites with Crawl4AI and files with Docling, for Magpie's knowledge. On its own `magpie-reader` network; only `agent-worker` joins it | inside Docker only, `http://reader:8810` | 2.5 GB |
 | `magpie-gateway` | ContextForge MCP gateway, made but stopped (profile `trial`) | none yet | 1 GB |
 | `traefik` | HTTPS and routing for every app (Let's Encrypt) | | |
