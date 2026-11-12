@@ -41,6 +41,18 @@ class AiAgentAPI extends ApiClient {
     return axios.get(`${this.url}/tests/${id}`);
   }
 
+  apps() {
+    return axios.get(`${this.url}/apps`);
+  }
+
+  connectApp(provider) {
+    return axios.post(`${this.url}/apps/${provider}/connect`);
+  }
+
+  disconnectApp(provider) {
+    return axios.delete(`${this.url}/apps/${provider}`);
+  }
+
   sources() {
     return axios.get(`${this.url}/sources`);
   }

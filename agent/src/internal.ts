@@ -6,6 +6,7 @@ import type { Db } from './db.js';
 import { findTeam, getAccountState, setAccountSettings, setPanelKeyHash, upsertTeam } from './repo.js';
 import { evalCases, listEvalRuns, startReplay } from './jobs/replay.js';
 import { autoGate, getFlag, listRuns, runSteps, setMonthlyCap, summaryFor } from './trust.js';
+import { AppError, disconnect, isProvider, listConnections, startConnect, type AppsDeps } from './apps.js';
 import {
   addFile,
   addWebsite,
@@ -32,6 +33,8 @@ export interface InternalDeps {
   enqueueRead: (sourceId: number) => Promise<void>;
   enqueueSync: (teamId: number) => Promise<void>;
   enqueueReplay: (evalRunId: number) => Promise<void>;
+  // The team's apps (Stripe, Linear, HubSpot, Shopify); left out where they aren't needed.
+  apps?: Omit<AppsDeps, 'db' | 'encryptionKey'>;
 }
 
 // What a file can be: the formats Docling reads, plus plain text and Markdown.
@@ -139,6 +142,40 @@ export function createInternalRoutes(deps: InternalDeps): Hono {
     await setAccountSettings(deps.db, state.teamId, { mode: body.data.mode, inboxIds: body.data.inbox_ids });
     const updated = await getAccountState(deps.db, accountId.data);
     return c.json({ connected: true, mode: updated!.mode, inbox_ids: updated!.inboxIds });
+  });
+
+  const appsDeps = (): AppsDeps => ({ db: deps.db, encryptionKey: deps.encryptionKey, ...deps.apps! });
+
+  internal.get('/accounts/:accountId/apps', async c => {
+    const accountId = AccountId.safeParse(c.req.param('accountId'));
+    if (!accountId.success || !deps.apps) return c.json({ error: 'invalid request' }, 422);
+    const state = await getAccountState(deps.db, accountId.data);
+    if (!state) return c.json({ apps: [] });
+    return c.json({ apps: await listConnections(appsDeps(), state.teamId) });
+  });
+
+  // Gives back the app's own sign-in page, where an admin approves MagpieReply.
+  internal.post('/accounts/:accountId/apps/:provider/connect', async c => {
+    const accountId = AccountId.safeParse(c.req.param('accountId'));
+    const provider = c.req.param('provider');
+    if (!accountId.success || !isProvider(provider) || !deps.apps) return c.json({ error: 'invalid request' }, 422);
+    const state = await getAccountState(deps.db, accountId.data);
+    if (!state) return c.json({ error: 'not connected' }, 409);
+    try {
+      return c.json({ authorize_url: await startConnect(appsDeps(), state.teamId, provider) });
+    } catch (error) {
+      if (error instanceof AppError) return c.json({ error: error.message }, 422);
+      throw error;
+    }
+  });
+
+  internal.delete('/accounts/:accountId/apps/:provider', async c => {
+    const accountId = AccountId.safeParse(c.req.param('accountId'));
+    const provider = c.req.param('provider');
+    if (!accountId.success || !isProvider(provider) || !deps.apps) return c.json({ error: 'invalid request' }, 422);
+    const state = await getAccountState(deps.db, accountId.data);
+    if (!state || !(await disconnect(appsDeps(), state.teamId, provider))) return c.json({ error: 'not found' }, 404);
+    return c.json({ status: 'disconnected' });
   });
 
   // Usage this month, how Magpie did in the last 30 days, and whether Auto is open to this team.

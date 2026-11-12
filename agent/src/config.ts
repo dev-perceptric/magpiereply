@@ -23,6 +23,8 @@ const ConfigSchema = z.object({
   // The brain (brain/ in this repo). Without it, turns only post a "received" note, as in week 1.
   BRAIN_URL: z.string().url().optional(),
   BRAIN_API_KEY: z.string().min(20).optional(),
+  // "on" once the app can send email (SMTP is set): Magpie may then offer customers a verification code.
+  VERIFICATION_EMAILS: z.enum(['on', 'off']).default('off'),
   // The reader (brain/magpie_reader): websites and files. Without it, Magpie knows only the help center.
   READER_URL: z.string().url().optional(),
   READER_API_KEY: z.string().min(20).optional(),

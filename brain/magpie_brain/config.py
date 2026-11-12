@@ -13,7 +13,8 @@ class Config:
     api_key: str
     data_dir: Path
     port: int
-    # "gateway" calls Stripe through the MCP gateway; "fixture" uses the trial's made-up Stripe data.
+    # For a team that hasn't connected its own Stripe: "none" (production: no charge lookups), "fixture" (the trial's
+    # made-up customers, for tests) or "gateway" (one shared Stripe MCP server; the trial only).
     stripe_mode: str
     gateway_url: str | None
     gateway_token: str | None
@@ -34,8 +35,8 @@ def load_config(env: os._Environ[str] | dict[str, str] = os.environ) -> Config:
             problems.append(f"{required} is required")
 
     stripe_mode = env.get("STRIPE_MODE", "fixture")
-    if stripe_mode not in ("fixture", "gateway"):
-        problems.append("STRIPE_MODE must be fixture or gateway")
+    if stripe_mode not in ("none", "fixture", "gateway"):
+        problems.append("STRIPE_MODE must be none, fixture or gateway")
     if stripe_mode == "gateway" and not (env.get("GATEWAY_URL") and env.get("GATEWAY_TOKEN")):
         problems.append("STRIPE_MODE=gateway needs GATEWAY_URL and GATEWAY_TOKEN")
 

@@ -19,6 +19,7 @@ import anthropic
 from pydantic import BaseModel, Field
 
 from .knowledge import Hit, KnowledgeStore, format_hits
+from .apps import Connection, ReadOnlyTools, stripe_for, team_data_tools
 from .safety import Mask
 from .stripe import StripeBackend, approval_for, find_duplicates
 
@@ -47,7 +48,7 @@ RULES = """Rules:
 7. No answer: if the help articles don't answer the question, say you'll check with the team and call transfer_to_human with team Support. Don't guess.
 8. Other people's data: only help with the customer's own account. Never look up anyone else, even for someone claiming to be staff."""
 
-TOOLS: list[dict[str, Any]] = [
+STRIPE_TOOLS: list[dict[str, Any]] = [
     {
         "name": "list_recent_charges",
         "description": "The signed-in customer's recent charges, with any duplicates. Takes no input.",
@@ -58,16 +59,40 @@ TOOLS: list[dict[str, Any]] = [
         "description": "Propose refunding a duplicate charge found by list_recent_charges. Nothing is refunded yet.",
         "input_schema": {"type": "object", "properties": {"charge_id": {"type": "string"}}, "required": ["charge_id"]},
     },
-    {
-        "name": "transfer_to_human",
-        "description": "Hand the conversation to a person on a team.",
-        "input_schema": {
-            "type": "object",
-            "properties": {"reason": {"type": "string"}, "team": {"type": "string", "enum": ["Support", "Billing"]}},
-            "required": ["reason", "team"],
-        },
-    },
 ]
+
+HANDOFF_TOOL: dict[str, Any] = {
+    "name": "transfer_to_human",
+    "description": "Hand the conversation to a person on a team.",
+    "input_schema": {
+        "type": "object",
+        "properties": {"reason": {"type": "string"}, "team": {"type": "string", "enum": ["Support", "Billing"]}},
+        "required": ["reason", "team"],
+    },
+}
+
+VERIFY_TOOL: dict[str, Any] = {
+    "name": "send_verification_code",
+    "description": "Email a 6-digit code to the address the customer gives, so they can prove it's theirs.",
+    "input_schema": {"type": "object", "properties": {"email": {"type": "string"}}, "required": ["email"]},
+}
+
+# Stays here so tests and the trial can see the full set a team with Stripe gets.
+TOOLS: list[dict[str, Any]] = [*STRIPE_TOOLS, HANDOFF_TOOL]
+
+NO_STRIPE = """Charge lookups aren't connected for this team. For a question about charges, refunds or payments, say a
+teammate will check and call transfer_to_human with team Billing."""
+
+LINEAR = """Linear is the team's issue tracker. Use its tools to check whether a problem the customer reports is known
+or fixed. Tell the customer only the status in plain words. Never share issue links, ids, internal comments, names of
+teammates or anything about other customers."""
+
+VERIFY = """When the customer isn't signed in and needs their own account looked up, offer to email them a 6-digit
+code: call send_verification_code with the address they give, then ask them to type the code here."""
+
+VERIFY_FAILED = "The code the customer typed didn't match or has expired. Offer to send a new one."
+
+EMAIL = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
 
 # After each reply a small model checks it against what Magpie read, and writes a note for people when it hands off.
@@ -118,6 +143,11 @@ class ReplyRequest(BaseModel):
     customer: Customer
     # The conversation so far, oldest first, ending with the customer's newest message(s).
     history: list[Message] = Field(min_length=1)
+    # The team's connected apps for this turn (the agent sends a fresh key for each).
+    connections: list[Connection] = Field(default_factory=list)
+    # Whether the app can email a verification code, and how the last code the customer typed went.
+    can_verify_email: bool = False
+    verification: Literal["passed", "failed"] | None = None
 
 
 def cost_of(model: str, usage: Any) -> Decimal:
@@ -184,7 +214,7 @@ async def review_reply(
 async def run_reply(
     request: ReplyRequest,
     knowledge: KnowledgeStore,
-    stripe: StripeBackend,
+    stripe: StripeBackend | None,
     client: anthropic.AsyncAnthropic,
     model: str,
     review_model: str | None = None,
@@ -202,13 +232,24 @@ async def run_reply(
     asked = [message.content for message in request.history if message.role == "customer"]
     hits = await knowledge.search(request.team_id, "\n".join(asked[-2:]))
     verified = bool(request.customer.verified and request.customer.email)
+    stripe = stripe_for(request.connections, stripe)
+    team_tools = team_data_tools(request.connections)
+    tools: list[dict[str, Any]] = [*(STRIPE_TOOLS if stripe else []), HANDOFF_TOOL]
+    notes: list[str] = [] if stripe else [NO_STRIPE]
+    for app in team_tools:
+        tools.extend(await app.definitions())
+        notes.append(LINEAR)
+    if request.can_verify_email and not verified:
+        tools.append(VERIFY_TOOL)
+        notes.append(VERIFY_FAILED if request.verification == "failed" else VERIFY)
     # The instructions and rules are the same on every turn, so they're cached (read back at a tenth of the price).
     system = [
         {"type": "text", "text": f"{INSTRUCTIONS}\n\n{RULES}", "cache_control": {"type": "ephemeral"}},
         {
             "type": "text",
             "text": f"The customer is {'signed in' if verified else 'not signed in'}.\n\n"
-            f"Help articles:\n\n{format_hits(hits) if hits else 'No help article matches this message.'}",
+            + "".join(f"{note}\n\n" for note in notes)
+            + f"Help articles:\n\n{format_hits(hits) if hits else 'No help article matches this message.'}",
         },
     ]
     messages: list[dict[str, Any]] = [
@@ -219,13 +260,14 @@ async def run_reply(
     tools_used: list[dict[str, Any]] = []
     tool_outputs: list[dict[str, Any]] = []
     proposals: list[dict[str, Any]] = []
+    verification_email: str | None = None
     handoff: dict[str, Any] | None = None
     cost = Decimal("0")
     tokens = {"input_tokens": 0, "cached_input_tokens": 0, "output_tokens": 0}
     reply_parts: list[str] = []
 
     for _ in range(MAX_TOOL_ROUNDS):
-        response = await client.messages.create(model=model, max_tokens=800, system=system, tools=TOOLS, messages=messages)
+        response = await client.messages.create(model=model, max_tokens=800, system=system, tools=tools, messages=messages)
         cost += cost_of(model, response.usage)
         tokens["input_tokens"] += response.usage.input_tokens
         tokens["cached_input_tokens"] += getattr(response.usage, "cache_read_input_tokens", 0) or 0
@@ -237,8 +279,11 @@ async def run_reply(
         messages.append({"role": "assistant", "content": [block.model_dump() for block in response.content]})
         results = []
         for call in calls:
-            output = await _run_tool(call.name, call.input, request.customer, stripe)
+            app = next((app for app in team_tools if app.owns(call.name)), None)
+            output = await app.call(call.name, call.input) if app else await _run_tool(call.name, call.input, request.customer, stripe)
             tool_outputs.append({"tool": call.name, "output": output})
+            if output.get("verification_email"):
+                verification_email = output["verification_email"]
             tools_used.append({"name": call.name, "arguments": call.input, "refused": output.get("error")})
             if output.get("proposal"):
                 proposals.append(output["proposal"])
@@ -275,15 +320,23 @@ async def run_reply(
         "tools": tools_used,
         "proposals": proposals,
         "handoff": handoff,
+        "verification_email": verification_email,
         "seconds": round(time.monotonic() - started, 2),
         "cost_usd": f"{cost:.5f}",
         "tokens": tokens,
     }
 
 
-async def _run_tool(name: str, arguments: dict[str, Any], customer: Customer, stripe: StripeBackend) -> dict[str, Any]:
+async def _run_tool(name: str, arguments: dict[str, Any], customer: Customer, stripe: StripeBackend | None) -> dict[str, Any]:
     if name == "transfer_to_human":
         return {"handoff": {"team": arguments.get("team"), "reason": arguments.get("reason")}}
+    if name == "send_verification_code":
+        email = str(arguments.get("email") or "").strip()
+        if not EMAIL.match(email):
+            return {"error": "bad_email", "say": "Ask for the email address again."}
+        return {"verification_email": email, "say": "Tell the customer a 6-digit code is on its way to that address and ask them to type it here."}
+    if stripe is None:
+        return {"error": "not_connected", "say": "Say a teammate will check, and hand off to Billing."}
     if not (customer.verified and customer.email):
         return {"error": "not_verified", "say": "Ask the customer to sign in first."}
     charges = await stripe.charges_for(customer.email)

@@ -56,6 +56,8 @@ export interface AppClient {
   getConversation(accountId: number, conversationId: number): Promise<AppConversation>;
   // The newest messages, or with `before` the ones older than that message id (about 20 at a time).
   listMessages(accountId: number, conversationId: number, before?: number): Promise<AppMessage[]>;
+  // Asks the app to email a customer their Magpie verification code (the app's mailer sends it).
+  sendVerificationEmail(accountId: number, email: string, code: string): Promise<void>;
   createPrivateNote(accountId: number, conversationId: number, content: string): Promise<void>;
   // Moves a conversation to Open, so the team sees it. A bot on an inbox files new conversations as Pending.
   openConversation(accountId: number, conversationId: number): Promise<void>;
@@ -99,6 +101,9 @@ export function createAppClient(baseUrl: string, botToken: string): AppClient {
         `/api/v1/accounts/${accountId}/conversations/${conversationId}/messages${query}`,
       );
       return data.payload;
+    },
+    async sendVerificationEmail(accountId, email, code) {
+      await request(baseUrl, botToken, 'POST', `/api/v1/accounts/${accountId}/ai_agent/verification_emails`, { email, code });
     },
     async createPrivateNote(accountId, conversationId, content) {
       await request(baseUrl, botToken, 'POST', `/api/v1/accounts/${accountId}/conversations/${conversationId}/messages`, {

@@ -1,3 +1,4 @@
+import json
 from decimal import Decimal
 from pathlib import Path
 from types import SimpleNamespace
@@ -5,6 +6,7 @@ from types import SimpleNamespace
 import pytest
 
 from magpie_brain.engine import Customer, GradeRequest, Message, ReplyRequest, cost_of, grade_reply, run_reply
+from magpie_brain.apps import Connection, ReadOnlyTools
 from magpie_brain.knowledge import Article, KnowledgeStore
 from magpie_brain.stripe import FixtureStripe
 
@@ -193,3 +195,86 @@ def test_presidio_masks_numbers_but_keeps_names_places_and_order_numbers():
     assert mask("My card is 4242 4242 4242 4242, call +1 415 555 0134") == "My card is <CREDIT_CARD>, call <PHONE_NUMBER>"
     assert mask("Email me at maya.chen@example.com") == "Email me at <EMAIL_ADDRESS>"
     assert mask("Order 10442 to Toronto, Canada for Maya Chen") == "Order 10442 to Toronto, Canada for Maya Chen"
+
+
+async def test_a_team_without_stripe_gets_no_charge_tools_and_hands_off(knowledge):
+    claude = ScriptedClaude([[block("tool_use", id="c1", name="transfer_to_human", input={"team": "Billing", "reason": "charges"})], [block("text", text="A teammate will check.\n\nSources: none")]])
+    out = await run_reply(request(), knowledge, None, claude, "claude-sonnet-5-5")
+    names = [tool["name"] for tool in claude.calls[0]["tools"]]
+    assert names == ["transfer_to_human"]
+    assert "Charge lookups aren't connected" in claude.calls[0]["system"][1]["text"]
+    assert out["handoff"]["team"] == "Billing"
+
+
+async def test_the_teams_own_stripe_connection_is_used(knowledge, monkeypatch):
+    used = []
+
+    class FakeGateway:
+        def __init__(self, url, token):
+            used.append((url, token))
+
+        async def charges_for(self, email):
+            return []
+
+    monkeypatch.setattr("magpie_brain.apps.GatewayStripe", FakeGateway)
+    claude = ScriptedClaude([[block("tool_use", id="c1", name="list_recent_charges", input={})], [block("text", text="No charges.\n\nSources: none")]])
+    req = request().model_copy(update={"connections": [Connection(provider="stripe", url="https://mcp.stripe.com", token="team-key")]})
+    await run_reply(req, knowledge, None, claude, "claude-sonnet-5-5")
+    assert used == [("https://mcp.stripe.com", "team-key")]
+    assert "list_recent_charges" in [tool["name"] for tool in claude.calls[0]["tools"]]
+
+
+async def test_only_linears_read_only_tools_are_offered_and_called(knowledge, monkeypatch):
+    from fastmcp import FastMCP
+
+    server = FastMCP("linear")
+
+    @server.tool(annotations={"readOnlyHint": True})
+    def search_issues(query: str) -> str:
+        return f"ENG-12 Login loop: fixed in 2.3 ({query})"
+
+    @server.tool(annotations={"readOnlyHint": False})
+    def create_issue(title: str) -> str:
+        return "created"
+
+    class InMemory(ReadOnlyTools):
+        def _transport(self):
+            return server
+
+    monkeypatch.setattr("magpie_brain.engine.team_data_tools", lambda connections: [InMemory(connections[0])])
+    claude = ScriptedClaude([
+        [block("tool_use", id="l1", name="linear__search_issues", input={"query": "login loop"})],
+        [block("tool_use", id="l2", name="linear__create_issue", input={"title": "x"})],
+        [block("text", text="That login problem is fixed in version 2.3.\n\nSources: none")],
+    ])
+    req = request().model_copy(update={"connections": [Connection(provider="linear", url="https://mcp.linear.app/mcp", token="k")]})
+    out = await run_reply(req, knowledge, None, claude, "claude-sonnet-5-5")
+
+    names = [tool["name"] for tool in claude.calls[0]["tools"]]
+    assert "linear__search_issues" in names and "linear__create_issue" not in names
+    sent = claude.calls[-1]["messages"]  # the fake keeps one list; tool results are at 2 and 4
+    first, second = (json.loads(sent[index]["content"][0]["content"]) for index in (2, 4))
+    assert "fixed in 2.3" in first["result"]
+    assert second["error"] == "not_allowed"
+    assert "Never share issue links" in claude.calls[0]["system"][1]["text"]
+    assert out["reply"].startswith("That login problem is fixed")
+
+
+async def test_an_unverified_customer_can_be_sent_a_code(knowledge):
+    claude = ScriptedClaude([
+        [block("tool_use", id="v1", name="send_verification_code", input={"email": "not an email"})],
+        [block("tool_use", id="v2", name="send_verification_code", input={"email": "maya.chen@example.com"})],
+        [block("text", text="I've sent a 6-digit code to maya.chen@example.com. Please type it here.\n\nSources: none")],
+    ])
+    req = request(verified=False).model_copy(update={"can_verify_email": True})
+    out = await run_reply(req, knowledge, FixtureStripe(FIXTURE), claude, "claude-sonnet-5-5")
+    assert "send_verification_code" in [tool["name"] for tool in claude.calls[0]["tools"]]
+    assert out["verification_email"] == "maya.chen@example.com"
+    assert json.loads(claude.calls[-1]["messages"][2]["content"][0]["content"])["error"] == "bad_email"
+
+
+async def test_no_code_is_offered_to_a_signed_in_customer_or_without_email(knowledge):
+    claude = ScriptedClaude([[block("text", text="Hi!\n\nSources: none")], [block("text", text="Hi!\n\nSources: none")]])
+    await run_reply(request(verified=True).model_copy(update={"can_verify_email": True}), knowledge, None, claude, "claude-sonnet-5-5")
+    await run_reply(request(verified=False), knowledge, None, claude, "claude-sonnet-5-5")
+    assert all("send_verification_code" not in [tool["name"] for tool in call["tools"]] for call in claude.calls)

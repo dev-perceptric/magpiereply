@@ -35,6 +35,7 @@ function fakeApp(options: { messages?: AppMessage[]; failNote?: boolean; convers
       sendReply: async () => {
         throw new Error('a turn never sends to the customer');
       },
+      sendVerificationEmail: async () => undefined,
       listPortals: async () => [],
       listPublishedArticles: async () => [],
     };

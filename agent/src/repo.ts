@@ -234,6 +234,8 @@ export interface Draft {
   handoffNote: string | null;
   guard: { flagged: boolean } | null;
   sentBy: 'person' | 'magpie' | null;
+  // The address Magpie offered to send a code to; the code goes out when the reply does.
+  verificationEmail: string | null;
   status: 'pending' | 'sent' | 'discarded' | 'replaced';
   createdAt: string;
 }
@@ -249,6 +251,7 @@ interface DraftRow {
   handoff_note: string | null;
   guard: Draft['guard'];
   sent_by: Draft['sentBy'];
+  verification_email: string | null;
   status: Draft['status'];
   created_at: Date;
 }
@@ -265,6 +268,7 @@ function toDraft(row: DraftRow): Draft {
     handoffNote: row.handoff_note,
     guard: row.guard,
     sentBy: row.sent_by,
+    verificationEmail: row.verification_email,
     status: row.status,
     createdAt: row.created_at.toISOString(),
   };
@@ -284,6 +288,7 @@ export async function saveDraft(
     factCheck?: Draft['factCheck'];
     handoffNote?: string | null;
     guard?: { flagged: boolean } | null;
+    verificationEmail?: string | null;
   },
 ): Promise<number> {
   const client = await db.connect();
@@ -294,8 +299,8 @@ export async function saveDraft(
       [draft.teamId, draft.conversationId],
     );
     const result = await client.query<{ id: string }>(
-      `insert into agent.drafts (team_id, conversation_id, run_id, reply, proposals, handoff, sources, fact_check, handoff_note, guard)
-       values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) returning id`,
+      `insert into agent.drafts (team_id, conversation_id, run_id, reply, proposals, handoff, sources, fact_check, handoff_note, guard, verification_email)
+       values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) returning id`,
       [
         draft.teamId,
         draft.conversationId,
@@ -307,6 +312,7 @@ export async function saveDraft(
         draft.factCheck ? JSON.stringify(draft.factCheck) : null,
         draft.handoffNote ?? null,
         draft.guard ? JSON.stringify(draft.guard) : null,
+        draft.verificationEmail ?? null,
       ],
     );
     await client.query('commit');
@@ -319,7 +325,7 @@ export async function saveDraft(
   }
 }
 
-const DRAFT_COLUMNS = 'id, conversation_id, reply, proposals, handoff, sources, fact_check, handoff_note, guard, sent_by, status, created_at';
+const DRAFT_COLUMNS = 'id, conversation_id, reply, proposals, handoff, sources, fact_check, handoff_note, guard, sent_by, verification_email, status, created_at';
 
 export async function latestDraft(db: Db, teamId: number, conversationId: number): Promise<Draft | null> {
   const result = await db.query<DraftRow>(

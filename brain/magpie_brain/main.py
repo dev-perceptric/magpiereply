@@ -37,11 +37,12 @@ def create_app() -> FastAPI:
         voyage_embedder(os.environ["VOYAGE_API_KEY"]),
         flashrank_reranker(config.rerank_model, config.rerank_cache),
     )
-    stripe = (
-        GatewayStripe(config.gateway_url or "", config.gateway_token or "")
-        if config.stripe_mode == "gateway"
-        else FixtureStripe(FIXTURE_PATH)
-    )
+    # A team's own Stripe comes with each request; this is only for teams that haven't connected one.
+    stripe = {
+        "none": None,
+        "fixture": FixtureStripe(FIXTURE_PATH),
+        "gateway": GatewayStripe(config.gateway_url or "", config.gateway_token or ""),
+    }[config.stripe_mode]
     claude = anthropic.AsyncAnthropic()
     mask = presidio_mask() if config.mask_personal_data else None
     api = FastAPI(title="Magpie brain")
@@ -68,7 +69,7 @@ def create_app() -> FastAPI:
         return await grade_reply(body, claude, config.review_model)
 
     print(
-        f"[brain] ready on port {config.port}, Stripe from {config.stripe_mode}, "
+        f"[brain] ready on port {config.port}, Stripe for unconnected teams: {config.stripe_mode}, "
         f"masking {'on' if mask else 'off'}",
         flush=True,
     )

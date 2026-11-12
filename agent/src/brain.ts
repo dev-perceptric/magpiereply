@@ -5,6 +5,11 @@ export interface BrainTurnRequest {
   customer: { id: string; name: string; email: string | null; verified: boolean };
   // The conversation so far, oldest first, ending with the customer's newest message(s).
   history: Array<{ role: 'customer' | 'agent'; content: string }>;
+  // The team's connected apps for this turn: the MCP server and a fresh key for each.
+  connections?: Array<{ provider: string; url: string; token: string }>;
+  // Whether Magpie may offer an email verification code (the app can send email), and how the last one went.
+  can_verify_email?: boolean;
+  verification?: 'passed' | 'failed' | null;
 }
 
 export interface BrainProposal {
@@ -37,6 +42,8 @@ export interface BrainTurnResult {
   guard?: { flagged: boolean } | null;
   // How many messages had card, ID or contact numbers masked before Claude saw them.
   masked_messages?: number;
+  // The address Magpie offered to send a verification code to; the agent sends it with the reply.
+  verification_email?: string | null;
   tools: Array<{ name: string; arguments: Record<string, unknown> }>;
   proposals: BrainProposal[];
   handoff: { team: string; reason: string } | null;

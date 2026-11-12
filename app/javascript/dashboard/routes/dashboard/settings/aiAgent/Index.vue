@@ -12,6 +12,7 @@ import Checkbox from 'dashboard/components-next/checkbox/Checkbox.vue';
 import Button from 'dashboard/components-next/button/Button.vue';
 import RadioCard from 'dashboard/components-next/radioCard/RadioCard.vue';
 import KnowledgeSources from './components/KnowledgeSources.vue';
+import AppConnections from './components/AppConnections.vue';
 import UsageSummary from './components/UsageSummary.vue';
 import ReplayTests from './components/ReplayTests.vue';
 
@@ -183,6 +184,7 @@ onMounted(load);
         <UsageSummary v-if="isOn && summary" :summary="summary" />
         <ReplayTests v-if="isOn" @finished="loadSummary" />
         <KnowledgeSources v-if="isOn" />
+        <AppConnections v-if="isOn" />
       </div>
     </template>
   </SettingsLayout>

@@ -16,6 +16,8 @@ import {
 } from '../repo.js';
 import type { TurnJob } from '../queue.js';
 import { addRunCost, countAutoReply, getFlag, MAX_AUTO_REPLIES, monthSpend } from '../trust.js';
+import { connectionsForTurn, type AppsDeps } from '../apps.js';
+import { checkCode, MAX_CODES_PER_CONVERSATION, sendCode, verificationState } from '../verify.js';
 
 const HISTORY_LIMIT = 20;
 const EMAIL_CHANNEL = 'Channel::Email';
@@ -26,6 +28,10 @@ export interface TurnDeps {
   appClientFor: (botToken: string) => AppClient;
   // Without a brain, a turn only posts a "received" note (week 1).
   brain?: BrainClient;
+  // The team's connected apps (Stripe, Linear, ...); without this, Magpie answers from knowledge only.
+  apps?: Omit<AppsDeps, 'db' | 'encryptionKey'>;
+  // The app can send email, so Magpie may offer customers a verification code.
+  verificationEmails?: boolean;
 }
 
 // One turn: read the conversation and, when the customer wrote something new, ask the brain. In Draft mode the reply
@@ -125,16 +131,29 @@ async function answerWithBrain(
   }
 
   const conversation = await app.getConversation(team.accountId, conversationId);
+  const connections = deps.apps ? await connectionsForTurn({ db: deps.db, encryptionKey: deps.encryptionKey, ...deps.apps }, team.id) : [];
+  // A 6-digit code the customer typed back proves the email is theirs, for this conversation.
+  const verification = await checkCode(deps.db, team.id, conversationId, fresh.map(message => message.content ?? ''));
+  const verify = await verificationState(deps.db, team.id, conversationId);
+  const customer = verify.verifiedEmail ? { ...customerOf(conversation), email: verify.verifiedEmail, verified: true } : customerOf(conversation);
   const brainStart = Date.now();
   const result = await brain.runTurn({
     team_id: String(team.id),
-    customer: customerOf(conversation),
+    customer,
     history: historyOf(messages),
+    connections,
+    can_verify_email: Boolean(deps.verificationEmails) && verify.codesSent < MAX_CODES_PER_CONVERSATION,
+    verification,
   });
   await recordStep(deps.db, {
     runId,
     name: 'brain',
-    input: { messageIds: fresh.map(message => message.id) },
+    input: {
+      messageIds: fresh.map(message => message.id),
+      apps: connections.map(connection => connection.provider),
+      verified: customer.verified,
+      verification,
+    },
     output: {
       reply: result.reply,
       sources: (result.sources ?? []).map(source => source.id),
@@ -165,6 +184,7 @@ async function answerWithBrain(
     factCheck: result.check ?? null,
     handoffNote: result.handoff_note ?? null,
     guard: result.guard ?? null,
+    verificationEmail: result.verification_email ?? null,
   });
   const holdBack = auto ? reasonToHoldBack(result) : null;
   const sends = auto && holdBack === null;
@@ -182,6 +202,7 @@ async function answerWithBrain(
     await sendAutoReply(deps, app, ids, conversationId, result.reply!, draftId);
     state = { ...state, pendingReply: null, pendingReplyDraftId: null, autoReplies: (state.autoReplies ?? 0) + 1 };
     await saveConversationState(deps.db, team.id, conversationId, state);
+    if (result.verification_email) await emailCode(deps, app, ids, conversationId, result.verification_email);
   }
   if (state.pendingNote) {
     await postNote(deps, app, ids, conversationId, state.pendingNote);
@@ -189,6 +210,22 @@ async function answerWithBrain(
   }
   // People answer drafts and handoffs, so those belong in their Open view. An answer Magpie sent stays where it is.
   if ((!sends || result.handoff) && conversation.status === 'pending') await app.openConversation(team.accountId, conversationId);
+}
+
+// The code goes out once the reply telling the customer about it has. A failure is recorded; the customer can ask again.
+export async function emailCode(
+  deps: { db: Db },
+  app: AppClient,
+  ids: { teamId: number; accountId: number; runId?: number },
+  conversationId: number,
+  email: string,
+): Promise<void> {
+  try {
+    const sent = await sendCode(deps.db, app, ids, conversationId, email);
+    if (ids.runId) await recordStep(deps.db, { runId: ids.runId, name: 'verification_code', output: { sent }, durationMs: 0 });
+  } catch (error) {
+    if (ids.runId) await recordStep(deps.db, { runId: ids.runId, name: 'verification_code', output: { sent: false, error: (error as Error).message }, durationMs: 0 });
+  }
 }
 
 // Why Magpie won't send this reply on its own, or null when it may.
@@ -263,6 +300,7 @@ export function customerOf(conversation: AppConversation): {
 export function draftNote(result: BrainTurnResult, runId: number, heldBack: string | null = null): string {
   const lines = [`Magpie draft (run #${runId}):`, '', result.reply ?? '(no reply)'];
   if (heldBack) lines.push('', `Not sent on its own because ${heldBack}.`);
+  if (result.verification_email) lines.push('', `Sending this reply also emails a 6-digit code to ${result.verification_email}.`);
   if (result.check && !result.check.passed) {
     lines.push('', 'Check before sending. Not found in your knowledge:', ...result.check.unsupported.map(claim => `- ${claim}`));
   }

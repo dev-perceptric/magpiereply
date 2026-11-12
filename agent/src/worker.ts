@@ -35,7 +35,14 @@ const brain = config.BRAIN_URL && config.BRAIN_API_KEY ? createBrainClient(confi
 await boss.work<TurnJob>(TURN_QUEUE, { localConcurrency: 4 }, async jobs => {
   for (const job of jobs) {
     await handleTurn(
-      { db, encryptionKey: config.ENCRYPTION_KEY, appClientFor: token => createAppClient(config.APP_URL, token), brain },
+      {
+        db,
+        encryptionKey: config.ENCRYPTION_KEY,
+        appClientFor: token => createAppClient(config.APP_URL, token),
+        brain,
+        apps: { publicUrl: config.PUBLIC_URL, env: process.env },
+        verificationEmails: config.VERIFICATION_EMAILS === 'on',
+      },
       job,
     );
   }
@@ -56,7 +63,10 @@ if (brain) {
   await boss.schedule(SYNC_QUEUE, SYNC_SCHEDULE);
   await boss.work<ReplayJob>(REPLAY_QUEUE, async jobs => {
     for (const job of jobs) {
-      await runReplay({ db, encryptionKey: config.ENCRYPTION_KEY, appClientFor, brain }, job.data.evalRunId);
+      await runReplay(
+        { db, encryptionKey: config.ENCRYPTION_KEY, appClientFor, brain, apps: { publicUrl: config.PUBLIC_URL, env: process.env } },
+        job.data.evalRunId,
+      );
     }
   });
   await boss.send(SYNC_QUEUE, {}); // once now, so a fresh start doesn't wait 15 minutes

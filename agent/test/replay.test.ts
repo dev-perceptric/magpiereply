@@ -53,6 +53,7 @@ describe('replay tests', () => {
       sendReply: async () => {
         throw new Error('replay never sends');
       },
+      sendVerificationEmail: async () => undefined,
       listPortals: async () => [],
       listPublishedArticles: async () => [],
     };
