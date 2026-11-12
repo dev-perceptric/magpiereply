@@ -13,6 +13,12 @@ Part of `docs/ai-agent-plan.md`, after `docs/phase-2.md`. Phase 3 lets Magpie lo
 | Verification codes: when a customer isn't signed in and asks about their account, Magpie offers to email a 6-digit code. Typing it back makes that email theirs for the conversation, so Stripe lookups work | Built (`agent/src/verify.ts`, `MagpieMailer`). In Draft mode the code goes out when a teammate sends the reply; in Auto, with Magpie's reply. 10 minutes, 5 tries, 3 codes a conversation |
 | The shared test Stripe account is used only by the trial now. The brain runs with `STRIPE_MODE=none` | Built |
 
+## Checked on the live server (November 12, 2026)
+
+- Connect for Stripe and Linear on account 1 returned each app's real sign-in page, after MCP self-registration. HubSpot says it needs setup.
+- The 40-case trial, with Stripe passed in as a connection over MCP: 39 of 40 correct, 1 wrong, 10 of 10 rule and attack tests, slowest 5% 6.9 s, $0.0044 a turn. The wrong one said opened candles can't be returned, which the article doesn't say.
+- Three prompt fixes came out of the trial runs: legal handoffs say only that a teammate will pick it up; nothing is promised about someone else's account; and Magpie's own rules are never quoted to customers as company policy.
+
 ## Setting up what needs you
 
 **Email (needed for verification codes, and for every email the app sends).** The app has no email provider today, so invites and password resets don't go out either.
