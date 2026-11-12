@@ -200,6 +200,10 @@ Rails.application.routes.draw do
             resource :summary, only: [:show], controller: 'ai_agents/summaries'
             resources :runs, only: [:index, :show], controller: 'ai_agents/runs'
             resources :tests, only: [:index, :show, :create], controller: 'ai_agents/tests'
+            resources :verification_emails, only: [:create], controller: 'ai_agents/verification_emails'
+            resources :apps, only: [:index, :destroy], controller: 'ai_agents/apps', param: :provider do
+              post :connect, on: :member
+            end
           end
           namespace :channels do
             resource :twilio_channel, only: [:create]

@@ -49,6 +49,19 @@ class Magpie::AgentClient
     request(:get, "/internal/accounts/#{account_id}/tests/#{test_id.to_i}")['cases']
   end
 
+  def apps(account_id)
+    request(:get, "/internal/accounts/#{account_id}/apps")['apps']
+  end
+
+  # The app's own sign-in page, where an admin approves MagpieReply.
+  def connect_app(account_id, provider)
+    request(:post, "/internal/accounts/#{account_id}/apps/#{provider}/connect")['authorize_url']
+  end
+
+  def disconnect_app(account_id, provider)
+    request(:delete, "/internal/accounts/#{account_id}/apps/#{provider}")
+  end
+
   def sources(account_id)
     request(:get, "/internal/accounts/#{account_id}/sources")['sources']
   end

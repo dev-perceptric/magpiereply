@@ -26,6 +26,7 @@ function fakeApp(options: { messages?: AppMessage[]; failSend?: boolean } = {}) 
       if (options.failSend) throw new Error('app unavailable');
       calls.sent.push(content);
     },
+    sendVerificationEmail: async () => undefined,
     listPortals: async () => [],
     listPublishedArticles: async () => [],
   });

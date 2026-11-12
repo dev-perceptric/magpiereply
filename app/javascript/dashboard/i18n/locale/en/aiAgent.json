@@ -99,6 +99,24 @@
         "paused": "Paused"
       },
       "FAILED": "Failed"
+    },
+    "APPS": {
+      "HEADER": "Apps",
+      "DESCRIPTION": "Connect your team's apps so Magpie can look things up. Magpie only reads, and only the signed-in customer's own records.",
+      "CONNECT": "Connect",
+      "DISCONNECT": "Disconnect",
+      "CONNECTED": "Connected",
+      "NOT_CONNECTED": "Not connected",
+      "NEEDS_SETUP": "Needs setup",
+      "FAILED": "Couldn't connect",
+      "PENDING": "Waiting for sign-in",
+      "DETAILS": {
+        "stripe": "Charges and duplicate payments for the signed-in customer.",
+        "linear": "Whether a reported bug is known or fixed.",
+        "hubspot": "The customer's company and owner.",
+        "shopify": "The customer's orders and tracking."
+      },
+      "ERROR": "Something went wrong. Try again."
     }
   }
 }

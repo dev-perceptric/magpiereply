@@ -19,6 +19,7 @@ function fakeApp(portals: AppPortal[], pages: Record<string, AppArticle[][]>): A
     createPrivateNote: async () => undefined,
     openConversation: async () => undefined,
     sendReply: async () => undefined,
+    sendVerificationEmail: async () => undefined,
     listPortals: async () => portals,
     listPublishedArticles: async (_account, slug, page) => pages[slug]?.[page - 1] ?? [],
   };

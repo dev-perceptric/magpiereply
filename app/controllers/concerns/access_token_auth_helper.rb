@@ -7,7 +7,9 @@ module AccessTokenAuthHelper
     # Read-only context for the Magpie AI agent bot: the customer, and the team's help centers and their articles.
     'api/v1/accounts/contacts' => ['show'],
     'api/v1/accounts/portals' => ['index'],
-    'api/v1/accounts/articles' => %w[index show]
+    'api/v1/accounts/articles' => %w[index show],
+    # The Magpie AI agent bot asks the app to email a customer their verification code.
+    'api/v1/accounts/ai_agents/verification_emails' => ['create']
   }.freeze
 
   def authenticate_by_access_token?

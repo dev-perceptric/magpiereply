@@ -24,8 +24,10 @@ const app = createHttpApp({
         enqueueRead: sourceId => enqueueRead(boss, { sourceId }),
         enqueueSync: teamId => enqueueSync(boss, { teamId }),
         enqueueReplay: evalRunId => enqueueReplay(boss, { evalRunId }),
+        apps: { publicUrl: config.PUBLIC_URL, env: process.env },
       }
     : undefined,
+  apps: { publicUrl: config.PUBLIC_URL, env: process.env, publicAppUrl: config.APP_PUBLIC_URL ?? config.APP_URL },
   panel: {
     appClientFor: token => createAppClient(config.APP_URL, token),
     publicAppUrl: config.APP_PUBLIC_URL ?? config.APP_URL,

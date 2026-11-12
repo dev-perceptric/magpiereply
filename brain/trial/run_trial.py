@@ -77,6 +77,12 @@ def load(name: str) -> Any:
 class Brain:
     def __init__(self, url: str, key: str):
         self._http = httpx.AsyncClient(base_url=url, headers={"authorization": f"Bearer {key}"}, timeout=180)
+        # With a Stripe MCP server and key in the environment (STRIPE_MODE=gateway), the trial connects its own
+        # test-mode Stripe the way a team does; otherwise the brain's fixture answers.
+        gateway, token = os.environ.get("GATEWAY_URL"), os.environ.get("GATEWAY_TOKEN")
+        self._connections = (
+            [{"provider": "stripe", "url": gateway, "token": token}] if os.environ.get("STRIPE_MODE") == "gateway" and gateway and token else []
+        )
 
     async def put_knowledge(self) -> dict[str, Any]:
         response = await self._http.put(f"/magpie/knowledge/{TEAM_ID}", json={"articles": load("articles.json")})
@@ -90,7 +96,7 @@ class Brain:
         for message in case["turns"]:
             history.append({"role": "customer", "content": message})
             response = await self._http.post(
-                "/magpie/reply", json={"team_id": TEAM_ID, "customer": customer, "history": history}
+                "/magpie/reply", json={"team_id": TEAM_ID, "customer": customer, "history": history, "connections": self._connections}
             )
             response.raise_for_status()
             turn = response.json()

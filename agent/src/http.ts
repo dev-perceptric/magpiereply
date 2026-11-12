@@ -3,6 +3,8 @@ import type { Db } from './db.js';
 import { decrypt, hashHookId, verifyWebhookSignature } from './crypto.js';
 import { findTeamByHookHash, isInboxEnabled, saveEvent } from './repo.js';
 import { markPersonReplied, markReopened, markResolved } from './trust.js';
+import { finishConnect, PROVIDERS, type AppsDeps, type Provider } from './apps.js';
+import { listTools } from './mcp.js';
 import { createPanelRoutes, type PanelDeps } from './panel.js';
 import { createInternalRoutes, type InternalDeps } from './internal.js';
 
@@ -28,6 +30,8 @@ export interface HttpDeps {
   panel?: Omit<PanelDeps, 'db' | 'encryptionKey'>;
   // The app's Settings → AI agent page; left out when INTERNAL_API_KEY isn't set.
   internal?: Omit<InternalDeps, 'db' | 'encryptionKey'>;
+  // Where app sign-ins come back to, and where the admin is sent afterwards.
+  apps?: Omit<AppsDeps, 'db' | 'encryptionKey'> & { publicAppUrl: string };
 }
 
 // A new customer message we should answer. Everything else is acknowledged and ignored.
@@ -112,6 +116,22 @@ export function createHttpApp(deps: HttpDeps): Hono {
     const queued = await deps.enqueueTurn({ teamId: team.id, conversationId });
     return c.json({ status: queued ? 'queued' : 'already queued' });
   });
+
+  if (deps.apps) {
+    const appsDeps = { db: deps.db, encryptionKey: deps.encryptionKey, ...deps.apps };
+    // The app's sign-in page sends the admin back here. Then on to Settings → AI agent, with how it went.
+    app.get('/connect/callback', async c => {
+      const outcome = await finishConnect(
+        appsDeps,
+        { code: c.req.query('code'), state: c.req.query('state'), error: c.req.query('error') },
+        async (provider: Provider, token: string) => (await listTools(PROVIDERS[provider].mcpUrl, token, appsDeps.fetch)).length,
+      );
+      if (outcome.accountId === null) return c.text(outcome.message, 400);
+      const back = new URL(`/app/accounts/${outcome.accountId}/settings/ai-agent`, deps.apps!.publicAppUrl);
+      back.search = new URLSearchParams({ app: outcome.provider ?? '', result: outcome.ok ? 'connected' : 'failed', message: outcome.message }).toString();
+      return c.redirect(back.toString());
+    });
+  }
 
   if (deps.internal) {
     app.route('/internal', createInternalRoutes({ db: deps.db, encryptionKey: deps.encryptionKey, ...deps.internal }));

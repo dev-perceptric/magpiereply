@@ -31,6 +31,7 @@ const mountPage = async state => {
         UsageSummary: { template: '<div class="usage" />' },
         ReplayTests: { template: '<div class="tests" />' },
         KnowledgeSources: { template: '<div class="knowledge" />' },
+        AppConnections: { template: '<div class="apps" />' },
       },
     },
   });

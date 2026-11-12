@@ -20,6 +20,7 @@ function setup(options: { failSend?: boolean } = {}) {
       if (options.failSend) throw new Error('app down');
       sent.push({ accountId, conversationId, content });
     },
+    sendVerificationEmail: async () => undefined,
     listPortals: async () => [],
     listPublishedArticles: async () => [],
   };

@@ -3,6 +3,7 @@ import type { BrainClient } from '../brain.js';
 import { decrypt } from '../crypto.js';
 import type { Db } from '../db.js';
 import { findTeam } from '../repo.js';
+import { connectionsForTurn, type AppsDeps } from '../apps.js';
 import { customerOf, historyOf } from './turn.js';
 
 // How many past replies one replay test reads again. About $0.006 each.
@@ -13,6 +14,8 @@ export interface ReplayDeps {
   encryptionKey: string;
   appClientFor: (botToken: string) => AppClient;
   brain: BrainClient;
+  // The team's apps, so replayed answers can look things up the way live ones do.
+  apps?: Omit<AppsDeps, 'db' | 'encryptionKey'>;
 }
 
 interface PastReply {
@@ -53,6 +56,7 @@ export async function runReplay(deps: ReplayDeps, evalRunId: number): Promise<vo
 
   try {
     const app = deps.appClientFor(decrypt(team.botTokenEnc, deps.encryptionKey));
+    const connections = deps.apps ? await connectionsForTurn({ db: deps.db, encryptionKey: deps.encryptionKey, ...deps.apps }, team.id) : [];
     let cases = 0;
     let passed = 0;
     let cost = 0;
@@ -61,7 +65,7 @@ export async function runReplay(deps: ReplayDeps, evalRunId: number): Promise<vo
       const history = historyOf(messages);
       if (history.length === 0) continue;
       const conversation = await app.getConversation(team.accountId, past.conversationId);
-      const now = await deps.brain.runTurn({ team_id: String(team.id), customer: customerOf(conversation), history });
+      const now = await deps.brain.runTurn({ team_id: String(team.id), customer: customerOf(conversation), history, connections });
       const grade = await deps.brain.grade({ history, candidate: now.reply ?? '', reference: past.reference });
       cost += Number(now.cost_usd ?? 0) + Number(grade.cost_usd ?? 0);
       cases += 1;
