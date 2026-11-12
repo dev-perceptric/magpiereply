@@ -121,7 +121,7 @@ async def test_the_review_flags_what_the_articles_do_not_support(knowledge):
     assert review["model"] == "claude-haiku-5-5"
     assert review["tool_choice"] == {"type": "tool", "name": "report"}
     assert "We ship to Canada in 5 days." in review["messages"][0]["content"]
-    assert "Magpie's Rules:\n1. Duplicate charge" in review["messages"][0]["content"]
+    assert "Magpie's Rules (how you work" in review["messages"][0]["content"]
     # Sonnet: 1,000 in and 100 out is $0.003. Haiku: 1,000 in and 100 out is $0.00015.
     assert out["cost_usd"] == "0.00315"
 
