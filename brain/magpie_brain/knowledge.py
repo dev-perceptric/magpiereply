@@ -1,14 +1,17 @@
 """Each team's knowledge (help center articles, website pages and files), cut into pieces and searched by
 meaning plus keywords, then re-ranked by FlashRank.
 
-Pieces and their vectors live in one JSON file per team on the data volume. A piece whose text didn't change
-keeps its vector, so a sync only pays Voyage for new or edited text.
+Each team's pieces and their vectors live in one .npz file on the data volume, the vectors as one float32 array
+(about 4 KB a piece; plain Python lists took about 32 KB). A piece whose text didn't change keeps its vector, so a
+sync only pays Voyage for new or edited text. A team's file from before (JSON with the vectors inside) is converted
+the first time it's read.
 """
 
 from __future__ import annotations
 
 import asyncio
 import hashlib
+import io
 import json
 import math
 import re
@@ -18,6 +21,7 @@ from pathlib import Path
 from typing import Awaitable, Callable, Sequence
 
 import httpx
+import numpy as np
 
 VOYAGE_URL = "https://api.voyageai.com/v1/embeddings"
 VOYAGE_MODEL = "voyage-3.5"
@@ -56,7 +60,6 @@ class Piece:
     title: str
     url: str | None
     text: str
-    vector: list[float]
 
 
 @dataclass
@@ -102,12 +105,6 @@ def words(text: str) -> list[str]:
     return [word for word in re.findall(r"[a-z0-9]+", text.lower()) if word not in STOPWORDS]
 
 
-def cosine(left: Sequence[float], right: Sequence[float]) -> float:
-    dot = sum(a * b for a, b in zip(left, right))
-    norms = math.sqrt(sum(a * a for a in left)) * math.sqrt(sum(b * b for b in right))
-    return dot / norms if norms else 0.0
-
-
 def keyword_scores(query: str, pieces: Sequence[Piece]) -> list[float]:
     """BM25 over the team's pieces, scaled so the best piece scores 1."""
     query_words = set(words(query))
@@ -150,22 +147,65 @@ def text_key(text: str) -> str:
     return hashlib.sha256(text.encode()).hexdigest()
 
 
+def normalized(vectors: Sequence[Sequence[float]]) -> np.ndarray:
+    """Rows of unit length as float32, so a dot product is the cosine. An empty or zero row stays zero."""
+    matrix = np.asarray(vectors, dtype=np.float32)
+    if matrix.ndim != 2 or len(matrix) == 0:
+        return np.zeros((len(vectors), 0), dtype=np.float32)
+    norms = np.linalg.norm(matrix, axis=1, keepdims=True)
+    return np.divide(matrix, norms, out=np.zeros_like(matrix), where=norms > 0)
+
+
+class TeamKnowledge:
+    def __init__(self, pieces: list[Piece], vectors: np.ndarray):
+        self.pieces = pieces
+        self.vectors = vectors
+
+
 class KnowledgeStore:
     def __init__(self, directory: Path, embed: Embed, rerank: Rerank | None = None):
         self._directory = directory
         self._embed = embed
         self._rerank = rerank
-        self._cache: dict[str, list[Piece]] = {}
+        self._cache: dict[str, TeamKnowledge] = {}
 
     def _path(self, team_id: str) -> Path:
-        return self._directory / f"team-{team_id}.json"
+        return self._directory / f"team-{team_id}.npz"
+
+    def _load(self, team_id: str) -> TeamKnowledge:
+        path = self._path(team_id)
+        if path.exists():
+            with np.load(path) as stored:
+                rows = json.loads(stored["pieces"].tobytes().decode())
+                return TeamKnowledge([Piece(**row) for row in rows], stored["vectors"])
+        old = self._directory / f"team-{team_id}.json"
+        if not old.exists():
+            return TeamKnowledge([], np.zeros((0, 0), dtype=np.float32))
+        rows = json.loads(old.read_text())
+        knowledge = TeamKnowledge(
+            [Piece(**{key: row[key] for key in ("article_id", "title", "url", "text")}) for row in rows],
+            normalized([row["vector"] for row in rows]),
+        )
+        self._save(team_id, knowledge)
+        old.unlink()
+        return knowledge
+
+    def _save(self, team_id: str, knowledge: TeamKnowledge) -> None:
+        self._directory.mkdir(parents=True, exist_ok=True)
+        buffer = io.BytesIO()
+        pieces = np.frombuffer(json.dumps([asdict(piece) for piece in knowledge.pieces]).encode(), dtype=np.uint8)
+        np.savez(buffer, pieces=pieces, vectors=knowledge.vectors)
+        temporary = self._path(team_id).with_suffix(".tmp")
+        temporary.write_bytes(buffer.getvalue())
+        temporary.replace(self._path(team_id))
+
+    def knowledge(self, team_id: str) -> TeamKnowledge:
+        if team_id not in self._cache:
+            self._cache[team_id] = self._load(team_id)
+        return self._cache[team_id]
 
     def pieces(self, team_id: str) -> list[Piece]:
-        if team_id not in self._cache:
-            path = self._path(team_id)
-            rows = json.loads(path.read_text()) if path.exists() else []
-            self._cache[team_id] = [Piece(**row) for row in rows]
-        return self._cache[team_id]
+        return self.knowledge(team_id).pieces
 
     async def replace(self, team_id: str, articles: Sequence[Article]) -> int:
         """Replaces the team's whole knowledge with these articles. Returns the number of pieces."""
@@ -175,39 +215,36 @@ class KnowledgeStore:
             for text in split_article(article):
                 texts.append(text)
                 owners.append(article)
-        known = {text_key(piece.text): piece.vector for piece in self.pieces(team_id)}
+        current = self.knowledge(team_id)
+        known = {text_key(piece.text): current.vectors[index] for index, piece in enumerate(current.pieces)}
         missing = list(dict.fromkeys(text for text in texts if text_key(text) not in known))
         for start in range(0, len(missing), 64):
             batch = missing[start : start + 64]
-            for text, vector in zip(batch, await self._embed(batch, "document")):
+            for text, vector in zip(batch, normalized(await self._embed(batch, "document"))):
                 known[text_key(text)] = vector
-        vectors = [known[text_key(text)] for text in texts]
-        pieces = [
-            Piece(article_id=owner.id, title=owner.title, url=owner.url, text=text, vector=vector)
-            for owner, text, vector in zip(owners, texts, vectors)
-        ]
-        self._directory.mkdir(parents=True, exist_ok=True)
-        temporary = self._path(team_id).with_suffix(".tmp")
-        temporary.write_text(json.dumps([asdict(piece) for piece in pieces]))
-        temporary.replace(self._path(team_id))
-        self._cache[team_id] = pieces
+        pieces = [Piece(article_id=owner.id, title=owner.title, url=owner.url, text=text) for owner, text in zip(owners, texts)]
+        vectors = np.stack([known[text_key(text)] for text in texts]) if texts else np.zeros((0, 0), dtype=np.float32)
+        knowledge = TeamKnowledge(pieces, vectors.astype(np.float32))
+        self._save(team_id, knowledge)
+        self._cache[team_id] = knowledge
         return len(pieces)
 
     async def search(self, team_id: str, query: str, limit: int = ANSWER_PIECES, minimum: float = 0.35) -> list[Hit]:
-        pieces = self.pieces(team_id)
-        if not pieces or not query.strip():
+        knowledge = self.knowledge(team_id)
+        if not knowledge.pieces or not query.strip():
             return []
-        [query_vector] = await self._embed([query], "query")
-        keyword = keyword_scores(query, pieces)
+        [query_vector] = normalized(await self._embed([query], "query"))
+        meaning = knowledge.vectors @ query_vector
+        keyword = keyword_scores(query, knowledge.pieces)
         scored = [
             Hit(
                 article_id=piece.article_id,
                 title=piece.title,
                 url=piece.url,
                 text=piece.text,
-                score=MEANING_WEIGHT * cosine(query_vector, piece.vector) + KEYWORD_WEIGHT * keyword[index],
+                score=float(MEANING_WEIGHT * meaning[index] + KEYWORD_WEIGHT * keyword[index]),
             )
-            for index, piece in enumerate(pieces)
+            for index, piece in enumerate(knowledge.pieces)
         ]
         scored.sort(key=lambda hit: hit.score, reverse=True)
         candidates = [hit for hit in scored[:CANDIDATES] if hit.score >= minimum]

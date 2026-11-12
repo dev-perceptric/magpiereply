@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+import numpy as np
+
 from magpie_brain.knowledge import Article, KnowledgeStore, keyword_scores, split_article, Piece
 
 ARTICLES = json.loads((Path(__file__).resolve().parent.parent / "trial" / "articles.json").read_text())
@@ -24,7 +26,7 @@ def test_split_article_keeps_title_and_breaks_on_paragraphs():
 
 
 def test_keyword_scores_rank_the_matching_piece_first():
-    pieces = [Piece("a", "A", None, "free shipping to canada", []), Piece("b", "B", None, "reset your password", [])]
+    pieces = [Piece("a", "A", None, "free shipping to canada"), Piece("b", "B", None, "reset your password")]
     scores = keyword_scores("Do you ship to Canada?", pieces)
     assert scores[0] == 1.0 and scores[1] == 0.0
 
@@ -46,8 +48,8 @@ async def test_search_is_per_team_and_survives_a_restart(tmp_path):
 
 
 def test_common_words_do_not_count_as_matches():
-    pieces = [Piece("a", "A", None, "Tracking can take up to 24 hours. You can find it in your account.", []),
-              Piece("b", "B", None, "Our team answers chat Monday to Friday.", [])]
+    pieces = [Piece("a", "A", None, "Tracking can take up to 24 hours. You can find it in your account."),
+              Piece("b", "B", None, "Our team answers chat Monday to Friday.")]
     scores = keyword_scores("Can you tell me if you are open?", pieces)
     assert scores == [0.0, 0.0]
 
@@ -78,3 +80,26 @@ async def test_the_reranker_orders_the_candidates(tmp_path):
     plain = await KnowledgeStore(tmp_path, fake_embed_factory()).search("t", "ship to canada")
     reranked = await store.search("t", "ship to canada")
     assert [hit.article_id for hit in reranked] == [hit.article_id for hit in reversed(plain)]
+
+
+async def test_vectors_are_stored_as_one_compact_array(tmp_path):
+    async def embed(texts, input_type):
+        return [[float(index + 1)] * 1024 for index, _ in enumerate(texts)]
+
+    store = KnowledgeStore(tmp_path, embed)
+    await store.replace("t", [Article(id=str(n), title=f"T{n}", body=f"Body {n}.") for n in range(50)])
+    vectors = store.knowledge("t").vectors
+    assert vectors.dtype == np.float32 and vectors.shape == (50, 1024)
+    assert vectors.nbytes == 50 * 4096
+    assert list(tmp_path.iterdir()) == [tmp_path / "team-t.npz"]
+
+
+async def test_a_file_from_before_is_converted_and_still_searches(tmp_path):
+    rows = [{"article_id": "x", "title": "Gift cards", "url": None, "text": "Gift cards\n\nGift cards never expire.", "vector": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0]}]
+    (tmp_path / "team-one.json").write_text(json.dumps(rows))
+    store = KnowledgeStore(tmp_path, fake_embed_factory())
+
+    assert (await store.search("one", "do gift cards expire"))[0].article_id == "x"
+    assert not (tmp_path / "team-one.json").exists()
+    reopened = KnowledgeStore(tmp_path, fake_embed_factory())
+    assert reopened.pieces("one")[0].title == "Gift cards"

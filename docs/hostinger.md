@@ -18,6 +18,7 @@ Each piece is a Docker Compose project in `/docker/<name>/docker-compose.yml`.
 | `magpie-gateway` | ContextForge MCP gateway, made but stopped (profile `trial`) | none yet | 1 GB |
 | `traefik` | HTTPS and routing for every app (Let's Encrypt) | | |
 | `autodeploy` | Pulls new images every 5 minutes and restarts what changed | | 64 MB |
+| `magpie-backup` | Nightly database and attachments backups, off-site copy and monthly restore check (`docker/backup/`) | | 256 MB |
 | `uptime` | Gatus, with alerts to ntfy | | 96 MB |
 
 **Database and files.** Since November 8, 2026 the app (`postgres` login), the agent (`magpie_agent`) and the gateway (`magpie_gateway`) connect to `db:5432` in `sb-magpiereply`, so every query stays on the server. File attachments are on the `storage-data` volume (`ACTIVE_STORAGE_SERVICE=local`, mounted at `/app/storage` in `web` and `worker`). The old hosted Supabase project in Tokyo (`jxsddbtdpypwfcjogxym`) is no longer used and can be paused, then deleted after a week.
@@ -65,11 +66,24 @@ Secrets live in `/docker/<project>/.env` on the server and never in this repo. T
 
 ## Backups
 
-The database and attachments live on this one server, so they need copies off it.
+The database and attachments live on this one server, so they need copies off it. The `magpie-backup` project (`docker/backup/backup.sh`) does this.
 
-- **Nightly:** a `pg_dump` of the `sb-magpiereply` database and a copy of the storage volume, sent to off-site object storage (Backblaze B2 or Cloudflare R2, check) and kept for 30 days. Still to set up.
+- **Nightly at 03:20 UTC:** a `pg_dump` of the whole `sb-magpiereply` database and a tar of the attachments volume, checked with SHA-256 sums. The newest 7 stay on the server, in the project's `backups` volume.
+- **Off-site:** once `BACKUP_S3_*` is set, each night's copy goes to S3-compatible storage, encrypted with `BACKUP_PASSPHRASE` (rclone crypt), and copies older than 30 days are deleted there.
+- **Restore check:** on the first start and on the 1st of each month, the newest dump is restored into a scratch database, and the check fails unless every app and agent table comes back with its accounts. First run, November 12, 2026: 1.3 MB, 126 tables back.
+- **Alerts:** a failed backup or restore check sends an ntfy alert on the same topic as Gatus.
 - **Before each upgrade:** a Hostinger snapshot from hPanel (VPS → Snapshots & Backups).
-- **Once a month:** restore last night's dump into a scratch database and open the app against it.
+
+To set up off-site storage, make a bucket at Cloudflare R2 or Backblaze B2, plus a key that can read and write only that bucket. Then add these in hPanel → Docker Manager → `magpie-backup` → Environment and redeploy:
+
+- `BACKUP_S3_ENDPOINT` (for example `https://<account>.r2.cloudflarestorage.com`)
+- `BACKUP_S3_BUCKET`
+- `BACKUP_S3_ACCESS_KEY`
+- `BACKUP_S3_SECRET_KEY`
+
+Copy `BACKUP_PASSPHRASE` from the same screen into a password manager. Without it, the off-site copies can't be opened if this server is lost.
+
+To restore: `pg_restore -h db -U supabase_admin -d postgres --clean <dump>` from a container on the `sb-magpiereply` network, and untar `storage.tar.gz` into the `magpiereply_storage-data` volume. To change the backup script, edit `docker/backup/backup.sh`, run `sh docker/backup/compose.sh`, and paste the output as the project's compose file.
 
 ## When to give MagpieReply its own server
 
@@ -93,9 +107,9 @@ Hostinger prices are the renewal prices on a 2-year term, from Hostinger's own b
 |---|---|---|
 | Server | ~$3 (a fifth of the shared $14.99 KVM 2) | $49.99 (KVM 8 for the app and database) |
 | Postgres, Redis, file storage, Gatus | $0 (containers on the server) | $0 |
-| Off-site backups (check) | ~$1 | ~$5 |
+| Off-site backups: R2 or B2 keep the first 10 GB free; the database is about 1.3 MB today (check) | ~$0 | ~$1 |
 | Email sending (Resend Pro at Beta, larger plan at Growth, check) | $20 | $90 |
 | Claude tokens | $0 | $0 |
-| **Monthly total** | **~$24** | **~$145** |
+| **Monthly total** | **~$23** | **~$141** |
 
 The AI agent adds its own servers and tokens (see `docs/ai-agent-plan.md`).
