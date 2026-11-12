@@ -5,6 +5,8 @@ httpx==0.28.1
 # Stripe's MCP server, and later the gateway.
 fastmcp==4.1.6
 pydantic==2.14.3
+# Each team's vectors as one float32 array (magpie_brain/knowledge.py).
+numpy==2.4.6
 # Re-ranks search results on the CPU (model baked into the image).
 flashrank==0.2.10
 # Masks card, ID and contact numbers before Claude (magpie_brain/safety.py).

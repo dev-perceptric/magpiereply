@@ -72,9 +72,11 @@ TOOLS: list[dict[str, Any]] = [
 
 # After each reply a small model checks it against what Magpie read, and writes a note for people when it hands off.
 REVIEW_INSTRUCTIONS = """You check a support reply before a teammate sees it.
-You get the help articles and tool results the reply could use, the customer's latest messages and the reply.
-List every statement in the reply about policies, prices, dates, times, features or the customer's account that the
-articles and tool results don't support. Greetings, apologies, questions to the customer and offers to help are fine.
+You get the help articles and tool results the reply could use, Magpie's rules, the customer's latest messages and the
+reply. List every statement in the reply about policies, prices, dates, times, features or the customer's account that
+the articles, tool results and rules don't support. Doing what a rule says (asking the customer to sign in, giving the
+refund timing, saying a person will pick it up) is supported. Greetings, apologies, questions to the customer and
+offers to help are fine.
 When there is a handoff, also write a note for the person taking over: two or three short lines on what the customer
 wants, what Magpie found and what's left to do. Plain words. Don't mention this check or article numbers.
 Otherwise leave the note empty.
@@ -168,7 +170,7 @@ async def review_reply(
         messages=[
             {
                 "role": "user",
-                "content": f"Help articles:\n{material}\n\nTool results:\n{tools}\n\n"
+                "content": f"Help articles:\n{material}\n\nTool results:\n{tools}\n\nMagpie's {RULES}\n\n"
                 f"Customer's latest messages:\n{chr(10).join(asked[-3:])}\n\nReply:\n{reply or '(no reply)'}\n\n{handoff_text}",
             }
         ],
