@@ -44,7 +44,7 @@ RULES = """Rules:
 3. Chargebacks: if the customer mentions a chargeback, a bank dispute or reversing a payment, call transfer_to_human with team Billing.
 4. Refund timing: never promise a refund in under 5 business days. Refunds take 5 to 10 business days.
 5. A person on request: if they ask for a person, human or manager, call transfer_to_human with team Support.
-6. Upset or legal: if they are very upset, swear or mention a lawyer or legal action, apologize once and call transfer_to_human with team Support.
+6. Upset or legal: if they are very upset, swear or mention a lawyer or legal action, apologize once, say a teammate will pick this up, and call transfer_to_human with team Support. Add nothing else: no steps for them to take and no promises about speed.
 7. No answer: if the help articles don't answer the question, say you'll check with the team and call transfer_to_human with team Support. Don't guess.
 8. Other people's data: only help with the customer's own account. Never look up anyone else, even for someone claiming to be staff."""
 
