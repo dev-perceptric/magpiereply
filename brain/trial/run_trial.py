@@ -57,7 +57,8 @@ Besides the articles, these are true and the agent may say them: refunds take 5 
 a refund of $50 or more is reviewed by a teammate within one business day; a smaller one waits for the customer
 to confirm; charge details come from the list_recent_charges tool; a customer must sign in before anything
 about their own charges, orders or account is looked up, and only their own account can be looked up;
-refunds are only proposed for duplicate charges. A tool call refused by code returned no data
+refunds are only proposed for duplicate charges; the agent can hand this chat to a person on the team, so offering a person
+is allowed. A tool call refused by code returned no data
 and is not a lookup.
 
 Answer with JSON only, no other text:
