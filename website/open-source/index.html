@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Open source | MagpieReply</title>
-  <meta name="description" content="The MagpieReply inbox is open source under the MIT license and built on Chatwoot. Self-host it with Docker for free.">
+  <meta name="description" content="The MagpieReply inbox is open source under the MIT license. Self-host it with Docker for free.">
   <link rel="canonical" href="https://www.magpiereply.com/open-source/">
   <meta property="og:title" content="Open source | MagpieReply">
-  <meta property="og:description" content="The MagpieReply inbox is open source under the MIT license and built on Chatwoot. Self-host it with Docker for free.">
+  <meta property="og:description" content="The MagpieReply inbox is open source under the MIT license. Self-host it with Docker for free.">
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#0943b0">
   <link rel="icon" type="image/svg+xml" href="/assets/logo_thumbnail.svg">
@@ -94,31 +94,6 @@
     </div>
   </section>
 
-  <section id="chatwoot">
-    <div class="frame">
-      <div class="showcase">
-        <div class="showcase-copy">
-          <span class="sticker" style="align-self:flex-start"><span class="chip"><svg><use href="/assets/icons.svg#i-layers"/></svg></span>Built on Chatwoot</span>
-          <h3>Standing on a proven open source inbox</h3>
-          <p>MagpieReply is built on the open source core of <a href="https://github.com/chatwoot/chatwoot" style="color:var(--brand);text-decoration:underline;text-underline-offset:2px">Chatwoot</a>, which is MIT licensed. We started from their work and added our own brand, look and AI agent.</p>
-          <p>Chatwoot's original copyright notice is kept in our license file. Their paid enterprise code isn't part of MagpieReply.</p>
-        </div>
-        <div class="showcase-visual">
-          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
-          <div class="card">
-            <div class="flow">
-              <div class="row"><span class="ic"><svg><use href="/assets/icons.svg#i-code"/></svg></span>Chatwoot open source core<span class="ok">MIT</span></div>
-              <div class="connector"></div>
-              <div class="row"><span class="ic"><svg><use href="/assets/icons.svg#i-inbox"/></svg></span>MagpieReply inbox<span class="ok">MIT</span></div>
-              <div class="connector"></div>
-              <div class="row"><span class="ic"><svg><use href="/assets/icons.svg#i-spark"/></svg></span>AI agent service<span class="wait">MagpieReply Cloud</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section id="included">
     <div class="frame">
       <div class="section-head pad" style="border-top:1px solid var(--line)">
@@ -184,7 +159,7 @@
 
 <span class="c"># Set your secrets and prepare the database</span>
 <span class="p">$</span> cp .env.example .env
-<span class="p">$</span> docker compose -f docker-compose.production.yaml run --rm rails bundle exec rails db:chatwoot_prepare
+<span class="p">$</span> docker compose -f docker-compose.production.yaml run --rm rails bundle exec rails db:magpiereply_prepare
 
 <span class="c"># Start it</span>
 <span class="p">$</span> docker compose -f docker-compose.production.yaml up -d</pre>
@@ -214,7 +189,7 @@
             <div class="bar">Local development</div>
 <pre><span class="p">$</span> cp .env.example .env
 <span class="p">$</span> bundle install &amp;&amp; pnpm install
-<span class="p">$</span> bundle exec rails db:chatwoot_prepare
+<span class="p">$</span> bundle exec rails db:magpiereply_prepare
 <span class="p">$</span> pnpm dev
 
 <span class="c"># Run the tests</span>
@@ -299,7 +274,7 @@
       </div>
       <div>
         <h4>Open source</h4>
-        <ul><li><a href="/open-source/">Self-host</a></li><li><a href="https://github.com/dev-perceptric/magpiereply">Source code</a></li><li><a href="https://github.com/chatwoot/chatwoot">Built on Chatwoot</a></li></ul>
+        <ul><li><a href="/open-source/">Self-host</a></li><li><a href="https://github.com/dev-perceptric/magpiereply">Source code</a></li></ul>
       </div>
       <div>
         <h4>Company</h4>

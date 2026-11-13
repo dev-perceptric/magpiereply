@@ -438,16 +438,16 @@ tr:
       description: 'Panel Uygulamaları, kullanıcı bilgilerini, siparişleri veya ödeme geçmişini gösteren uygulamalar oluşturmanıza ve bunları panelinize eklemenize olanak tanır. Bu sayede müşteri destek temsilcileriniz daha fazla bağlam bilgisine sahip olur.'
     dyte:
       name: 'Dyte'
-      short_description: 'Müşterilerle doğrudan Chatwoot üzerinden video/sesli arama başlatın.'
-      description: 'Dyte, uygulamanıza ses ve video işlevselliklerini entegre eden bir üründür. Bu entegrasyon sayesinde temsilcileriniz, Chatwoot üzerinden müşterilerinizle doğrudan video veya sesli görüşme başlatabilir.'
+      short_description: 'Müşterilerle doğrudan MagpieReply üzerinden video/sesli arama başlatın.'
+      description: 'Dyte, uygulamanıza ses ve video işlevselliklerini entegre eden bir üründür. Bu entegrasyon sayesinde temsilcileriniz, MagpieReply üzerinden müşterilerinizle doğrudan video veya sesli görüşme başlatabilir.'
       meeting_name: '%{agent_name} bir toplantı başlattı'
     slack:
       name: 'Slack'
       short_description: 'Doğrudan Slack''te bildirimler alın ve konuşmalara yanıt verin.'
-      description: "Chatwoot’u Slack ile entegre ederek ekibinizin senkronize çalışmasını sağlayın. Bu entegrasyon sayesinde yeni konuşmalar için bildirim alabilir ve onlara doğrudan Slack arayüzünden yanıt verebilirsiniz."
+      description: "MagpieReply’u Slack ile entegre ederek ekibinizin senkronize çalışmasını sağlayın. Bu entegrasyon sayesinde yeni konuşmalar için bildirim alabilir ve onlara doğrudan Slack arayüzünden yanıt verebilirsiniz."
     webhooks:
       name: 'Webhooks'
-      description: 'Webhook etkinlikleri, Chatwoot hesabınızdaki faaliyetlerle ilgili gerçek zamanlı güncellemeler sağlar. Tercih ettiğiniz etkinliklere abone olabilir ve Chatwoot size bu güncellemelerle HTTP geri çağrıları (callback) gönderecektir.'
+      description: 'Webhook etkinlikleri, MagpieReply hesabınızdaki faaliyetlerle ilgili gerçek zamanlı güncellemeler sağlar. Tercih ettiğiniz etkinliklere abone olabilir ve MagpieReply size bu güncellemelerle HTTP geri çağrıları (callback) gönderecektir.'
     dialogflow:
       name: 'Dialogflow botu'
       short_description: 'Temsilcilere aktarmadan önce ilk soruları yanıtlayacak sohbet botları oluşturun.'
@@ -532,7 +532,7 @@ tr:
         too_many: 'cannot contain more than %{limit} entries'
         duplicate: 'cannot repeat the same header name'
         invalid_name: '%{name} is not a valid header name'
-        reserved: '%{name} is managed by Chatwoot and cannot be set'
+        reserved: '%{name} is managed by MagpieReply and cannot be set'
         invalid_value: 'value for %{name} must be fixed text up to 1 KiB, without placeholders or control characters'
       param_schema:
         invalid: 'must list parameters with known fields and plain values'
@@ -688,7 +688,7 @@ tr:
       custom_domain_not_configured: 'Özel alan adı yapılandırılmamış'
   installation:
     onboarding:
-      heading: 'Howdy, Welcome to Chatwoot 👋'
+      heading: 'Howdy, Welcome to MagpieReply 👋'
       name: 'İsim'
       name_placeholder: 'Ad Soyadınızı giriniz. örn: Bruce Wayne'
       company: 'Şirket Adı'
@@ -1013,7 +1013,7 @@ tr:
       pages:
         general: 'Genel'
         internal: 'Internal'
-        internal_description: 'Keys and switches used by Chatwoot Cloud'
+        internal_description: 'Keys and switches used by MagpieReply Cloud'
       configure: 'Yapılandır'
       enterprise_badge: 'EE'
       included: 'Included'
@@ -1023,7 +1023,7 @@ tr:
       description: 'Update your instance settings, access billing portal'
       configure_title: 'Configure Settings - %{config}'
       alert: 'Alert!'
-      unauthorized_changes: 'Unauthorized premium changes detected in Chatwoot. To keep using them, please upgrade your plan.'
+      unauthorized_changes: 'Unauthorized premium changes detected in MagpieReply. To keep using them, please upgrade your plan.'
       contact_for_help: 'Contact for help:'
       agents_over_limit: 'You have %{count} agents. Please add more licenses to add more users.'
       current_plan: 'Current plan'

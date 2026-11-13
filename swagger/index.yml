@@ -1,16 +1,16 @@
 openapi: '3.1.0'
 info:
-  title: Chatwoot
-  description: This is the API documentation for Chatwoot server.
+  title: MagpieReply
+  description: This is the API documentation for MagpieReply server.
   version: 1.1.0
-  termsOfService: https://www.chatwoot.com/terms-of-service/
+  termsOfService: https://www.magpiereply.com/terms/
   contact:
-    email: hello@chatwoot.com
+    email: hello@magpiereply.com
   license:
     name: MIT License
     url: https://opensource.org/licenses/MIT
 servers:
-  - url: https://app.chatwoot.com/
+  - url: https://app.magpiereply.com/
 paths:
   $ref: ./paths/index.yml
 components:
@@ -22,15 +22,15 @@ components:
     userBearerAuth:
       type: http
       scheme: bearer
-      description: 'Authenticate with `Authorization: Bearer <token>` using a user API token from **Profile Settings**. Available in Chatwoot `v4.19.0` and later.'
+      description: 'Authenticate with `Authorization: Bearer <token>` using a user API token from **Profile Settings**. Available in MagpieReply `v4.19.0` and later.'
     agentBotBearerAuth:
       type: http
       scheme: bearer
-      description: 'Authenticate with `Authorization: Bearer <token>` using an agent bot token from **Settings → Agent Bots**. Available in Chatwoot `v4.19.0` and later.'
+      description: 'Authenticate with `Authorization: Bearer <token>` using an agent bot token from **Settings → Agent Bots**. Available in MagpieReply `v4.19.0` and later.'
     platformAppBearerAuth:
       type: http
       scheme: bearer
-      description: 'Authenticate with `Authorization: Bearer <token>` using a platform app token from **Super Admin**. Available in Chatwoot `v4.19.0` and later.'
+      description: 'Authenticate with `Authorization: Bearer <token>` using a platform app token from **Super Admin**. Available in MagpieReply `v4.19.0` and later.'
     userApiKey:
       type: apiKey
       in: header
@@ -40,12 +40,12 @@ components:
       type: apiKey
       in: header
       name: api_access_token
-      description: 'Find your agent bot token in **Settings → Agent Bots**. For new integrations, use Bearer authentication in Chatwoot `v4.19.0` and later. Agent bot tokens can access only bot-permitted APIs.'
+      description: 'Find your agent bot token in **Settings → Agent Bots**. For new integrations, use Bearer authentication in MagpieReply `v4.19.0` and later. Agent bot tokens can access only bot-permitted APIs.'
     platformAppApiKey:
       type: apiKey
       in: header
       name: api_access_token
-      description: 'Create a platform app in **Super Admin** to get its token. For new integrations, use Bearer authentication in Chatwoot `v4.19.0` and later. Platform app tokens can provision agent bots, accounts, users, and roles.'
+      description: 'Create a platform app in **Super Admin** to get its token. For new integrations, use Bearer authentication in MagpieReply `v4.19.0` and later. Platform app tokens can provision agent bots, accounts, users, and roles.'
 tags:
   - name: Accounts
     description: Account management APIs

@@ -13,7 +13,7 @@
     <%= render "alert", role: "alert" do %>
       <strong class="font-medium"><%= t("super_admin.settings.alert") %></strong>
       <%= t("super_admin.settings.unauthorized_changes") %>
-      <%= t("super_admin.settings.contact_for_help") %> <span class="font-medium">sales@chatwoot.com</span>
+      <%= t("super_admin.settings.contact_for_help") %> <span class="font-medium">hello@magpiereply.com</span>
     <% end %>
   <% end %>
 
@@ -57,18 +57,6 @@
       </div>
     </div>
 
-    <div class="<%= summary_row %>">
-      <%= render "icon_tile", icon: "i-lucide-life-buoy", tone: "bg-n-amber-3 text-n-amber-11" %>
-      <div class="min-w-0">
-        <h2 class="text-heading-3"><%= t("super_admin.settings.need_help") %></h2>
-        <p class="text-body-main text-n-slate-11"><%= t("super_admin.settings.need_help_description") %></p>
-      </div>
-      <div class="<%= summary_actions %>">
-        <%= render "button", label: t("super_admin.settings.community_support"), icon_end: "i-lucide-arrow-up-right size-3.5 text-n-slate-10", url: "https://discord.gg/cJXdrwS", target: "_blank", variant: :secondary %>
-        <% if ChatwootHub.pricing_plan != 'community' %>
-          <%= render "button", label: t("super_admin.settings.chat_support"), icon: "i-lucide-message-circle size-3.5", variant: :secondary, data: { support_chat: true } %>
-        <% end %>
-      </div>
     </div>
   </div>
 

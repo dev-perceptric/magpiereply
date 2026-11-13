@@ -438,16 +438,16 @@ bn:
       description: 'ড্যাশবোর্ড অ্যাপ আপনাকে এমন অ্যাপ্লিকেশন তৈরি ও এম্বেড করতে দেয় যা ব্যবহারকারীর তথ্য, অর্ডার বা পেমেন্ট ইতিহাস প্রদর্শন করে, ফলে আপনার কাস্টমার সাপোর্ট এজেন্টদের জন্য আরও প্রাসঙ্গিক তথ্য প্রদান করে।.'
     dyte:
       name: 'Dyte'
-      short_description: 'Chatwoot থেকে সরাসরি গ্রাহকদের সাথে ভিডিও/ভয়েস কল শুরু করুন।.'
-      description: 'Dyte একটি পণ্য যা আপনার অ্যাপ্লিকেশনে অডিও ও ভিডিও ফিচার সংযুক্ত করে। এই ইন্টিগ্রেশনের মাধ্যমে, আপনার এজেন্টরা সরাসরি Chatwoot থেকে গ্রাহকদের সাথে ভিডিও/ভয়েস কল শুরু করতে পারবেন।.'
+      short_description: 'MagpieReply থেকে সরাসরি গ্রাহকদের সাথে ভিডিও/ভয়েস কল শুরু করুন।.'
+      description: 'Dyte একটি পণ্য যা আপনার অ্যাপ্লিকেশনে অডিও ও ভিডিও ফিচার সংযুক্ত করে। এই ইন্টিগ্রেশনের মাধ্যমে, আপনার এজেন্টরা সরাসরি MagpieReply থেকে গ্রাহকদের সাথে ভিডিও/ভয়েস কল শুরু করতে পারবেন।.'
       meeting_name: '%{agent_name} একটি মিটিং শুরু করেছেন'
     slack:
       name: 'Slack'
       short_description: 'Slack-এ সরাসরি নোটিফিকেশন পান এবং কথোপকথনের উত্তর দিন।.'
-      description: "Chatwoot-কে Slack-এর সাথে সংযুক্ত করুন যাতে আপনার টিম সমন্বয়ে থাকে। এই ইন্টিগ্রেশনের মাধ্যমে, আপনি নতুন কথোপকথনের জন্য নোটিফিকেশন পেতে এবং Slack-এর ইন্টারফেস থেকেই সরাসরি উত্তর দিতে পারবেন।."
+      description: "MagpieReply-কে Slack-এর সাথে সংযুক্ত করুন যাতে আপনার টিম সমন্বয়ে থাকে। এই ইন্টিগ্রেশনের মাধ্যমে, আপনি নতুন কথোপকথনের জন্য নোটিফিকেশন পেতে এবং Slack-এর ইন্টারফেস থেকেই সরাসরি উত্তর দিতে পারবেন।."
     webhooks:
       name: 'ওয়েবহুকস'
-      description: 'Webhook ইভেন্টগুলি আপনার Chatwoot অ্যাকাউন্টে কার্যকলাপের রিয়েল-টাইম আপডেট প্রদান করে। আপনি আপনার পছন্দের ইভেন্টগুলিতে সাবস্ক্রাইব করতে পারেন, এবং Chatwoot আপনাকে আপডেটসহ HTTP কলব্যাক পাঠাবে।.'
+      description: 'Webhook ইভেন্টগুলি আপনার MagpieReply অ্যাকাউন্টে কার্যকলাপের রিয়েল-টাইম আপডেট প্রদান করে। আপনি আপনার পছন্দের ইভেন্টগুলিতে সাবস্ক্রাইব করতে পারেন, এবং MagpieReply আপনাকে আপডেটসহ HTTP কলব্যাক পাঠাবে।.'
     dialogflow:
       name: 'Dialogflow'
       short_description: 'এজেন্টদের কাছে হস্তান্তরের আগে প্রাথমিক প্রশ্নের উত্তর দেওয়ার জন্য চ্যাটবট তৈরি করুন।.'
@@ -532,7 +532,7 @@ bn:
         too_many: 'cannot contain more than %{limit} entries'
         duplicate: 'cannot repeat the same header name'
         invalid_name: '%{name} is not a valid header name'
-        reserved: '%{name} is managed by Chatwoot and cannot be set'
+        reserved: '%{name} is managed by MagpieReply and cannot be set'
         invalid_value: 'value for %{name} must be fixed text up to 1 KiB, without placeholders or control characters'
       param_schema:
         invalid: 'must list parameters with known fields and plain values'
@@ -688,7 +688,7 @@ bn:
       custom_domain_not_configured: 'কাস্টম ডোমেইন কনফিগার করা হয়নি'
   installation:
     onboarding:
-      heading: 'Howdy, Welcome to Chatwoot 👋'
+      heading: 'Howdy, Welcome to MagpieReply 👋'
       name: 'নাম'
       name_placeholder: 'Enter your full name. eg: Bruce Wayne'
       company: 'কোম্পানির নাম'
@@ -1013,7 +1013,7 @@ bn:
       pages:
         general: 'General'
         internal: 'Internal'
-        internal_description: 'Keys and switches used by Chatwoot Cloud'
+        internal_description: 'Keys and switches used by MagpieReply Cloud'
       configure: 'কনফিগার করুন'
       enterprise_badge: 'EE'
       included: 'Included'
@@ -1023,7 +1023,7 @@ bn:
       description: 'Update your instance settings, access billing portal'
       configure_title: 'Configure Settings - %{config}'
       alert: 'Alert!'
-      unauthorized_changes: 'Unauthorized premium changes detected in Chatwoot. To keep using them, please upgrade your plan.'
+      unauthorized_changes: 'Unauthorized premium changes detected in MagpieReply. To keep using them, please upgrade your plan.'
       contact_for_help: 'Contact for help:'
       agents_over_limit: 'You have %{count} agents. Please add more licenses to add more users.'
       current_plan: 'Current plan'

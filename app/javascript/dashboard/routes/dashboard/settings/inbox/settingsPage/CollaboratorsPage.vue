@@ -322,7 +322,7 @@ const navigateToAssignmentPolicyEdit = () => {
 const handleUpgrade = () => {
   if (!isOnChatwootCloud.value) {
     window.open(
-      'https://www.chatwoot.com/pricing/self-hosted-plans',
+      'https://www.magpiereply.com/pricing/',
       '_blank',
       'noopener,noreferrer'
     );

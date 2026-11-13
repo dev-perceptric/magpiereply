@@ -430,7 +430,7 @@
         "SLUG": {
           "LABEL": "Slug",
           "PLACEHOLDER": "Slug categoria per url",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.magpiereply.com/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "Slug è obbligatorio"
         },
         "DESCRIPTION": {
@@ -461,7 +461,7 @@
         "SLUG": {
           "LABEL": "Slug",
           "PLACEHOLDER": "Slug categoria per url",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.magpiereply.com/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "Slug è obbligatorio"
         },
         "DESCRIPTION": {
@@ -698,7 +698,7 @@
             "LABEL": "Slug",
             "PLACEHOLDER": "Slug categoria per url",
             "ERROR": "Slug è obbligatorio",
-            "HELP_TEXT": "app.chatwoot.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
+            "HELP_TEXT": "app.magpiereply.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
           },
           "DESCRIPTION": {
             "LABEL": "Descrizione",
@@ -867,7 +867,7 @@
       "CONFIRM_BUTTON_LABEL": "Crea",
       "NAME": {
         "LABEL": "Nome",
-        "PLACEHOLDER": "Guida Utente | Chatwoot",
+        "PLACEHOLDER": "Guida Utente | MagpieReply",
         "MESSAGE": "Scegli un nome per il tuo portale.",
         "ERROR": "Nome richiesto"
       },
@@ -941,7 +941,7 @@
           },
           "DNS_CONFIGURATION_DIALOG": {
             "HEADER": "Configurazione DNS",
-            "DESCRIPTION": "Accedi al tuo provider DNS e aggiungi un record CNAME per subdominio che punta a chatwoot.help",
+            "DESCRIPTION": "Accedi al tuo provider DNS e aggiungi un record CNAME per subdominio che punta a app.magpiereply.com",
             "COPY": "CNAME copiato",
             "SEND_INSTRUCTIONS": {
               "HEADER": "Invia istruzioni",
@@ -990,7 +990,7 @@
         "HEADER": "Integrazioni",
         "DESCRIPTION": "Collega strumenti che estendono le funzioni del tuo centro assistenza.",
         "LIVE_CHAT": {
-          "TITLE": "Chat dal vivo con Chatwoot",
+          "TITLE": "Chat dal vivo con MagpieReply",
           "DESCRIPTION": "Mostra un widget di chat dal vivo nel centro assistenza, così i visitatori possono contattarti mentre leggono.",
           "PLACEHOLDER": "Seleziona widget live chat",
           "NONE_OPTION": "Nessun widget"

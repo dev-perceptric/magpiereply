@@ -18,7 +18,7 @@ const onClick = () => {
     :note="$t('CAPTAIN.CUSTOM_TOOLS.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
     fallback-thumbnail="/assets/images/dashboard/captain/assistant-light.svg"
     fallback-thumbnail-dark="/assets/images/dashboard/captain/assistant-dark.svg"
-    learn-more-url="https://chwt.app/hc/captain-tools"
+    learn-more-url="https://www.magpiereply.com/ai-agent/"
     class="mb-8"
     :hide-actions="!isOnChatwootCloud"
   />

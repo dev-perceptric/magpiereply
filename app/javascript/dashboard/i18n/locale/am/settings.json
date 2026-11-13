@@ -37,7 +37,7 @@
       },
       "INTERFACE_SECTION": {
         "TITLE": "ቅርጸ ተነሳሽ",
-        "NOTE": "የChatwoot ዳሽቦርድዎን ቅርጸ ተነሳሽነት ያስተካክሉ።.",
+        "NOTE": "የMagpieReply ዳሽቦርድዎን ቅርጸ ተነሳሽነት ያስተካክሉ።.",
         "FONT_SIZE": {
           "TITLE": "የፊደል መጠን",
           "NOTE": "በዳሽቦርድ ዙሪያ የጽሑፍ መጠንን በሚወዱበት መሠረት ያስተካክሉ።.",
@@ -627,11 +627,11 @@
     "NO_BILLING_USER": "የክፍያ መለያዎ እየተቀየረ ነው። እባክዎ ገፅታውን ያዘምኑ እና እንደገና ይሞክሩ።.",
     "SHOPIFY": {
       "TITLE": "Billing through Shopify",
-      "DESCRIPTION": "Your Chatwoot subscription is billed and managed securely through Shopify.",
+      "DESCRIPTION": "Your MagpieReply subscription is billed and managed securely through Shopify.",
       "UNAVAILABLE": "Shopify billing is unavailable right now. Please contact support if this continues.",
       "LOADING": "Checking your Shopify subscription...",
       "PLAN_TITLE": "Shopify subscription",
-      "PLAN_DESCRIPTION": "Choose or manage your Chatwoot plan securely in Shopify.",
+      "PLAN_DESCRIPTION": "Choose or manage your MagpieReply plan securely in Shopify.",
       "CURRENT_PLAN": "Current plan",
       "SUBSCRIPTION_STATUS": "Status",
       "PRICE": "Price",
@@ -713,7 +713,7 @@
       "SP_ENTITY_ID": {
         "LABEL": "SP አካል መለያ",
         "HELP": "ለዚህ መተግበሪያ እንደ አገልግሎት አቅራቢ የተለየ መለያ (ራስሰር የተፈጠረ) ነው።.",
-        "TOOLTIP": "እንደ Service Provider ለChatwoot የተለየ መለያ - በIdP ቅንብርዎ ውስጥ ይህን ያስተካክሉ"
+        "TOOLTIP": "እንደ Service Provider ለMagpieReply የተለየ መለያ - በIdP ቅንብርዎ ውስጥ ይህን ያስተካክሉ"
       },
       "IDP_ENTITY_ID": {
         "LABEL": "የመለያ አቅራቢ አካል መለያ",
@@ -808,7 +808,7 @@
     }
   },
   "CREATE_ACCOUNT": {
-    "NO_ACCOUNT_WARNING": "እንደሆነ! ማንኛውም Chatwoot መለያ አልተገኘም። እባክዎ ለመቀጠል አዲስ መለያ ይፍጠሩ።.",
+    "NO_ACCOUNT_WARNING": "እንደሆነ! ማንኛውም MagpieReply መለያ አልተገኘም። እባክዎ ለመቀጠል አዲስ መለያ ይፍጠሩ።.",
     "NEW_ACCOUNT": "አዲስ አካውንት",
     "SELECTOR_SUBTITLE": "አዲስ አካውንት ፍጠር",
     "API": {

@@ -438,16 +438,16 @@ ru:
       description: 'Панель приложений позволяет вам создавать и вставлять приложения, отображающие информацию о пользователе, заказы или историю платежей, обеспечивая больший контекст для агентов поддержки.'
     dyte:
       name: 'Dyte'
-      short_description: 'Начните видео/голосовые звонки с клиентов прямо из Chatwoot.'
-      description: 'Dyte - это продукт, который интегрирует функции аудио и видео в ваше приложение. С помощью этой интеграции ваши агенты могут начать видео/голосовые звонки с вашими клиентами прямо из Chatwoot.'
+      short_description: 'Начните видео/голосовые звонки с клиентов прямо из MagpieReply.'
+      description: 'Dyte - это продукт, который интегрирует функции аудио и видео в ваше приложение. С помощью этой интеграции ваши агенты могут начать видео/голосовые звонки с вашими клиентами прямо из MagpieReply.'
       meeting_name: '%{agent_name} приступил к встрече'
     slack:
       name: 'Slack'
       short_description: 'Получать уведомления и отвечать на разговоры прямо в Slack.'
-      description: "Интегрируйте Chatwoot с Slack для синхронизации команды. Эта интеграция позволяет получать уведомления о новых разговорах и отвечать на них непосредственно в интерфейсе Slack."
+      description: "Интегрируйте MagpieReply с Slack для синхронизации команды. Эта интеграция позволяет получать уведомления о новых разговорах и отвечать на них непосредственно в интерфейсе Slack."
     webhooks:
       name: 'Webhooks'
-      description: 'События Webhook предоставляют обновления об активности в вашем аккаунте Chatwoot в режиме реального времени. Вы можете подписаться на ваши предпочтительные события, и Chatwoot будет отправлять вам HTTP-ответы с обновлениями.'
+      description: 'События Webhook предоставляют обновления об активности в вашем аккаунте MagpieReply в режиме реального времени. Вы можете подписаться на ваши предпочтительные события, и MagpieReply будет отправлять вам HTTP-ответы с обновлениями.'
     dialogflow:
       name: 'Диалог'
       short_description: 'Постройте чат ботов для обработки начальных запросов перед передачей агентам.'
@@ -532,7 +532,7 @@ ru:
         too_many: 'cannot contain more than %{limit} entries'
         duplicate: 'cannot repeat the same header name'
         invalid_name: '%{name} is not a valid header name'
-        reserved: '%{name} is managed by Chatwoot and cannot be set'
+        reserved: '%{name} is managed by MagpieReply and cannot be set'
         invalid_value: 'value for %{name} must be fixed text up to 1 KiB, without placeholders or control characters'
       param_schema:
         invalid: 'must list parameters with known fields and plain values'
@@ -698,7 +698,7 @@ ru:
       custom_domain_not_configured: 'Пользовательский домен не настроен'
   installation:
     onboarding:
-      heading: 'Howdy, Welcome to Chatwoot 👋'
+      heading: 'Howdy, Welcome to MagpieReply 👋'
       name: 'Имя'
       name_placeholder: 'Введите полное имя, например: Bruce Wayne'
       company: 'Название компании'
@@ -1027,7 +1027,7 @@ ru:
       pages:
         general: 'Главное'
         internal: 'Internal'
-        internal_description: 'Keys and switches used by Chatwoot Cloud'
+        internal_description: 'Keys and switches used by MagpieReply Cloud'
       configure: 'Настроить'
       enterprise_badge: 'EE'
       included: 'Included'
@@ -1037,7 +1037,7 @@ ru:
       description: 'Update your instance settings, access billing portal'
       configure_title: 'Configure Settings - %{config}'
       alert: 'Alert!'
-      unauthorized_changes: 'Unauthorized premium changes detected in Chatwoot. To keep using them, please upgrade your plan.'
+      unauthorized_changes: 'Unauthorized premium changes detected in MagpieReply. To keep using them, please upgrade your plan.'
       contact_for_help: 'Contact for help:'
       agents_over_limit: 'You have %{count} agents. Please add more licenses to add more users.'
       current_plan: 'Current plan'

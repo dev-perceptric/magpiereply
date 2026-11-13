@@ -1,11 +1,7 @@
 <%
   version = Chatwoot.config[:version]
-  # Internal::CheckNewVersionsJob keeps the newest release here.
-  latest_version = begin
-    Redis::Alfred.get(Redis::Alfred::LATEST_CHATWOOT_VERSION).presence
-  rescue Redis::BaseConnectionError
-    nil
-  end
+  # The stored newest release is an upstream version number, so no update dot shows here.
+  latest_version = nil
   update_available = latest_version && Gem::Version.new(latest_version) > Gem::Version.new(version)
 %>
 <div class="flex h-14 shrink-0 items-center gap-3">
@@ -13,7 +9,7 @@
   <div class="min-w-0 whitespace-nowrap">
     <div class="flex items-baseline gap-1.5 leading-5">
       <%= link_to "MagpieReply", super_admin_root_path, class: "text-sm font-medium text-n-slate-12" %>
-      <%= link_to "https://github.com/chatwoot/chatwoot/releases/tag/v#{version}",
+      <%= link_to "https://github.com/dev-perceptric/magpiereply/releases",
                   target: "_blank", rel: "noopener noreferrer",
                   title: update_available ? t("super_admin.navigation.update_available", version: latest_version) : t("super_admin.navigation.release_notes"),
                   class: "inline-flex items-center gap-1 text-label-small tabular-nums text-n-slate-10 transition-colors hover:text-n-slate-12 hover:underline" do %>

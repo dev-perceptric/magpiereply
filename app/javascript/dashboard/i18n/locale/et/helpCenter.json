@@ -430,7 +430,7 @@
         "SLUG": {
           "LABEL": "Slug",
           "PLACEHOLDER": "Category slug for urls",
-          "HELP_TEXT": "app.chatwoot.com/hc/minu-portaal/et-EE/kategooriad/minu-slug",
+          "HELP_TEXT": "app.magpiereply.com/hc/minu-portaal/et-EE/kategooriad/minu-slug",
           "ERROR": "Lühinimi on kohustuslik"
         },
         "DESCRIPTION": {
@@ -461,7 +461,7 @@
         "SLUG": {
           "LABEL": "Slug",
           "PLACEHOLDER": "Category slug for urls",
-          "HELP_TEXT": "app.chatwoot.com/hc/minu-portaal/et-EE/kategooriad/minu-slug",
+          "HELP_TEXT": "app.magpiereply.com/hc/minu-portaal/et-EE/kategooriad/minu-slug",
           "ERROR": "Lühinimi on kohustuslik"
         },
         "DESCRIPTION": {
@@ -698,7 +698,7 @@
             "LABEL": "Lühilink",
             "PLACEHOLDER": "Category slug for urls",
             "ERROR": "Lühinimi on kohustuslik",
-            "HELP_TEXT": "app.chatwoot.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
+            "HELP_TEXT": "app.magpiereply.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
           },
           "DESCRIPTION": {
             "LABEL": "Kirjeldus",
@@ -867,7 +867,7 @@
       "CONFIRM_BUTTON_LABEL": "Loo",
       "NAME": {
         "LABEL": "Nimi",
-        "PLACEHOLDER": "User Guide | Chatwoot",
+        "PLACEHOLDER": "User Guide | MagpieReply",
         "MESSAGE": "Vali oma portaalile nimi.",
         "ERROR": "Nimi on kohustuslik"
       },
@@ -941,7 +941,7 @@
           },
           "DNS_CONFIGURATION_DIALOG": {
             "HEADER": "DNS configuration",
-            "DESCRIPTION": "Logi sisse oma DNS-teenusepakkuja kontole ja lisa alamdomeeni jaoks CNAME kirje, mis osutab chatwoot.help",
+            "DESCRIPTION": "Logi sisse oma DNS-teenusepakkuja kontole ja lisa alamdomeeni jaoks CNAME kirje, mis osutab app.magpiereply.com",
             "COPY": "CNAME edukalt kopeeritud",
             "SEND_INSTRUCTIONS": {
               "HEADER": "Saada juhised",
@@ -990,7 +990,7 @@
         "HEADER": "Integratsioonid",
         "DESCRIPTION": "Connect tools that extend what your help center can do.",
         "LIVE_CHAT": {
-          "TITLE": "Live chat with Chatwoot",
+          "TITLE": "Live chat with MagpieReply",
           "DESCRIPTION": "Show a live chat widget on your help center so visitors can reach you while they read.",
           "PLACEHOLDER": "Vali otsevestluse vidin",
           "NONE_OPTION": "Ühtegi vidinat"

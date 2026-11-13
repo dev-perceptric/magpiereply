@@ -177,7 +177,7 @@ const addParam = () => {
   state.param_schema.push({ ...DEFAULT_PARAM });
 };
 
-// Chatwoot fills this from the email the customer verified. Captain sees the description only where a team member is the user.
+// MagpieReply fills this from the email the customer verified. Captain sees the description only where a team member is the user.
 // Advice only. Saving a tool that looks like it handles customer data asks once whether to require verification.
 const riskDialogRef = useTemplateRef('riskDialogRef');
 const riskLevel = computed(() =>

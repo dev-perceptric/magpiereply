@@ -1146,7 +1146,7 @@ en:
       pages:
         general: 'General'
         internal: 'Internal'
-        internal_description: 'Keys and switches used by Chatwoot Cloud'
+        internal_description: 'Keys and switches used by MagpieReply Cloud'
       configure: 'Configure'
       enterprise_badge: 'EE'
       included: 'Included'
@@ -1162,7 +1162,7 @@ en:
       current_plan: 'Current plan'
       refresh: 'Refresh'
       refresh_succeeded: 'Instance status refreshed'
-      refresh_failed: 'Could not reach Chatwoot Hub. Try again later.'
+      refresh_failed: 'Could not reach the update server. Try again later.'
       manage: 'Manage'
       installation_identifier: 'Installation Identifier'
       need_help: 'Need help?'

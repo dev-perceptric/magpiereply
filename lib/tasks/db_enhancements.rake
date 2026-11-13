@@ -28,4 +28,8 @@ db_namespace = namespace :db do
       db_namespace['setup'].invoke
     end
   end
+
+  # The name used in MagpieReply's own docs. chatwoot_prepare stays for existing installs and scripts.
+  desc 'Same as db:chatwoot_prepare'
+  task magpiereply_prepare: :chatwoot_prepare
 end

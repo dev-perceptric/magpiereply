@@ -79,5 +79,5 @@ export const PREMIUM_FEATURES = [
   FEATURE_FLAGS.COMPANY_ENRICHMENT,
 ];
 
-// Paywalled on Chatwoot Cloud only; free on self-hosted installs.
+// Paywalled on MagpieReply Cloud only; free on self-hosted installs.
 export const CLOUD_PAYWALLED_FEATURES = [FEATURE_FLAGS.COMPANIES];

@@ -14,7 +14,8 @@ const props = defineProps({
 });
 
 const { t } = useI18n();
-const WHATSAPP_BUSINESS_MANAGEMENT_TOKEN_GUIDE_URL = 'https://chwt.app/zM7G2yU';
+const WHATSAPP_BUSINESS_MANAGEMENT_TOKEN_GUIDE_URL =
+  'https://www.magpiereply.com/help-center/';
 const businessManagementToken = ref('');
 const isUpdating = ref(false);
 const tokenUpdated = ref(false);

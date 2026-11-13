@@ -9,7 +9,7 @@ description: |
   Updates the delivery status of a single message. Available only for messages in
   API channel inboxes, where your own system is responsible for delivering messages
   and reporting what happened. Use this to push `sent`, `delivered`, and `read`
-  receipts into Chatwoot, for example, to mark an agent's message as read when the
+  receipts into MagpieReply, for example, to mark an agent's message as read when the
   end user views it in your client, so the agent sees the read indicator on the
   message.
 

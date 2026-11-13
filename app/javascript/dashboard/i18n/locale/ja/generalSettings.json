@@ -160,11 +160,11 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "カスタムドメインでのメール受信が有効になりました。"
       }
     },
-    "UPDATE_CHATWOOT": "Chatwootのアップデート {latestChatwootVersion} が利用可能です。インスタンスを更新してください。",
+    "UPDATE_CHATWOOT": "MagpieReplyのアップデート {latestChatwootVersion} が利用可能です。インスタンスを更新してください。",
     "LEARN_MORE": "詳細を見る",
     "PAYMENT_PENDING": "Your account payment is past due. Please update your payment information to avoid subscription cancellation.",
     "PAYMENT_PENDING_AGENT": "Your account payment is past due. Please contact your administrator to resolve it.",
-    "UPGRADE": "Upgrade to continue using Chatwoot",
+    "UPGRADE": "Upgrade to continue using MagpieReply",
     "LIMITS_UPGRADE": "アカウントの使用制限を超えました。プランをアップグレードして利用を続けてください。",
     "OPEN_BILLING": "請求情報を開く"
   },

@@ -438,16 +438,16 @@ pt_BR:
       description: 'O Painel de Aplicativos permite que você crie e incorpore aplicativos que exibem informações, pedidos ou histórico de pagamento, fornecendo mais contexto aos seus agentes de suporte ao cliente.'
     dyte:
       name: 'Cloudflare RealtimeKit'
-      short_description: 'Iniciar chamadas de vídeo/voz com clientes diretamente do Chatwoot.'
-      description: 'O Cloudflare RealtimeKit permite que seus atendentes iniciem chamadas de vídeo e voz com seus clientes diretamente pelo Chatwoot.'
+      short_description: 'Iniciar chamadas de vídeo/voz com clientes diretamente do MagpieReply.'
+      description: 'O Cloudflare RealtimeKit permite que seus atendentes iniciem chamadas de vídeo e voz com seus clientes diretamente pelo MagpieReply.'
       meeting_name: '%{agent_name} começou a reunião'
     slack:
       name: 'Slack'
       short_description: 'Receba notificações e responda as conversas diretamente no Slack.'
-      description: "Integre Chatwoot com Slack para manter seu time em sincronia. Essa integração permite que você receba notificações de novas conversas e as responda diretamente na interface do Slack."
+      description: "Integre MagpieReply com Slack para manter seu time em sincronia. Essa integração permite que você receba notificações de novas conversas e as responda diretamente na interface do Slack."
     webhooks:
       name: 'Webhooks'
-      description: 'Eventos webhook fornecem atualizações sobre atividades em tempo real na sua conta Chatwoot. Você pode se inscrever em seus eventos preferidos, e o Chatwoot enviará as chamadas HTTP com as atualizações.'
+      description: 'Eventos webhook fornecem atualizações sobre atividades em tempo real na sua conta MagpieReply. Você pode se inscrever em seus eventos preferidos, e o MagpieReply enviará as chamadas HTTP com as atualizações.'
     dialogflow:
       name: 'Dialogflow'
       short_description: 'Crie chatbots para lidar com as consultas iniciais antes de transferir para agentes.'
@@ -532,7 +532,7 @@ pt_BR:
         too_many: 'não pode conter mais de %{limit} entradas'
         duplicate: 'não é possível repetir o mesmo nome de cabeçalho'
         invalid_name: '%{name} não é um nome de cabeçalho válido'
-        reserved: '%{name} é gerenciado pelo Chatwoot e não pode ser definido'
+        reserved: '%{name} é gerenciado pelo MagpieReply e não pode ser definido'
         invalid_value: 'o valor de %{name} deve ser um texto fixo de até 1 KiB, sem placeholders nem caracteres de controle'
       param_schema:
         invalid: 'deve listar os parâmetros com campos conhecidos e valores simples'
@@ -688,7 +688,7 @@ pt_BR:
       custom_domain_not_configured: 'Domínio personalizado não está configurado'
   installation:
     onboarding:
-      heading: 'Olá, boas-vindas ao Chatwoot 👋'
+      heading: 'Olá, boas-vindas ao MagpieReply 👋'
       name: 'Nome'
       name_placeholder: 'Digite seu nome completo. Ex.: Bruce Wayne'
       company: 'Nome da empresa'
@@ -1013,7 +1013,7 @@ pt_BR:
       pages:
         general: 'Geral'
         internal: 'Interno'
-        internal_description: 'Chaves e opções usadas pelo Chatwoot Cloud'
+        internal_description: 'Chaves e opções usadas pelo MagpieReply Cloud'
       configure: 'Configurar'
       enterprise_badge: 'EE'
       included: 'Incluído'
@@ -1023,7 +1023,7 @@ pt_BR:
       description: 'Atualize as configurações da instância e acesse o portal de cobrança'
       configure_title: 'Definir Configurações - %{config}'
       alert: 'Alerta!'
-      unauthorized_changes: 'Foram detectadas alterações não autorizadas em recursos premium do Chatwoot. Para continuar usando-as, faça upgrade do seu plano.'
+      unauthorized_changes: 'Foram detectadas alterações não autorizadas em recursos premium do MagpieReply. Para continuar usando-as, faça upgrade do seu plano.'
       contact_for_help: 'Entre em contato para obter ajuda:'
       agents_over_limit: 'Você tem %{count} agentes. Adicione mais licenças para adicionar mais usuários.'
       current_plan: 'Plano atual'

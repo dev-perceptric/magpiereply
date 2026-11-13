@@ -1,16 +1,16 @@
 {
   "REGISTER": {
     "TRY_WOOT": "Buat akun",
-    "GET_STARTED": "Get started with Chatwoot",
+    "GET_STARTED": "Get started with MagpieReply",
     "TITLE": "Daftar",
     "TESTIMONIAL_HEADER": "Hanya butuh satu langkah untuk maju",
     "TESTIMONIAL_CONTENT": "Anda hanya tinggal selangkah lagi untuk berinteraksi dengan pelanggan Anda, mempertahankan mereka, dan menemukan yang baru.",
-    "TERMS_ACCEPT": "Dengan membuat akun, Anda menyetujui <a href=\"https://www.chatwoot.com/terms\">Syarat & Ketentuan</a> dan <a href=\"https://www.chatwoot.com/privacy-policy\">Kebijakan Privasi</a> kami.",
+    "TERMS_ACCEPT": "Dengan membuat akun, Anda menyetujui <a href=\"https://www.magpiereply.com/terms/\">Syarat & Ketentuan</a> dan <a href=\"https://www.magpiereply.com/privacy/\">Kebijakan Privasi</a> kami.",
     "OAUTH": {
       "GOOGLE_SIGNUP": "Daftar dengan Google"
     },
     "SHOPIFY": {
-      "TITLE": "Set up Chatwoot for your Shopify store",
+      "TITLE": "Set up MagpieReply for your Shopify store",
       "DESCRIPTION": "Create your account to continue to Shopify App Pricing and choose a plan."
     },
     "COMPANY_NAME": {

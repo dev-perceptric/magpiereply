@@ -51,8 +51,8 @@ const scenarioTitles = computed(() =>
 );
 
 // Fallback for agents without a matching scenario title:
-// "chatwoot_assistant" → "Chatwoot assistant",
-// "scenario_5_chatwoot_uptime_agent" → "Chatwoot uptime".
+// "chatwoot_assistant" → "MagpieReply assistant",
+// "scenario_5_chatwoot_uptime_agent" → "MagpieReply uptime".
 const humanizeAgentName = agentName => {
   const label = agentName
     .replace(/^scenario_\d+_/, '')

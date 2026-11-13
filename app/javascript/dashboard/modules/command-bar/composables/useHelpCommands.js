@@ -4,7 +4,7 @@ import { useMapGetter } from 'dashboard/composables/store';
 import { SHORTCUT_KEYS } from 'dashboard/components/widgets/modal/constants';
 import { shortcutKeys } from 'dashboard/modules/command-bar/commands';
 
-const DOCS_URL = 'https://www.chatwoot.com/hc/user-guide/en';
+const DOCS_URL = 'https://www.magpiereply.com/help-center/';
 
 export function useHelpCommands() {
   const { t } = useI18n();

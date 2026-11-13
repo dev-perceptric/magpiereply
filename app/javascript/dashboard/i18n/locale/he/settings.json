@@ -37,7 +37,7 @@
       },
       "INTERFACE_SECTION": {
         "TITLE": "ממשק",
-        "NOTE": "התאם אישית את המראה והתחושה של לוח המחוונים שלך ב-Chatwoot.",
+        "NOTE": "התאם אישית את המראה והתחושה של לוח המחוונים שלך ב-MagpieReply.",
         "FONT_SIZE": {
           "TITLE": "גודל גופן",
           "NOTE": "התאם את גודל הטקסט ברחבי לוח המחוונים בהתבסס על ההעדפה שלך.",
@@ -627,11 +627,11 @@
     "NO_BILLING_USER": "חשבון החיוב שלך מוגדר. אנא רענן את הדף ונסה שוב.",
     "SHOPIFY": {
       "TITLE": "Billing through Shopify",
-      "DESCRIPTION": "Your Chatwoot subscription is billed and managed securely through Shopify.",
+      "DESCRIPTION": "Your MagpieReply subscription is billed and managed securely through Shopify.",
       "UNAVAILABLE": "Shopify billing is unavailable right now. Please contact support if this continues.",
       "LOADING": "Checking your Shopify subscription...",
       "PLAN_TITLE": "Shopify subscription",
-      "PLAN_DESCRIPTION": "Choose or manage your Chatwoot plan securely in Shopify.",
+      "PLAN_DESCRIPTION": "Choose or manage your MagpieReply plan securely in Shopify.",
       "CURRENT_PLAN": "Current plan",
       "SUBSCRIPTION_STATUS": "מצב",
       "PRICE": "Price",
@@ -713,7 +713,7 @@
       "SP_ENTITY_ID": {
         "LABEL": "מזהה ישות SP",
         "HELP": "Unique identifier for this application as a service provider (auto-generated).",
-        "TOOLTIP": "Unique identifier for Chatwoot as the Service Provider - Configure this in your IdP settings"
+        "TOOLTIP": "Unique identifier for MagpieReply as the Service Provider - Configure this in your IdP settings"
       },
       "IDP_ENTITY_ID": {
         "LABEL": "מזהה ישות של ספק הזהויות",
@@ -808,7 +808,7 @@
     }
   },
   "CREATE_ACCOUNT": {
-    "NO_ACCOUNT_WARNING": "אה הו! לא הצלחנו למצוא חשבונות Chatwoot. נא ליצור חשבון חדש כדי להמשיך.",
+    "NO_ACCOUNT_WARNING": "אה הו! לא הצלחנו למצוא חשבונות MagpieReply. נא ליצור חשבון חדש כדי להמשיך.",
     "NEW_ACCOUNT": "חשבון חדש",
     "SELECTOR_SUBTITLE": "צור חשבון חדש",
     "API": {

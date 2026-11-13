@@ -438,16 +438,16 @@ zh_TW:
       description: '儀表板應用程式可讓您建立並嵌入顯示使用者資訊、訂單或付款紀錄的應用程式，為您的客服人員提供更多背景資訊。'
     dyte:
       name: 'Dyte'
-      short_description: '直接從 Chatwoot 與客戶進行視訊/語音通話。'
-      description: 'Dyte 是一個將音訊和視訊功能整合到應用程式中的產品。透過此整合，您的客服人員可以直接從 Chatwoot 與客戶進行視訊/語音通話。'
+      short_description: '直接從 MagpieReply 與客戶進行視訊/語音通話。'
+      description: 'Dyte 是一個將音訊和視訊功能整合到應用程式中的產品。透過此整合，您的客服人員可以直接從 MagpieReply 與客戶進行視訊/語音通話。'
       meeting_name: '%{agent_name} 已發起會議'
     slack:
       name: 'Slack'
       short_description: '在 Slack 中直接接收通知並回覆對話。'
-      description: "將 Chatwoot 與 Slack 整合，讓您的團隊保持同步。此整合可讓您接收新對話的通知，並直接在 Slack 介面中回覆。"
+      description: "將 MagpieReply 與 Slack 整合，讓您的團隊保持同步。此整合可讓您接收新對話的通知，並直接在 Slack 介面中回覆。"
     webhooks:
       name: 'Webhooks'
-      description: 'Webhook 事件提供您 Chatwoot 帳號中活動的即時更新。您可以訂閱偏好的事件，Chatwoot 將透過 HTTP 回呼向您發送更新。'
+      description: 'Webhook 事件提供您 MagpieReply 帳號中活動的即時更新。您可以訂閱偏好的事件，MagpieReply 將透過 HTTP 回呼向您發送更新。'
     dialogflow:
       name: 'Dialogflow'
       short_description: '建立聊天機器人，在轉接給客服之前處理初步查詢。'
@@ -532,7 +532,7 @@ zh_TW:
         too_many: 'cannot contain more than %{limit} entries'
         duplicate: 'cannot repeat the same header name'
         invalid_name: '%{name} is not a valid header name'
-        reserved: '%{name} is managed by Chatwoot and cannot be set'
+        reserved: '%{name} is managed by MagpieReply and cannot be set'
         invalid_value: 'value for %{name} must be fixed text up to 1 KiB, without placeholders or control characters'
       param_schema:
         invalid: 'must list parameters with known fields and plain values'
@@ -683,7 +683,7 @@ zh_TW:
       custom_domain_not_configured: '尚未設定自訂網域'
   installation:
     onboarding:
-      heading: 'Howdy, Welcome to Chatwoot 👋'
+      heading: 'Howdy, Welcome to MagpieReply 👋'
       name: '名稱'
       name_placeholder: '請輸入您的完整姓名，如：王大明'
       company: '公司名稱'
@@ -1006,7 +1006,7 @@ zh_TW:
       pages:
         general: '一般'
         internal: 'Internal'
-        internal_description: 'Keys and switches used by Chatwoot Cloud'
+        internal_description: 'Keys and switches used by MagpieReply Cloud'
       configure: '設定'
       enterprise_badge: 'EE'
       included: 'Included'
@@ -1016,7 +1016,7 @@ zh_TW:
       description: 'Update your instance settings, access billing portal'
       configure_title: 'Configure Settings - %{config}'
       alert: 'Alert!'
-      unauthorized_changes: 'Unauthorized premium changes detected in Chatwoot. To keep using them, please upgrade your plan.'
+      unauthorized_changes: 'Unauthorized premium changes detected in MagpieReply. To keep using them, please upgrade your plan.'
       contact_for_help: 'Contact for help:'
       agents_over_limit: 'You have %{count} agents. Please add more licenses to add more users.'
       current_plan: 'Current plan'

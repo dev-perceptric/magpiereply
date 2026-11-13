@@ -16,7 +16,7 @@
     "CREATE_FLOW": {
       "CHANNEL": {
         "TITLE": "Csatorna kiválasztása",
-        "BODY": "Válasz egy szolgáltatót, melyet össze akarsz integrálni a Chatwoottal."
+        "BODY": "Válasz egy szolgáltatót, melyet össze akarsz integrálni a MagpieReplytal."
       },
       "INBOX": {
         "TITLE": "Fiók létrehozása",
@@ -42,7 +42,7 @@
         "PLACEHOLDER": "Add meg weboldalad nevét (pl.: Példa Kft.)"
       },
       "FB": {
-        "HELP": "UI: A bejelentkezéseddel csak az oldalad üzeneteihez kapunk hozzáférést. Privát üzeneteidhez sosem férhet hozzá a Chatwoot.",
+        "HELP": "UI: A bejelentkezéseddel csak az oldalad üzeneteihez kapunk hozzáférést. Privát üzeneteidhez sosem férhet hozzá a MagpieReply.",
         "CHOOSE_PAGE": "Oldal kiválasztása",
         "CHOOSE_PLACEHOLDER": "Válaszd ki az oldalt a listából",
         "INBOX_NAME": "Fiók név",
@@ -50,7 +50,7 @@
         "PICK_NAME": "Pick a Name for your Inbox",
         "PICK_A_VALUE": "Válassz értéket",
         "CREATE_INBOX": "Fiók létrehozása",
-        "RESTRICTED_WARNING": "A Facebook-postafiók létrehozása átmenetileg nem érhető el a Meta API-jának hibája miatt. A problémát nem a Chatwoot okozza. A Meta csapatával együttműködve dolgozunk a mielőbbi megoldáson.",
+        "RESTRICTED_WARNING": "A Facebook-postafiók létrehozása átmenetileg nem érhető el a Meta API-jának hibája miatt. A problémát nem a MagpieReply okozza. A Meta csapatával együttműködve dolgozunk a mielőbbi megoldáson.",
         "STATUS_LINK": "Állapotfrissítések megtekintése"
       },
       "INSTAGRAM": {
@@ -61,8 +61,8 @@
         "ERROR_AUTH": "There was an error connecting to Instagram, please try again",
         "NEW_INBOX_SUGGESTION": "This Instagram account was previously linked to a different inbox and has now been migrated here. All new messages will appear here. The old inbox will no longer be able to send or receive messages for this account.",
         "DUPLICATE_INBOX_BANNER": "This Instagram account was migrated to the new Instagram channel inbox. You won’t be able to send/receive Instagram messages from this inbox anymore.",
-        "RESTRICTED_WARNING": "Az Instagram-postafiók létrehozása átmenetileg nem érhető el a Meta API-jának hibája miatt. A problémát nem a Chatwoot okozza. A Meta csapatával együttműködve dolgozunk a mielőbbi megoldáson.",
-        "SETTINGS_RESTRICTED_WARNING": "Az Instagramon zajló üzenetküldést jelenleg a Meta oldalán fellépő API szintű probléma érinti, nem a Chatwoot hibája. Egyes üzenetek vagy műveletek késhetnek vagy átmenetileg nem érhetők el. A hiba mielőbbi elhárításán szorosan együttműködünk a Metával.",
+        "RESTRICTED_WARNING": "Az Instagram-postafiók létrehozása átmenetileg nem érhető el a Meta API-jának hibája miatt. A problémát nem a MagpieReply okozza. A Meta csapatával együttműködve dolgozunk a mielőbbi megoldáson.",
+        "SETTINGS_RESTRICTED_WARNING": "Az Instagramon zajló üzenetküldést jelenleg a Meta oldalán fellépő API szintű probléma érinti, nem a MagpieReply hibája. Egyes üzenetek vagy műveletek késhetnek vagy átmenetileg nem érhetők el. A hiba mielőbbi elhárításán szorosan együttműködünk a Metával.",
         "STATUS_LINK": "Állapotfrissítések megtekintése"
       },
       "TIKTOK": {
@@ -300,7 +300,7 @@
         "MANUAL_SETUP": {
           "HEADER": {
             "TITLE": "WhatsApp manuális összekapcsolása",
-            "DESCRIPTION": "Kövesse az alábbi lépéseket Meta-fiókja előkészítéséhez és telefonszáma Chatwoothoz kapcsolásához."
+            "DESCRIPTION": "Kövesse az alábbi lépéseket Meta-fiókja előkészítéséhez és telefonszáma MagpieReplyhoz kapcsolásához."
           },
           "APP": {
             "TITLE": "Meta-alkalmazás létrehozása vagy kiválasztása",
@@ -359,7 +359,7 @@
           },
           "VERIFY": {
             "TITLE": "Kapcsolat ellenőrzése",
-            "DESCRIPTION": "A Chatwoot ellenőrzi a telefonszámhoz való hozzáférést, és beállítja a Meta webhookot.",
+            "DESCRIPTION": "A MagpieReply ellenőrzi a telefonszámhoz való hozzáférést, és beállítja a Meta webhookot.",
             "NUMBER_ACCESS": "Telefonszám-hozzáférés",
             "TEMPLATE_ACCESS": "Sablonhozzáférés",
             "CALLBACK": "Webhook visszahívási URL",
@@ -433,13 +433,13 @@
             "SUBMIT": "Elküldés",
             "ERROR": "Nem sikerült engedélyezni a hozzáférést. Próbálja újra."
           },
-          "RESTRICTED_WARNING": "A WhatsApp beágyazott regisztrációja átmenetileg nem érhető el egy, a Meta oldalán fellépett API-hiba miatt; a Chatwoottal nincs probléma. A jogosult Cloud API-számokhoz manuális beállítás használható. A hiba mielőbbi elhárításán szorosan együttműködünk a Metával.",
+          "RESTRICTED_WARNING": "A WhatsApp beágyazott regisztrációja átmenetileg nem érhető el egy, a Meta oldalán fellépett API-hiba miatt; a MagpieReplytal nincs probléma. A jogosult Cloud API-számokhoz manuális beállítás használható. A hiba mielőbbi elhárításán szorosan együttműködünk a Metával.",
           "STATUS_LINK": "Állapotfrissítések megtekintése",
           "CALLING_ENABLE_FAILED": "WhatsApp-postafiókja készen áll, de a hanghívást nem sikerült bekapcsolni, mert ez a szám még nincs regisztrálva a WhatsApp Business Calling API-ban. Vegye fel a kapcsolatot a Metával vagy a WhatsApp üzleti megoldásszolgáltatójával a regisztrációhoz, majd kapcsolja be a hívást a postafiók Hívások beállításainál."
         },
         "API": {
           "ERROR_MESSAGE": "Nem tudtuk elmenteni a WhatsApp csatornát",
-          "MANUAL_RESTRICTION_WARNING": "A WhatsApp beágyazott regisztrációja átmenetileg nem érhető el egy, a Meta oldalán fellépett API-hiba miatt; a Chatwoottal nincs probléma. Manuális beállítás csak a WhatsApp Cloud API-hoz már csatlakoztatott telefonszámoknál használható. A WhatsApp Business alkalmazással együtt használt számok ebben a folyamatban még nem támogatottak. A hiba mielőbbi elhárításán szorosan együttműködünk a Metával. Köszönjük türelmét.",
+          "MANUAL_RESTRICTION_WARNING": "A WhatsApp beágyazott regisztrációja átmenetileg nem érhető el egy, a Meta oldalán fellépett API-hiba miatt; a MagpieReplytal nincs probléma. Manuális beállítás csak a WhatsApp Cloud API-hoz már csatlakoztatott telefonszámoknál használható. A WhatsApp Business alkalmazással együtt használt számok ebben a folyamatban még nem támogatottak. A hiba mielőbbi elhárításán szorosan együttműködünk a Metával. Köszönjük türelmét.",
           "STATUS_LINK": "Állapotfrissítések megtekintése"
         }
       },
@@ -569,7 +569,7 @@
       },
       "AUTH": {
         "TITLE": "Csatorna kiválasztása",
-        "DESC": "Chatwoot supports live-chat widgets, Facebook Messenger, Twitter profiles, WhatsApp, Emails, etc., as channels. If you want to build a custom channel, you can create it using the API channel. To get started, choose one of the channels below.",
+        "DESC": "MagpieReply supports live-chat widgets, Facebook Messenger, Twitter profiles, WhatsApp, Emails, etc., as channels. If you want to build a custom channel, you can create it using the API channel. To get started, choose one of the channels below.",
         "TITLE_NEXT": "Complete the setup",
         "TITLE_FINISH": "Voilà!",
         "CHANNEL": {
@@ -632,11 +632,11 @@
       },
       "DETAILS": {
         "TITLE": "Fiók részletek",
-        "DESC": "A legördülő listából kérjük válaszd ki hogy melyik Facebook oldalt szeretnéd a Chatwoothoz kötni. Egyedi nevet is adhatsz az Inboxnak a jobb azonosíthatóság érdekében."
+        "DESC": "A legördülő listából kérjük válaszd ki hogy melyik Facebook oldalt szeretnéd a MagpieReplyhoz kötni. Egyedi nevet is adhatsz az Inboxnak a jobb azonosíthatóság érdekében."
       },
       "FINISH": {
         "TITLE": "Sikerült!",
-        "DESC": "Sikeresen integráltad a Facebook oldaladat a Chatwoottal. Legközelebb amikor egy ügyfél üzenetet ír az oldaladra, a beszélgetés automatiksuan megjelenik az inboxodban.<br> Ezen kívül egy widget kódot biztosítunk számodra, amelyet könnyen hozzáadhatsz a weboldaladhoz. Amint ez kiélesítésre kerül, az ügyfelek üzenetet küldhetnek Neked a weboldaladról bármilyen külső eszköz igénybevétele nélkül és ez a beszélgetés itt a Chatwootban fog megjelenni. <br>Menő, nem? Hát megpróbáljuk :)"
+        "DESC": "Sikeresen integráltad a Facebook oldaladat a MagpieReplytal. Legközelebb amikor egy ügyfél üzenetet ír az oldaladra, a beszélgetés automatiksuan megjelenik az inboxodban.<br> Ezen kívül egy widget kódot biztosítunk számodra, amelyet könnyen hozzáadhatsz a weboldaladhoz. Amint ez kiélesítésre kerül, az ügyfelek üzenetet küldhetnek Neked a weboldaladról bármilyen külső eszköz igénybevétele nélkül és ez a beszélgetés itt a MagpieReplyban fog megjelenni. <br>Menő, nem? Hát megpróbáljuk :)"
       },
       "EMAIL_PROVIDER": {
         "TITLE": "Add meg az email szolgáltatód",
@@ -814,7 +814,7 @@
     "WIDGET_FEATURES": "Widget features",
     "TWILIO_HEALTH": {
       "TITLE": "Twilio-szám kezelése",
-      "DESCRIPTION": "Ellenőrizze a postafiókhoz tartozó Twilio-fiókot, küldőt és webhookokat. Itt jelöljük azokat az adatokat, amelyeket a Chatwoot nem tud fogadni.",
+      "DESCRIPTION": "Ellenőrizze a postafiókhoz tartozó Twilio-fiókot, küldőt és webhookokat. Itt jelöljük azokat az adatokat, amelyeket a MagpieReply nem tud fogadni.",
       "GO_TO_SETTINGS": "Ugrás a Twilio Console felületére",
       "NO_DATA": "Health data is not available",
       "LOADING": "Twilio állapotadatainak lekérése…",
@@ -894,13 +894,13 @@
           "MISSING_TWIML_APP": "Nincs létrehozva TwiML-alkalmazás"
         },
         "HINTS": {
-          "NOT_SET": "A Twiliohoz nincs webhook beállítva ehhez a küldőhöz, ezért semmi sem érkezik meg a Chatwoothoz.",
+          "NOT_SET": "A Twiliohoz nincs webhook beállítva ehhez a küldőhöz, ezért semmi sem érkezik meg a MagpieReplyhoz.",
           "URL_MISMATCH": "A Twilio egy másik URL-t hív meg, ezért a forgalom máshová érkezik.",
-          "WRONG_HTTP_METHOD": "Az URL megfelelő, de a Twilio {method} metódussal hívja meg POST helyett, a Chatwoot pedig csak POST-kérésekre válaszol.",
+          "WRONG_HTTP_METHOD": "Az URL megfelelő, de a Twilio {method} metódussal hívja meg POST helyett, a MagpieReply pedig csak POST-kérésekre válaszol.",
           "OVERRIDDEN_BY_NUMBER": "Ennél az üzenetküldő szolgáltatásnál be van kapcsolva a „Webhook használata a telefonszámon” beállítás, ezért a Twilio figyelmen kívül hagyja a szolgáltatás webhookját.",
           "OVERRIDDEN_BY_APPLICATION": "Ehhez a telefonszámhoz TwiML-alkalmazás van rendelve, ezért a Twilio az alkalmazás URL-jeit használja a telefonszám URL-jei helyett. Válassza le a Twilio Console-ban.",
           "OVERRIDDEN_BY_TRUNK": "Ez a telefonszám SIP-trunkhoz van rendelve, ezért a Twilio azon keresztül irányítja a hívásokat, és teljesen figyelmen kívül hagyja a hanghívási webhookokat. Válassza le a trunkot a Twilio Console-ban.",
-          "MISSING_TWIML_APP": "Ehhez a telefonszámhoz nincs TwiML-alkalmazás rendelve a Chatwootban, ezért nem lehet kimenő hívást indítani."
+          "MISSING_TWIML_APP": "Ehhez a telefonszámhoz nincs TwiML-alkalmazás rendelve a MagpieReplyban, ezért nem lehet kimenő hívást indítani."
         }
       }
     },
@@ -1163,7 +1163,7 @@
       "WHATSAPP_BUSINESS_MANAGEMENT_TOKEN_ADD_TITLE": "Üzleti fiók kezelési token hozzáadása",
       "WHATSAPP_BUSINESS_MANAGEMENT_TOKEN_REPLACE_TITLE": "Üzleti fiók kezelési token cseréje",
       "WHATSAPP_BUSINESS_MANAGEMENT_TOKEN_CONFIGURED": "Az üzleti fiók kezelési token beállítva",
-      "WHATSAPP_BUSINESS_MANAGEMENT_TOKEN_UPDATE_SUBHEADER": "Adjon meg olyan tokent, amely hozzáfér ehhez a WhatsApp üzleti fiókhoz, ha a Chatwoot nem tudja lekérni az üzenetsablonokat. A Chatwoot ezt a tokent kizárólag a sablonok szinkronizálásához használja.",
+      "WHATSAPP_BUSINESS_MANAGEMENT_TOKEN_UPDATE_SUBHEADER": "Adjon meg olyan tokent, amely hozzáfér ehhez a WhatsApp üzleti fiókhoz, ha a MagpieReply nem tudja lekérni az üzenetsablonokat. A MagpieReply ezt a tokent kizárólag a sablonok szinkronizálásához használja.",
       "WHATSAPP_BUSINESS_MANAGEMENT_TOKEN_UPDATE_PLACEHOLDER": "Adja meg az üzleti fiók kezelési tokent",
       "WHATSAPP_BUSINESS_MANAGEMENT_TOKEN_ADD_BUTTON": "Hozzáadás",
       "WHATSAPP_BUSINESS_MANAGEMENT_TOKEN_REPLACE_BUTTON": "Csere",
@@ -1238,7 +1238,7 @@
           "INBOX": "Fiók",
           "PHONE_NUMBER": "Telefonszám",
           "NOT_ENTERED": "Nincs megadva",
-          "VERIFY_NOTICE": "A Chatwoot a módosítások alkalmazása előtt ellenőrzi ezeket a hitelesítő adatokat a Metánál. Sikertelen ellenőrzés esetén a jelenlegi beállítások változatlanok maradnak.",
+          "VERIFY_NOTICE": "A MagpieReply a módosítások alkalmazása előtt ellenőrzi ezeket a hitelesítő adatokat a Metánál. Sikertelen ellenőrzés esetén a jelenlegi beállítások változatlanok maradnak.",
           "BACK": "Vissza",
           "CANCEL": "Mégse",
           "CONTINUE": "Continue",
@@ -1260,7 +1260,7 @@
           },
           "REVIEW_MIGRATION": {
             "TITLE": "Átállás áttekintése",
-            "DESCRIPTION": "A postafiók újracsatlakoztatása előtt ellenőrizze a kapcsolat adatait. A módosítások alkalmazása előtt a Chatwoot ellenőrzi a tokent, a WABA-t és a telefonszámot a Metánál."
+            "DESCRIPTION": "A postafiók újracsatlakoztatása előtt ellenőrizze a kapcsolat adatait. A módosítások alkalmazása előtt a MagpieReply ellenőrzi a tokent, a WABA-t és a telefonszámot a Metánál."
           }
         }
       },
@@ -1603,7 +1603,7 @@
         "USER_MESSAGE": "Hello",
         "AGENT_MESSAGE": "Hello"
       },
-      "BRANDING_TEXT": "Chatwoot",
+      "BRANDING_TEXT": "MagpieReply",
       "SCRIPT_SETTINGS": "\nwindow.chatwootSettings = {options};"
     },
     "EMAIL_PROVIDERS": {

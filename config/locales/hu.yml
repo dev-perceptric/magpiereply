@@ -438,16 +438,16 @@ hu:
       description: 'Dashboard Apps allow you to create and embed applications that display user information, orders, or payment history, providing more context to your customer support agents.'
     dyte:
       name: 'Dyte'
-      short_description: 'Start video/voice calls with customers directly from Chatwoot.'
-      description: 'Dyte is a product that integrates audio and video functionalities into your application. With this integration, your agents can start video/voice calls with your customers directly from Chatwoot.'
+      short_description: 'Start video/voice calls with customers directly from MagpieReply.'
+      description: 'Dyte is a product that integrates audio and video functionalities into your application. With this integration, your agents can start video/voice calls with your customers directly from MagpieReply.'
       meeting_name: '%{agent_name} megbeszélést kezdett'
     slack:
       name: 'Slack'
       short_description: 'Receive notifications and respond to conversations directly in Slack.'
-      description: "Integrate Chatwoot with Slack to keep your team in sync. This integration allows you to receive notifications for new conversations and respond to them directly within Slack's interface."
+      description: "Integrate MagpieReply with Slack to keep your team in sync. This integration allows you to receive notifications for new conversations and respond to them directly within Slack's interface."
     webhooks:
       name: 'Webhook'
-      description: 'Webhook events provide real-time updates about activities in your Chatwoot account. You can subscribe to your preferred events, and Chatwoot will send you HTTP callbacks with the updates.'
+      description: 'Webhook events provide real-time updates about activities in your MagpieReply account. You can subscribe to your preferred events, and MagpieReply will send you HTTP callbacks with the updates.'
     dialogflow:
       name: 'Dialogflow'
       short_description: 'Build chatbots to handle initial queries before transferring to agents.'
@@ -532,7 +532,7 @@ hu:
         too_many: 'legfeljebb %{limit} bejegyzést tartalmazhat'
         duplicate: 'a fejléc neve nem ismétlődhet'
         invalid_name: '%{name} nem érvényes fejlécnév'
-        reserved: '%{name} fejlécet a Chatwoot kezeli, ezért nem lehet beállítani'
+        reserved: '%{name} fejlécet a MagpieReply kezeli, ezért nem lehet beállítani'
         invalid_value: 'a %{name} értéke legfeljebb 1 KiB hosszúságú rögzített szöveg lehet, helyőrzők és vezérlőkarakterek nélkül'
       param_schema:
         invalid: 'Az ismert mezőkkel és egyszerű értékekkel rendelkező paramétereket kell felsorolni.'
@@ -688,7 +688,7 @@ hu:
       custom_domain_not_configured: 'Custom domain is not configured'
   installation:
     onboarding:
-      heading: 'Üdvözöljük a Chatwootban 👋'
+      heading: 'Üdvözöljük a MagpieReplyban 👋'
       name: 'Név'
       name_placeholder: 'Add meg a teljes neved. Pl.: Kovács János'
       company: 'Cégnév'
@@ -1013,7 +1013,7 @@ hu:
       pages:
         general: 'Általános'
         internal: 'Belső'
-        internal_description: 'A Chatwoot Cloud által használt kulcsok és kapcsolók'
+        internal_description: 'A MagpieReply Cloud által használt kulcsok és kapcsolók'
       configure: 'Beállítások'
       enterprise_badge: 'Nagyvállalati kiadás'
       included: 'Tartalmazza'
@@ -1023,7 +1023,7 @@ hu:
       description: 'A telepítés beállításainak módosítása és a számlázási portál megnyitása'
       configure_title: 'Beállítások konfigurálása – %{config}'
       alert: 'Figyelem!'
-      unauthorized_changes: 'Jogosulatlan prémium módosításokat észleltünk a Chatwootban. A használatuk folytatásához váltson magasabb csomagra.'
+      unauthorized_changes: 'Jogosulatlan prémium módosításokat észleltünk a MagpieReplyban. A használatuk folytatásához váltson magasabb csomagra.'
       contact_for_help: 'Segítségért forduljon hozzánk:'
       agents_over_limit: 'Jelenleg %{count} ügynököt használ. További felhasználók hozzáadásához bővítse a licencek számát.'
       current_plan: 'Jelenlegi csomag'

@@ -430,7 +430,7 @@
         "SLUG": {
           "LABEL": "שבלול",
           "PLACEHOLDER": "שבלול קטגוריה עבור כתובות אתרים",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.magpiereply.com/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "נדרש שבלול"
         },
         "DESCRIPTION": {
@@ -461,7 +461,7 @@
         "SLUG": {
           "LABEL": "שבלול",
           "PLACEHOLDER": "שבלול קטגוריה עבור כתובות אתרים",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.magpiereply.com/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "נדרש שבלול"
         },
         "DESCRIPTION": {
@@ -698,7 +698,7 @@
             "LABEL": "שבלול",
             "PLACEHOLDER": "שבלול קטגוריה עבור כתובות אתרים",
             "ERROR": "נדרש שבלול",
-            "HELP_TEXT": "app.chatwoot.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
+            "HELP_TEXT": "app.magpiereply.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
           },
           "DESCRIPTION": {
             "LABEL": "תיאור",
@@ -867,7 +867,7 @@
       "CONFIRM_BUTTON_LABEL": "צור",
       "NAME": {
         "LABEL": "שם",
-        "PLACEHOLDER": "מדריך למשתמש | Chatwoot",
+        "PLACEHOLDER": "מדריך למשתמש | MagpieReply",
         "MESSAGE": "בחר שם לפורטל שלך.",
         "ERROR": "שם שדה חובה"
       },
@@ -941,7 +941,7 @@
           },
           "DNS_CONFIGURATION_DIALOG": {
             "HEADER": "הגדרת DNS",
-            "DESCRIPTION": "היכנס לחשבון שלך אצל ספק ה-DNS שלך, והוסף רשומת CNAME עבור תת-הדומיין המצביע על chatwoot.help",
+            "DESCRIPTION": "היכנס לחשבון שלך אצל ספק ה-DNS שלך, והוסף רשומת CNAME עבור תת-הדומיין המצביע על app.magpiereply.com",
             "COPY": "CNAME הועתק בהצלחה",
             "SEND_INSTRUCTIONS": {
               "HEADER": "שלח הוראות",
@@ -990,7 +990,7 @@
         "HEADER": "אינטגרציות",
         "DESCRIPTION": "Connect tools that extend what your help center can do.",
         "LIVE_CHAT": {
-          "TITLE": "Live chat with Chatwoot",
+          "TITLE": "Live chat with MagpieReply",
           "DESCRIPTION": "Show a live chat widget on your help center so visitors can reach you while they read.",
           "PLACEHOLDER": "בחר ווידג'ט צ'אט חי",
           "NONE_OPTION": "אין ווידג'ט"

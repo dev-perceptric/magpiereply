@@ -20,11 +20,9 @@
 - name: channel_email
   display_name: Email Channel
   enabled: true
-  help_url: https://chwt.app/hc/email
 - name: channel_facebook
   display_name: Facebook Channel
   enabled: true
-  help_url: https://chwt.app/hc/fb
 - name: conversation_unread_counts
   display_name: Conversation Unread Counts
   enabled: false
@@ -42,11 +40,9 @@
 - name: help_center
   display_name: Help Center
   enabled: true
-  help_url: https://chwt.app/hc/help-center
 - name: agent_bots
   display_name: Agent Bots
   enabled: true
-  help_url: https://chwt.app/hc/agent-bots
 - name: macros
   display_name: Macros
   enabled: true
@@ -56,29 +52,24 @@
 - name: team_management
   display_name: Team Management
   enabled: true
-  help_url: https://chwt.app/hc/teams
 - name: inbox_management
   display_name: Inbox Management
   enabled: true
 - name: labels
   display_name: Labels
   enabled: true
-  help_url: https://chwt.app/hc/labels
 - name: custom_attributes
   display_name: Custom Attributes
   enabled: true
-  help_url: https://chwt.app/hc/custom-attributes
 - name: automations
   display_name: Automations
   enabled: true
 - name: canned_responses
   display_name: Canned Responses
   enabled: true
-  help_url: https://chwt.app/hc/canned
 - name: integrations
   display_name: Integrations
   enabled: true
-  help_url: https://chwt.app/hc/integrations
 - name: voice_recorder
   display_name: Voice Recorder
   enabled: true
@@ -91,11 +82,9 @@
 - name: campaigns
   display_name: Campaigns
   enabled: true
-  help_url: https://chwt.app/hc/campaigns
 - name: reports
   display_name: Reports
   enabled: true
-  help_url: https://chwt.app/hc/reports
 - name: crm
   display_name: CRM
   enabled: true
@@ -131,7 +120,6 @@
   display_name: SLA
   enabled: false
   premium: true
-  help_url: https://chwt.app/hc/sla
 - name: help_center_embedding_search
   display_name: Help Center Embedding Search
   enabled: false
@@ -277,7 +265,6 @@
   column: feature_flags_ext_1
 - name: audit_log_ip_address
   display_name: Audit Log IP Address
-  help_url: https://chwt.app/hc/audit-logs
   enabled: false
   premium: true
   column: feature_flags_ext_1

@@ -1,16 +1,16 @@
 {
   "REGISTER": {
     "TRY_WOOT": "Hesap oluştur",
-    "GET_STARTED": "Get started with Chatwoot",
+    "GET_STARTED": "Get started with MagpieReply",
     "TITLE": "Kayıt ol",
     "TESTIMONIAL_HEADER": "İlerlemek için tek bir adım atmanız yeterlidir",
     "TESTIMONIAL_CONTENT": "Müşterilerinizle etkileşimde bulunmaktan, onları elde tutmaktan ve yeni müşteriler bulmaktan sadece bir adım uzaktasınız.",
-    "TERMS_ACCEPT": "Bir hesap oluşturarak, <a href=\"https://www.chatwoot.com/terms\">Kullanım Koşulları</a> ve <a href=\"https://www.chatwoot.com/privacy-policy\">Gizlilik Politikamızı</a> kabul etmiş olursunuz",
+    "TERMS_ACCEPT": "Bir hesap oluşturarak, <a href=\"https://www.magpiereply.com/terms/\">Kullanım Koşulları</a> ve <a href=\"https://www.magpiereply.com/privacy/\">Gizlilik Politikamızı</a> kabul etmiş olursunuz",
     "OAUTH": {
       "GOOGLE_SIGNUP": "Google ile kaydol"
     },
     "SHOPIFY": {
-      "TITLE": "Set up Chatwoot for your Shopify store",
+      "TITLE": "Set up MagpieReply for your Shopify store",
       "DESCRIPTION": "Create your account to continue to Shopify App Pricing and choose a plan."
     },
     "COMPANY_NAME": {

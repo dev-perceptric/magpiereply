@@ -430,7 +430,7 @@
         "SLUG": {
           "LABEL": "سلاگ",
           "PLACEHOLDER": "یو آر ایل کے لیے زمرہ کا سلاگ",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.magpiereply.com/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "سلاگ ضروری ہے"
         },
         "DESCRIPTION": {
@@ -461,7 +461,7 @@
         "SLUG": {
           "LABEL": "سلاگ",
           "PLACEHOLDER": "یو آر ایل کے لیے زمرے کا سلاگ",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.magpiereply.com/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "سلاگ ضروری ہے"
         },
         "DESCRIPTION": {
@@ -698,7 +698,7 @@
             "LABEL": "سلاگ",
             "PLACEHOLDER": "یو آر ایل کے لیے زمرہ کا سلاگ",
             "ERROR": "سلاگ ضروری ہے",
-            "HELP_TEXT": "app.chatwoot.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
+            "HELP_TEXT": "app.magpiereply.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
           },
           "DESCRIPTION": {
             "LABEL": "تفصیل",
@@ -867,7 +867,7 @@
       "CONFIRM_BUTTON_LABEL": "بنائیں",
       "NAME": {
         "LABEL": "نام",
-        "PLACEHOLDER": "صارف گائیڈ | Chatwoot",
+        "PLACEHOLDER": "صارف گائیڈ | MagpieReply",
         "MESSAGE": "اپنے پورٹل کے لیے ایک نام منتخب کریں۔.",
         "ERROR": "نام ضروری ہے"
       },
@@ -941,7 +941,7 @@
           },
           "DNS_CONFIGURATION_DIALOG": {
             "HEADER": "DNS کی تشکیل",
-            "DESCRIPTION": "اپنے DNS فراہم کنندہ کے اکاؤنٹ میں لاگ ان کریں، اور سب ڈومین کے لیے chatwoot.help کی طرف اشارہ کرنے والا CNAME ریکارڈ شامل کریں",
+            "DESCRIPTION": "اپنے DNS فراہم کنندہ کے اکاؤنٹ میں لاگ ان کریں، اور سب ڈومین کے لیے app.magpiereply.com کی طرف اشارہ کرنے والا CNAME ریکارڈ شامل کریں",
             "COPY": "CNAME کامیابی سے کاپی ہو گیا",
             "SEND_INSTRUCTIONS": {
               "HEADER": "ہدایات بھیجیں",
@@ -990,7 +990,7 @@
         "HEADER": "انضمام",
         "DESCRIPTION": "Connect tools that extend what your help center can do.",
         "LIVE_CHAT": {
-          "TITLE": "Live chat with Chatwoot",
+          "TITLE": "Live chat with MagpieReply",
           "DESCRIPTION": "Show a live chat widget on your help center so visitors can reach you while they read.",
           "PLACEHOLDER": "لائیو چیٹ ویجیٹ منتخب کریں",
           "NONE_OPTION": "کوئی ویجیٹ نہیں"

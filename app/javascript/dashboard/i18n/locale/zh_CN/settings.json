@@ -37,7 +37,7 @@
       },
       "INTERFACE_SECTION": {
         "TITLE": "界面",
-        "NOTE": "自定义您的 Chatwoot 仪表板的外观和感觉。",
+        "NOTE": "自定义您的 MagpieReply 仪表板的外观和感觉。",
         "FONT_SIZE": {
           "TITLE": "字体大小",
           "NOTE": "根据您的偏好调整仪表板中的文本大小。",
@@ -627,11 +627,11 @@
     "NO_BILLING_USER": "您的计费账户正在配置中。请刷新页面并重试。",
     "SHOPIFY": {
       "TITLE": "Billing through Shopify",
-      "DESCRIPTION": "Your Chatwoot subscription is billed and managed securely through Shopify.",
+      "DESCRIPTION": "Your MagpieReply subscription is billed and managed securely through Shopify.",
       "UNAVAILABLE": "Shopify billing is unavailable right now. Please contact support if this continues.",
       "LOADING": "Checking your Shopify subscription...",
       "PLAN_TITLE": "Shopify subscription",
-      "PLAN_DESCRIPTION": "Choose or manage your Chatwoot plan securely in Shopify.",
+      "PLAN_DESCRIPTION": "Choose or manage your MagpieReply plan securely in Shopify.",
       "CURRENT_PLAN": "Current plan",
       "SUBSCRIPTION_STATUS": "状态",
       "PRICE": "Price",
@@ -713,7 +713,7 @@
       "SP_ENTITY_ID": {
         "LABEL": "SP 实体 ID",
         "HELP": "此应用程序作为服务提供商的唯一标识符（自动生成）。",
-        "TOOLTIP": "Chatwoot 作为服务提供商的唯一标识符 - 在 IdP 设置中配置此项"
+        "TOOLTIP": "MagpieReply 作为服务提供商的唯一标识符 - 在 IdP 设置中配置此项"
       },
       "IDP_ENTITY_ID": {
         "LABEL": "身份提供商实体 ID",
@@ -808,7 +808,7 @@
     }
   },
   "CREATE_ACCOUNT": {
-    "NO_ACCOUNT_WARNING": "哦，糟糕！我们找不到任何 Chatwoot 账户。请创建一个新账户以继续。",
+    "NO_ACCOUNT_WARNING": "哦，糟糕！我们找不到任何 MagpieReply 账户。请创建一个新账户以继续。",
     "NEW_ACCOUNT": "新账户",
     "SELECTOR_SUBTITLE": "创建一个新账户",
     "API": {
