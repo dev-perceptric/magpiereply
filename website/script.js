@@ -103,6 +103,68 @@
 
   document.querySelectorAll('[role="tablist"]').forEach(setupTabs);
 
+  // The homepage demo: plays each scene, then moves to the next one every 7 seconds.
+  // A click or key press on a tab stops the rotation; hovering pauses it.
+  document.querySelectorAll('[data-demo]').forEach((demo) => {
+    const tabs = Array.from(demo.querySelectorAll('[role="tab"]'));
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const SCENE_MS = 7000;
+    let timer = null;
+    let stopped = reduced;
+    let auto = false;
+
+    function current() {
+      return tabs.findIndex((tab) => tab.getAttribute('aria-selected') === 'true');
+    }
+
+    function play() {
+      tabs.forEach((tab) => {
+        const panel = document.getElementById(tab.getAttribute('aria-controls'));
+        if (!panel) return;
+        panel.classList.remove('play');
+        if (tab.getAttribute('aria-selected') === 'true' && !reduced) {
+          void panel.offsetWidth;
+          panel.classList.add('play');
+        }
+      });
+      demo.classList.remove('playing');
+      if (stopped) return;
+      void demo.offsetWidth;
+      demo.classList.add('playing');
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        auto = true;
+        tabs[(current() + 1) % tabs.length].click();
+        auto = false;
+      }, SCENE_MS);
+    }
+
+    function stop() {
+      stopped = true;
+      clearTimeout(timer);
+      demo.classList.remove('playing');
+    }
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        if (!auto) stop();
+        play();
+      });
+      tab.addEventListener('keydown', stop);
+    });
+
+    demo.addEventListener('mouseenter', () => {
+      if (stopped) return;
+      clearTimeout(timer);
+      demo.classList.remove('playing');
+    });
+    demo.addEventListener('mouseleave', () => {
+      if (!stopped) play();
+    });
+
+    play();
+  });
+
   // Phone menu.
   const nav = document.getElementById('nav');
   const toggle = document.getElementById('menu-toggle');
