@@ -64,7 +64,7 @@ After the site changes, publish the branch:
 bash website/tools/publish-hostinger.sh
 ```
 
-Hostinger deploys it on its own.
+Hostinger's Git auto-deploy isn't turned on for magpiereply.com today (hPanel, Websites, magpiereply.com, Git), so the push alone doesn't change the live site. Until it is, upload the built files with Hostinger's file upload API: run `npm run build`, then send each file in `dist/` to `public_html` (`POST /api/hosting/v1/files/upload-urls`, then a TUS upload per file with `?override=true`), and purge the CDN cache.
 
 ### First-time setup in hPanel
 
