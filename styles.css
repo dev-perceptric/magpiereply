@@ -806,3 +806,89 @@ footer { border-top: 1px solid var(--line); }
   .plans { grid-template-columns: minmax(0, 1fr); }
   .plan .for { min-height: 0; }
 }
+
+/* ---------- Home: Magpie hero, demo, proof ---------- */
+
+.hm-grid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; padding-top: clamp(56px, 7vw, 88px); padding-bottom: clamp(56px, 7vw, 88px); }
+.hm-copy { display: flex; flex-direction: column; gap: 22px; align-items: flex-start; }
+.hm-copy .display { font-size: clamp(40px, 5.4vw, 66px); }
+.hm-copy .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
+.hm-fine { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--ink-3); }
+.hm-fine svg { width: 14px; height: 14px; color: var(--green); }
+
+.hm-stage { position: relative; }
+.hm-sticker { position: absolute; bottom: -20px; left: -14px; z-index: 3; }
+
+.demo { position: relative; background: var(--paper); border: 1.5px solid var(--ink); border-radius: 12px; box-shadow: 6px 6px 0 var(--ink); overflow: hidden; }
+.demo-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--line); }
+.demo-tab { position: relative; padding: 13px 10px; font-family: inherit; font-size: 14px; font-weight: 600; color: var(--ink-3); background: var(--paper-2); border: 0; border-left: 1px solid var(--line); cursor: pointer; }
+.demo-tab:first-child { border-left: 0; }
+.demo-tab[aria-selected="true"] { color: var(--ink); background: var(--paper); }
+.demo-tab[aria-selected="true"]::after { content: ""; position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; background: var(--brand); transform-origin: left; }
+.demo.playing .demo-tab[aria-selected="true"]::after { animation: demo-timer 7s linear both; }
+@keyframes demo-timer { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+.scene { padding: 18px; min-height: 360px; background-image: radial-gradient(var(--line) 1px, transparent 1.2px); background-size: 10px 10px; }
+.chat { display: flex; flex-direction: column; gap: 12px; }
+.bubble { max-width: 84%; padding: 10px 13px; border-radius: 10px; font-size: 14.5px; line-height: 1.45; }
+.bubble.in { align-self: flex-start; background: #fff; border: 1px solid var(--line-2); color: var(--ink); }
+.bubble .t { display: block; margin-top: 4px; font-size: 11.5px; color: var(--ink-3); }
+
+.magpie { align-self: flex-end; width: min(94%, 420px); background: #fff; border: 1px solid var(--brand-300); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 12px 30px -20px rgba(9, 67, 176, 0.55); }
+.mp-head { display: flex; align-items: center; gap: 8px; font-size: 13.5px; }
+.mp-head img { width: 20px; height: 20px; border-radius: 5px; }
+.mp-head .state { margin-left: auto; }
+.mp-reply { font-size: 14.5px; line-height: 1.5; color: var(--ink); }
+.mp-meta { display: flex; flex-wrap: wrap; gap: 6px; }
+.mp-meta span { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; padding: 2px 8px; border-radius: 4px; border: 1px solid var(--line); background: var(--paper-2); color: var(--ink-2); }
+.mp-meta svg { width: 12px; height: 12px; }
+.mp-meta .chk.ok { color: var(--green); background: var(--green-soft); border-color: #bfe6d6; font-weight: 600; }
+.mp-acts { display: flex; gap: 6px; border-top: 1px solid var(--line); padding-top: 10px; }
+.mp-acts span { font-size: 12.5px; font-weight: 600; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line-2); color: var(--ink-2); }
+.mp-acts .go { background: var(--brand); border-color: var(--brand); color: #fff; }
+.mp-tool { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-2); padding: 7px 9px; border: 1px dashed var(--brand-300); border-radius: 7px; background: var(--brand-50); }
+.mp-tool .ic { width: 22px; height: 22px; border-radius: 5px; display: grid; place-items: center; background: #fff; border: 1px solid var(--brand-200); color: var(--brand); flex: none; }
+.mp-tool .ic svg { width: 12px; height: 12px; }
+.mp-tool .ok { margin-left: auto; color: var(--green); font-weight: 600; font-size: 12px; }
+.mp-note { font-size: 13px; line-height: 1.45; background: var(--amber-soft); border: 1px solid #f5d8b0; color: #6b3a05; border-radius: 8px; padding: 9px 11px; }
+.mp-note strong { display: block; font-size: 12px; margin-bottom: 2px; }
+
+.typing { display: none; gap: 4px; padding: 4px 0; height: 15px; overflow: hidden; }
+.typing i { width: 7px; height: 7px; border-radius: 2px; background: var(--brand-400); animation: typing 1s ease-in-out infinite; }
+.typing i:nth-child(2) { animation-delay: 0.15s; }
+.typing i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes typing { 0%, 100% { opacity: 0.25; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-3px); } }
+
+/* Scenes play in order: the customer, Magpie thinking, then the reply. */
+.scene.play .bubble.in { animation: rise 0.35s ease both; }
+.scene.play .magpie { animation: rise 0.35s ease 0.5s both; }
+.scene.play .mp-tool { animation: rise 0.3s ease 0.9s both; }
+.scene.play .typing { display: flex; animation: hide-typing 0.01s linear 2s forwards; }
+.scene.play .mp-reply, .scene.play .mp-meta, .scene.play .mp-acts, .scene.play .mp-note { overflow: hidden; animation: grow 0.4s ease 2s both; }
+@keyframes grow { from { opacity: 0; max-height: 0; margin-top: -10px; padding-top: 0; padding-bottom: 0; border-width: 0; transform: translateY(6px); } to { opacity: 1; max-height: 240px; transform: none; } }
+@keyframes hide-typing { to { height: 0; padding: 0; opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .scene.play *, .demo.playing .demo-tab[aria-selected="true"]::after { animation: none !important; }
+  .scene.play .typing { display: none; }
+}
+
+.proof-head { padding-top: 22px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.stats.proof { border-top: 0; }
+.stats.proof strong { font-size: clamp(26px, 3vw, 34px); color: var(--brand); }
+
+.app-head { display: flex; align-items: center; gap: 10px; }
+.app-head .mark { width: 28px; height: 28px; border-radius: 7px; display: grid; place-items: center; font-size: 13px; font-weight: 700; color: #fff; flex: none; }
+.tile .state { align-self: flex-start; margin-top: auto; }
+.go-steps .num { font-family: var(--mono); font-size: 13px; color: var(--brand); font-weight: 600; }
+
+@media (max-width: 1000px) {
+  .hm-grid { grid-template-columns: minmax(0, 1fr); gap: 44px; }
+  .hm-stage { max-width: 560px; }
+}
+
+@media (max-width: 560px) {
+  .scene { padding: 14px; min-height: 380px; }
+  .demo { box-shadow: 4px 4px 0 var(--ink); }
+  .hm-sticker { left: -6px; }
+}
