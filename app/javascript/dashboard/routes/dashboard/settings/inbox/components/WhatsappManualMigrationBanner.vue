@@ -7,7 +7,8 @@ import Icon from 'dashboard/components-next/icon/Icon.vue';
 const emit = defineEmits(['start']);
 const { t } = useI18n();
 
-const WHATSAPP_MANUAL_MIGRATION_GUIDE_URL = 'https://chwt.app/migrate-whatsapp';
+const WHATSAPP_MANUAL_MIGRATION_GUIDE_URL =
+  'https://www.magpiereply.com/help-center/';
 
 const copy = computed(() => ({
   title: t('INBOX_MGMT.SETTINGS_POPUP.WHATSAPP_MANUAL_MIGRATION.BANNER.TITLE'),

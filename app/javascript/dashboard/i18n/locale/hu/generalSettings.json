@@ -160,12 +160,12 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "Most már goadhatsz e-maileket az egyedi domaineden."
       }
     },
-    "UPDATE_CHATWOOT": "Egy frissítés elérhető a Chatwoothoz {latestChatwootVersion}. Kérjük frissítsd a telepítésed.",
+    "UPDATE_CHATWOOT": "Egy frissítés elérhető a MagpieReplyhoz {latestChatwootVersion}. Kérjük frissítsd a telepítésed.",
     "LEARN_MORE": "Tudj meg többet",
     "PAYMENT_PENDING": "A fiók befizetése lejárt. A szolgáltatás lemondásának elkerülése érdekében frissítse a fizetési adatokat.",
     "PAYMENT_PENDING_AGENT": "A fiók befizetése lejárt. A rendezéshez forduljon a rendszergazdához.",
-    "UPGRADE": "Upgrade to continue using Chatwoot",
-    "LIMITS_UPGRADE": "A fiókod túllépte a használati korlátokat. Kérjük, frissítsd tervedet a Chatwoot használatának folytatásához",
+    "UPGRADE": "Upgrade to continue using MagpieReply",
+    "LIMITS_UPGRADE": "A fiókod túllépte a használati korlátokat. Kérjük, frissítsd tervedet a MagpieReply használatának folytatásához",
     "OPEN_BILLING": "Számlázási beállítások megnyitása"
   },
   "FORMS": {

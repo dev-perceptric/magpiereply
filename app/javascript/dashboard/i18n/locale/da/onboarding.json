@@ -40,7 +40,7 @@
     "WHATSAPP_CONNECTED": "WhatsApp tilsluttet succesfuldt",
     "FACEBOOK_CONNECTED": "Facebook tilsluttet succesfuldt",
     "META_RESTRICTION": {
-      "MESSAGE": "Indbakke opsætning til Facebook, Instagram og WhatsApp er midlertidigt utilgængelig på grund af et API-niveau problem på Metas side, ikke et problem med Chatwoot. Vi arbejder tæt sammen med Meta for at løse det så hurtigt som muligt.",
+      "MESSAGE": "Indbakke opsætning til Facebook, Instagram og WhatsApp er midlertidigt utilgængelig på grund af et API-niveau problem på Metas side, ikke et problem med MagpieReply. Vi arbejder tæt sammen med Meta for at løse det så hurtigt som muligt.",
       "STATUS_LINK": "Vis statusopdateringer"
     },
     "CREATED_FOR_YOU": {

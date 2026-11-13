@@ -1,16 +1,16 @@
 {
   "REGISTER": {
     "TRY_WOOT": "アカウントを作成",
-    "GET_STARTED": "Get started with Chatwoot",
+    "GET_STARTED": "Get started with MagpieReply",
     "TITLE": "登録",
     "TESTIMONIAL_HEADER": "前進するために必要なのはたった一歩",
     "TESTIMONIAL_CONTENT": "顧客と関わり、維持し、新たな顧客を見つけるまであと一歩です。",
-    "TERMS_ACCEPT": "アカウントを作成することで、<a href=\"https://www.chatwoot.com/terms\">利用規約</a>および<a href=\"https://www.chatwoot.com/privacy-policy\">プライバシーポリシー</a>に同意したものとみなされます。",
+    "TERMS_ACCEPT": "アカウントを作成することで、<a href=\"https://www.magpiereply.com/terms/\">利用規約</a>および<a href=\"https://www.magpiereply.com/privacy/\">プライバシーポリシー</a>に同意したものとみなされます。",
     "OAUTH": {
       "GOOGLE_SIGNUP": "Googleで登録"
     },
     "SHOPIFY": {
-      "TITLE": "Set up Chatwoot for your Shopify store",
+      "TITLE": "Set up MagpieReply for your Shopify store",
       "DESCRIPTION": "Create your account to continue to Shopify App Pricing and choose a plan."
     },
     "COMPANY_NAME": {

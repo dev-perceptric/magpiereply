@@ -160,12 +160,12 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "Теперь вы можете получать письма на свой домен."
       }
     },
-    "UPDATE_CHATWOOT": "Доступно обновление {latestChatwootVersion} для Chatwoot. Пожалуйста, обновите свою версию.",
+    "UPDATE_CHATWOOT": "Доступно обновление {latestChatwootVersion} для MagpieReply. Пожалуйста, обновите свою версию.",
     "LEARN_MORE": "Узнайте больше",
     "PAYMENT_PENDING": "Your account payment is past due. Please update your payment information to avoid subscription cancellation.",
     "PAYMENT_PENDING_AGENT": "Your account payment is past due. Please contact your administrator to resolve it.",
-    "UPGRADE": "Обновитесь, чтобы продолжить использовать Chatwoot",
-    "LIMITS_UPGRADE": "Превышен лимит использования вашего тарифного плана, пожалуйста, обновите тарифный план, чтобы продолжить использовать Chatwoot",
+    "UPGRADE": "Обновитесь, чтобы продолжить использовать MagpieReply",
+    "LIMITS_UPGRADE": "Превышен лимит использования вашего тарифного плана, пожалуйста, обновите тарифный план, чтобы продолжить использовать MagpieReply",
     "OPEN_BILLING": "Открыть платеж"
   },
   "FORMS": {

@@ -40,7 +40,7 @@
     "WHATSAPP_CONNECTED": "WhatsApp collegato",
     "FACEBOOK_CONNECTED": "Facebook collegato",
     "META_RESTRICTION": {
-      "MESSAGE": "La configurazione delle caselle Facebook, Instagram e WhatsApp non è disponibile temporaneamente per un problema delle API di Meta, non di Chatwoot. Stiamo lavorando con Meta per risolverlo il prima possibile.",
+      "MESSAGE": "La configurazione delle caselle Facebook, Instagram e WhatsApp non è disponibile temporaneamente per un problema delle API di Meta, non di MagpieReply. Stiamo lavorando con Meta per risolverlo il prima possibile.",
       "STATUS_LINK": "Vedi gli aggiornamenti di stato"
     },
     "CREATED_FOR_YOU": {

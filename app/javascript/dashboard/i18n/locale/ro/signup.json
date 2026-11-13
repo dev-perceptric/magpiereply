@@ -1,16 +1,16 @@
 {
   "REGISTER": {
     "TRY_WOOT": "Creează cont",
-    "GET_STARTED": "Get started with Chatwoot",
+    "GET_STARTED": "Get started with MagpieReply",
     "TITLE": "Inregistrare",
     "TESTIMONIAL_HEADER": "Tot ce trebuie este un pas pentru a merge mai departe",
     "TESTIMONIAL_CONTENT": "Ești la un pas de a-ți angaja clienții, de a-i păstra și de a găsi altele noi.",
-    "TERMS_ACCEPT": "Prin crearea unui cont, sunteți de acord cu <a href=\"https://www.chatwoot.com/terms\">T & C</a> și <a href=\"https://www.chatwoot.com/privacy-policy\">politica noastră de confidențialitate</a>",
+    "TERMS_ACCEPT": "Prin crearea unui cont, sunteți de acord cu <a href=\"https://www.magpiereply.com/terms/\">T & C</a> și <a href=\"https://www.magpiereply.com/privacy/\">politica noastră de confidențialitate</a>",
     "OAUTH": {
       "GOOGLE_SIGNUP": "Înscrieți-vă cu Google"
     },
     "SHOPIFY": {
-      "TITLE": "Set up Chatwoot for your Shopify store",
+      "TITLE": "Set up MagpieReply for your Shopify store",
       "DESCRIPTION": "Create your account to continue to Shopify App Pricing and choose a plan."
     },
     "COMPANY_NAME": {

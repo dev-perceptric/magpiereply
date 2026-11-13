@@ -16,7 +16,7 @@
     "CREATE_FLOW": {
       "CHANNEL": {
         "TITLE": "Ընտրեք ալիքը",
-        "BODY": "Ընտրեք այն պրովայդերին, որի հետ ցանկանում եք ինտեգրվել Chatwoot-ին։"
+        "BODY": "Ընտրեք այն պրովայդերին, որի հետ ցանկանում եք ինտեգրվել MagpieReply-ին։"
       },
       "INBOX": {
         "TITLE": "Ստեղծել մուտքի արկղ",
@@ -42,7 +42,7 @@
         "PLACEHOLDER": "Մուտքագրեք ձեր վեբկայքի անունը (օրինակ՝ Acme Inc)"
       },
       "FB": {
-        "HELP": "PS․ Մուտք գործելով՝ մենք միայն ձեր Էջի հաղորդագրություններին ենք հասանելիություն ստանում։ Ձեր անձնական հաղորդագրություններին Chatwoot-ը երբեք չի կարող հասանելիություն ունենալ։",
+        "HELP": "PS․ Մուտք գործելով՝ մենք միայն ձեր Էջի հաղորդագրություններին ենք հասանելիություն ստանում։ Ձեր անձնական հաղորդագրություններին MagpieReply-ը երբեք չի կարող հասանելիություն ունենալ։",
         "CHOOSE_PAGE": "Ընտրել Էջը",
         "CHOOSE_PLACEHOLDER": "Ընտրեք էջը ցուցակից",
         "INBOX_NAME": "Զամբյուղի անուն",
@@ -50,7 +50,7 @@
         "PICK_NAME": "Ընտրեք անուն ձեր մուտքի համար",
         "PICK_A_VALUE": "Ընտրեք արժեք",
         "CREATE_INBOX": "Ստեղծել Նամակների Պատուհան",
-        "RESTRICTED_WARNING": "Facebook inbox creation is temporarily unavailable due to an API-level issue on Meta’s side, not a problem with Chatwoot. We’re working closely with Meta to resolve it as quickly as possible.",
+        "RESTRICTED_WARNING": "Facebook inbox creation is temporarily unavailable due to an API-level issue on Meta’s side, not a problem with MagpieReply. We’re working closely with Meta to resolve it as quickly as possible.",
         "STATUS_LINK": "View status updates"
       },
       "INSTAGRAM": {
@@ -61,8 +61,8 @@
         "ERROR_AUTH": "Instagram-ին միանալու ընթացքում սխալ է տեղի ունեցել, խնդրում ենք փորձել կրկին",
         "NEW_INBOX_SUGGESTION": "Այս Instagram հաշիվը նախկինում կապված էր այլ մուտքի արկղի հետ և այժմ տեղափոխվել է այստեղ։ Բոլոր նոր հաղորդագրությունները կցուցադրվեն այստեղ։ Հին մուտքի արկղը այլևս չի կարողանա ուղարկել կամ ստանալ հաղորդագրություններ այս հաշվի համար։",
         "DUPLICATE_INBOX_BANNER": "Այս Instagram հաշիվը տեղափոխվել է նոր Instagram ալիքի մուտքի արկղ։ Դուք այլևս չեք կարողանա ուղարկել կամ ստանալ Instagram հաղորդագրություններ այս մուտքի արկղից։",
-        "RESTRICTED_WARNING": "Instagram inbox creation is temporarily unavailable due to an API-level issue on Meta’s side, not a problem with Chatwoot. We’re working closely with Meta to resolve it as quickly as possible.",
-        "SETTINGS_RESTRICTED_WARNING": "Instagram messaging is currently affected by an API-level issue on Meta’s side, not a problem with Chatwoot. Some messages or actions may be delayed or unavailable. We’re working closely with Meta to resolve it as quickly as possible.",
+        "RESTRICTED_WARNING": "Instagram inbox creation is temporarily unavailable due to an API-level issue on Meta’s side, not a problem with MagpieReply. We’re working closely with Meta to resolve it as quickly as possible.",
+        "SETTINGS_RESTRICTED_WARNING": "Instagram messaging is currently affected by an API-level issue on Meta’s side, not a problem with MagpieReply. Some messages or actions may be delayed or unavailable. We’re working closely with Meta to resolve it as quickly as possible.",
         "STATUS_LINK": "View status updates"
       },
       "TIKTOK": {
@@ -300,7 +300,7 @@
         "MANUAL_SETUP": {
           "HEADER": {
             "TITLE": "Connect WhatsApp manually",
-            "DESCRIPTION": "Follow these steps to prepare your Meta account and connect your number to Chatwoot."
+            "DESCRIPTION": "Follow these steps to prepare your Meta account and connect your number to MagpieReply."
           },
           "APP": {
             "TITLE": "Create or select a Meta app",
@@ -359,7 +359,7 @@
           },
           "VERIFY": {
             "TITLE": "Verify your connection",
-            "DESCRIPTION": "Chatwoot is checking number access and configuring your Meta webhook.",
+            "DESCRIPTION": "MagpieReply is checking number access and configuring your Meta webhook.",
             "NUMBER_ACCESS": "Number access",
             "TEMPLATE_ACCESS": "Template access",
             "CALLBACK": "Webhook callback",
@@ -433,13 +433,13 @@
             "SUBMIT": "Submit",
             "ERROR": "We couldn’t enable access. Please try again."
           },
-          "RESTRICTED_WARNING": "WhatsApp Embedded Signup is temporarily unavailable due to an API-level issue on Meta’s side, not a problem with Chatwoot. You can use manual setup for eligible Cloud API numbers. We’re working closely with Meta to resolve it as quickly as possible.",
+          "RESTRICTED_WARNING": "WhatsApp Embedded Signup is temporarily unavailable due to an API-level issue on Meta’s side, not a problem with MagpieReply. You can use manual setup for eligible Cloud API numbers. We’re working closely with Meta to resolve it as quickly as possible.",
           "STATUS_LINK": "View status updates",
           "CALLING_ENABLE_FAILED": "Your WhatsApp inbox is ready, but voice calling couldn't be turned on — this number isn't enrolled in the WhatsApp Business Calling API yet. Reach out to Meta or your WhatsApp Business Solution Provider to onboard it, then turn calling on from the inbox's Calls settings."
         },
         "API": {
           "ERROR_MESSAGE": "Չհաջողվեց պահպանել WhatsApp ալիքը",
-          "MANUAL_RESTRICTION_WARNING": "WhatsApp Embedded Signup is temporarily unavailable due to an API-level issue on Meta’s side, not a problem with Chatwoot. Manual setup works only for numbers already connected to WhatsApp Cloud API. Numbers using WhatsApp Business app coexistence are not supported in this flow yet. We’re working closely with Meta to resolve the issue as quickly as possible. Thanks for your patience.",
+          "MANUAL_RESTRICTION_WARNING": "WhatsApp Embedded Signup is temporarily unavailable due to an API-level issue on Meta’s side, not a problem with MagpieReply. Manual setup works only for numbers already connected to WhatsApp Cloud API. Numbers using WhatsApp Business app coexistence are not supported in this flow yet. We’re working closely with Meta to resolve the issue as quickly as possible. Thanks for your patience.",
           "STATUS_LINK": "View status updates"
         }
       },
@@ -569,7 +569,7 @@
       },
       "AUTH": {
         "TITLE": "Ընտրեք ալիք",
-        "DESC": "Chatwoot supports live-chat widgets, Facebook Messenger, Twitter profiles, WhatsApp, Emails, etc., as channels. If you want to build a custom channel, you can create it using the API channel. To get started, choose one of the channels below.",
+        "DESC": "MagpieReply supports live-chat widgets, Facebook Messenger, Twitter profiles, WhatsApp, Emails, etc., as channels. If you want to build a custom channel, you can create it using the API channel. To get started, choose one of the channels below.",
         "TITLE_NEXT": "Ավարտեք կարգավորումը",
         "TITLE_FINISH": "Ահա և վերջը։",
         "CHANNEL": {
@@ -632,11 +632,11 @@
       },
       "DETAILS": {
         "TITLE": "Զամբյուղի մանրամասներ",
-        "DESC": "Ներքևի բացվող ցանկից ընտրեք Facebook Էջը, որը ցանկանում եք կապել Chatwoot-ի հետ։ Կարող եք նաև ձեր զամբյուղին տալ հատուկ անուն՝ ավելի լավ ճանաչման համար։"
+        "DESC": "Ներքևի բացվող ցանկից ընտրեք Facebook Էջը, որը ցանկանում եք կապել MagpieReply-ի հետ։ Կարող եք նաև ձեր զամբյուղին տալ հատուկ անուն՝ ավելի լավ ճանաչման համար։"
       },
       "FINISH": {
         "TITLE": "Հաջողվեց։",
-        "DESC": "Դուք հաջողությամբ ավարտել եք ձեր Facebook Էջի ինտեգրումը Chatwoot-ի հետ։ Հաջորդ անգամ, երբ հաճախորդը հաղորդագրություն ուղարկի ձեր Էջին, զրույցը ավտոմատ կերպով կհայտնվի ձեր զամբյուղում։<br>Մենք նաև տրամադրում ենք վիջեթի սցենար, որը կարող եք հեշտությամբ ավելացնել ձեր վեբկայքում։ Երբ այն ակտիվ լինի ձեր վեբկայքում, հաճախորդները կարող են ուղարկել հաղորդագրություններ անմիջապես ձեր կայքից՝ առանց որևէ արտաքին գործիքի օգնության, և զրույցը կհայտնվի հենց այստեղ, Chatwoot-ում։<br>Հիանալի է, չէ՞։ Մենք իսկապես փորձում ենք :)"
+        "DESC": "Դուք հաջողությամբ ավարտել եք ձեր Facebook Էջի ինտեգրումը MagpieReply-ի հետ։ Հաջորդ անգամ, երբ հաճախորդը հաղորդագրություն ուղարկի ձեր Էջին, զրույցը ավտոմատ կերպով կհայտնվի ձեր զամբյուղում։<br>Մենք նաև տրամադրում ենք վիջեթի սցենար, որը կարող եք հեշտությամբ ավելացնել ձեր վեբկայքում։ Երբ այն ակտիվ լինի ձեր վեբկայքում, հաճախորդները կարող են ուղարկել հաղորդագրություններ անմիջապես ձեր կայքից՝ առանց որևէ արտաքին գործիքի օգնության, և զրույցը կհայտնվի հենց այստեղ, MagpieReply-ում։<br>Հիանալի է, չէ՞։ Մենք իսկապես փորձում ենք :)"
       },
       "EMAIL_PROVIDER": {
         "TITLE": "Ընտրեք ձեր էլփոստի մատակարարին",
@@ -814,7 +814,7 @@
     "WIDGET_FEATURES": "Վիջեթի հնարավորություններ",
     "TWILIO_HEALTH": {
       "TITLE": "Manage your Twilio number",
-      "DESCRIPTION": "Review the Twilio account, sender and webhooks backing this inbox. Anything Chatwoot cannot receive is flagged here",
+      "DESCRIPTION": "Review the Twilio account, sender and webhooks backing this inbox. Anything MagpieReply cannot receive is flagged here",
       "GO_TO_SETTINGS": "Go to Twilio Console",
       "NO_DATA": "Առողջության տվյալները հասանելի չեն",
       "LOADING": "Fetching health data from Twilio…",
@@ -894,13 +894,13 @@
           "MISSING_TWIML_APP": "TwiML app not created"
         },
         "HINTS": {
-          "NOT_SET": "Twilio has no webhook on this sender, so nothing reaches Chatwoot.",
+          "NOT_SET": "Twilio has no webhook on this sender, so nothing reaches MagpieReply.",
           "URL_MISMATCH": "Twilio is calling a different URL, so traffic goes elsewhere.",
-          "WRONG_HTTP_METHOD": "The URL is right but Twilio calls it with {method} instead of POST, and Chatwoot only answers POST.",
+          "WRONG_HTTP_METHOD": "The URL is right but Twilio calls it with {method} instead of POST, and MagpieReply only answers POST.",
           "OVERRIDDEN_BY_NUMBER": "This messaging service has \"Use webhook on number\" turned on, so Twilio ignores the service webhook.",
           "OVERRIDDEN_BY_APPLICATION": "A TwiML app is attached to this number, and Twilio uses the app's URLs instead of the number's. Detach it in the Twilio Console.",
           "OVERRIDDEN_BY_TRUNK": "This number is attached to a SIP trunk, so Twilio routes calls to the trunk and ignores voice webhooks entirely. Detach the trunk in the Twilio Console.",
-          "MISSING_TWIML_APP": "Chatwoot has no TwiML app for this number, so outbound calls cannot be placed."
+          "MISSING_TWIML_APP": "MagpieReply has no TwiML app for this number, so outbound calls cannot be placed."
         }
       }
     },
@@ -1163,7 +1163,7 @@
       "WHATSAPP_BUSINESS_MANAGEMENT_TOKEN_ADD_TITLE": "Add Business Management Token",
       "WHATSAPP_BUSINESS_MANAGEMENT_TOKEN_REPLACE_TITLE": "Replace Business Management Token",
       "WHATSAPP_BUSINESS_MANAGEMENT_TOKEN_CONFIGURED": "Business management token configured",
-      "WHATSAPP_BUSINESS_MANAGEMENT_TOKEN_UPDATE_SUBHEADER": "Provide a token with access to this WhatsApp Business Account when Chatwoot cannot retrieve its message templates. Chatwoot uses this token only for template synchronization.",
+      "WHATSAPP_BUSINESS_MANAGEMENT_TOKEN_UPDATE_SUBHEADER": "Provide a token with access to this WhatsApp Business Account when MagpieReply cannot retrieve its message templates. MagpieReply uses this token only for template synchronization.",
       "WHATSAPP_BUSINESS_MANAGEMENT_TOKEN_UPDATE_PLACEHOLDER": "Enter the business management token",
       "WHATSAPP_BUSINESS_MANAGEMENT_TOKEN_ADD_BUTTON": "Add",
       "WHATSAPP_BUSINESS_MANAGEMENT_TOKEN_REPLACE_BUTTON": "Replace",
@@ -1238,7 +1238,7 @@
           "INBOX": "Inbox",
           "PHONE_NUMBER": "Հեռախոսահամար",
           "NOT_ENTERED": "Not entered",
-          "VERIFY_NOTICE": "Chatwoot will verify these credentials with Meta before applying any changes. If verification fails, the current configuration is left untouched.",
+          "VERIFY_NOTICE": "MagpieReply will verify these credentials with Meta before applying any changes. If verification fails, the current configuration is left untouched.",
           "BACK": "Back",
           "CANCEL": "Cancel",
           "CONTINUE": "Շարունակել",
@@ -1260,7 +1260,7 @@
           },
           "REVIEW_MIGRATION": {
             "TITLE": "Review migration",
-            "DESCRIPTION": "Confirm the connection details before reconnecting this inbox. Chatwoot will verify the token, WABA, and phone number with Meta before applying changes."
+            "DESCRIPTION": "Confirm the connection details before reconnecting this inbox. MagpieReply will verify the token, WABA, and phone number with Meta before applying changes."
           }
         }
       },
@@ -1603,7 +1603,7 @@
         "USER_MESSAGE": "Բարև",
         "AGENT_MESSAGE": "Բարև ձեզ"
       },
-      "BRANDING_TEXT": "Շահագործվում է Chatwoot-ով",
+      "BRANDING_TEXT": "Շահագործվում է MagpieReply-ով",
       "SCRIPT_SETTINGS": "\n      window.chatwootSettings = {options};"
     },
     "EMAIL_PROVIDERS": {

@@ -32,7 +32,7 @@ const senderNameKeyOptions = computed(() => [
     content: t('INBOX_MGMT.EDIT.SENDER_NAME_SECTION.FRIENDLY.SUBTITLE'),
     preview: {
       senderName: 'Smith',
-      businessName: replaceInstallationName('Chatwoot'),
+      businessName: replaceInstallationName('MagpieReply'),
       email: '<support@yourbusiness.com>',
     },
   },
@@ -42,7 +42,7 @@ const senderNameKeyOptions = computed(() => [
     content: t('INBOX_MGMT.EDIT.SENDER_NAME_SECTION.PROFESSIONAL.SUBTITLE'),
     preview: {
       senderName: '',
-      businessName: replaceInstallationName('Chatwoot'),
+      businessName: replaceInstallationName('MagpieReply'),
       email: '<support@yourbusiness.com>',
     },
   },

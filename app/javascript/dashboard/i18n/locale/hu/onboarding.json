@@ -40,7 +40,7 @@
     "WHATSAPP_CONNECTED": "A WhatsApp csatorna sikeresen csatlakozott",
     "FACEBOOK_CONNECTED": "A Facebook csatorna sikeresen csatlakozott",
     "META_RESTRICTION": {
-      "MESSAGE": "A Facebook, Instagram és WhatsApp csatorna beállítása átmenetileg nem érhető el a Meta oldalán fellépő programozási felületi hiba miatt. A problémát nem a Chatwoot okozza. A Meta közreműködésével dolgozunk a mielőbbi megoldáson.",
+      "MESSAGE": "A Facebook, Instagram és WhatsApp csatorna beállítása átmenetileg nem érhető el a Meta oldalán fellépő programozási felületi hiba miatt. A problémát nem a MagpieReply okozza. A Meta közreműködésével dolgozunk a mielőbbi megoldáson.",
       "STATUS_LINK": "Állapotfrissítések megtekintése"
     },
     "CREATED_FOR_YOU": {

@@ -438,16 +438,16 @@ fr:
       description: 'Les applications du tableau de bord vous permettent de créer et d''intégrer des applications qui affichent les informations de l''utilisateur, les commandes ou l''historique des paiements, fournissant plus de contexte à vos agents d''assistance client.'
     dyte:
       name: 'Cloudflare RealtimeKit'
-      short_description: 'Démarrez des appels vidéo/vocaux avec vos clients directement à partir de Chatwoot.'
-      description: 'Cloudflare RealtimeKit permet à vos agents de lancer des appels vidéo et vocaux avec vos clients directement depuis Chatwoot.'
+      short_description: 'Démarrez des appels vidéo/vocaux avec vos clients directement à partir de MagpieReply.'
+      description: 'Cloudflare RealtimeKit permet à vos agents de lancer des appels vidéo et vocaux avec vos clients directement depuis MagpieReply.'
       meeting_name: '%{agent_name} a démarré une réunion'
     slack:
       name: 'Slack'
       short_description: 'Recevez des notifications et répondez aux conversations directement dans Slack.'
-      description: "Intégrez Chatwoot avec Slack pour garder votre équipe en synchronisation. Cette intégration vous permet de recevoir des notifications pour les nouvelles conversations et d'y répondre directement dans l'interface de Slack."
+      description: "Intégrez MagpieReply avec Slack pour garder votre équipe en synchronisation. Cette intégration vous permet de recevoir des notifications pour les nouvelles conversations et d'y répondre directement dans l'interface de Slack."
     webhooks:
       name: 'Webhooks'
-      description: 'Les événements de webhook fournissent des mises à jour en temps réel sur les activités de votre compte Chatwoot. Vous pouvez vous abonner aux événements de votre choix, et Chatwoot vous enverra des rappels HTTP contenant les mises à jour.'
+      description: 'Les événements de webhook fournissent des mises à jour en temps réel sur les activités de votre compte MagpieReply. Vous pouvez vous abonner aux événements de votre choix, et MagpieReply vous enverra des rappels HTTP contenant les mises à jour.'
     dialogflow:
       name: 'Dialogflow'
       short_description: 'Construire des chatbots pour gérer les requêtes initiales avant de les transférer aux agents.'
@@ -532,7 +532,7 @@ fr:
         too_many: 'cannot contain more than %{limit} entries'
         duplicate: 'cannot repeat the same header name'
         invalid_name: '%{name} is not a valid header name'
-        reserved: '%{name} is managed by Chatwoot and cannot be set'
+        reserved: '%{name} is managed by MagpieReply and cannot be set'
         invalid_value: 'value for %{name} must be fixed text up to 1 KiB, without placeholders or control characters'
       param_schema:
         invalid: 'must list parameters with known fields and plain values'
@@ -688,7 +688,7 @@ fr:
       custom_domain_not_configured: 'Le domaine personnalisé n''est pas configuré'
   installation:
     onboarding:
-      heading: 'Howdy, Welcome to Chatwoot 👋'
+      heading: 'Howdy, Welcome to MagpieReply 👋'
       name: 'Nom'
       name_placeholder: 'Entrez votre nom complet. Ex. : Bruce Wayne'
       company: 'Nom de la société'
@@ -1013,7 +1013,7 @@ fr:
       pages:
         general: 'Général'
         internal: 'Internal'
-        internal_description: 'Keys and switches used by Chatwoot Cloud'
+        internal_description: 'Keys and switches used by MagpieReply Cloud'
       configure: 'Configurer'
       enterprise_badge: 'EE'
       included: 'Included'
@@ -1023,7 +1023,7 @@ fr:
       description: 'Update your instance settings, access billing portal'
       configure_title: 'Configure Settings - %{config}'
       alert: 'Alert!'
-      unauthorized_changes: 'Unauthorized premium changes detected in Chatwoot. To keep using them, please upgrade your plan.'
+      unauthorized_changes: 'Unauthorized premium changes detected in MagpieReply. To keep using them, please upgrade your plan.'
       contact_for_help: 'Contact for help:'
       agents_over_limit: 'You have %{count} agents. Please add more licenses to add more users.'
       current_plan: 'Current plan'

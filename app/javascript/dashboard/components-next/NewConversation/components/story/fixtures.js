@@ -4,7 +4,7 @@ export const contacts = [
       city: 'kerala',
       country: 'India',
       description: 'Curious about the web. ',
-      companyName: 'Chatwoot',
+      companyName: 'MagpieReply',
       countryCode: '',
       socialProfiles: {
         github: 'abozler',

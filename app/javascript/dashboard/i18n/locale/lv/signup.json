@@ -1,16 +1,16 @@
 {
   "REGISTER": {
     "TRY_WOOT": "Izveidot kontu",
-    "GET_STARTED": "Get started with Chatwoot",
+    "GET_STARTED": "Get started with MagpieReply",
     "TITLE": "Reģistrēt",
     "TESTIMONIAL_HEADER": "Viss, kas nepieciešams, ir viens solis, lai virzītos uz priekšu",
     "TESTIMONIAL_CONTENT": "Jūs esat viena soļa attālumā no klientu piesaistīšanas, noturēšanas un jaunu klientu atrašanas.",
-    "TERMS_ACCEPT": "Izveidojot kontu, Jūs piekrītat mūsu <a href=\"https://www.chatwoot.com/terms\">T & C</a> and <a href=\"https://www.chatwoot.com/privacy-policy\">Privātuma politikai</a>",
+    "TERMS_ACCEPT": "Izveidojot kontu, Jūs piekrītat mūsu <a href=\"https://www.magpiereply.com/terms/\">T & C</a> and <a href=\"https://www.magpiereply.com/privacy/\">Privātuma politikai</a>",
     "OAUTH": {
       "GOOGLE_SIGNUP": "Reģistrēties, izmantojot Google"
     },
     "SHOPIFY": {
-      "TITLE": "Set up Chatwoot for your Shopify store",
+      "TITLE": "Set up MagpieReply for your Shopify store",
       "DESCRIPTION": "Create your account to continue to Shopify App Pricing and choose a plan."
     },
     "COMPANY_NAME": {

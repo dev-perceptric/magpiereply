@@ -37,7 +37,7 @@
       },
       "INTERFACE_SECTION": {
         "TITLE": "Միջերես",
-        "NOTE": "Անհատականացրեք ձեր Chatwoot վահանակի տեսքը և զգացողությունը։",
+        "NOTE": "Անհատականացրեք ձեր MagpieReply վահանակի տեսքը և զգացողությունը։",
         "FONT_SIZE": {
           "TITLE": "Տառատեսակ չափը",
           "NOTE": "Ձեր նախասիրության հիման վրա կարգավորեք տեքստի չափը ամբողջ վահանակում։",
@@ -627,11 +627,11 @@
     "NO_BILLING_USER": "Ձեր վճարման հաշիվը կարգավորվում է։ Խնդրում ենք թարմացնել էջը և փորձել կրկին։",
     "SHOPIFY": {
       "TITLE": "Billing through Shopify",
-      "DESCRIPTION": "Your Chatwoot subscription is billed and managed securely through Shopify.",
+      "DESCRIPTION": "Your MagpieReply subscription is billed and managed securely through Shopify.",
       "UNAVAILABLE": "Shopify billing is unavailable right now. Please contact support if this continues.",
       "LOADING": "Checking your Shopify subscription...",
       "PLAN_TITLE": "Shopify subscription",
-      "PLAN_DESCRIPTION": "Choose or manage your Chatwoot plan securely in Shopify.",
+      "PLAN_DESCRIPTION": "Choose or manage your MagpieReply plan securely in Shopify.",
       "CURRENT_PLAN": "Current plan",
       "SUBSCRIPTION_STATUS": "Status",
       "PRICE": "Price",
@@ -713,7 +713,7 @@
       "SP_ENTITY_ID": {
         "LABEL": "SP սուբյեկտի ID",
         "HELP": "Այս հավելվածի եզակի նույնացուցիչը որպես ծառայության մատակարար (ավտոմատ ստեղծված)։",
-        "TOOLTIP": "Chatwoot-ի եզակի նույնացուցիչը որպես Ծառայության մատակարար - Կարգավորեք սա ձեր IdP կարգավորումներում"
+        "TOOLTIP": "MagpieReply-ի եզակի նույնացուցիչը որպես Ծառայության մատակարար - Կարգավորեք սա ձեր IdP կարգավորումներում"
       },
       "IDP_ENTITY_ID": {
         "LABEL": "Ինքնության մատակարարի Entity ID",
@@ -808,7 +808,7 @@
     }
   },
   "CREATE_ACCOUNT": {
-    "NO_ACCOUNT_WARNING": "Օհ, մենք չգտանք Chatwoot հաշիվներ: Խնդրում ենք ստեղծել նոր հաշիվ շարունակելու համար",
+    "NO_ACCOUNT_WARNING": "Օհ, մենք չգտանք MagpieReply հաշիվներ: Խնդրում ենք ստեղծել նոր հաշիվ շարունակելու համար",
     "NEW_ACCOUNT": "Նոր հաշիվ",
     "SELECTOR_SUBTITLE": "Ստեղծել նոր հաշիվ",
     "API": {

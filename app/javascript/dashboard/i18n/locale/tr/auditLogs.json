@@ -6,7 +6,7 @@
     "DESCRIPTION": "Denetim Kayıtları, hesabınızdaki faaliyetlerin kaydını tutar ve hesabınızı, ekibinizi veya hizmetlerinizi takip etmenize ve denetlemenize olanak sağlar.",
     "LEARN_MORE": "Denetim kayıtları hakkında daha fazla bilgi edinin",
     "SEARCH_404": "Bu sorgu ile eşleşen öğe yok",
-    "SIDEBAR_TXT": "<p><b>Denetim Kayıtları</b></p><p>Denetim Kayıtları, Chatwoot Sistemi'ndeki olaylar ve eylemler için izlerdir.</p>",
+    "SIDEBAR_TXT": "<p><b>Denetim Kayıtları</b></p><p>Denetim Kayıtları, MagpieReply Sistemi'ndeki olaylar ve eylemler için izlerdir.</p>",
     "COUNT": "{n} event | {n} events",
     "FILTERS": {
       "SEARCH_PLACEHOLDER": "Ad veya e-posta adresine göre ara",
@@ -41,7 +41,7 @@
     "LIST": {
       "404": "Bu hesapta kullanılabilir denetim kaydı yok.",
       "TITLE": "Denetim Kayıtlarını Yönet",
-      "DESC": "Denetim Kayıtları, Chatwoot Sistemi'ndeki olaylar ve eylemler için izlerdir.",
+      "DESC": "Denetim Kayıtları, MagpieReply Sistemi'ndeki olaylar ve eylemler için izlerdir.",
       "TABLE_HEADER": {
         "ACTIVITY": "Etkinlik",
         "TIME": "Zaman",

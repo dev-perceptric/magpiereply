@@ -430,7 +430,7 @@
         "SLUG": {
           "LABEL": "Սլագ",
           "PLACEHOLDER": "Կատեգորիայի slug URL-ների համար",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.magpiereply.com/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "Slug-ը պարտադիր է"
         },
         "DESCRIPTION": {
@@ -461,7 +461,7 @@
         "SLUG": {
           "LABEL": "Սլագ",
           "PLACEHOLDER": "Կատեգորիայի սլագ URL-ների համար",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.magpiereply.com/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "Սլագը պարտադիր է"
         },
         "DESCRIPTION": {
@@ -698,7 +698,7 @@
             "LABEL": "Սլագ",
             "PLACEHOLDER": "կատեգորիայի slug URL-ների համար",
             "ERROR": "Slug-ը պարտադիր է",
-            "HELP_TEXT": "app.chatwoot.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
+            "HELP_TEXT": "app.magpiereply.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
           },
           "DESCRIPTION": {
             "LABEL": "Նկարագրություն",
@@ -867,7 +867,7 @@
       "CONFIRM_BUTTON_LABEL": "Ստեղծել",
       "NAME": {
         "LABEL": "Անուն",
-        "PLACEHOLDER": "Օգտագործողի ուղեցույց | Chatwoot",
+        "PLACEHOLDER": "Օգտագործողի ուղեցույց | MagpieReply",
         "MESSAGE": "Ընտրեք անուն ձեր պորտալի համար։",
         "ERROR": "Անունը պարտադիր է"
       },
@@ -941,7 +941,7 @@
           },
           "DNS_CONFIGURATION_DIALOG": {
             "HEADER": "DNS կարգավորումներ",
-            "DESCRIPTION": "Մուտք գործեք ձեր DNS մատակարարի հաշիվ և ավելացրեք CNAME գրառում ենթադոմենի համար, որը ցույց է տալիս chatwoot.help",
+            "DESCRIPTION": "Մուտք գործեք ձեր DNS մատակարարի հաշիվ և ավելացրեք CNAME գրառում ենթադոմենի համար, որը ցույց է տալիս app.magpiereply.com",
             "COPY": "CNAME-ը հաջողությամբ պատճենվեց",
             "SEND_INSTRUCTIONS": {
               "HEADER": "Ուղարկել հրահանգներ",
@@ -990,7 +990,7 @@
         "HEADER": "Ինտեգրացիաներ",
         "DESCRIPTION": "Connect tools that extend what your help center can do.",
         "LIVE_CHAT": {
-          "TITLE": "Live chat with Chatwoot",
+          "TITLE": "Live chat with MagpieReply",
           "DESCRIPTION": "Show a live chat widget on your help center so visitors can reach you while they read.",
           "PLACEHOLDER": "Ընտրեք ուղիղ զրույցի վիջեթը",
           "NONE_OPTION": "Առկա չէ վիջեթ"

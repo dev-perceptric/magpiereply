@@ -44,7 +44,7 @@ RSpec.describe Whatsapp::BusinessManagementTokenService do
     allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(false)
 
     expect { service.update!('business-token') }
-      .to raise_error(ArgumentError, 'Business management token is only available on Chatwoot Cloud')
+      .to raise_error(ArgumentError, 'Business management token is only available on MagpieReply Cloud')
     expect(validation_service).not_to have_received(:perform)
   end
 

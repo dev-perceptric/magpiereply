@@ -438,7 +438,7 @@ it:
       description: 'Le App Dashboard consentono di creare e incorporare applicazioni che mostrano informazioni sugli utenti, ordini o cronologia dei pagamenti, fornendo maggiore contesto agli operatori.'
     dyte:
       name: 'Dyte'
-      short_description: 'Avvia chiamate/videochiamate con i clienti direttamente da Chatwoot.'
+      short_description: 'Avvia chiamate/videochiamate con i clienti direttamente da MagpieReply.'
       description: 'Dyte è un prodotto che integra funzionalità audio e video nella tua applicazione. Grazie a questa integrazione, i tuoi operatori possono avviare videochiamate/chiamate vocali con i tuoi clienti direttamente da qui.'
       meeting_name: '%{agent_name} ha avviato un meeting'
     slack:
@@ -447,7 +447,7 @@ it:
       description: "Integra Slack per mantenere il tuo team sempre aggiornato. Questa integrazione ti consente di ricevere notifiche per le nuove conversazioni e di rispondere direttamente dall'interfaccia di Slack."
     webhooks:
       name: 'Webhook'
-      description: 'Gli eventi Webhook forniscono aggiornamenti in tempo reale sulle attività nel tuo account Chatwoot. Puoi iscriverti ai tuoi eventi preferiti, e Chatwoot ti invierà i callback HTTP con gli aggiornamenti.'
+      description: 'Gli eventi Webhook forniscono aggiornamenti in tempo reale sulle attività nel tuo account MagpieReply. Puoi iscriverti ai tuoi eventi preferiti, e MagpieReply ti invierà i callback HTTP con gli aggiornamenti.'
     dialogflow:
       name: 'Dialogflow'
       short_description: 'Configura chatbot per gestire le richieste iniziali prima di trasferire agli operatori.'
@@ -532,7 +532,7 @@ it:
         too_many: 'non può contenere più di %{limit} voci'
         duplicate: 'non può ripetere lo stesso nome di intestazione'
         invalid_name: '%{name} non è un nome di intestazione valido'
-        reserved: '%{name} è gestita da Chatwoot e non può essere impostata'
+        reserved: '%{name} è gestita da MagpieReply e non può essere impostata'
         invalid_value: 'il valore di %{name} deve essere un testo fisso fino a 1 KiB, senza segnaposto né caratteri di controllo'
       param_schema:
         invalid: 'deve elencare i parametri con campi noti e valori semplici'
@@ -688,7 +688,7 @@ it:
       custom_domain_not_configured: 'Il dominio personalizzato non è configurato'
   installation:
     onboarding:
-      heading: 'Ciao, benvenuto in Chatwoot 👋'
+      heading: 'Ciao, benvenuto in MagpieReply 👋'
       name: 'Nome'
       name_placeholder: 'Inserisci il tuo nome completo, es.: Bruce Wayne'
       company: 'Nome Azienda'
@@ -1013,7 +1013,7 @@ it:
       pages:
         general: 'Generale'
         internal: 'Interne'
-        internal_description: 'Chiavi e interruttori usati da Chatwoot Cloud'
+        internal_description: 'Chiavi e interruttori usati da MagpieReply Cloud'
       configure: 'Configura'
       enterprise_badge: 'EE'
       included: 'Incluso'
@@ -1023,7 +1023,7 @@ it:
       description: 'Aggiorna le impostazioni dell''istanza, accedi al portale di fatturazione'
       configure_title: 'Configura impostazioni - %{config}'
       alert: 'Attenzione!'
-      unauthorized_changes: 'Rilevate modifiche premium non autorizzate in Chatwoot. Per continuare a usarle, passa a un piano superiore.'
+      unauthorized_changes: 'Rilevate modifiche premium non autorizzate in MagpieReply. Per continuare a usarle, passa a un piano superiore.'
       contact_for_help: 'Contatti per assistenza:'
       agents_over_limit: 'Hai %{count} operatori. Aggiungi altre licenze per aggiungere altri utenti.'
       current_plan: 'Piano attuale'

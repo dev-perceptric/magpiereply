@@ -438,16 +438,16 @@ da:
       description: 'Dashboard Apps allow you to create and embed applications that display user information, orders, or payment history, providing more context to your customer support agents.'
     dyte:
       name: 'Cloudflare RealtimeKit'
-      short_description: 'Start video/voice calls with customers directly from Chatwoot.'
-      description: 'Cloudflare RealtimeKit lader dine agenter starte video/stemmeopkald med dine kunder direkte fra Chatwoot.'
+      short_description: 'Start video/voice calls with customers directly from MagpieReply.'
+      description: 'Cloudflare RealtimeKit lader dine agenter starte video/stemmeopkald med dine kunder direkte fra MagpieReply.'
       meeting_name: '%{agent_name} has started a meeting'
     slack:
       name: 'Slack'
       short_description: 'Receive notifications and respond to conversations directly in Slack.'
-      description: "Integrate Chatwoot with Slack to keep your team in sync. This integration allows you to receive notifications for new conversations and respond to them directly within Slack's interface."
+      description: "Integrate MagpieReply with Slack to keep your team in sync. This integration allows you to receive notifications for new conversations and respond to them directly within Slack's interface."
     webhooks:
       name: 'Webhooks'
-      description: 'Webhook events provide real-time updates about activities in your Chatwoot account. You can subscribe to your preferred events, and Chatwoot will send you HTTP callbacks with the updates.'
+      description: 'Webhook events provide real-time updates about activities in your MagpieReply account. You can subscribe to your preferred events, and MagpieReply will send you HTTP callbacks with the updates.'
     dialogflow:
       name: 'Dialogflow'
       short_description: 'Build chatbots to handle initial queries before transferring to agents.'
@@ -532,7 +532,7 @@ da:
         too_many: 'cannot contain more than %{limit} entries'
         duplicate: 'cannot repeat the same header name'
         invalid_name: '%{name} is not a valid header name'
-        reserved: '%{name} is managed by Chatwoot and cannot be set'
+        reserved: '%{name} is managed by MagpieReply and cannot be set'
         invalid_value: 'value for %{name} must be fixed text up to 1 KiB, without placeholders or control characters'
       param_schema:
         invalid: 'must list parameters with known fields and plain values'
@@ -688,7 +688,7 @@ da:
       custom_domain_not_configured: 'Custom domain is not configured'
   installation:
     onboarding:
-      heading: 'Howdy, Welcome to Chatwoot 👋'
+      heading: 'Howdy, Welcome to MagpieReply 👋'
       name: 'Navn'
       name_placeholder: 'Indtast dit fulde navn. fx: Bruce Wayne'
       company: 'Virksomhedens Navn'
@@ -1013,7 +1013,7 @@ da:
       pages:
         general: 'Generelt'
         internal: 'Internal'
-        internal_description: 'Keys and switches used by Chatwoot Cloud'
+        internal_description: 'Keys and switches used by MagpieReply Cloud'
       configure: 'Konfigurer'
       enterprise_badge: 'EE'
       included: 'Included'
@@ -1023,7 +1023,7 @@ da:
       description: 'Update your instance settings, access billing portal'
       configure_title: 'Configure Settings - %{config}'
       alert: 'Alert!'
-      unauthorized_changes: 'Unauthorized premium changes detected in Chatwoot. To keep using them, please upgrade your plan.'
+      unauthorized_changes: 'Unauthorized premium changes detected in MagpieReply. To keep using them, please upgrade your plan.'
       contact_for_help: 'Contact for help:'
       agents_over_limit: 'You have %{count} agents. Please add more licenses to add more users.'
       current_plan: 'Nuværende abonnement'

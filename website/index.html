@@ -355,7 +355,7 @@
 
 <span class="c"># Set your secrets and prepare the database</span>
 <span class="p">$</span> cp .env.example .env
-<span class="p">$</span> docker compose -f docker-compose.production.yaml run --rm rails bundle exec rails db:chatwoot_prepare
+<span class="p">$</span> docker compose -f docker-compose.production.yaml run --rm rails bundle exec rails db:magpiereply_prepare
 
 <span class="c"># Start it</span>
 <span class="p">$</span> docker compose -f docker-compose.production.yaml up -d</pre>
@@ -395,7 +395,7 @@
       </div>
       <div>
         <h4>Open source</h4>
-        <ul><li><a href="/open-source/">Self-host</a></li><li><a href="https://github.com/dev-perceptric/magpiereply">Source code</a></li><li><a href="https://github.com/chatwoot/chatwoot">Built on Chatwoot</a></li></ul>
+        <ul><li><a href="/open-source/">Self-host</a></li><li><a href="https://github.com/dev-perceptric/magpiereply">Source code</a></li></ul>
       </div>
       <div>
         <h4>Company</h4>

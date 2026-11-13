@@ -67,7 +67,7 @@
     "TWILIO_WHATSAPP_CAN_REPLY": "Erre a beszélgetésre csak konzerv válasszal válaszolhatsz, mert",
     "TWILIO_WHATSAPP_24_HOURS_WINDOW": "24 órás üzeneti ablak megkötés",
     "OLD_INSTAGRAM_INBOX_REPLY_BANNER": "This Instagram account was migrated to the new Instagram channel inbox. All new messages will show up there. You won’t be able to send messages from this conversation anymore.",
-    "INSTAGRAM_RESTRICTION_BANNER": "Az Instagramon zajló üzenetküldést jelenleg a Meta oldalán fellépő API szintű probléma érinti, nem a Chatwoot hibája. Egyes üzenetek vagy műveletek késhetnek vagy átmenetileg nem érhetők el. A hiba mielőbbi elhárításán szorosan együttműködünk a Metával.",
+    "INSTAGRAM_RESTRICTION_BANNER": "Az Instagramon zajló üzenetküldést jelenleg a Meta oldalán fellépő API szintű probléma érinti, nem a MagpieReply hibája. Egyes üzenetek vagy műveletek késhetnek vagy átmenetileg nem érhetők el. A hiba mielőbbi elhárításán szorosan együttműködünk a Metával.",
     "INSTAGRAM_RESTRICTION_STATUS_LINK": "Állapotfrissítések megtekintése",
     "REPLYING_TO": "Neki válaszolsz:",
     "REMOVE_SELECTION": "Kijelölés törlése",
@@ -379,7 +379,7 @@
     "SENT_BY": "Küldő:",
     "BOT": "Bot",
     "NATIVE_APP": "Native app",
-    "NATIVE_APP_ADVISORY": "This message was sent from the native app. Reply from Chatwoot to maintain the message window.",
+    "NATIVE_APP_ADVISORY": "This message was sent from the native app. Reply from MagpieReply to maintain the message window.",
     "SEND_FAILED": "Nem sikerült elküldeni az üzenetet! Próbáld újra.",
     "TRY_AGAIN": "újra",
     "ASSIGNMENT": {

@@ -4,8 +4,8 @@
     "TITLE": "Stripe",
     "DESCRIPTION": "View customer details, subscriptions, and invoices alongside your conversations.",
     "CONNECT": "Ühenda",
-    "DISCONNECT": "Disconnect from Chatwoot",
-    "DISCONNECT_NOTE": "Disconnecting removes the saved credentials from Chatwoot. Uninstall the app in Stripe to revoke its access there.",
+    "DISCONNECT": "Disconnect from MagpieReply",
+    "DISCONNECT_NOTE": "Disconnecting removes the saved credentials from MagpieReply. Uninstall the app in Stripe to revoke its access there.",
     "CONNECTED": "Connected",
     "RECONNECT": "Reconnect Stripe",
     "REAUTHORIZATION_REQUIRED": "Reconnect required",
@@ -67,7 +67,7 @@
       },
       "HELP_TEXT": {
         "TITLE": "How to use the Shopify Integration?",
-        "BODY": "With this integration, your Shopify store ***{storeDomain}*** is connected to your Chatwoot workspace. Here's what you can do:\n\n**Track orders in conversations:** When you open a conversation, the Shopify sidebar will automatically display recent orders for the customer based on their email address. This gives your support team instant context without switching tabs.\n\n**Access order details:** View order status, fulfillment status, and total amount directly within the conversation panel."
+        "BODY": "With this integration, your Shopify store ***{storeDomain}*** is connected to your MagpieReply workspace. Here's what you can do:\n\n**Track orders in conversations:** When you open a conversation, the Shopify sidebar will automatically display recent orders for the customer based on their email address. This gives your support team instant context without switching tabs.\n\n**Access order details:** View order status, fulfillment status, and total amount directly within the conversation panel."
       },
       "ERROR": "Shopifyga ühendamisel tekkis viga. Palun proovi uuesti või võta ühendust klienditoega, kui probleem püsib.",
       "PENDING_INSTALL": {
@@ -81,7 +81,7 @@
       }
     },
     "HEADER": "Integratsioonid",
-    "DESCRIPTION": "Chatwoot integreerub mitmete tööriistade ja teenustega, et parandada teie meeskonna efektiivsust. Uuri allolevat nimekirja, et seadistada oma lemmikrakendused.",
+    "DESCRIPTION": "MagpieReply integreerub mitmete tööriistade ja teenustega, et parandada teie meeskonna efektiivsust. Uuri allolevat nimekirja, et seadistada oma lemmikrakendused.",
     "LEARN_MORE": "Lisateave integratsioonide kohta",
     "LOADING": "Laaditakse integratsioone",
     "SEARCH_PLACEHOLDER": "Search integrations...",
@@ -97,7 +97,7 @@
       "LEARN_MORE": "Lisateave veebikonksude kohta",
       "PAYWALL": {
         "TITLE": "Webhooks are available on paid plans",
-        "AVAILABLE_ON": "Use webhooks to receive real-time events from your Chatwoot account.",
+        "AVAILABLE_ON": "Use webhooks to receive real-time events from your MagpieReply account.",
         "UPGRADE_PROMPT": "Upgrade to the Startups, Business, or Enterprise plan to use webhooks.",
         "UPGRADE_NOW": "Upgrade now",
         "CANCEL_ANYTIME": "Change or cancel your plan anytime."
@@ -115,7 +115,7 @@
       "NO_RESULTS": "No webhooks found matching your search",
       "FORM": {
         "CANCEL": "Tühista",
-        "DESC": "Webhooki sündmused annavad teile reaalajas teavet selle kohta, mis teie Chatwoot kontol toimub. Palun sisestage kehtiv URL, et seadistada tagasikutsumine.",
+        "DESC": "Webhooki sündmused annavad teile reaalajas teavet selle kohta, mis teie MagpieReply kontol toimub. Palun sisestage kehtiv URL, et seadistada tagasikutsumine.",
         "SUBSCRIPTIONS": {
           "LABEL": "Sündmused",
           "EVENTS": {
@@ -150,7 +150,7 @@
       "HEADER_BTN_TXT": "Lisa uus webhook",
       "LOADING": "Laaditakse seotud webhooke",
       "SEARCH_404": "Ühtegi selle päringuga sobivat elementi ei leitud",
-      "SIDEBAR_TXT": "<p><b>Webhookid</b> </p> <p>Webhookid on HTTP tagasikutsed, mida saab määratleda iga konto jaoks. Neid käivitavad sündmused, nagu sõnumi loomine Chatwootis. Selle konto jaoks saab luua rohkem kui ühe webhooki. <br /><br /> Uue <b>webhooki</b> loomiseks klõpsake nuppu <b>Lisa uus webhook</b>. Olemasoleva webhooki saate kustutada, klõpsates nuppu Kustuta.</p>",
+      "SIDEBAR_TXT": "<p><b>Webhookid</b> </p> <p>Webhookid on HTTP tagasikutsed, mida saab määratleda iga konto jaoks. Neid käivitavad sündmused, nagu sõnumi loomine MagpieReplyis. Selle konto jaoks saab luua rohkem kui ühe webhooki. <br /><br /> Uue <b>webhooki</b> loomiseks klõpsake nuppu <b>Lisa uus webhook</b>. Olemasoleva webhooki saate kustutada, klõpsates nuppu Kustuta.</p>",
       "LIST": {
         "404": "Selle konto jaoks pole ühtegi webhooki seadistatud.",
         "TITLE": "Halda webhooke",
@@ -198,8 +198,8 @@
       },
       "HELP_TEXT": {
         "TITLE": "Kuidas kasutada Slack integratsiooni?",
-        "BODY": "Selle integratsiooni abil sünkroonitakse kõik teie saabuvad vestlused Slacki tööruumi kanali ***{selectedChannelName}*** alla. Saate hallata kõiki kliendivestlusi otse selles kanalis ega jää kunagi sõnumist ilma.\n\nPeamised integratsiooni funktsioonid on järgmised:\n\n**Vastake vestlustele otse Slackis:** Vestlusele vastamiseks kanalis ***{selectedChannelName}*** tippige lihtsalt oma sõnum ja saatke see lõimena. See saadab vastuse kliendile Chatwooti kaudu. Nii lihtne see ongi!\n\n**Looge privaatmärkmeid:** Kui soovite vastuste asemel luua privaatseid märkmeid, alustage oma sõnumit ***`note:`***-ga. See tagab, et teie sõnum jääb privaatseks ega ole kliendi jaoks nähtav.\n\n**Seostage agendi profiil:** Kui Slackis vastanud isikul on Chatwootis sama e-posti aadressiga agendi profiil, seostatakse vastused automaatselt selle profiiliga. Nii saate hõlpsasti jälgida, kes mida ja millal ütles. Kui vastajal puudub seotud agendi profiil, kuvatakse vastused kliendile boti profiililt.",
-        "BODY_ALERT": "With this integration, all of your incoming conversations will be synced to the ***{selectedChannelName}*** channel in your Slack workspace, so your team can pick them up as soon as they come in.\n\nThis integration is set to **Alerts only**, which means the Slack thread is a safe space for internal discussion. Anything your team posts there stays in Slack and is never sent to the customer.\n\n**Respond to the customer from Chatwoot:** Open the conversation from the link shared in the thread and reply from the Chatwoot dashboard. Replies and private notes added in Chatwoot keep appearing in the Slack thread, so everyone stays in the loop.",
+        "BODY": "Selle integratsiooni abil sünkroonitakse kõik teie saabuvad vestlused Slacki tööruumi kanali ***{selectedChannelName}*** alla. Saate hallata kõiki kliendivestlusi otse selles kanalis ega jää kunagi sõnumist ilma.\n\nPeamised integratsiooni funktsioonid on järgmised:\n\n**Vastake vestlustele otse Slackis:** Vestlusele vastamiseks kanalis ***{selectedChannelName}*** tippige lihtsalt oma sõnum ja saatke see lõimena. See saadab vastuse kliendile MagpieReplyi kaudu. Nii lihtne see ongi!\n\n**Looge privaatmärkmeid:** Kui soovite vastuste asemel luua privaatseid märkmeid, alustage oma sõnumit ***`note:`***-ga. See tagab, et teie sõnum jääb privaatseks ega ole kliendi jaoks nähtav.\n\n**Seostage agendi profiil:** Kui Slackis vastanud isikul on MagpieReplyis sama e-posti aadressiga agendi profiil, seostatakse vastused automaatselt selle profiiliga. Nii saate hõlpsasti jälgida, kes mida ja millal ütles. Kui vastajal puudub seotud agendi profiil, kuvatakse vastused kliendile boti profiililt.",
+        "BODY_ALERT": "With this integration, all of your incoming conversations will be synced to the ***{selectedChannelName}*** channel in your Slack workspace, so your team can pick them up as soon as they come in.\n\nThis integration is set to **Alerts only**, which means the Slack thread is a safe space for internal discussion. Anything your team posts there stays in Slack and is never sent to the customer.\n\n**Respond to the customer from MagpieReply:** Open the conversation from the link shared in the thread and reply from the MagpieReply dashboard. Replies and private notes added in MagpieReply keep appearing in the Slack thread, so everyone stays in the loop.",
         "SELECTED": "valitud"
       },
       "MESSAGE_MODE": {
@@ -221,7 +221,7 @@
         "OPTION_LABEL": "Vali kanal",
         "UPDATE": "Uuenda",
         "BUTTON_TEXT": "Ühenda kanal",
-        "DESCRIPTION": "Sinu Slack töölaua ühendus on nüüd Chatwootiga loodud. Kuid integratsioon on hetkel inaktiivne. Integratsiooni aktiveerimiseks ja kanali ühendamiseks Chatwootiga palun klõpsa alloleval nupul.\n\n**Märkus:** Kui üritad ühendada privaatset kanalit, lisa Chatwoot rakendus Slacki kanalile enne selle sammu jätkamist.",
+        "DESCRIPTION": "Sinu Slack töölaua ühendus on nüüd MagpieReplyiga loodud. Kuid integratsioon on hetkel inaktiivne. Integratsiooni aktiveerimiseks ja kanali ühendamiseks MagpieReplyiga palun klõpsa alloleval nupul.\n\n**Märkus:** Kui üritad ühendada privaatset kanalit, lisa MagpieReply rakendus Slacki kanalile enne selle sammu jätkamist.",
         "ATTENTION_REQUIRED": "Nõuab tähelepanu",
         "EXPIRED": "Sinu Slack integratsioon on aegunud. Et jätkata sõnumite vastuvõtmist Slackis, palun kustuta integratsioon ja ühenda oma töölaua uuesti."
       },
@@ -323,7 +323,7 @@
     "DASHBOARD_APPS": {
       "TITLE": "Töölaudade rakendused",
       "HEADER_BTN_TXT": "Lisa uus töölauda rakendus",
-      "SIDEBAR_TXT": "<p><b>Töölauda rakendused</b></p><p>Töölauda rakendused võimaldavad organisatsioonidel manustada rakenduse Chatwoot töölauda, et pakkuda klienditoe agentidele konteksti. See funktsioon võimaldab teil luua rakenduse iseseisvalt ja manustada selle töölauda, et kuvada kasutajaandmeid, nende tellimusi või varasemaid makseajalugu.</p><p>Kui manustate oma rakenduse Chatwoot töölauda, saab teie rakendus vestluse ja kontakti konteksti aknasündmusena. Rakendusel tuleb lehel rakendada sõnumisündmuse kuulaja, et konteksti vastu võtta.</p><p>Uue töölauda rakenduse lisamiseks klõpsake nuppu 'Lisa uus töölauda rakendus'.</p>",
+      "SIDEBAR_TXT": "<p><b>Töölauda rakendused</b></p><p>Töölauda rakendused võimaldavad organisatsioonidel manustada rakenduse MagpieReply töölauda, et pakkuda klienditoe agentidele konteksti. See funktsioon võimaldab teil luua rakenduse iseseisvalt ja manustada selle töölauda, et kuvada kasutajaandmeid, nende tellimusi või varasemaid makseajalugu.</p><p>Kui manustate oma rakenduse MagpieReply töölauda, saab teie rakendus vestluse ja kontakti konteksti aknasündmusena. Rakendusel tuleb lehel rakendada sõnumisündmuse kuulaja, et konteksti vastu võtta.</p><p>Uue töölauda rakenduse lisamiseks klõpsake nuppu 'Lisa uus töölauda rakendus'.</p>",
       "DESCRIPTION": "Töölauda rakendused võimaldavad organisatsioonidel manustada rakenduse töölauda, et pakkuda klienditoe agentidele konteksti. See funktsioon võimaldab teil luua rakenduse iseseisvalt ja manustada selle, et kuvada kasutajaandmeid, nende tellimusi või varasemaid makseajalugu.",
       "LEARN_MORE": "Lisateave Dashboardi rakenduste kohta",
       "COUNT": "{n} dashboard app | {n} dashboard apps",
@@ -1584,7 +1584,7 @@
           "ADD": "Add verified email",
           "EMAIL": "Contact email",
           "EMAIL_DESCRIPTION": "The contact's verified email address",
-          "HELP": "Filled by Chatwoot from the email the contact confirmed with a one-time code. Captain cannot see or change it in customer conversations."
+          "HELP": "Filled by MagpieReply from the email the contact confirmed with a one-time code. Captain cannot see or change it in customer conversations."
         },
         "REQUEST_TEMPLATE": {
           "LABEL": "Request Body Template (Optional)",

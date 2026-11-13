@@ -160,12 +160,12 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "您现在可以在您的自定义域名的电子邮件中接收消息。"
       }
     },
-    "UPDATE_CHATWOOT": "Chatwoot 有可用更新{latestChatwootVersion}，请更新您的应用。",
+    "UPDATE_CHATWOOT": "MagpieReply 有可用更新{latestChatwootVersion}，请更新您的应用。",
     "LEARN_MORE": "了解更多",
     "PAYMENT_PENDING": "Your account payment is past due. Please update your payment information to avoid subscription cancellation.",
     "PAYMENT_PENDING_AGENT": "Your account payment is past due. Please contact your administrator to resolve it.",
-    "UPGRADE": "升级以继续使用 Chatwoot",
-    "LIMITS_UPGRADE": "您的账户已超过使用限制，请升级您的计划以继续使用Chatwoot",
+    "UPGRADE": "升级以继续使用 MagpieReply",
+    "LIMITS_UPGRADE": "您的账户已超过使用限制，请升级您的计划以继续使用MagpieReply",
     "OPEN_BILLING": "查看计费"
   },
   "FORMS": {

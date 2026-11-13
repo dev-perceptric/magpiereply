@@ -438,16 +438,16 @@ ko:
       description: '대시보드 앱을 사용하면 사용자 정보, 주문 또는 결제 내역을 표시하는 애플리케이션을 만들고 포함하여 고객 지원 에이전트에게 더 많은 컨텍스트를 제공할 수 있습니다.'
     dyte:
       name: 'Dyte'
-      short_description: 'Chatwoot에서 직접 고객과 영상/음성 통화를 시작합니다.'
-      description: 'Dyte는 애플리케이션에 오디오 및 비디오 기능을 통합하는 제품입니다. 이 통합을 사용하면 에이전트가 Chatwoot에서 직접 고객과 영상/음성 통화를 시작할 수 있습니다.'
+      short_description: 'MagpieReply에서 직접 고객과 영상/음성 통화를 시작합니다.'
+      description: 'Dyte는 애플리케이션에 오디오 및 비디오 기능을 통합하는 제품입니다. 이 통합을 사용하면 에이전트가 MagpieReply에서 직접 고객과 영상/음성 통화를 시작할 수 있습니다.'
       meeting_name: '%{agent_name}님이 회의를 시작했습니다'
     slack:
       name: 'Slack'
       short_description: 'Slack에서 직접 알림을 받고 대화에 응답합니다.'
-      description: "Chatwoot을 Slack과 통합하여 팀의 동기화를 유지합니다. 이 통합을 통해 새 대화에 대한 알림을 받고 Slack 인터페이스에서 직접 응답할 수 있습니다."
+      description: "MagpieReply을 Slack과 통합하여 팀의 동기화를 유지합니다. 이 통합을 통해 새 대화에 대한 알림을 받고 Slack 인터페이스에서 직접 응답할 수 있습니다."
     webhooks:
       name: 'Webhooks'
-      description: 'Webhook 이벤트는 Chatwoot 계정의 활동에 대한 실시간 업데이트를 제공합니다. 원하는 이벤트를 구독하면 Chatwoot이 업데이트와 함께 HTTP 콜백을 전송합니다.'
+      description: 'Webhook 이벤트는 MagpieReply 계정의 활동에 대한 실시간 업데이트를 제공합니다. 원하는 이벤트를 구독하면 MagpieReply이 업데이트와 함께 HTTP 콜백을 전송합니다.'
     dialogflow:
       name: 'Dialogflow'
       short_description: '에이전트에게 전달하기 전에 초기 문의를 처리할 챗봇을 구축합니다.'
@@ -532,7 +532,7 @@ ko:
         too_many: 'cannot contain more than %{limit} entries'
         duplicate: 'cannot repeat the same header name'
         invalid_name: '%{name} is not a valid header name'
-        reserved: '%{name} is managed by Chatwoot and cannot be set'
+        reserved: '%{name} is managed by MagpieReply and cannot be set'
         invalid_value: 'value for %{name} must be fixed text up to 1 KiB, without placeholders or control characters'
       param_schema:
         invalid: 'must list parameters with known fields and plain values'
@@ -683,7 +683,7 @@ ko:
       custom_domain_not_configured: '사용자 정의 도메인이 구성되지 않았습니다'
   installation:
     onboarding:
-      heading: 'Howdy, Welcome to Chatwoot 👋'
+      heading: 'Howdy, Welcome to MagpieReply 👋'
       name: '이름'
       name_placeholder: '전체 이름을 입력합니다. 예: Taeyeon Kim'
       company: '회사명'
@@ -1006,7 +1006,7 @@ ko:
       pages:
         general: '일반'
         internal: 'Internal'
-        internal_description: 'Keys and switches used by Chatwoot Cloud'
+        internal_description: 'Keys and switches used by MagpieReply Cloud'
       configure: '구성'
       enterprise_badge: 'EE'
       included: 'Included'
@@ -1016,7 +1016,7 @@ ko:
       description: 'Update your instance settings, access billing portal'
       configure_title: 'Configure Settings - %{config}'
       alert: 'Alert!'
-      unauthorized_changes: 'Unauthorized premium changes detected in Chatwoot. To keep using them, please upgrade your plan.'
+      unauthorized_changes: 'Unauthorized premium changes detected in MagpieReply. To keep using them, please upgrade your plan.'
       contact_for_help: 'Contact for help:'
       agents_over_limit: 'You have %{count} agents. Please add more licenses to add more users.'
       current_plan: 'Current plan'

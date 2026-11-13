@@ -430,7 +430,7 @@
         "SLUG": {
           "LABEL": "Slug",
           "PLACEHOLDER": "Slug de catégorie pour les URL",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/fr-FR/categories/my-slug",
+          "HELP_TEXT": "app.magpiereply.com/hc/my-portal/fr-FR/categories/my-slug",
           "ERROR": "Le Slug est requis"
         },
         "DESCRIPTION": {
@@ -461,7 +461,7 @@
         "SLUG": {
           "LABEL": "Slug",
           "PLACEHOLDER": "Slug de catégorie pour les URL",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/fr-FR/categories/my-slug",
+          "HELP_TEXT": "app.magpiereply.com/hc/my-portal/fr-FR/categories/my-slug",
           "ERROR": "Le Slug est requis"
         },
         "DESCRIPTION": {
@@ -698,7 +698,7 @@
             "LABEL": "Slug",
             "PLACEHOLDER": "Slug de catégorie pour les URL",
             "ERROR": "Le Slug est requis",
-            "HELP_TEXT": "app.chatwoot.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
+            "HELP_TEXT": "app.magpiereply.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
           },
           "DESCRIPTION": {
             "LABEL": "Description",
@@ -867,7 +867,7 @@
       "CONFIRM_BUTTON_LABEL": "Créer",
       "NAME": {
         "LABEL": "Nom",
-        "PLACEHOLDER": "Guide d'utilisation | Chatwoot",
+        "PLACEHOLDER": "Guide d'utilisation | MagpieReply",
         "MESSAGE": "Choisissez un nom pour votre portail.",
         "ERROR": "Le nom est requis"
       },
@@ -941,7 +941,7 @@
           },
           "DNS_CONFIGURATION_DIALOG": {
             "HEADER": "Configuration DNS",
-            "DESCRIPTION": "Connectez-vous à votre compte auprès de votre fournisseur DNS, puis ajoutez un enregistrement CNAME qui fait pointer le sous-domaine vers chatwoot.help",
+            "DESCRIPTION": "Connectez-vous à votre compte auprès de votre fournisseur DNS, puis ajoutez un enregistrement CNAME qui fait pointer le sous-domaine vers app.magpiereply.com",
             "COPY": "CNAME copié avec succès",
             "SEND_INSTRUCTIONS": {
               "HEADER": "Envoyer les instructions",
@@ -990,7 +990,7 @@
         "HEADER": "Intégrations",
         "DESCRIPTION": "Connectez des outils qui étendent ce que votre centre d'aide peut faire.",
         "LIVE_CHAT": {
-          "TITLE": "Chat en direct avec Chatwoot",
+          "TITLE": "Chat en direct avec MagpieReply",
           "DESCRIPTION": "Montrez un widget de chat en direct sur votre centre d'aide pour que les visiteurs puissent vous joindre pendant qu'ils lisent.",
           "PLACEHOLDER": "Sélectionnez le widget de chat en direct",
           "NONE_OPTION": "Aucun widget"

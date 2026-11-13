@@ -68,8 +68,9 @@ class Api::V1::AccountsController < Api::BaseController
 
   private
 
+  # The hub reports upstream release numbers, which aren't MagpieReply releases, so no update banner shows.
   def latest_chatwoot_version
-    Redis::Alfred.get(Redis::Alfred::LATEST_CHATWOOT_VERSION)
+    nil
   end
 
   def account_builder_params

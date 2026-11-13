@@ -2,7 +2,7 @@ export default [
   {
     id: 12,
     content:
-      'This tutorial will show you how to use Chatwoot and, hence, ensure you practice effective customer communication. We will explain in detail the following:\n\n* Step-by-step setup of your account, with illustrative screenshots.\n\n* An in-depth explanation of all the core features of Chatwoot.\n\n* Get your account up and running by the end of this tutorial.\n\n* Basic concepts of customer communication.',
+      'This tutorial will show you how to use MagpieReply and, hence, ensure you practice effective customer communication. We will explain in detail the following:\n\n* Step-by-step setup of your account, with illustrative screenshots.\n\n* An in-depth explanation of all the core features of MagpieReply.\n\n* Get your account up and running by the end of this tutorial.\n\n* Basic concepts of customer communication.',
     accountId: null,
     contactId: null,
     user: {

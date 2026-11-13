@@ -430,7 +430,7 @@
         "SLUG": {
           "LABEL": "슬러그",
           "PLACEHOLDER": "URL용 카테고리 슬러그",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.magpiereply.com/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "슬러그가 필요합니다"
         },
         "DESCRIPTION": {
@@ -461,7 +461,7 @@
         "SLUG": {
           "LABEL": "슬러그",
           "PLACEHOLDER": "URL용 카테고리 슬러그",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.magpiereply.com/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "슬러그가 필요합니다"
         },
         "DESCRIPTION": {
@@ -698,7 +698,7 @@
             "LABEL": "슬러그",
             "PLACEHOLDER": "URL용 카테고리 슬러그",
             "ERROR": "슬러그가 필요합니다",
-            "HELP_TEXT": "app.chatwoot.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
+            "HELP_TEXT": "app.magpiereply.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
           },
           "DESCRIPTION": {
             "LABEL": "설명",
@@ -867,7 +867,7 @@
       "CONFIRM_BUTTON_LABEL": "만들기",
       "NAME": {
         "LABEL": "이름",
-        "PLACEHOLDER": "사용자 가이드 | Chatwoot",
+        "PLACEHOLDER": "사용자 가이드 | MagpieReply",
         "MESSAGE": "포털의 이름을 선택하십시오.",
         "ERROR": "이름이 필요합니다"
       },
@@ -990,7 +990,7 @@
         "HEADER": "통합",
         "DESCRIPTION": "Connect tools that extend what your help center can do.",
         "LIVE_CHAT": {
-          "TITLE": "Live chat with Chatwoot",
+          "TITLE": "Live chat with MagpieReply",
           "DESCRIPTION": "Show a live chat widget on your help center so visitors can reach you while they read.",
           "PLACEHOLDER": "실시간 채팅 위젯 선택",
           "NONE_OPTION": "위젯 없음"

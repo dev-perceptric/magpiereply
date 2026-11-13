@@ -627,11 +627,11 @@
     "NO_BILLING_USER": "청구 계정이 구성 중입니다. 페이지를 새로고침하고 다시 시도하십시오.",
     "SHOPIFY": {
       "TITLE": "Billing through Shopify",
-      "DESCRIPTION": "Your Chatwoot subscription is billed and managed securely through Shopify.",
+      "DESCRIPTION": "Your MagpieReply subscription is billed and managed securely through Shopify.",
       "UNAVAILABLE": "Shopify billing is unavailable right now. Please contact support if this continues.",
       "LOADING": "Checking your Shopify subscription...",
       "PLAN_TITLE": "Shopify subscription",
-      "PLAN_DESCRIPTION": "Choose or manage your Chatwoot plan securely in Shopify.",
+      "PLAN_DESCRIPTION": "Choose or manage your MagpieReply plan securely in Shopify.",
       "CURRENT_PLAN": "Current plan",
       "SUBSCRIPTION_STATUS": "상태",
       "PRICE": "Price",
@@ -713,7 +713,7 @@
       "SP_ENTITY_ID": {
         "LABEL": "SP 엔터티 ID",
         "HELP": "서비스 제공자로서 이 애플리케이션의 고유 식별자 (자동 생성).",
-        "TOOLTIP": "서비스 제공자로서의 Chatwoot 고유 식별자 - IdP 설정에서 이를 구성하십시오"
+        "TOOLTIP": "서비스 제공자로서의 MagpieReply 고유 식별자 - IdP 설정에서 이를 구성하십시오"
       },
       "IDP_ENTITY_ID": {
         "LABEL": "ID 공급자 엔터티 ID",
@@ -808,7 +808,7 @@
     }
   },
   "CREATE_ACCOUNT": {
-    "NO_ACCOUNT_WARNING": "Chatwoot 계정을 찾을 수 없습니다. 계속하려면 새 계정을 만드십시오.",
+    "NO_ACCOUNT_WARNING": "MagpieReply 계정을 찾을 수 없습니다. 계속하려면 새 계정을 만드십시오.",
     "NEW_ACCOUNT": "새 계정",
     "SELECTOR_SUBTITLE": "새 계정 만들기",
     "API": {

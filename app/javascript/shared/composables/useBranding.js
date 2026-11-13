@@ -9,7 +9,7 @@ const PRODUCT_NAME_PATTERN = /magpiereply|chatwoot/gi;
 export function useBranding() {
   const globalConfig = useMapGetter('globalConfig/get');
   /**
-   * Replaces the product name, "MagpieReply" or the upstream "Chatwoot"
+   * Replaces the product name, "MagpieReply" or the upstream product name
    * (any casing), in text with the installation name from global config
    * @param {string} text - The text to process
    * @returns {string} - Text with the product name replaced by installation name

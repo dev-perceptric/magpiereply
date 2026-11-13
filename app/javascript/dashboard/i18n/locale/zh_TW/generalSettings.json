@@ -160,12 +160,12 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "您現在可以在自訂網域的信箱中接收郵件。"
       }
     },
-    "UPDATE_CHATWOOT": "Chatwoot 有新版本 {latestChatwootVersion} 可供更新，請更新您的執行個體。",
+    "UPDATE_CHATWOOT": "MagpieReply 有新版本 {latestChatwootVersion} 可供更新，請更新您的執行個體。",
     "LEARN_MORE": "瞭解更多",
     "PAYMENT_PENDING": "Your account payment is past due. Please update your payment information to avoid subscription cancellation.",
     "PAYMENT_PENDING_AGENT": "Your account payment is past due. Please contact your administrator to resolve it.",
-    "UPGRADE": "升級以繼續使用 Chatwoot",
-    "LIMITS_UPGRADE": "您的帳戶已超過使用量上限，請升級方案以繼續使用 Chatwoot",
+    "UPGRADE": "升級以繼續使用 MagpieReply",
+    "LIMITS_UPGRADE": "您的帳戶已超過使用量上限，請升級方案以繼續使用 MagpieReply",
     "OPEN_BILLING": "開啟帳單"
   },
   "FORMS": {

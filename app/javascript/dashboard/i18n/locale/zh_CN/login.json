@@ -1,6 +1,6 @@
 {
   "LOGIN": {
-    "TITLE": "登录到Chatwoot",
+    "TITLE": "登录到MagpieReply",
     "EMAIL": {
       "LABEL": "电子邮件",
       "PLACEHOLDER": "实例 {'@'}companyname.com",

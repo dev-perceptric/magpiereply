@@ -4,8 +4,8 @@
     "TITLE": "Stripe",
     "DESCRIPTION": "Visualizza dettagli cliente, abbonamenti e fatture accanto alle tue conversazioni.",
     "CONNECT": "Connetti",
-    "DISCONNECT": "Disconnetti da Chatwoot",
-    "DISCONNECT_NOTE": "La disconnessione rimuove le credenziali salvate da Chatwoot. Disinstalla l'app in Stripe per revocarne l'accesso anche lì.",
+    "DISCONNECT": "Disconnetti da MagpieReply",
+    "DISCONNECT_NOTE": "La disconnessione rimuove le credenziali salvate da MagpieReply. Disinstalla l'app in Stripe per revocarne l'accesso anche lì.",
     "CONNECTED": "Collegato",
     "RECONNECT": "Ricollega Stripe",
     "REAUTHORIZATION_REQUIRED": "Ricollegamento necessario",
@@ -67,7 +67,7 @@
       },
       "HELP_TEXT": {
         "TITLE": "Come si usa l'integrazione Shopify?",
-        "BODY": "Con questa integrazione, il tuo negozio Shopify ***{storeDomain}*** è collegato al tuo spazio di lavoro Chatwoot. Ecco cosa puoi fare:\n\n**Seguire gli ordini nelle conversazioni:** quando apri una conversazione, la barra laterale di Shopify mostra automaticamente gli ordini recenti del cliente in base al suo indirizzo email. Così il tuo team di assistenza ha subito il contesto senza cambiare scheda.\n\n**Vedere i dettagli degli ordini:** stato dell'ordine, stato di evasione e importo totale direttamente nel pannello della conversazione."
+        "BODY": "Con questa integrazione, il tuo negozio Shopify ***{storeDomain}*** è collegato al tuo spazio di lavoro MagpieReply. Ecco cosa puoi fare:\n\n**Seguire gli ordini nelle conversazioni:** quando apri una conversazione, la barra laterale di Shopify mostra automaticamente gli ordini recenti del cliente in base al suo indirizzo email. Così il tuo team di assistenza ha subito il contesto senza cambiare scheda.\n\n**Vedere i dettagli degli ordini:** stato dell'ordine, stato di evasione e importo totale direttamente nel pannello della conversazione."
       },
       "ERROR": "Si è verificato un errore nella connessione a Shopify. Si prega di riprovare o contattare il supporto se il problema persiste.",
       "PENDING_INSTALL": {
@@ -81,7 +81,7 @@
       }
     },
     "HEADER": "Integrazioni",
-    "DESCRIPTION": "Chatwoot si integra con più strumenti e servizi per migliorare l'efficienza del tuo team. Esplora l'elenco qui sotto per configurare le tue app preferite.",
+    "DESCRIPTION": "MagpieReply si integra con più strumenti e servizi per migliorare l'efficienza del tuo team. Esplora l'elenco qui sotto per configurare le tue app preferite.",
     "LEARN_MORE": "Scopri di più sulle integrazioni",
     "LOADING": "Caricamento integrazioni",
     "SEARCH_PLACEHOLDER": "Cerca integrazioni...",
@@ -97,7 +97,7 @@
       "LEARN_MORE": "Scopri di più sui webhooks",
       "PAYWALL": {
         "TITLE": "I webhook sono disponibili nei piani a pagamento",
-        "AVAILABLE_ON": "Usa i webhook per ricevere in tempo reale gli eventi del tuo account Chatwoot.",
+        "AVAILABLE_ON": "Usa i webhook per ricevere in tempo reale gli eventi del tuo account MagpieReply.",
         "UPGRADE_PROMPT": "Passa al piano Startups, Business o Enterprise per usare i webhook.",
         "UPGRADE_NOW": "Aggiorna ora",
         "CANCEL_ANYTIME": "Puoi cambiare o disdire il piano in qualsiasi momento."
@@ -115,7 +115,7 @@
       "NO_RESULTS": "Nessun webhook trovato corrispondente alla tua ricerca",
       "FORM": {
         "CANCEL": "Annulla",
-        "DESC": "Gli eventi Webhook ti forniscono le informazioni in tempo reale su ciò che sta accadendo nel tuo account Chatwoot. Per favore inserisci un URL valido per configurare un callback.",
+        "DESC": "Gli eventi Webhook ti forniscono le informazioni in tempo reale su ciò che sta accadendo nel tuo account MagpieReply. Per favore inserisci un URL valido per configurare un callback.",
         "SUBSCRIPTIONS": {
           "LABEL": "Eventi",
           "EVENTS": {
@@ -150,7 +150,7 @@
       "HEADER_BTN_TXT": "Aggiungi nuovo webhook",
       "LOADING": "Recupero dei webhooks collegati",
       "SEARCH_404": "Non ci sono elementi che corrispondono a questa richiesta",
-      "SIDEBAR_TXT": "<p><b>Webhooks</b> </p> <p>I Webhooks sono callback HTTP che possono essere definiti per ogni account. Sono innescati da eventi come la creazione di messaggi in Chatwoot. Puoi creare più di un webhook per questo account. <br /><br /> Per creare un <b>webhook</b>, clicca sul pulsante <b>Aggiungi nuovo webhook</b>. Puoi anche rimuovere qualsiasi webhook esistente cliccando sul pulsante Elimina.</p>",
+      "SIDEBAR_TXT": "<p><b>Webhooks</b> </p> <p>I Webhooks sono callback HTTP che possono essere definiti per ogni account. Sono innescati da eventi come la creazione di messaggi in MagpieReply. Puoi creare più di un webhook per questo account. <br /><br /> Per creare un <b>webhook</b>, clicca sul pulsante <b>Aggiungi nuovo webhook</b>. Puoi anche rimuovere qualsiasi webhook esistente cliccando sul pulsante Elimina.</p>",
       "LIST": {
         "404": "Non ci sono webhook configurati per questo account.",
         "TITLE": "Gestisci webhook",
@@ -198,8 +198,8 @@
       },
       "HELP_TEXT": {
         "TITLE": "Stai utilizzando l'integrazione Slack",
-        "BODY": "Con questa integrazione, tutte le conversazioni in arrivo verranno sincronizzate nel canale ***{selectedChannelName}*** del tuo workspace Slack. Potrai gestire tutte le conversazioni con i clienti direttamente dal canale e non perderai mai un messaggio.\n\nEcco le principali funzionalità dell’integrazione:\n\n**Rispondi alle conversazioni direttamente da Slack:** Per rispondere a una conversazione nel canale Slack ***{selectedChannelName}***, ti basta scrivere il tuo messaggio e inviarlo come thread. Questo invierà automaticamente la risposta al cliente tramite Chatwoot. Semplice!\n\n**Crea note private:** Se vuoi aggiungere note private invece di risposte, inizia il messaggio con ***`note:`***. In questo modo il messaggio resterà privato e non sarà visibile al cliente.\n\n**Associa un profilo operatore:** Se la persona che risponde su Slack ha un profilo operatore in app con lo stesso indirizzo email, le risposte verranno associate automaticamente a quel profilo. In questo modo potrai sapere facilmente chi ha risposto e quando. Se invece chi risponde non ha un profilo operatore associato, le risposte verranno inviate al cliente dal profilo del bot.",
-        "BODY_ALERT": "Con questa integrazione, tutte le conversazioni in arrivo vengono sincronizzate nel canale ***{selectedChannelName}*** del tuo spazio di lavoro Slack, così il tuo team può prenderle in carico appena arrivano.\n\nQuesta integrazione è impostata su **Solo avvisi**, quindi il thread di Slack è uno spazio sicuro per la discussione interna. Quello che il tuo team scrive lì resta in Slack e non viene mai inviato al cliente.\n\n**Rispondi al cliente da Chatwoot:** apri la conversazione dal link condiviso nel thread e rispondi dalla dashboard di Chatwoot. Le risposte e le note private aggiunte in Chatwoot continuano a comparire nel thread di Slack, così tutti restano aggiornati.",
+        "BODY": "Con questa integrazione, tutte le conversazioni in arrivo verranno sincronizzate nel canale ***{selectedChannelName}*** del tuo workspace Slack. Potrai gestire tutte le conversazioni con i clienti direttamente dal canale e non perderai mai un messaggio.\n\nEcco le principali funzionalità dell’integrazione:\n\n**Rispondi alle conversazioni direttamente da Slack:** Per rispondere a una conversazione nel canale Slack ***{selectedChannelName}***, ti basta scrivere il tuo messaggio e inviarlo come thread. Questo invierà automaticamente la risposta al cliente tramite MagpieReply. Semplice!\n\n**Crea note private:** Se vuoi aggiungere note private invece di risposte, inizia il messaggio con ***`note:`***. In questo modo il messaggio resterà privato e non sarà visibile al cliente.\n\n**Associa un profilo operatore:** Se la persona che risponde su Slack ha un profilo operatore in app con lo stesso indirizzo email, le risposte verranno associate automaticamente a quel profilo. In questo modo potrai sapere facilmente chi ha risposto e quando. Se invece chi risponde non ha un profilo operatore associato, le risposte verranno inviate al cliente dal profilo del bot.",
+        "BODY_ALERT": "Con questa integrazione, tutte le conversazioni in arrivo vengono sincronizzate nel canale ***{selectedChannelName}*** del tuo spazio di lavoro Slack, così il tuo team può prenderle in carico appena arrivano.\n\nQuesta integrazione è impostata su **Solo avvisi**, quindi il thread di Slack è uno spazio sicuro per la discussione interna. Quello che il tuo team scrive lì resta in Slack e non viene mai inviato al cliente.\n\n**Rispondi al cliente da MagpieReply:** apri la conversazione dal link condiviso nel thread e rispondi dalla dashboard di MagpieReply. Le risposte e le note private aggiunte in MagpieReply continuano a comparire nel thread di Slack, così tutti restano aggiornati.",
         "SELECTED": "selezionato"
       },
       "MESSAGE_MODE": {
@@ -221,7 +221,7 @@
         "OPTION_LABEL": "Seleziona un canale",
         "UPDATE": "Aggiorna",
         "BUTTON_TEXT": "Connetti canale",
-        "DESCRIPTION": "Il tuo workspace Slack è ora collegato a Chatwoot. Tuttavia, l'integrazione è attualmente inattiva. Per attivare l'integrazione e collegare un canale a Chatwoot, fare clic sul pulsante qui sotto.\n\n**Nota:** Se stai tentando di collegare un canale privato, aggiungi l'app Chatwoot al canale Slack prima di procedere con questo passaggio.",
+        "DESCRIPTION": "Il tuo workspace Slack è ora collegato a MagpieReply. Tuttavia, l'integrazione è attualmente inattiva. Per attivare l'integrazione e collegare un canale a MagpieReply, fare clic sul pulsante qui sotto.\n\n**Nota:** Se stai tentando di collegare un canale privato, aggiungi l'app MagpieReply al canale Slack prima di procedere con questo passaggio.",
         "ATTENTION_REQUIRED": "Attenzione richiesta",
         "EXPIRED": "La tua integrazione con Slack è scaduta. Per continuare a ricevere messaggi su Slack, elimina l'integrazione e connetti nuovamente il tuo workspace."
       },
@@ -323,7 +323,7 @@
     "DASHBOARD_APPS": {
       "TITLE": "App Dashboard",
       "HEADER_BTN_TXT": "Aggiungi una nuova App Dashboard",
-      "SIDEBAR_TXT": "<p><b>App dashboard</b></p><p>Le app dashboard consentono alle organizzazioni di incorporare un'applicazione all'interno di Chatwoot per fornire informazioni aggiuntive agli operatorii. Questa funzione consente di creare un'applicazione in modo indipendente e incorporata all'interno della dashboard per fornire informazioni degli utenti, ad esempio ordini o pagamenti effettuati.</p><p>Quando integri la tua applicazione usando la dashboard Chatwoot, la tua applicazione avrà il context della conversazione e del contatto come evento window. Implementa un listener per l'evento del messaggio sulla tua pagina per ricevere i dati.</p><p>Per aggiungere una nuova app dashboard, clicca sul pulsante 'Aggiungi una nuova app dashboard'.</p>",
+      "SIDEBAR_TXT": "<p><b>App dashboard</b></p><p>Le app dashboard consentono alle organizzazioni di incorporare un'applicazione all'interno di MagpieReply per fornire informazioni aggiuntive agli operatorii. Questa funzione consente di creare un'applicazione in modo indipendente e incorporata all'interno della dashboard per fornire informazioni degli utenti, ad esempio ordini o pagamenti effettuati.</p><p>Quando integri la tua applicazione usando la dashboard MagpieReply, la tua applicazione avrà il context della conversazione e del contatto come evento window. Implementa un listener per l'evento del messaggio sulla tua pagina per ricevere i dati.</p><p>Per aggiungere una nuova app dashboard, clicca sul pulsante 'Aggiungi una nuova app dashboard'.</p>",
       "DESCRIPTION": "Le app dashboard consentono alle organizzazioni di incorporare un'applicazione all'interno della dashboard per fornire dati aggiuntivi agli operatori. Questa funzione consente di creare un'applicazione in modo indipendente e incorporarla per fornire informazioni sull'utente, i suoi ordini o la loro cronologia di pagamento precedente.",
       "LEARN_MORE": "Scopri di più sulle App Dashboard",
       "COUNT": "{n} app dashboard | {n} app dashboard",
@@ -1584,7 +1584,7 @@
           "ADD": "Aggiungi email verificata",
           "EMAIL": "Email del contatto",
           "EMAIL_DESCRIPTION": "L'indirizzo email verificato del contatto",
-          "HELP": "Compilato da Chatwoot con l'email che il contatto ha confermato con un codice monouso. Captain non può vederlo né modificarlo nelle conversazioni con i clienti."
+          "HELP": "Compilato da MagpieReply con l'email che il contatto ha confermato con un codice monouso. Captain non può vederlo né modificarlo nelle conversazioni con i clienti."
         },
         "REQUEST_TEMPLATE": {
           "LABEL": "Request Body Template (Opzionale)",

@@ -32,7 +32,7 @@ export const schemaParams = schema => {
   }));
 };
 
-// The API keeps only Chatwoot-filled parameters. Captain fills every other one.
+// The API keeps only MagpieReply-filled parameters. Captain fills every other one.
 export const sourceOf = (paramSources, name) =>
   paramSources?.[name]?.source || PARAM_SOURCES.MODEL;
 

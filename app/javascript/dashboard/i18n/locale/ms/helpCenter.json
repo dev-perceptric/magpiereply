@@ -430,7 +430,7 @@
         "SLUG": {
           "LABEL": "Slug",
           "PLACEHOLDER": "Slug kategori untuk url",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.magpiereply.com/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "Slug diperlukan"
         },
         "DESCRIPTION": {
@@ -461,7 +461,7 @@
         "SLUG": {
           "LABEL": "Slug",
           "PLACEHOLDER": "Slug kategori untuk url",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.magpiereply.com/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "Slug diperlukan"
         },
         "DESCRIPTION": {
@@ -698,7 +698,7 @@
             "LABEL": "Slug",
             "PLACEHOLDER": "Slug kategori untuk url",
             "ERROR": "Slug diperlukan",
-            "HELP_TEXT": "app.chatwoot.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
+            "HELP_TEXT": "app.magpiereply.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
           },
           "DESCRIPTION": {
             "LABEL": "Penerangan",
@@ -867,7 +867,7 @@
       "CONFIRM_BUTTON_LABEL": "Cipta",
       "NAME": {
         "LABEL": "Nama",
-        "PLACEHOLDER": "Panduan Pengguna | Chatwoot",
+        "PLACEHOLDER": "Panduan Pengguna | MagpieReply",
         "MESSAGE": "Pilih nama untuk portal anda.",
         "ERROR": "Nama diperlukan"
       },
@@ -941,7 +941,7 @@
           },
           "DNS_CONFIGURATION_DIALOG": {
             "HEADER": "Konfigurasi DNS",
-            "DESCRIPTION": "Log masuk ke akaun anda dengan penyedia DNS anda, dan tambah rekod CNAME untuk subdomain yang menunjuk ke chatwoot.help",
+            "DESCRIPTION": "Log masuk ke akaun anda dengan penyedia DNS anda, dan tambah rekod CNAME untuk subdomain yang menunjuk ke app.magpiereply.com",
             "COPY": "Berjaya menyalin CNAME",
             "SEND_INSTRUCTIONS": {
               "HEADER": "Hantar arahan",
@@ -990,7 +990,7 @@
         "HEADER": "Integrasi",
         "DESCRIPTION": "Connect tools that extend what your help center can do.",
         "LIVE_CHAT": {
-          "TITLE": "Live chat with Chatwoot",
+          "TITLE": "Live chat with MagpieReply",
           "DESCRIPTION": "Show a live chat widget on your help center so visitors can reach you while they read.",
           "PLACEHOLDER": "Pilih widget sembang langsung",
           "NONE_OPTION": "Tiada widget"

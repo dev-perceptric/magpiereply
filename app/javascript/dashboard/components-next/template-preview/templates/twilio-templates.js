@@ -129,18 +129,18 @@ export const twilioTemplates = [
     template_type: 'quick_reply',
   },
   {
-    body: 'What type of Chatwoot installation are you using? Select "Chatwoot Cloud" if you are using app.chatwoot.com, otherwise select "Self-hosted Chatwoot".',
+    body: 'What type of MagpieReply installation are you using? Select "MagpieReply Cloud" if you are using app.magpiereply.com, otherwise select "Self-hosted MagpieReply".',
     types: {
       'twilio/quick-reply': {
-        body: 'What type of Chatwoot installation are you using? Select "Chatwoot Cloud" if you are using app.chatwoot.com, otherwise select "Self-hosted Chatwoot".',
+        body: 'What type of MagpieReply installation are you using? Select "MagpieReply Cloud" if you are using app.magpiereply.com, otherwise select "Self-hosted MagpieReply".',
         actions: [
           {
-            id: 'Chatwoot Cloud_payload',
-            title: 'Chatwoot Cloud',
+            id: 'MagpieReply Cloud_payload',
+            title: 'MagpieReply Cloud',
           },
           {
             id: 'Self-hosted Chatwoot_payload',
-            title: 'Self-hosted Chatwoot',
+            title: 'Self-hosted MagpieReply',
           },
         ],
       },

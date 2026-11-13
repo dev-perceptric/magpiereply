@@ -430,7 +430,7 @@
         "SLUG": {
           "LABEL": "路径标识（Slug）",
           "PLACEHOLDER": "类别的 URL 路径标识",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.magpiereply.com/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "路径标识为必填项"
         },
         "DESCRIPTION": {
@@ -461,7 +461,7 @@
         "SLUG": {
           "LABEL": "路径标识（Slug）",
           "PLACEHOLDER": "类别的 URL 路径标识",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.magpiereply.com/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "路径标识为必填项"
         },
         "DESCRIPTION": {
@@ -698,7 +698,7 @@
             "LABEL": "路径标识（Slug）",
             "PLACEHOLDER": "类别的 URL 路径标识",
             "ERROR": "路径标识为必填项",
-            "HELP_TEXT": "app.chatwoot.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
+            "HELP_TEXT": "app.magpiereply.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
           },
           "DESCRIPTION": {
             "LABEL": "描述信息",
@@ -867,7 +867,7 @@
       "CONFIRM_BUTTON_LABEL": "创建",
       "NAME": {
         "LABEL": "门户名称",
-        "PLACEHOLDER": "用户指南 | Chatwoot",
+        "PLACEHOLDER": "用户指南 | MagpieReply",
         "MESSAGE": "为您的门户选择一个名称。",
         "ERROR": "名称必填"
       },
@@ -941,7 +941,7 @@
           },
           "DNS_CONFIGURATION_DIALOG": {
             "HEADER": "DNS配置",
-            "DESCRIPTION": "登录您的 DNS 提供商账户，并添加一个指向 chatwoot.help 的子域名的 CNAME 记录",
+            "DESCRIPTION": "登录您的 DNS 提供商账户，并添加一个指向 app.magpiereply.com 的子域名的 CNAME 记录",
             "COPY": "CNAME 已成功复制",
             "SEND_INSTRUCTIONS": {
               "HEADER": "发送指引",
@@ -990,7 +990,7 @@
         "HEADER": "集成设置",
         "DESCRIPTION": "Connect tools that extend what your help center can do.",
         "LIVE_CHAT": {
-          "TITLE": "Live chat with Chatwoot",
+          "TITLE": "Live chat with MagpieReply",
           "DESCRIPTION": "Show a live chat widget on your help center so visitors can reach you while they read.",
           "PLACEHOLDER": "选择在线聊天小部件",
           "NONE_OPTION": "没有小部件"

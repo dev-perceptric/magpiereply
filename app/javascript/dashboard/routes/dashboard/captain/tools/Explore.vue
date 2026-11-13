@@ -68,7 +68,7 @@ const loadCatalog = async () => {
     const catalog = await runCatalogRequest(signal =>
       fetchToolsCatalog(globalConfig.value.captainToolsCatalogURL, { signal })
     );
-    // Chatwoot's own toolsets lead; the stable sort keeps the catalog order otherwise
+    // MagpieReply's own toolsets lead; the stable sort keeps the catalog order otherwise
     if (catalog)
       toolsets.value = catalog.toolsets.toSorted(
         (a, b) => isChatwootAuthor(b.author) - isChatwootAuthor(a.author)

@@ -1,16 +1,16 @@
 {
   "REGISTER": {
     "TRY_WOOT": "Ustvari račun",
-    "GET_STARTED": "Get started with Chatwoot",
+    "GET_STARTED": "Get started with MagpieReply",
     "TITLE": "Registrirajte se",
     "TESTIMONIAL_HEADER": "Le še en korak, da napredujete",
     "TESTIMONIAL_CONTENT": "Ste le korak stran od tega, da pritegnete svoje stranke, jih obdržite in najdete nove.",
-    "TERMS_ACCEPT": "Z ustvarjanjem računa se strinjate z našimi <a href=\"https://www.chatwoot.com/terms\">Pogoji uporabe</a> in z <a href=\"https://www.chatwoot.com/privacy-policy\">Politiko zasebnosti</a>",
+    "TERMS_ACCEPT": "Z ustvarjanjem računa se strinjate z našimi <a href=\"https://www.magpiereply.com/terms/\">Pogoji uporabe</a> in z <a href=\"https://www.magpiereply.com/privacy/\">Politiko zasebnosti</a>",
     "OAUTH": {
       "GOOGLE_SIGNUP": "Prijavite se z Googlom"
     },
     "SHOPIFY": {
-      "TITLE": "Set up Chatwoot for your Shopify store",
+      "TITLE": "Set up MagpieReply for your Shopify store",
       "DESCRIPTION": "Create your account to continue to Shopify App Pricing and choose a plan."
     },
     "COMPANY_NAME": {

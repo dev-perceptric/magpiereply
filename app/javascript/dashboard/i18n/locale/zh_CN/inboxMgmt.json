@@ -16,7 +16,7 @@
     "CREATE_FLOW": {
       "CHANNEL": {
         "TITLE": "选择频道",
-        "BODY": "选择你想要与Chatwoot 集成的提供商。"
+        "BODY": "选择你想要与MagpieReply 集成的提供商。"
       },
       "INBOX": {
         "TITLE": "新增收件箱",
@@ -50,7 +50,7 @@
         "PICK_NAME": "为收件箱选择一个名称",
         "PICK_A_VALUE": "选择一个数值",
         "CREATE_INBOX": "新增收件箱",
-        "RESTRICTED_WARNING": "Facebook inbox creation is temporarily unavailable due to an API-level issue on Meta’s side, not a problem with Chatwoot. We’re working closely with Meta to resolve it as quickly as possible.",
+        "RESTRICTED_WARNING": "Facebook inbox creation is temporarily unavailable due to an API-level issue on Meta’s side, not a problem with MagpieReply. We’re working closely with Meta to resolve it as quickly as possible.",
         "STATUS_LINK": "View status updates"
       },
       "INSTAGRAM": {
@@ -61,8 +61,8 @@
         "ERROR_AUTH": "连接到 Instagram 时出错，请重试",
         "NEW_INBOX_SUGGESTION": "这个 Instagram 账户先前已连接到一个不同的收件箱，现在已经迁移到这里。 所有新消息都将出现在这里。旧收件箱将无法再发送或接收此账户的消息。",
         "DUPLICATE_INBOX_BANNER": "此 Instagram 账户已迁移到新的 Instagram 通道收件箱。您将无法从此收件箱发送/接收 Instagram 消息。",
-        "RESTRICTED_WARNING": "由于 Meta 端的 API 问题（并非 Chatwoot 的问题），Instagram 收件箱创建暂时不可用。我们正在与 Meta 密切合作，尽快解决此问题。",
-        "SETTINGS_RESTRICTED_WARNING": "由于 Meta 端的 API 问题（并非 Chatwoot 的问题），Instagram 消息功能目前受到影响。部分消息或操作可能会延迟或不可用。我们正在与 Meta 密切合作，尽快解决此问题。",
+        "RESTRICTED_WARNING": "由于 Meta 端的 API 问题（并非 MagpieReply 的问题），Instagram 收件箱创建暂时不可用。我们正在与 Meta 密切合作，尽快解决此问题。",
+        "SETTINGS_RESTRICTED_WARNING": "由于 Meta 端的 API 问题（并非 MagpieReply 的问题），Instagram 消息功能目前受到影响。部分消息或操作可能会延迟或不可用。我们正在与 Meta 密切合作，尽快解决此问题。",
         "STATUS_LINK": "查看状态更新"
       },
       "TIKTOK": {
@@ -300,7 +300,7 @@
         "MANUAL_SETUP": {
           "HEADER": {
             "TITLE": "Connect WhatsApp manually",
-            "DESCRIPTION": "Follow these steps to prepare your Meta account and connect your number to Chatwoot."
+            "DESCRIPTION": "Follow these steps to prepare your Meta account and connect your number to MagpieReply."
           },
           "APP": {
             "TITLE": "Create or select a Meta app",
@@ -359,7 +359,7 @@
           },
           "VERIFY": {
             "TITLE": "Verify your connection",
-            "DESCRIPTION": "Chatwoot is checking number access and configuring your Meta webhook.",
+            "DESCRIPTION": "MagpieReply is checking number access and configuring your Meta webhook.",
             "NUMBER_ACCESS": "Number access",
             "TEMPLATE_ACCESS": "Template access",
             "CALLBACK": "Webhook callback",
@@ -433,13 +433,13 @@
             "SUBMIT": "提交",
             "ERROR": "We couldn’t enable access. Please try again."
           },
-          "RESTRICTED_WARNING": "由于 Meta 端的 API 问题（并非 Chatwoot 的问题），WhatsApp 嵌入式注册暂时不可用。符合条件的 Cloud API 号码仍可使用手动设置。我们正在与 Meta 密切合作，尽快解决此问题。",
+          "RESTRICTED_WARNING": "由于 Meta 端的 API 问题（并非 MagpieReply 的问题），WhatsApp 嵌入式注册暂时不可用。符合条件的 Cloud API 号码仍可使用手动设置。我们正在与 Meta 密切合作，尽快解决此问题。",
           "STATUS_LINK": "查看状态更新",
           "CALLING_ENABLE_FAILED": "您的 WhatsApp 收件箱已就绪，但无法启用语音通话：此号码尚未加入 WhatsApp Business Calling API。请联系 Meta 或您的 WhatsApp Business Solution Provider 完成接入，然后在收件箱的“通话”设置中启用通话。"
         },
         "API": {
           "ERROR_MESSAGE": "我们无法保存 WhatsApp 通道",
-          "MANUAL_RESTRICTION_WARNING": "WhatsApp Embedded Signup is temporarily unavailable due to an API-level issue on Meta’s side, not a problem with Chatwoot. Manual setup works only for numbers already connected to WhatsApp Cloud API. Numbers using WhatsApp Business app coexistence are not supported in this flow yet. We’re working closely with Meta to resolve the issue as quickly as possible. Thanks for your patience.",
+          "MANUAL_RESTRICTION_WARNING": "WhatsApp Embedded Signup is temporarily unavailable due to an API-level issue on Meta’s side, not a problem with MagpieReply. Manual setup works only for numbers already connected to WhatsApp Cloud API. Numbers using WhatsApp Business app coexistence are not supported in this flow yet. We’re working closely with Meta to resolve the issue as quickly as possible. Thanks for your patience.",
           "STATUS_LINK": "View status updates"
         }
       },
@@ -569,7 +569,7 @@
       },
       "AUTH": {
         "TITLE": "选择一个通道",
-        "DESC": "Chatwoot支持实时聊天小部件、Facebook Messenger、Twitter个人资料、WhatsApp、电子邮件等作为通道。如果您想构建自定义通道，可以使用API通道创建。要开始，请从下面的通道中选择一个。",
+        "DESC": "MagpieReply支持实时聊天小部件、Facebook Messenger、Twitter个人资料、WhatsApp、电子邮件等作为通道。如果您想构建自定义通道，可以使用API通道创建。要开始，请从下面的通道中选择一个。",
         "TITLE_NEXT": "完成设置",
         "TITLE_FINISH": "搞定！",
         "CHANNEL": {
@@ -636,7 +636,7 @@
       },
       "FINISH": {
         "TITLE": "搞定！",
-        "DESC": "您已成功地将您的Facebook页面与Chatwoot集成。下次客户消息您的页面时，对话将自动出现在收件箱中。<br>我们还为您提供了一个小部件脚本，您可以轻松地添加到您的网站。在您的网站上登录后，客户可以在没有任何外部工具帮助的情况下从您的网站向您发送消息，对话将会在这里出现在Chatwoot上。<br>酷，对吧？我们肯定试着是 :)"
+        "DESC": "您已成功地将您的Facebook页面与MagpieReply集成。下次客户消息您的页面时，对话将自动出现在收件箱中。<br>我们还为您提供了一个小部件脚本，您可以轻松地添加到您的网站。在您的网站上登录后，客户可以在没有任何外部工具帮助的情况下从您的网站向您发送消息，对话将会在这里出现在MagpieReply上。<br>酷，对吧？我们肯定试着是 :)"
       },
       "EMAIL_PROVIDER": {
         "TITLE": "选择您的电子邮件提供商",
@@ -814,7 +814,7 @@
     "WIDGET_FEATURES": "小组件功能",
     "TWILIO_HEALTH": {
       "TITLE": "Manage your Twilio number",
-      "DESCRIPTION": "Review the Twilio account, sender and webhooks backing this inbox. Anything Chatwoot cannot receive is flagged here",
+      "DESCRIPTION": "Review the Twilio account, sender and webhooks backing this inbox. Anything MagpieReply cannot receive is flagged here",
       "GO_TO_SETTINGS": "Go to Twilio Console",
       "NO_DATA": "Health data is not available",
       "LOADING": "Fetching health data from Twilio…",
@@ -894,13 +894,13 @@
           "MISSING_TWIML_APP": "TwiML app not created"
         },
         "HINTS": {
-          "NOT_SET": "Twilio has no webhook on this sender, so nothing reaches Chatwoot.",
+          "NOT_SET": "Twilio has no webhook on this sender, so nothing reaches MagpieReply.",
           "URL_MISMATCH": "Twilio is calling a different URL, so traffic goes elsewhere.",
-          "WRONG_HTTP_METHOD": "The URL is right but Twilio calls it with {method} instead of POST, and Chatwoot only answers POST.",
+          "WRONG_HTTP_METHOD": "The URL is right but Twilio calls it with {method} instead of POST, and MagpieReply only answers POST.",
           "OVERRIDDEN_BY_NUMBER": "This messaging service has \"Use webhook on number\" turned on, so Twilio ignores the service webhook.",
           "OVERRIDDEN_BY_APPLICATION": "A TwiML app is attached to this number, and Twilio uses the app's URLs instead of the number's. Detach it in the Twilio Console.",
           "OVERRIDDEN_BY_TRUNK": "This number is attached to a SIP trunk, so Twilio routes calls to the trunk and ignores voice webhooks entirely. Detach the trunk in the Twilio Console.",
-          "MISSING_TWIML_APP": "Chatwoot has no TwiML app for this number, so outbound calls cannot be placed."
+          "MISSING_TWIML_APP": "MagpieReply has no TwiML app for this number, so outbound calls cannot be placed."
         }
       }
     },
@@ -1163,7 +1163,7 @@
       "WHATSAPP_BUSINESS_MANAGEMENT_TOKEN_ADD_TITLE": "Add Business Management Token",
       "WHATSAPP_BUSINESS_MANAGEMENT_TOKEN_REPLACE_TITLE": "Replace Business Management Token",
       "WHATSAPP_BUSINESS_MANAGEMENT_TOKEN_CONFIGURED": "Business management token configured",
-      "WHATSAPP_BUSINESS_MANAGEMENT_TOKEN_UPDATE_SUBHEADER": "Provide a token with access to this WhatsApp Business Account when Chatwoot cannot retrieve its message templates. Chatwoot uses this token only for template synchronization.",
+      "WHATSAPP_BUSINESS_MANAGEMENT_TOKEN_UPDATE_SUBHEADER": "Provide a token with access to this WhatsApp Business Account when MagpieReply cannot retrieve its message templates. MagpieReply uses this token only for template synchronization.",
       "WHATSAPP_BUSINESS_MANAGEMENT_TOKEN_UPDATE_PLACEHOLDER": "Enter the business management token",
       "WHATSAPP_BUSINESS_MANAGEMENT_TOKEN_ADD_BUTTON": "添加",
       "WHATSAPP_BUSINESS_MANAGEMENT_TOKEN_REPLACE_BUTTON": "Replace",
@@ -1238,7 +1238,7 @@
           "INBOX": "收件箱",
           "PHONE_NUMBER": "电话号码",
           "NOT_ENTERED": "未填写",
-          "VERIFY_NOTICE": "Chatwoot 会先通过 Meta 验证这些凭据，再应用任何更改。若验证失败，当前配置将保持不变。",
+          "VERIFY_NOTICE": "MagpieReply 会先通过 Meta 验证这些凭据，再应用任何更改。若验证失败，当前配置将保持不变。",
           "BACK": "后退",
           "CANCEL": "取消",
           "CONTINUE": "继续",
@@ -1260,7 +1260,7 @@
           },
           "REVIEW_MIGRATION": {
             "TITLE": "检查迁移信息",
-            "DESCRIPTION": "重新连接此收件箱前，请确认连接信息。Chatwoot 会先通过 Meta 验证令牌、WABA 和电话号码，再应用更改。"
+            "DESCRIPTION": "重新连接此收件箱前，请确认连接信息。MagpieReply 会先通过 Meta 验证令牌、WABA 和电话号码，再应用更改。"
           }
         }
       },
@@ -1603,7 +1603,7 @@
         "USER_MESSAGE": "嗨",
         "AGENT_MESSAGE": "您好"
       },
-      "BRANDING_TEXT": "由 Chatwoot 支持",
+      "BRANDING_TEXT": "由 MagpieReply 支持",
       "SCRIPT_SETTINGS": "\n      window.chatwootSettings = {options};"
     },
     "EMAIL_PROVIDERS": {

@@ -371,7 +371,7 @@ onUnmounted(() => {
         :hide-actions="!isOnChatwootCloud"
         fallback-thumbnail="/assets/images/dashboard/captain/document-popover-light.svg"
         fallback-thumbnail-dark="/assets/images/dashboard/captain/document-popover-dark.svg"
-        learn-more-url="https://chwt.app/captain-document"
+        learn-more-url="https://www.magpiereply.com/ai-agent/"
       />
     </template>
 

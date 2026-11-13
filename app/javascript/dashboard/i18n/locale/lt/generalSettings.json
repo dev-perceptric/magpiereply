@@ -160,12 +160,12 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "Dabar galite gauti el. laiškus pasirinktame domene."
       }
     },
-    "UPDATE_CHATWOOT": "Yra Chatwoot naujinimas {latestChatwootVersion}. Atnaujinkite savo versiją.",
+    "UPDATE_CHATWOOT": "Yra MagpieReply naujinimas {latestChatwootVersion}. Atnaujinkite savo versiją.",
     "LEARN_MORE": "Sužinoti daugiau",
     "PAYMENT_PENDING": "Your account payment is past due. Please update your payment information to avoid subscription cancellation.",
     "PAYMENT_PENDING_AGENT": "Your account payment is past due. Please contact your administrator to resolve it.",
-    "UPGRADE": "Upgrade to continue using Chatwoot",
-    "LIMITS_UPGRADE": "Jūsų paskyra viršijo naudojimo apribojimus, atnaujinkite savo planą, kad galėtumėte toliau naudoti Chatwoot",
+    "UPGRADE": "Upgrade to continue using MagpieReply",
+    "LIMITS_UPGRADE": "Jūsų paskyra viršijo naudojimo apribojimus, atnaujinkite savo planą, kad galėtumėte toliau naudoti MagpieReply",
     "OPEN_BILLING": "Atidaryti mokėjimą"
   },
   "FORMS": {

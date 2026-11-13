@@ -160,12 +160,12 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "Du kan modtage e-mails på dit brugerdefinerede domæne nu."
       }
     },
-    "UPDATE_CHATWOOT": "En opdatering {latestChatwootVersion} til Chatwoot er tilgængelig. Opdater venligst din instans.",
+    "UPDATE_CHATWOOT": "En opdatering {latestChatwootVersion} til MagpieReply er tilgængelig. Opdater venligst din instans.",
     "LEARN_MORE": "Lær mere",
     "PAYMENT_PENDING": "Din kontobetaling er forfalden. Opdater venligst dine betalingsoplysninger for at undgå annullering af abonnement.",
     "PAYMENT_PENDING_AGENT": "Din kontobetaling er forfalden. Kontakt venligst din administrator for at løse den.",
-    "UPGRADE": "Upgrade to continue using Chatwoot",
-    "LIMITS_UPGRADE": "Your account has exceeded the usage limits, please upgrade your plan to continue using Chatwoot",
+    "UPGRADE": "Upgrade to continue using MagpieReply",
+    "LIMITS_UPGRADE": "Your account has exceeded the usage limits, please upgrade your plan to continue using MagpieReply",
     "OPEN_BILLING": "Open billing"
   },
   "FORMS": {

@@ -1,16 +1,16 @@
 {
   "REGISTER": {
     "TRY_WOOT": "Criar uma conta",
-    "GET_STARTED": "Comece a utilizar Chatwoot",
+    "GET_STARTED": "Comece a utilizar MagpieReply",
     "TITLE": "Registrar",
     "TESTIMONIAL_HEADER": "Tudo o que ele leva é um passo para avançar",
     "TESTIMONIAL_CONTENT": "Você está a um passo de engajar seus clientes, mantê-los e encontrar novos.",
-    "TERMS_ACCEPT": "Ao criar uma conta, você concorda com nosso <a href=\"https://www.chatwoot.com/terms\">T & C</a> e nossa <a href=\"https://www.chatwoot.com/privacy-policy\">Política de privacidade</a>",
+    "TERMS_ACCEPT": "Ao criar uma conta, você concorda com nosso <a href=\"https://www.magpiereply.com/terms/\">T & C</a> e nossa <a href=\"https://www.magpiereply.com/privacy/\">Política de privacidade</a>",
     "OAUTH": {
       "GOOGLE_SIGNUP": "Cadastre-se com o Google"
     },
     "SHOPIFY": {
-      "TITLE": "Configurar o Chatwoot para sua loja da Shopify",
+      "TITLE": "Configurar o MagpieReply para sua loja da Shopify",
       "DESCRIPTION": "Crie sua conta para acessar os preços do aplicativo da Shopify e escolher um plano."
     },
     "COMPANY_NAME": {

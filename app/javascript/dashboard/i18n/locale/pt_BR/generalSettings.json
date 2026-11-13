@@ -160,12 +160,12 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "Você pode receber e-mails em seu domínio personalizado agora."
       }
     },
-    "UPDATE_CHATWOOT": "Uma atualização {latestChatwootVersion} para o Chatwoot está disponível. Por favor, atualize sua instância.",
+    "UPDATE_CHATWOOT": "Uma atualização {latestChatwootVersion} para o MagpieReply está disponível. Por favor, atualize sua instância.",
     "LEARN_MORE": "Saiba mais",
     "PAYMENT_PENDING": "O pagamento da sua conta está em atraso. Atualize suas informações de pagamento para evitar o cancelamento da assinatura.",
     "PAYMENT_PENDING_AGENT": "O pagamento da sua conta está em atraso. Por favor, entre em contato com o seu administrador para resolver isso.",
-    "UPGRADE": "Atualize para continuar usando o Chatwoot",
-    "LIMITS_UPGRADE": "Sua conta excedeu os limites de uso. Por favor, faça um upgrade do seu plano para continuar usando o Chatwoot",
+    "UPGRADE": "Atualize para continuar usando o MagpieReply",
+    "LIMITS_UPGRADE": "Sua conta excedeu os limites de uso. Por favor, faça um upgrade do seu plano para continuar usando o MagpieReply",
     "OPEN_BILLING": "Abrir faturamento"
   },
   "FORMS": {

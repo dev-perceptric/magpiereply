@@ -160,12 +160,12 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "Τώρα μπορείτε να λαμβάνετε emails στον τομέα (domain) σας."
       }
     },
-    "UPDATE_CHATWOOT": "Μια ενημέρωση {latestChatwootVersion} για το Chatwoot είναι διαθέσιμη. Ενημερώστε την εφαρμογή σας.",
+    "UPDATE_CHATWOOT": "Μια ενημέρωση {latestChatwootVersion} για το MagpieReply είναι διαθέσιμη. Ενημερώστε την εφαρμογή σας.",
     "LEARN_MORE": "Μάθετε περισσότερα",
     "PAYMENT_PENDING": "Your account payment is past due. Please update your payment information to avoid subscription cancellation.",
     "PAYMENT_PENDING_AGENT": "Your account payment is past due. Please contact your administrator to resolve it.",
-    "UPGRADE": "Upgrade to continue using Chatwoot",
-    "LIMITS_UPGRADE": "Your account has exceeded the usage limits, please upgrade your plan to continue using Chatwoot",
+    "UPGRADE": "Upgrade to continue using MagpieReply",
+    "LIMITS_UPGRADE": "Your account has exceeded the usage limits, please upgrade your plan to continue using MagpieReply",
     "OPEN_BILLING": "Open billing"
   },
   "FORMS": {

@@ -438,16 +438,16 @@ he:
       description: 'אפליקציות לוח מחוונים מאפשרות לך ליצור ולהטמיע אפליקציות המציגות מידע משתמשים, הזמנות או היסטוריית תשלומים, ומספקות הקשר נוסף לסוכני שירות הלקוחות שלך.'
     dyte:
       name: 'Dyte'
-      short_description: 'התחל שיחות וידאו/שמע עם לקוחות ישירות מ-Chatwoot.'
-      description: 'Dyte הוא מוצר המשלב פונקציונליות אודיו ווידאו באפליקציה שלך. עם אינטגרציה זו, הסוכנים שלך יכולים להתחיל שיחות וידאו/שמע עם הלקוחות שלך ישירות מ-Chatwoot.'
+      short_description: 'התחל שיחות וידאו/שמע עם לקוחות ישירות מ-MagpieReply.'
+      description: 'Dyte הוא מוצר המשלב פונקציונליות אודיו ווידאו באפליקציה שלך. עם אינטגרציה זו, הסוכנים שלך יכולים להתחיל שיחות וידאו/שמע עם הלקוחות שלך ישירות מ-MagpieReply.'
       meeting_name: '%{agent_name} התחיל פגישה'
     slack:
       name: 'Slack'
       short_description: 'קבל התראות וענה על שיחות ישירות ב-Slack.'
-      description: "שלב את Chatwoot עם Slack כדי לשמור על הצוות שלך מסונכרן. אינטגרציה זו מאפשרת לך לקבל התראות על שיחות חדשות ולענות עליהן ישירות בממשק של Slack."
+      description: "שלב את MagpieReply עם Slack כדי לשמור על הצוות שלך מסונכרן. אינטגרציה זו מאפשרת לך לקבל התראות על שיחות חדשות ולענות עליהן ישירות בממשק של Slack."
     webhooks:
       name: 'Webhooks'
-      description: 'אירועי Webhook מספקים עדכונים בזמן אמת על פעילויות בחשבון Chatwoot שלך. אתה יכול להירשם לאירועים המועדפים עליך, ו-Chatwoot ישלח לך קריאות חזרה של HTTP עם העדכונים.'
+      description: 'אירועי Webhook מספקים עדכונים בזמן אמת על פעילויות בחשבון MagpieReply שלך. אתה יכול להירשם לאירועים המועדפים עליך, ו-MagpieReply ישלח לך קריאות חזרה של HTTP עם העדכונים.'
     dialogflow:
       name: 'Dialogflow'
       short_description: 'בנה צאטבוטים לטיפול בשאלות ראשוניות לפני העברה לסוכנים.'
@@ -532,7 +532,7 @@ he:
         too_many: 'cannot contain more than %{limit} entries'
         duplicate: 'cannot repeat the same header name'
         invalid_name: '%{name} is not a valid header name'
-        reserved: '%{name} is managed by Chatwoot and cannot be set'
+        reserved: '%{name} is managed by MagpieReply and cannot be set'
         invalid_value: 'value for %{name} must be fixed text up to 1 KiB, without placeholders or control characters'
       param_schema:
         invalid: 'must list parameters with known fields and plain values'
@@ -693,7 +693,7 @@ he:
       custom_domain_not_configured: 'דומיין מותאם אישית לא מוגדר'
   installation:
     onboarding:
-      heading: 'Howdy, Welcome to Chatwoot 👋'
+      heading: 'Howdy, Welcome to MagpieReply 👋'
       name: 'שם'
       name_placeholder: 'הזן את שמך המלא. למשל: ברוס וויין'
       company: 'שם החברה'
@@ -1020,7 +1020,7 @@ he:
       pages:
         general: 'כללי'
         internal: 'Internal'
-        internal_description: 'Keys and switches used by Chatwoot Cloud'
+        internal_description: 'Keys and switches used by MagpieReply Cloud'
       configure: 'הגדר'
       enterprise_badge: 'EE'
       included: 'Included'
@@ -1030,7 +1030,7 @@ he:
       description: 'Update your instance settings, access billing portal'
       configure_title: 'Configure Settings - %{config}'
       alert: 'Alert!'
-      unauthorized_changes: 'Unauthorized premium changes detected in Chatwoot. To keep using them, please upgrade your plan.'
+      unauthorized_changes: 'Unauthorized premium changes detected in MagpieReply. To keep using them, please upgrade your plan.'
       contact_for_help: 'Contact for help:'
       agents_over_limit: 'You have %{count} agents. Please add more licenses to add more users.'
       current_plan: 'Current plan'

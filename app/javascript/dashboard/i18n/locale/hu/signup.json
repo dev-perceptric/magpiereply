@@ -1,16 +1,16 @@
 {
   "REGISTER": {
     "TRY_WOOT": "Fiók létrehozása",
-    "GET_STARTED": "Get started with Chatwoot",
+    "GET_STARTED": "Get started with MagpieReply",
     "TITLE": "Regisztrálás",
     "TESTIMONIAL_HEADER": "Már csak egy lépés van hátra",
     "TESTIMONIAL_CONTENT": "Már csak egy lépésre vagy!",
-    "TERMS_ACCEPT": "A fiók létrehozásával elfogadod az <a href=\"https://www.chatwoot.com/terms\">ÁSZF</a> és az <a href=\"https://www.chatwoot.com/privacy-policy\">Adatkezelési nyilatkozat</a> tartalmát",
+    "TERMS_ACCEPT": "A fiók létrehozásával elfogadod az <a href=\"https://www.magpiereply.com/terms/\">ÁSZF</a> és az <a href=\"https://www.magpiereply.com/privacy/\">Adatkezelési nyilatkozat</a> tartalmát",
     "OAUTH": {
       "GOOGLE_SIGNUP": "Regisztráció Google-el"
     },
     "SHOPIFY": {
-      "TITLE": "Állítsa be a Chatwootot Shopify áruházához",
+      "TITLE": "Állítsa be a MagpieReplyot Shopify áruházához",
       "DESCRIPTION": "A folytatáshoz hozza létre fiókját, majd válasszon csomagot a Shopify alkalmazás díjszabási oldalán."
     },
     "COMPANY_NAME": {
