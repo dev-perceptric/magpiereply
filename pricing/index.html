@@ -24,11 +24,10 @@
     <a class="logo" href="/" aria-label="MagpieReply home"><img src="/assets/logo.svg" alt="MagpieReply" width="167" height="32"></a>
     <span class="divider" aria-hidden="true"></span>
     <ul>
-      <li><a href="/inbox/">Inbox</a></li>
-      <li><a href="/ai-agent/">AI agent</a></li>
-      <li><a href="/integrations/">Integrations</a></li>
+      <li><button class="menu-btn" type="button" aria-expanded="false" aria-controls="product-menu">Product<svg width="14" height="14" aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></button></li>
       <li><a href="/pricing/" aria-current="page">Pricing</a></li>
       <li><a href="/open-source/">Open source</a></li>
+      <li><a href="/security/">Security</a></li>
     </ul>
     <div class="actions">
       <a class="signin" href="https://app.magpiereply.com/app/login">Sign in</a>
@@ -36,6 +35,44 @@
       <a class="btn btn-primary" href="https://app.magpiereply.com/app/auth/signup">Start free</a>
     </div>
     <button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav"><svg width="20" height="20"><use href="/assets/icons.svg#i-menu"/></svg></button>
+  </div>
+  <div class="mega" id="product-menu" hidden>
+    <div class="frame">
+      <div class="mega-cols">
+        <div class="mega-col">
+          <span class="label">Products</span>
+          <a class="mega-item" href="/ai-agent/"><span class="ic"><svg><use href="/assets/icons.svg#i-spark"/></svg></span><span><strong>Magpie <span class="new">New</span></strong><small>AI agent that answers from your help content</small></span></a>
+          <a class="mega-item" href="/inbox/"><span class="ic"><svg><use href="/assets/icons.svg#i-inbox"/></svg></span><span><strong>Shared inbox</strong><small>Every channel in one place</small></span></a>
+          <a class="mega-item" href="/help-center/"><span class="ic"><svg><use href="/assets/icons.svg#i-book"/></svg></span><span><strong>Help center</strong><small>Articles your customers and Magpie both read</small></span></a>
+          <a class="mega-item" href="/integrations/"><span class="ic"><svg><use href="/assets/icons.svg#i-plug"/></svg></span><span><strong>Apps</strong><small>Connect Stripe and Linear in one click</small></span></a>
+          <span class="label mega-sub">Pricing</span>
+          <a class="mega-item" href="/pricing/" aria-current="page"><span class="ic"><svg><use href="/assets/icons.svg#i-globe"/></svg></span><span><strong>Cloud</strong><small>We run it for you</small></span></a>
+          <a class="mega-item" href="/open-source/"><span class="ic"><svg><use href="/assets/icons.svg#i-server"/></svg></span><span><strong>Self-hosted</strong><small>Run it on your own servers</small></span></a>
+        </div>
+        <div class="mega-col">
+          <span class="label">Features</span>
+          <a class="mega-item" href="/ai-agent/#draft-auto"><span class="ic"><svg><use href="/assets/icons.svg#i-gauge"/></svg></span><span><strong>Draft and Auto</strong><small>Send Magpie's replies, or let it answer alone</small></span></a>
+          <a class="mega-item" href="/ai-agent/#checked"><span class="ic"><svg><use href="/assets/icons.svg#i-check"/></svg></span><span><strong>Fact check</strong><small>Every reply checked against its sources</small></span></a>
+          <a class="mega-item" href="/ai-agent/#knowledge"><span class="ic"><svg><use href="/assets/icons.svg#i-layers"/></svg></span><span><strong>Knowledge</strong><small>Help center, websites and files</small></span></a>
+          <a class="mega-item" href="/ai-agent/#draft-auto"><span class="ic"><svg><use href="/assets/icons.svg#i-refresh"/></svg></span><span><strong>Replay tests</strong><small>See how Magpie would answer past chats</small></span></a>
+          <a class="mega-item" href="/ai-agent/#traces"><span class="ic"><svg><use href="/assets/icons.svg#i-list"/></svg></span><span><strong>Traces</strong><small>Every step Magpie took, and what it cost</small></span></a>
+          <a class="mega-item" href="/inbox/#channels"><span class="ic"><svg><use href="/assets/icons.svg#i-chat"/></svg></span><span><strong>Channels</strong><small>Chat, email, WhatsApp, Instagram, SMS and more</small></span></a>
+          <a class="mega-item" href="/inbox/#automations"><span class="ic"><svg><use href="/assets/icons.svg#i-bolt"/></svg></span><span><strong>Automations</strong><small>Rules, macros and saved replies</small></span></a>
+          <a class="mega-item" href="/inbox/#reports"><span class="ic"><svg><use href="/assets/icons.svg#i-chart"/></svg></span><span><strong>Reports</strong><small>Reply times, busy hours, what Magpie solved</small></span></a>
+        </div>
+        <div class="mega-col">
+          <span class="label">Use cases</span>
+          <a class="mega-item" href="/ai-agent/#b2b"><span class="ic"><svg><use href="/assets/icons.svg#i-code"/></svg></span><span><strong>B2B software</strong><small>Billing questions and known bugs from Linear</small></span></a>
+          <a class="mega-item" href="/ai-agent/#ecommerce"><span class="ic"><svg><use href="/assets/icons.svg#i-cart"/></svg></span><span><strong>E-commerce</strong><small>Shipping, returns and double charges</small></span></a>
+          <a class="mega-item" href="/security/"><span class="ic"><svg><use href="/assets/icons.svg#i-shield"/></svg></span><span><strong>Security and privacy</strong><small>Hidden card numbers, lookups for the customer's own records</small></span></a>
+          <a class="mega-item" href="/open-source/"><span class="ic"><svg><use href="/assets/icons.svg#i-lock"/></svg></span><span><strong>Own your data</strong><small>Self-host the open source core</small></span></a>
+        </div>
+      </div>
+      <div class="mega-foot">
+        <a class="mega-more" href="/ai-agent/">See all features <svg width="14" height="14" aria-hidden="true"><use href="/assets/icons.svg#i-arrow"/></svg></a>
+        <a class="mega-more" href="/pricing/">Pricing <svg width="14" height="14" aria-hidden="true"><use href="/assets/icons.svg#i-arrow"/></svg></a>
+      </div>
+    </div>
   </div>
 </header>
 <!-- /nav -->
@@ -245,7 +282,7 @@
       </div>
       <div>
         <h4>Product</h4>
-        <ul><li><a href="/inbox/">Inbox</a></li><li><a href="/ai-agent/">AI agent</a></li><li><a href="/integrations/">Integrations</a></li><li><a href="/pricing/">Pricing</a></li><li><a href="/security/">Security</a></li></ul>
+        <ul><li><a href="/ai-agent/">Magpie</a></li><li><a href="/inbox/">Shared inbox</a></li><li><a href="/help-center/">Help center</a></li><li><a href="/integrations/">Apps</a></li><li><a href="/pricing/">Pricing</a></li><li><a href="/security/">Security</a></li></ul>
       </div>
       <div>
         <h4>Open source</h4>

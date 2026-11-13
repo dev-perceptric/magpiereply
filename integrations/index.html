@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Integrations | MagpieReply</title>
-  <meta name="description" content="Connect Stripe, Shopify, HubSpot, Linear and more with one sign-in each. The MagpieReply AI agent uses them through MCP, and every lookup is logged.">
+  <title>Apps | MagpieReply</title>
+  <meta name="description" content="Connect Stripe and Linear to Magpie in one click. Magpie only reads, and only the records of the customer it's talking to.">
   <link rel="canonical" href="https://www.magpiereply.com/integrations/">
-  <meta property="og:title" content="Integrations | MagpieReply">
-  <meta property="og:description" content="Connect Stripe, Shopify, HubSpot, Linear and more with one sign-in each. The MagpieReply AI agent uses them through MCP, and every lookup is logged.">
+  <meta property="og:title" content="Apps | MagpieReply">
+  <meta property="og:description" content="Connect your tools in one click. Magpie only reads.">
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#0943b0">
   <link rel="icon" type="image/svg+xml" href="/assets/logo_thumbnail.svg">
@@ -24,11 +24,10 @@
     <a class="logo" href="/" aria-label="MagpieReply home"><img src="/assets/logo.svg" alt="MagpieReply" width="167" height="32"></a>
     <span class="divider" aria-hidden="true"></span>
     <ul>
-      <li><a href="/inbox/">Inbox</a></li>
-      <li><a href="/ai-agent/">AI agent</a></li>
-      <li><a href="/integrations/" aria-current="page">Integrations</a></li>
+      <li><button class="menu-btn" type="button" aria-expanded="false" aria-controls="product-menu">Product<svg width="14" height="14" aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></button></li>
       <li><a href="/pricing/">Pricing</a></li>
       <li><a href="/open-source/">Open source</a></li>
+      <li><a href="/security/">Security</a></li>
     </ul>
     <div class="actions">
       <a class="signin" href="https://app.magpiereply.com/app/login">Sign in</a>
@@ -37,21 +36,190 @@
     </div>
     <button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav"><svg width="20" height="20"><use href="/assets/icons.svg#i-menu"/></svg></button>
   </div>
+  <div class="mega" id="product-menu" hidden>
+    <div class="frame">
+      <div class="mega-cols">
+        <div class="mega-col">
+          <span class="label">Products</span>
+          <a class="mega-item" href="/ai-agent/"><span class="ic"><svg><use href="/assets/icons.svg#i-spark"/></svg></span><span><strong>Magpie <span class="new">New</span></strong><small>AI agent that answers from your help content</small></span></a>
+          <a class="mega-item" href="/inbox/"><span class="ic"><svg><use href="/assets/icons.svg#i-inbox"/></svg></span><span><strong>Shared inbox</strong><small>Every channel in one place</small></span></a>
+          <a class="mega-item" href="/help-center/"><span class="ic"><svg><use href="/assets/icons.svg#i-book"/></svg></span><span><strong>Help center</strong><small>Articles your customers and Magpie both read</small></span></a>
+          <a class="mega-item" href="/integrations/" aria-current="page"><span class="ic"><svg><use href="/assets/icons.svg#i-plug"/></svg></span><span><strong>Apps</strong><small>Connect Stripe and Linear in one click</small></span></a>
+          <span class="label mega-sub">Pricing</span>
+          <a class="mega-item" href="/pricing/"><span class="ic"><svg><use href="/assets/icons.svg#i-globe"/></svg></span><span><strong>Cloud</strong><small>We run it for you</small></span></a>
+          <a class="mega-item" href="/open-source/"><span class="ic"><svg><use href="/assets/icons.svg#i-server"/></svg></span><span><strong>Self-hosted</strong><small>Run it on your own servers</small></span></a>
+        </div>
+        <div class="mega-col">
+          <span class="label">Features</span>
+          <a class="mega-item" href="/ai-agent/#draft-auto"><span class="ic"><svg><use href="/assets/icons.svg#i-gauge"/></svg></span><span><strong>Draft and Auto</strong><small>Send Magpie's replies, or let it answer alone</small></span></a>
+          <a class="mega-item" href="/ai-agent/#checked"><span class="ic"><svg><use href="/assets/icons.svg#i-check"/></svg></span><span><strong>Fact check</strong><small>Every reply checked against its sources</small></span></a>
+          <a class="mega-item" href="/ai-agent/#knowledge"><span class="ic"><svg><use href="/assets/icons.svg#i-layers"/></svg></span><span><strong>Knowledge</strong><small>Help center, websites and files</small></span></a>
+          <a class="mega-item" href="/ai-agent/#draft-auto"><span class="ic"><svg><use href="/assets/icons.svg#i-refresh"/></svg></span><span><strong>Replay tests</strong><small>See how Magpie would answer past chats</small></span></a>
+          <a class="mega-item" href="/ai-agent/#traces"><span class="ic"><svg><use href="/assets/icons.svg#i-list"/></svg></span><span><strong>Traces</strong><small>Every step Magpie took, and what it cost</small></span></a>
+          <a class="mega-item" href="/inbox/#channels"><span class="ic"><svg><use href="/assets/icons.svg#i-chat"/></svg></span><span><strong>Channels</strong><small>Chat, email, WhatsApp, Instagram, SMS and more</small></span></a>
+          <a class="mega-item" href="/inbox/#automations"><span class="ic"><svg><use href="/assets/icons.svg#i-bolt"/></svg></span><span><strong>Automations</strong><small>Rules, macros and saved replies</small></span></a>
+          <a class="mega-item" href="/inbox/#reports"><span class="ic"><svg><use href="/assets/icons.svg#i-chart"/></svg></span><span><strong>Reports</strong><small>Reply times, busy hours, what Magpie solved</small></span></a>
+        </div>
+        <div class="mega-col">
+          <span class="label">Use cases</span>
+          <a class="mega-item" href="/ai-agent/#b2b"><span class="ic"><svg><use href="/assets/icons.svg#i-code"/></svg></span><span><strong>B2B software</strong><small>Billing questions and known bugs from Linear</small></span></a>
+          <a class="mega-item" href="/ai-agent/#ecommerce"><span class="ic"><svg><use href="/assets/icons.svg#i-cart"/></svg></span><span><strong>E-commerce</strong><small>Shipping, returns and double charges</small></span></a>
+          <a class="mega-item" href="/security/"><span class="ic"><svg><use href="/assets/icons.svg#i-shield"/></svg></span><span><strong>Security and privacy</strong><small>Hidden card numbers, lookups for the customer's own records</small></span></a>
+          <a class="mega-item" href="/open-source/"><span class="ic"><svg><use href="/assets/icons.svg#i-lock"/></svg></span><span><strong>Own your data</strong><small>Self-host the open source core</small></span></a>
+        </div>
+      </div>
+      <div class="mega-foot">
+        <a class="mega-more" href="/ai-agent/">See all features <svg width="14" height="14" aria-hidden="true"><use href="/assets/icons.svg#i-arrow"/></svg></a>
+        <a class="mega-more" href="/pricing/">Pricing <svg width="14" height="14" aria-hidden="true"><use href="/assets/icons.svg#i-arrow"/></svg></a>
+      </div>
+    </div>
+  </div>
 </header>
 <!-- /nav -->
 
 <main id="top">
 
-  <section class="page-hero">
+  <!-- Hero -->
+  <section class="hero hero-magpie product-hero">
     <div class="mosaic" data-mosaic="hero" aria-hidden="true"><canvas></canvas></div>
     <div class="frame pad">
-      <div class="page-hero-copy">
-        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-plug"/></svg></span>Integrations</span>
-        <h1 class="display sm">Connect your apps with <em>one sign-in each</em></h1>
-        <p class="lede">The AI agent looks things up and takes actions in the tools you already use. You sign in once per app, choose what it may do, and every lookup is logged on the conversation.</p>
-        <div class="ctas">
-          <a class="btn btn-primary btn-lg" href="mailto:hello@magpiereply.com?subject=Early%20access">Get early access</a>
-          <a class="btn btn-secondary btn-lg" href="mailto:hello@magpiereply.com?subject=Integration%20request">Ask for an app</a>
+      <div class="hm-grid">
+        <div class="hm-copy">
+          <div class="crumbs"><a href="/">Home</a><span>/</span><span>Product</span><span>/</span><span>Apps</span></div>
+          <h1 class="display">Connect your tools in one click. <em>Magpie only reads.</em></h1>
+          <p class="lede">Click Connect, approve MagpieReply on the app's own sign-in page, and you're done. Magpie can then look things up for the customer it's talking to.</p>
+          <div class="ctas">
+            <a class="btn btn-primary btn-lg" href="https://app.magpiereply.com/app/auth/signup">Start free</a>
+            <a class="btn btn-secondary btn-lg" href="#apps">Browse apps</a>
+          </div>
+        </div>
+        <div class="hm-stage">
+          <div class="mock-card">
+            <div class="mc-bar"><img src="/assets/logo_thumbnail.svg" alt="">Settings, AI agent, Apps</div>
+            <div class="mc-body">
+              <div class="mc-row"><span class="mark-sm" style="background:#635bff">S</span><span><strong>Stripe</strong><br>Charges and double payments</span><span class="end"><span class="state live">Connected</span></span></div>
+              <div class="mc-row"><span class="mark-sm" style="background:#5e6ad2">L</span><span><strong>Linear</strong><br>Known and fixed bugs</span><span class="end"><span class="mc-btn go">Connect</span></span></div>
+              <div class="mc-row"><span class="mark-sm" style="background:#ff7a59">H</span><span><strong>HubSpot</strong><br>Company and owner</span><span class="end"><span class="state soon">Coming</span></span></div>
+              <div class="mc-row"><span class="mark-sm" style="background:#5e8e3e">S</span><span><strong>Shopify</strong><br>Orders and tracking</span><span class="end"><span class="state soon">Coming</span></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Capability index -->
+  <section aria-label="How apps work">
+    <div class="frame">
+      <div class="cap-index">
+        <a class="cap-card" href="#connect"><span class="num">01</span><h3>One-click sign-in<svg aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></h3><p>Approve on the app's own page. No keys to copy.</p></a>
+        <a class="cap-card" href="#read-only"><span class="num">02</span><h3>Read-only<svg aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></h3><p>Only for the customer who's asking, and never a change.</p></a>
+        <a class="cap-card" href="#stripe"><span class="num">03</span><h3>Stripe<svg aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></h3><p>Recent charges and double payments.</p></a>
+        <a class="cap-card" href="#linear"><span class="num">04</span><h3>Linear<svg aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></h3><p>Whether a bug is known, or already fixed.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Capabilities -->
+  <section>
+    <div class="frame">
+      <div class="showcase" id="connect">
+        <div class="showcase-copy">
+          <span class="k">01 / CONNECT</span>
+          <h3>Sign in once. That's the whole setup.</h3>
+          <p>Click Connect and the app's own sign-in page opens. Approve MagpieReply there, and you're back on your settings page with the app connected.</p>
+          <ul>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>No API keys to find, copy or paste</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Each team connects its own account</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Keys are stored encrypted and refreshed before they expire</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Disconnect any time from the same page</li>
+          </ul>
+        </div>
+        <div class="showcase-visual">
+          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
+          <div class="mock-card">
+            <div class="mc-bar"><img src="/assets/logo_thumbnail.svg" alt="">Connecting Linear</div>
+            <div class="mc-body">
+              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-plug"/></svg></span>You clicked Connect<span class="end ok">Done</span></div>
+              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-key"/></svg></span>Approved on linear.app<span class="end ok">Done</span></div>
+              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-check"/></svg></span><strong>Linear</strong><span class="end"><span class="state live">Connected</span></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="showcase flip" id="read-only">
+        <div class="showcase-copy">
+          <span class="k">02 / READ-ONLY</span>
+          <h3>Magpie looks. It never changes a thing.</h3>
+          <p>Magpie only uses tools an app marks as read-only. Lookups about a customer use their verified email, filled in by code, so Magpie can't look up anyone else.</p>
+          <ul>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Tools that change data are never offered to Magpie</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Lookups only for the signed-in customer, or one who proved it by email code</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Issue links, ids and internal comments are never shared with customers</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Every lookup shows up on the Traces page</li>
+          </ul>
+        </div>
+        <div class="showcase-visual">
+          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
+          <div class="mock-card">
+            <div class="mc-bar"><img src="/assets/logo_thumbnail.svg" alt="">What Magpie can use</div>
+            <div class="mc-body">
+              <div class="mc-row">List charges<span class="end"><span class="state live">Read</span></span></div>
+              <div class="mc-row">Search issues<span class="end"><span class="state live">Read</span></span></div>
+              <div class="mc-row">Create refund<span class="end"><span class="state soon">Never offered</span></span></div>
+              <div class="mc-row">Update issue<span class="end"><span class="state soon">Never offered</span></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="showcase" id="stripe">
+        <div class="showcase-copy">
+          <span class="k">03 / STRIPE</span>
+          <h3>"Was I charged twice?" answered in seconds</h3>
+          <p>Magpie checks the customer's recent charges in your own Stripe account and spots double payments. Refunds stay with your team.</p>
+          <ul>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Each charge explained with its date and amount</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Double payments found and flagged</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Refunds of $50 or more go to a teammate to review</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Bank disputes go straight to Billing</li>
+          </ul>
+        </div>
+        <div class="showcase-visual">
+          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
+          <div class="mock-card">
+            <div class="mc-bar"><span class="mark-sm" style="background:#635bff">S</span>Stripe, for maya@brightline.example</div>
+            <div class="mc-body">
+              <div class="mc-row">Nov 1, Team plan<span class="end"><strong>$49.00</strong></span></div>
+              <div class="mc-row">Nov 1, Team plan<span class="end"><strong>$49.00</strong><span class="state soon">Double</span></span></div>
+              <div class="mc-row">Oct 1, Team plan<span class="end"><strong>$49.00</strong></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="showcase flip" id="linear">
+        <div class="showcase-copy">
+          <span class="k">04 / LINEAR</span>
+          <h3>Tell customers when a bug is fixed</h3>
+          <p>When a customer reports a problem, Magpie checks Linear for a matching issue and tells them its status in plain words.</p>
+          <ul>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Whether the bug is known, or already fixed</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Searches only your own team's issues</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>No issue links, ids or teammate names shared</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>New problems go to your team with a note</li>
+          </ul>
+        </div>
+        <div class="showcase-visual">
+          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
+          <div class="mock-card">
+            <div class="mc-bar"><img src="/assets/logo_thumbnail.svg" alt="">Magpie<span class="state beta">Draft</span></div>
+            <div class="mc-body">
+              <div class="mc-row"><span class="mark-sm" style="background:#5e6ad2">L</span>Searched "CSV export fails"<span class="end ok">Fixed Tuesday</span></div>
+              <div class="mc-row" style="display:block">Thanks for letting us know. That export problem was fixed on Tuesday, so it should work now. If it still fails, reply here and a teammate will take a look.</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -60,9 +228,9 @@
   <section id="apps">
     <div class="frame">
       <div class="section-head pad">
-        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-plug"/></svg></span>Apps for the AI agent</span>
-        <h2 class="h2">What the agent can use</h2>
-        <p class="body">The agent reaches each app through MCP, an open standard for giving AI tools safe access to other apps. The first four are in early access. The rest are on the way.</p>
+        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-plug"/></svg></span>Directory</span>
+        <h2 class="h2">Every app Magpie can use</h2>
+        <p class="body">Magpie reaches each app through MCP, an open standard for giving AI safe access to other apps. Stripe and Linear are in early access. The rest are on the way.</p>
       </div>
       <div class="dir-filter pad" data-filter-group=".app-card" role="group" aria-label="Filter apps">
         <button type="button" data-filter="all" aria-pressed="true">All</button>
@@ -76,8 +244,8 @@
       <div class="dir">
         <article class="app-card" data-cat="payments">
           <div class="top"><span class="mark" style="background:#635bff" aria-hidden="true">S</span><div><h3>Stripe</h3><span class="cat">Payments</span></div></div>
-          <p>Finds charges, invoices and subscriptions for the customer who is asking.</p>
-          <div class="acts"><span>Find charges</span><span>Resend invoice</span><span>Refund with approval</span></div>
+          <p>Finds recent charges and double payments for the customer who is asking.</p>
+          <div class="acts"><span>Find charges</span><span>Spot double payments</span></div>
           <span class="state beta">Early access</span>
         </article>
         <article class="app-card" data-cat="payments">
@@ -107,8 +275,8 @@
         <article class="app-card" data-cat="stores">
           <div class="top"><span class="mark" style="background:#5e8e3e" aria-hidden="true">S</span><div><h3>Shopify</h3><span class="cat">Store</span></div></div>
           <p>Finds orders, shipping status and returns for the shopper.</p>
-          <div class="acts"><span>Order status</span><span>Start a return</span><span>Edit address</span></div>
-          <span class="state beta">Early access</span>
+          <div class="acts"><span>Order status</span><span>Tracking</span></div>
+          <span class="state soon">Coming</span>
         </article>
         <article class="app-card" data-cat="stores">
           <div class="top"><span class="mark" style="background:#2e3a59" aria-hidden="true">R</span><div><h3>Recharge</h3><span class="cat">Subscriptions</span></div></div>
@@ -125,8 +293,8 @@
         <article class="app-card" data-cat="crm">
           <div class="top"><span class="mark" style="background:#ff7a59" aria-hidden="true">H</span><div><h3>HubSpot</h3><span class="cat">CRM</span></div></div>
           <p>Shows the account, owner and open deals next to the ticket.</p>
-          <div class="acts"><span>Account owner</span><span>Open deals</span><span>Log a note</span></div>
-          <span class="state beta">Early access</span>
+          <div class="acts"><span>Company</span><span>Account owner</span></div>
+          <span class="state soon">Coming</span>
         </article>
         <article class="app-card" data-cat="crm">
           <div class="top"><span class="mark" style="background:#1a1a1a" aria-hidden="true">A</span><div><h3>Attio</h3><span class="cat">CRM</span></div></div>
@@ -178,8 +346,8 @@
         </article>
         <article class="app-card" data-cat="engineering">
           <div class="top"><span class="mark" style="background:#5e6ad2" aria-hidden="true">L</span><div><h3>Linear</h3><span class="cat">Issues</span></div></div>
-          <p>Files bugs with the customers attached and tells them when the fix ships.</p>
-          <div class="acts"><span>File a bug</span><span>Link issue</span><span>Status updates</span></div>
+          <p>Checks whether a reported bug is known or already fixed, and says so in plain words.</p>
+          <div class="acts"><span>Known bugs</span><span>Fix status</span></div>
           <span class="state beta">Early access</span>
         </article>
         <article class="app-card" data-cat="engineering">
@@ -335,30 +503,12 @@
       </div>
     </div>
   </section>
-
-  <section id="control">
-    <div class="frame">
-      <div class="section-head pad" style="border-top:1px solid var(--line)">
-        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-shield"/></svg></span>You stay in control</span>
-        <h2 class="h2">You choose what each action needs</h2>
-        <p class="body">Every action gets a risk level. Money and account changes can always wait for a person.</p>
-      </div>
-      <div class="pad">
-        <div class="risk">
-          <div class="card"><span class="state live">Runs on its own</span><h3>Safe</h3><p>Lookups and low-risk steps, like sending a tracking link or resending an invoice.</p></div>
-          <div class="card"><span class="state beta">Customer confirms</span><h3>Ask the customer</h3><p>The customer taps a button in the chat first, like when changing a delivery date.</p></div>
-          <div class="card"><span class="state soon">Staff approves</span><h3>Ask your team</h3><p>A card waits in the side panel until someone on your team approves, like a refund over your limit.</p></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section id="built-in">
     <div class="frame">
       <div class="section-head pad" style="border-top:1px solid var(--line)">
         <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-check"/></svg></span>Built into the inbox</span>
         <h2 class="h2">Integrations you can use today</h2>
-        <p class="body">These come with the open source inbox. Turn them on in Settings, with or without the AI agent. <span class="state live" style="vertical-align:2px">Live</span></p>
+        <p class="body">These come with the open source inbox. Turn them on in Settings, with or without Magpie. <span class="state live" style="vertical-align:2px">Live</span></p>
       </div>
       <div class="tiles four">
         <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-code"/></svg></span><h3>Webhooks</h3><p>Send conversation and message events to any URL you choose.</p></div>
@@ -377,46 +527,53 @@
     </div>
   </section>
 
-  <section id="custom">
+  <!-- More in MagpieReply -->
+  <section aria-labelledby="more-title">
     <div class="frame">
-      <div class="section-head pad" style="border-top:1px solid var(--line)">
-        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-code"/></svg></span>Your own tools</span>
-        <h2 class="h2">Bring your own systems</h2>
-      </div>
-      <div class="tiles two">
-        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-plug"/></svg></span><h3>Custom tools</h3><p>Point the agent at your in-house API and it becomes a tool like any other app. You set the risk level and limits for each action.</p><span class="state soon" style="align-self:flex-start">Coming</span></div>
-        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-server"/></svg></span><h3>MagpieReply MCP server</h3><p>Let your own AI tools, like Claude, ChatGPT or Cursor, read your tickets, customer summaries and bug reports.</p><span class="state soon" style="align-self:flex-start">Coming</span></div>
+      <div class="section-head pad" style="border-top:1px solid var(--line)"><h2 class="h2" id="more-title">More in MagpieReply</h2></div>
+      <div class="more">
+        <a href="/ai-agent/"><span class="ic"><svg><use href="/assets/icons.svg#i-spark"/></svg></span><h3>Magpie<svg aria-hidden="true"><use href="/assets/icons.svg#i-arrow"/></svg></h3><p>The AI agent that uses these apps.</p></a>
+        <a href="/inbox/"><span class="ic"><svg><use href="/assets/icons.svg#i-inbox"/></svg></span><h3>Shared inbox<svg aria-hidden="true"><use href="/assets/icons.svg#i-arrow"/></svg></h3><p>Every channel in one place.</p></a>
+        <a href="/help-center/"><span class="ic"><svg><use href="/assets/icons.svg#i-book"/></svg></span><h3>Help center<svg aria-hidden="true"><use href="/assets/icons.svg#i-arrow"/></svg></h3><p>Articles your customers and Magpie both read.</p></a>
       </div>
     </div>
   </section>
 
+  <!-- FAQ -->
   <section id="faq">
     <div class="frame">
-      <div class="section-head pad" style="border-top:1px solid var(--line)">
-        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-list"/></svg></span>Questions</span>
-        <h2 class="h2">Common questions</h2>
-      </div>
+      <div class="section-head pad" style="border-top:1px solid var(--line)"><h2 class="h2">Questions about apps</h2></div>
       <div class="faq">
-        <details><summary>How does sign-in work?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>Click Connect next to an app and sign in to it as you normally would. MagpieReply stores the access it gets in encrypted form, and you can disconnect at any time.</p></div></details>
-        <details><summary>What data can the agent see?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>Only records for the customer who is asking. The agent checks who the customer is first, and code fills in their ID for every lookup. The model never picks whose data to read.</p></div></details>
-        <details><summary>Can I limit what the agent does?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>Yes. You turn each action on or off and give it a risk level. You can also set amount limits, like refunds up to $50, and a daily cap.</p></div></details>
-        <details><summary>What happens if an app is down?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>The agent hands the conversation to your team with a note about which app failed. Nothing runs twice when the app comes back.</p></div></details>
-        <details><summary>Can I ask for an app that is not listed?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>Yes. Email <a href="mailto:hello@magpiereply.com" style="color:var(--brand)">hello@magpiereply.com</a> with the app you need.</p></div></details>
+        <details><summary>What can Magpie see in my apps?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>Only what read-only tools return, and only for the customer in the conversation. In Stripe that's their recent charges. In Linear it's whether a matching issue exists and its status.</p></div></details>
+        <details><summary>Can Magpie change anything?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>No. Tools that create, update or delete are never offered to Magpie. Refunds and other changes stay with your team.</p></div></details>
+        <details><summary>How do I disconnect an app?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>Click Disconnect next to the app in Settings, AI agent, Apps. Magpie stops using it right away.</p></div></details>
+        <details><summary>When are HubSpot and Shopify coming?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>They're next. Their sign-in is built, and their lookups come once each can be locked to the customer who's asking, the same way Stripe is.</p></div></details>
       </div>
     </div>
   </section>
+
+  <!-- CTA -->
   <section class="end-cta">
     <div class="mosaic" data-mosaic="cta" aria-hidden="true"><canvas></canvas></div>
     <div class="frame pad">
       <div class="end-cta-inner">
-        <h2 class="h2" style="max-width:18ch">Connect the apps your team already uses</h2>
+        <h2 class="h2" style="max-width:18ch">Give Magpie the facts it needs</h2>
         <div class="ctas">
-          <a class="btn btn-primary btn-lg" href="mailto:hello@magpiereply.com?subject=Early%20access">Get early access</a>
-          <a class="btn btn-secondary btn-lg" href="/pricing/">See pricing</a>
+          <a class="btn btn-primary btn-lg" href="https://app.magpiereply.com/app/auth/signup">Start free</a>
+          <a class="btn btn-secondary btn-lg" href="mailto:hello@magpiereply.com?subject=Demo">Book a demo</a>
         </div>
       </div>
     </div>
   </section>
+  <nav class="frame pad keep" aria-label="Keep exploring">
+    <span class="label">Keep exploring</span>
+    <a href="/ai-agent/">Magpie</a>
+    <a href="/inbox/">Shared inbox</a>
+    <a href="/help-center/">Help center</a>
+    <a href="/security/">Security</a>
+    <a href="/pricing/">Pricing</a>
+    <a href="/open-source/">Self-host</a>
+  </nav>
 </main>
 
 <!-- footer -->
@@ -429,7 +586,7 @@
       </div>
       <div>
         <h4>Product</h4>
-        <ul><li><a href="/inbox/">Inbox</a></li><li><a href="/ai-agent/">AI agent</a></li><li><a href="/integrations/">Integrations</a></li><li><a href="/pricing/">Pricing</a></li><li><a href="/security/">Security</a></li></ul>
+        <ul><li><a href="/ai-agent/">Magpie</a></li><li><a href="/inbox/">Shared inbox</a></li><li><a href="/help-center/">Help center</a></li><li><a href="/integrations/">Apps</a></li><li><a href="/pricing/">Pricing</a></li><li><a href="/security/">Security</a></li></ul>
       </div>
       <div>
         <h4>Open source</h4>

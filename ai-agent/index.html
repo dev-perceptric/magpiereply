@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Magpie AI agent | MagpieReply</title>
-  <meta name="description" content="An AI agent that answers from your own docs with sources, takes the actions you allow in your apps and hands the hard tickets to your team with a summary.">
+  <title>Magpie, the AI agent for your support inbox | MagpieReply</title>
+  <meta name="description" content="Magpie answers customers from your help center, websites and files, checks Stripe and Linear for the facts, and fact-checks every reply before your team sees it.">
   <link rel="canonical" href="https://www.magpiereply.com/ai-agent/">
-  <meta property="og:title" content="Magpie AI agent | MagpieReply">
-  <meta property="og:description" content="An AI agent that answers from your own docs with sources, takes the actions you allow in your apps and hands the hard tickets to your team with a summary.">
+  <meta property="og:title" content="Magpie, the AI agent for your support inbox | MagpieReply">
+  <meta property="og:description" content="Magpie answers customers from your own help content and fact-checks every reply. Free during early access.">
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#0943b0">
   <link rel="icon" type="image/svg+xml" href="/assets/logo_thumbnail.svg">
@@ -24,11 +24,10 @@
     <a class="logo" href="/" aria-label="MagpieReply home"><img src="/assets/logo.svg" alt="MagpieReply" width="167" height="32"></a>
     <span class="divider" aria-hidden="true"></span>
     <ul>
-      <li><a href="/inbox/">Inbox</a></li>
-      <li><a href="/ai-agent/" aria-current="page">AI agent</a></li>
-      <li><a href="/integrations/">Integrations</a></li>
+      <li><button class="menu-btn" type="button" aria-expanded="false" aria-controls="product-menu">Product<svg width="14" height="14" aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></button></li>
       <li><a href="/pricing/">Pricing</a></li>
       <li><a href="/open-source/">Open source</a></li>
+      <li><a href="/security/">Security</a></li>
     </ul>
     <div class="actions">
       <a class="signin" href="https://app.magpiereply.com/app/login">Sign in</a>
@@ -37,131 +36,263 @@
     </div>
     <button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav"><svg width="20" height="20"><use href="/assets/icons.svg#i-menu"/></svg></button>
   </div>
+  <div class="mega" id="product-menu" hidden>
+    <div class="frame">
+      <div class="mega-cols">
+        <div class="mega-col">
+          <span class="label">Products</span>
+          <a class="mega-item" href="/ai-agent/" aria-current="page"><span class="ic"><svg><use href="/assets/icons.svg#i-spark"/></svg></span><span><strong>Magpie <span class="new">New</span></strong><small>AI agent that answers from your help content</small></span></a>
+          <a class="mega-item" href="/inbox/"><span class="ic"><svg><use href="/assets/icons.svg#i-inbox"/></svg></span><span><strong>Shared inbox</strong><small>Every channel in one place</small></span></a>
+          <a class="mega-item" href="/help-center/"><span class="ic"><svg><use href="/assets/icons.svg#i-book"/></svg></span><span><strong>Help center</strong><small>Articles your customers and Magpie both read</small></span></a>
+          <a class="mega-item" href="/integrations/"><span class="ic"><svg><use href="/assets/icons.svg#i-plug"/></svg></span><span><strong>Apps</strong><small>Connect Stripe and Linear in one click</small></span></a>
+          <span class="label mega-sub">Pricing</span>
+          <a class="mega-item" href="/pricing/"><span class="ic"><svg><use href="/assets/icons.svg#i-globe"/></svg></span><span><strong>Cloud</strong><small>We run it for you</small></span></a>
+          <a class="mega-item" href="/open-source/"><span class="ic"><svg><use href="/assets/icons.svg#i-server"/></svg></span><span><strong>Self-hosted</strong><small>Run it on your own servers</small></span></a>
+        </div>
+        <div class="mega-col">
+          <span class="label">Features</span>
+          <a class="mega-item" href="/ai-agent/#draft-auto"><span class="ic"><svg><use href="/assets/icons.svg#i-gauge"/></svg></span><span><strong>Draft and Auto</strong><small>Send Magpie's replies, or let it answer alone</small></span></a>
+          <a class="mega-item" href="/ai-agent/#checked"><span class="ic"><svg><use href="/assets/icons.svg#i-check"/></svg></span><span><strong>Fact check</strong><small>Every reply checked against its sources</small></span></a>
+          <a class="mega-item" href="/ai-agent/#knowledge"><span class="ic"><svg><use href="/assets/icons.svg#i-layers"/></svg></span><span><strong>Knowledge</strong><small>Help center, websites and files</small></span></a>
+          <a class="mega-item" href="/ai-agent/#draft-auto"><span class="ic"><svg><use href="/assets/icons.svg#i-refresh"/></svg></span><span><strong>Replay tests</strong><small>See how Magpie would answer past chats</small></span></a>
+          <a class="mega-item" href="/ai-agent/#traces"><span class="ic"><svg><use href="/assets/icons.svg#i-list"/></svg></span><span><strong>Traces</strong><small>Every step Magpie took, and what it cost</small></span></a>
+          <a class="mega-item" href="/inbox/#channels"><span class="ic"><svg><use href="/assets/icons.svg#i-chat"/></svg></span><span><strong>Channels</strong><small>Chat, email, WhatsApp, Instagram, SMS and more</small></span></a>
+          <a class="mega-item" href="/inbox/#automations"><span class="ic"><svg><use href="/assets/icons.svg#i-bolt"/></svg></span><span><strong>Automations</strong><small>Rules, macros and saved replies</small></span></a>
+          <a class="mega-item" href="/inbox/#reports"><span class="ic"><svg><use href="/assets/icons.svg#i-chart"/></svg></span><span><strong>Reports</strong><small>Reply times, busy hours, what Magpie solved</small></span></a>
+        </div>
+        <div class="mega-col">
+          <span class="label">Use cases</span>
+          <a class="mega-item" href="/ai-agent/#b2b"><span class="ic"><svg><use href="/assets/icons.svg#i-code"/></svg></span><span><strong>B2B software</strong><small>Billing questions and known bugs from Linear</small></span></a>
+          <a class="mega-item" href="/ai-agent/#ecommerce"><span class="ic"><svg><use href="/assets/icons.svg#i-cart"/></svg></span><span><strong>E-commerce</strong><small>Shipping, returns and double charges</small></span></a>
+          <a class="mega-item" href="/security/"><span class="ic"><svg><use href="/assets/icons.svg#i-shield"/></svg></span><span><strong>Security and privacy</strong><small>Hidden card numbers, lookups for the customer's own records</small></span></a>
+          <a class="mega-item" href="/open-source/"><span class="ic"><svg><use href="/assets/icons.svg#i-lock"/></svg></span><span><strong>Own your data</strong><small>Self-host the open source core</small></span></a>
+        </div>
+      </div>
+      <div class="mega-foot">
+        <a class="mega-more" href="/ai-agent/">See all features <svg width="14" height="14" aria-hidden="true"><use href="/assets/icons.svg#i-arrow"/></svg></a>
+        <a class="mega-more" href="/pricing/">Pricing <svg width="14" height="14" aria-hidden="true"><use href="/assets/icons.svg#i-arrow"/></svg></a>
+      </div>
+    </div>
+  </div>
 </header>
 <!-- /nav -->
 
 <main id="top">
 
   <!-- Hero -->
-  <section class="page-hero">
+  <section class="hero hero-magpie product-hero">
     <div class="mosaic" data-mosaic="hero" aria-hidden="true"><canvas></canvas></div>
     <div class="frame pad">
-      <div class="page-hero-copy">
-        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-spark"/></svg></span>Magpie AI agent</span>
-        <h1 class="display sm">An AI agent that answers, acts and <em>knows when to hand off</em></h1>
-        <p class="lede">It replies from your own help center and docs, with a source on every answer. It looks things up and takes the actions you allow. When it isn't sure, your team gets the ticket with a short note.</p>
-        <div class="ctas">
-          <a class="btn btn-primary btn-lg" href="mailto:hello@magpiereply.com?subject=Early%20access">Get early access</a>
-          <a class="btn btn-secondary btn-lg" href="mailto:hello@magpiereply.com?subject=Demo">Book a demo</a>
+      <div class="hm-grid">
+        <div class="hm-copy">
+          <div class="crumbs"><a href="/">Home</a><span>/</span><span>Product</span><span>/</span><span>Magpie</span></div>
+          <h1 class="display">Magpie <span class="tag-new">New</span><br>The AI agent for your <em>support inbox</em></h1>
+          <p class="lede">Magpie answers from your own help content and checks your apps for the facts. Every reply comes with its sources and passes a fact check before anyone sees it.</p>
+          <div class="ctas">
+            <a class="btn btn-primary btn-lg" href="https://app.magpiereply.com/app/auth/signup">Start free</a>
+            <a class="btn btn-secondary btn-lg" href="mailto:hello@magpiereply.com?subject=Demo">Book a demo</a>
+          </div>
+          <p class="hm-fine"><svg width="14" height="14" aria-hidden="true"><use href="/assets/icons.svg#i-check"/></svg>Free during early access. No card needed.</p>
+        </div>
+        <div class="hm-stage">
+          <div class="demo" data-demo>
+            <div class="demo-tabs" role="tablist" aria-label="Magpie at work">
+              <button class="demo-tab" role="tab" aria-selected="true" aria-controls="d1" id="dt1">Answers</button>
+              <button class="demo-tab" role="tab" aria-selected="false" aria-controls="d2" id="dt2" tabindex="-1">Looks it up</button>
+              <button class="demo-tab" role="tab" aria-selected="false" aria-controls="d3" id="dt3" tabindex="-1">Hands off</button>
+            </div>
+
+            <!-- Scene 1: an answer from the help center -->
+            <div class="scene" role="tabpanel" id="d1" aria-labelledby="dt1">
+              <div class="chat">
+                <div class="bubble in">Hi! How long does shipping take to Canada?<span class="t">Website chat, 10:42</span></div>
+                <div class="magpie">
+                  <div class="mp-head"><img src="/assets/logo_thumbnail.svg" alt="" width="20" height="20"><strong>Magpie</strong><span class="state beta">Draft</span></div>
+                  <div class="typing" aria-hidden="true"><i></i><i></i><i></i></div>
+                  <p class="mp-reply">Orders to Canada arrive in 5 to 8 business days, and duties are included at checkout. You'll get a tracking link by email once it ships.</p>
+                  <div class="mp-meta">
+                    <span class="src"><svg><use href="/assets/icons.svg#i-book"/></svg>Shipping to Canada</span>
+                    <span class="chk ok"><svg><use href="/assets/icons.svg#i-check"/></svg>Fact check passed</span>
+                  </div>
+                  <div class="mp-acts"><span class="go">Send</span><span>Edit</span><span>Discard</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Scene 2: a Stripe lookup -->
+            <div class="scene" role="tabpanel" id="d2" aria-labelledby="dt2" hidden>
+              <div class="chat">
+                <div class="bubble in">I think I got charged twice this month?<span class="t">Signed in as maya@brightline.example</span></div>
+                <div class="magpie">
+                  <div class="mp-head"><img src="/assets/logo_thumbnail.svg" alt="" width="20" height="20"><strong>Magpie</strong><span class="state beta">Draft</span></div>
+                  <div class="mp-tool"><span class="ic"><svg><use href="/assets/icons.svg#i-search"/></svg></span>Checked Stripe for Maya's charges<span class="ok">2 found</span></div>
+                  <div class="typing" aria-hidden="true"><i></i><i></i><i></i></div>
+                  <p class="mp-reply">You're right, Maya. You were charged $49 twice on November 1. Want me to refund the extra charge? Refunds show up in 5 to 10 business days.</p>
+                  <div class="mp-meta">
+                    <span class="src"><svg><use href="/assets/icons.svg#i-plug"/></svg>Stripe</span>
+                    <span class="chk ok"><svg><use href="/assets/icons.svg#i-check"/></svg>Fact check passed</span>
+                  </div>
+                  <div class="mp-acts"><span class="go">Send</span><span>Edit</span><span>Discard</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Scene 3: a handoff with a note -->
+            <div class="scene" role="tabpanel" id="d3" aria-labelledby="dt3" hidden>
+              <div class="chat">
+                <div class="bubble in">This is the third time it broke. If it isn't fixed today I'm calling my lawyer.<span class="t">Email, 09:15</span></div>
+                <div class="magpie">
+                  <div class="mp-head"><img src="/assets/logo_thumbnail.svg" alt="" width="20" height="20"><strong>Magpie</strong><span class="state soon">Handed off</span></div>
+                  <div class="typing" aria-hidden="true"><i></i><i></i><i></i></div>
+                  <p class="mp-reply">I'm sorry this keeps happening. A teammate will pick this up.</p>
+                  <div class="mp-note"><strong>Note for Support</strong>Third outage report from this customer. Mentions legal action. Wants a fix today, so reply first thing.</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- How a reply happens -->
-  <section id="how">
+  <!-- Capability index -->
+  <section aria-label="What Magpie does">
     <div class="frame">
-      <div class="section-head pad">
-        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-route"/></svg></span>How a reply happens</span>
-        <h2 class="h2">Every reply follows your knowledge and your rules</h2>
-        <p class="body">A customer writes in. The agent finds the facts, checks what it's allowed to do, then answers or passes the ticket on. You can see every step it took.</p>
+      <div class="cap-index">
+        <a class="cap-card" href="#knowledge"><span class="num">01</span><h3>Knows your answers<svg aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></h3><p>Learns from your help center, websites and files.</p></a>
+        <a class="cap-card" href="#lookups"><span class="num">02</span><h3>Looks things up<svg aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></h3><p>Checks Stripe and Linear for the customer who's asking.</p></a>
+        <a class="cap-card" href="#checked"><span class="num">03</span><h3>Checks every reply<svg aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></h3><p>Sources and a fact check on every reply.</p></a>
+        <a class="cap-card" href="#draft-auto"><span class="num">04</span><h3>Draft, then Auto<svg aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></h3><p>Your team sends first. Magpie earns the right to reply alone.</p></a>
       </div>
+    </div>
+  </section>
 
-      <div class="showcase">
+  <!-- Capabilities -->
+  <section>
+    <div class="frame">
+      <div class="showcase" id="knowledge">
         <div class="showcase-copy">
           <span class="k">01 / KNOWLEDGE</span>
-          <h3>Answers from your docs, with the source attached</h3>
-          <p>Point it at your help center, your website, PDFs and solved tickets. It keeps up as they change.</p>
+          <h3>Answers from what you've already written</h3>
+          <p>Magpie reads your published help center articles, plus any websites and files you add. It keeps up as they change, so its answers match your latest policy.</p>
           <ul>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Searches by meaning and by keyword, then keeps the best few pieces</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Shows where each answer came from</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Checks every claim against a source before it sends</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Help center articles, read again every 15 minutes</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Websites up to 50 pages each, read again every day</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>PDF, Word, PowerPoint, Excel, HTML, Markdown or text files up to 20 MB</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Searches by meaning and by keyword, then keeps only the best matches</li>
           </ul>
         </div>
         <div class="showcase-visual">
           <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
-          <div class="card">
-            <div class="chat-preview">
-              <div class="q">Can I switch to yearly billing mid-month?</div>
-              <div class="a">Yes. You can switch any time from Billing settings. We credit the unused part of this month to your first yearly invoice.</div>
-              <div class="src"><span>Billing FAQ</span><span>Plans and pricing</span><span>Fact check passed</span></div>
+          <div class="mock-card">
+            <div class="mc-bar"><img src="/assets/logo_thumbnail.svg" alt="">Knowledge</div>
+            <div class="mc-body">
+              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-book"/></svg></span><strong>Help center</strong><span class="end ok">24 articles</span></div>
+              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-globe"/></svg></span>northwind.example/docs<span class="end ok">50 pages</span></div>
+              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-doc"/></svg></span>Returns policy.pdf<span class="end ok">12 pages</span></div>
+              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-doc"/></svg></span>Price list.xlsx<span class="end wait">Reading</span></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="showcase flip">
+      <div class="showcase flip" id="lookups">
         <div class="showcase-copy">
-          <span class="k">02 / PLAYBOOKS AND RULES</span>
-          <h3>Write how you handle a case in plain English</h3>
-          <p>A playbook is a set of steps for one kind of request, like a double charge or a lost package. Rules are short policies that apply when they fit.</p>
+          <span class="k">02 / LOOKUPS</span>
+          <h3>Checks your apps for the facts</h3>
+          <p>Connect Stripe or Linear in one click. Magpie looks up charges and known bugs, only ever for the customer in the conversation.</p>
           <ul>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Your playbook is turned into steps and checked for gaps before it runs</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Rules like "never promise a ship date" apply only when they fit the moment</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Fixed wording for sensitive moments, like refunds or outages</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Versions with Draft, Testing and Live status</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Stripe: recent charges, and any double payments</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Linear: whether a reported bug is known or fixed, in plain words</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>The customer's email is filled in by code, so Magpie can't look up anyone else</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Visitors who aren't signed in can prove who they are with a 6-digit email code</li>
           </ul>
         </div>
         <div class="showcase-visual">
           <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
-          <div class="card">
-            <div class="flow">
-              <div class="row"><span class="ic"><svg><use href="/assets/icons.svg#i-doc"/></svg></span><strong>Playbook: charged twice</strong><span class="state live" style="margin-left:auto">Live</span></div>
-              <div class="connector"></div>
-              <div class="row"><span class="ic"><svg><use href="/assets/icons.svg#i-user"/></svg></span>Confirm who the customer is<span class="ok">Step 1</span></div>
-              <div class="connector"></div>
-              <div class="row"><span class="ic"><svg><use href="/assets/icons.svg#i-search"/></svg></span>Find both charges in Stripe<span class="ok">Step 2</span></div>
-              <div class="connector"></div>
-              <div class="row"><span class="ic"><svg><use href="/assets/icons.svg#i-lock"/></svg></span>Refund one, with approval<span class="wait">Step 3</span></div>
+          <div class="mock-card">
+            <div class="mc-bar"><img src="/assets/logo_thumbnail.svg" alt="">Looked up for this reply</div>
+            <div class="mc-body">
+              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-key"/></svg></span>maya@brightline.example<span class="end ok">Verified</span></div>
+              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-search"/></svg></span><strong>Stripe</strong> recent charges<span class="end ok">2 found</span></div>
+              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-code"/></svg></span><strong>Linear</strong> "export fails"<span class="end ok">Fixed Tuesday</span></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="showcase">
+      <div class="showcase" id="checked">
         <div class="showcase-copy">
-          <span class="k">03 / ACTIONS</span>
-          <h3>Takes action in your apps, only as far as you allow</h3>
-          <p>Connect Stripe, Shopify, HubSpot, Linear and more with one click. You decide which actions run on their own and which wait for a person.</p>
+          <span class="k">03 / CHECKED</span>
+          <h3>Every reply is checked before anyone sees it</h3>
+          <p>A second model reads each reply against the articles and lookups it used. It also watches for customers trying to trick Magpie.</p>
           <ul>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Lookups only for a verified customer</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Customer details are filled in by code, so the model can't change them</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>A one-time code by email before sensitive actions</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Sources listed on every reply</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Claims it can't find in a source are flagged by name</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>"Ignore your rules" or "I'm from IT" gets flagged, and never gets an automatic reply</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Card and phone numbers are hidden before the AI reads a message</li>
           </ul>
         </div>
         <div class="showcase-visual">
           <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
-          <div class="card">
-            <div class="flow">
-              <div class="row"><span class="ic"><svg><use href="/assets/icons.svg#i-key"/></svg></span>Identity check<span class="ok">Verified</span></div>
-              <div class="connector"></div>
-              <div class="row"><span class="ic"><svg><use href="/assets/icons.svg#i-cart"/></svg></span>Shopify: order #1042<span class="ok">Found</span></div>
-              <div class="connector"></div>
-              <div class="row"><span class="ic"><svg><use href="/assets/icons.svg#i-refresh"/></svg></span>Start a return<span class="ok">Customer confirmed</span></div>
-              <div class="connector"></div>
-              <div class="row"><span class="ic"><svg><use href="/assets/icons.svg#i-lock"/></svg></span>Refund $64.00<span class="wait">Waiting for approval</span></div>
+          <div class="mock-card">
+            <div class="mc-bar"><img src="/assets/logo_thumbnail.svg" alt="">Checks<span class="state live">Passed</span></div>
+            <div class="mc-body">
+              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-doc"/></svg></span>Sources: Shipping to Canada<span class="end ok">Cited</span></div>
+              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-check"/></svg></span>Every claim found in a source<span class="end ok">Yes</span></div>
+              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-alert"/></svg></span>Trying to trick Magpie<span class="end ok">No</span></div>
+              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-eye"/></svg></span>Card and phone numbers<span class="end ok">Hidden</span></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="showcase flip">
+      <div class="showcase flip" id="draft-auto">
         <div class="showcase-copy">
-          <span class="k">04 / HANDOFF</span>
-          <h3>Passes the hard ones to your team with a summary</h3>
-          <p>The agent hands off when a customer asks for a person or seems upset. It also hands off when the answer is missing, after two failed tries, or when a fact check fails.</p>
+          <span class="k">04 / DRAFT AND AUTO</span>
+          <h3>Your team sends first. Magpie earns Auto.</h3>
+          <p>In Draft mode, Magpie's reply waits in a side panel with Send, Edit and Discard. A replay test answers up to 30 past conversations again and grades each one against what your team sent.</p>
           <ul>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>A private note sums up the thread and what was tried</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>The right team is assigned and the customer is told</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>An out-of-office reply after hours</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Auto unlocks after a replay test of at least 10 replies, with 90% passing</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>In Auto, refunds, flagged messages and handoffs still wait for a person</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>After two answers, a customer who still needs help goes to your team</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Off, Draft or Auto, chosen for each inbox</li>
           </ul>
         </div>
         <div class="showcase-visual">
           <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
-          <div class="card">
-            <div class="flow">
-              <div class="row"><span class="ic"><svg><use href="/assets/icons.svg#i-hand"/></svg></span><strong>Handed to Technical support</strong></div>
-              <div class="note" style="margin-top:4px">Jonah can't sign in with SSO since this morning. Same error as 3 other customers this week. Tried: cleared cache, new browser. Reason for handoff: no matching article.</div>
+          <div class="mock-card">
+            <div class="mc-bar"><img src="/assets/logo_thumbnail.svg" alt="">Replay test<span class="state live">28 of 30 passed</span></div>
+            <div class="mc-body">
+              <div class="mc-row">"Can I pause my plan?"<span class="end"><span class="state live">Same</span></span></div>
+              <div class="mc-row">"Do you ship to Norway?"<span class="end"><span class="state beta">Fine</span></span></div>
+              <div class="mc-row">"Is there a student discount?"<span class="end"><span class="state soon">Wrong</span></span></div>
+              <div class="mc-row"><strong>Mode</strong><span class="end"><span class="mc-btn">Draft</span><span class="mc-btn go">Auto</span></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="showcase" id="traces">
+        <div class="showcase-copy">
+          <span class="k">05 / TRACES AND USAGE</span>
+          <h3>See every step, and what it cost</h3>
+          <p>The Traces page shows each turn Magpie took: what it read, what it looked up, what it decided and how long it took. Usage shows this month's spend against your limit.</p>
+          <ul>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Outcomes for every draft: sent as written, edited, or discarded</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Conversations Magpie solved alone, and the ones it handed off</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>A monthly spending limit for each team, so there are no surprise bills</li>
+          </ul>
+        </div>
+        <div class="showcase-visual">
+          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
+          <div class="mock-card">
+            <div class="mc-bar"><img src="/assets/logo_thumbnail.svg" alt="">Conversation #2381<span class="state live">Sent by a teammate</span></div>
+            <div class="mc-body">
+              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-search"/></svg></span>Searched knowledge<span class="end ok">4 articles</span></div>
+              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-chat"/></svg></span>Wrote a reply<span class="end ok">2 sources</span></div>
+              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-check"/></svg></span>Fact check<span class="end ok">Passed</span></div>
+              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-clock"/></svg></span><strong>4.1 s</strong><span class="end"><strong>$0.004</strong></span></div>
             </div>
           </div>
         </div>
@@ -169,224 +300,73 @@
     </div>
   </section>
 
-  <!-- Risk levels -->
-  <section id="risk">
+  <!-- Proof -->
+  <section aria-label="Magpie in numbers">
     <div class="frame">
-      <div class="section-head pad" style="border-top:1px solid var(--line)">
-        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-shield"/></svg></span>Actions you control</span>
-        <h2 class="h2">You set how far each action can go</h2>
-        <p class="body">Every action in a connected app has a risk level. Amount limits and daily caps sit on top, and each action is logged on the conversation.</p>
-      </div>
-      <div class="pad">
-        <div class="risk">
-          <div class="card">
-            <span class="state live">Safe</span>
-            <h3>Runs on its own</h3>
-            <p>Low-risk steps like resending an invoice or sharing a tracking link. The agent does them right away.</p>
-          </div>
-          <div class="card">
-            <span class="state beta">Customer confirms</span>
-            <h3>The customer taps to confirm</h3>
-            <p>Changes the customer should agree to, like booking a call or starting a return. Buttons appear in the chat.</p>
-          </div>
-          <div class="card">
-            <span class="state soon">Staff approves</span>
-            <h3>A person approves first</h3>
-            <p>Money and account changes, like refunds or cancellations. A card shows up in your side panel to approve or decline.</p>
-          </div>
-        </div>
-      </div>
-      <div class="stats">
-        <div><strong>Limits</strong><small>Max amount per action</small></div>
-        <div><strong>Caps</strong><small>Daily totals per team</small></div>
-        <div><strong>Keys</strong><small>A retry never runs twice</small></div>
-        <div><strong>Log</strong><small>On every conversation</small></div>
+      <div class="proof-head pad" style="border-top:1px solid var(--line)"><h2 class="label">From our latest test: 40 real support questions, November 2026</h2></div>
+      <div class="stats proof">
+        <div><strong>39 of 40</strong><small>Answered right</small></div>
+        <div><strong>10 of 10</strong><small>Tricks and rules handled</small></div>
+        <div><strong>4 s</strong><small>Typical reply time</small></div>
+        <div><strong>$0.004</strong><small>AI cost per reply</small></div>
       </div>
     </div>
   </section>
 
-  <!-- Copilot -->
-  <section id="copilot">
+  <!-- Who it's for -->
+  <section aria-labelledby="who-title">
     <div class="frame">
       <div class="section-head pad">
-        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-users"/></svg></span>Copilot</span>
-        <h2 class="h2">Help for your team on the tickets that need a person</h2>
-        <p class="body">Copilot works inside the reply box and the side panel. It drafts, explains and digs, and your team decides what gets sent.</p>
+        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-users"/></svg></span>Who it's for</span>
+        <h2 class="h2" id="who-title">Built for the questions your customers ask most</h2>
       </div>
-      <div class="tiles">
-        <div class="tile">
-          <span class="ic"><svg><use href="/assets/icons.svg#i-doc"/></svg></span>
-          <h3>Draft and improve</h3>
-          <p>Write a first draft, fix the tone or make a reply shorter, right in the reply box.</p>
+      <div class="tiles two">
+        <div class="tile" id="b2b">
+          <span class="ic"><svg><use href="/assets/icons.svg#i-code"/></svg></span>
+          <h3>B2B software</h3>
+          <p>Billing questions and bug reports, answered with the facts.</p>
+          <ul>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Spots double charges in Stripe for the signed-in customer</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Tells customers when a bug is known or fixed, from Linear</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Answers how-to questions from your docs site</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Sends bank disputes to Billing and upset customers to Support</li>
+          </ul>
         </div>
-        <div class="tile">
-          <span class="ic"><svg><use href="/assets/icons.svg#i-globe"/></svg></span>
-          <h3>Translate</h3>
-          <p>Read the customer's message in your language and send your reply in theirs.</p>
-        </div>
-        <div class="tile">
-          <span class="ic"><svg><use href="/assets/icons.svg#i-chat"/></svg></span>
-          <h3>Ask Copilot</h3>
-          <p>Ask about a customer in plain English: "Did we talk about pricing with them last month?"</p>
-        </div>
-        <div class="tile">
-          <span class="ic"><svg><use href="/assets/icons.svg#i-search"/></svg></span>
-          <h3>Investigate</h3>
-          <p>For hard bugs, it checks recent deploys, errors, team chat and similar tickets, then writes a likely cause with links.</p>
-        </div>
-        <div class="tile">
-          <span class="ic"><svg><use href="/assets/icons.svg#i-list"/></svg></span>
-          <h3>Summaries</h3>
-          <p>One click sums up a long thread, so whoever picks it up can start right away.</p>
-        </div>
-        <div class="tile">
-          <span class="ic"><svg><use href="/assets/icons.svg#i-arrow"/></svg></span>
-          <h3>Suggested next step</h3>
-          <p>Recommends a macro, a playbook or the team to route to.</p>
+        <div class="tile" id="ecommerce">
+          <span class="ic"><svg><use href="/assets/icons.svg#i-cart"/></svg></span>
+          <h3>E-commerce</h3>
+          <p>Shipping, returns and payment questions, around the clock.</p>
+          <ul>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Answers shipping and returns questions from your policies</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Finds double charges, and asks before proposing a refund</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Keeps refunds of $50 or more for your team to review</li>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Order tracking from Shopify <span class="state soon" style="vertical-align:1px">Coming</span></li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Trust before Live -->
-  <section class="band" aria-labelledby="trust-title">
-    <div class="mosaic" data-mosaic="band" aria-hidden="true"><canvas></canvas></div>
-    <div class="frame">
-      <div class="band-inner">
-        <div class="band-copy">
-          <span class="sticker tilt"><span class="chip"><svg><use href="/assets/icons.svg#i-flask"/></svg></span>Tested first</span>
-          <h2 class="h2" id="trust-title">It earns its way to Live</h2>
-          <p>Start in Draft mode, where the agent writes and your team sends. A playbook goes Live only when its tests pass, and every change runs them again.</p>
-        </div>
-        <div class="band-chart">
-          <span class="label" style="color:rgba(255,255,255,0.7)">Example replay test</span>
-          <div class="bar-row"><span>Past tickets</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="v">200</span></div>
-          <div class="bar-row"><span>Solved</span><div class="track"><div class="fill" style="width:71%"></div></div><span class="v">142</span></div>
-          <div class="bar-row"><span>Handed off</span><div class="track"><div class="fill" style="width:27%"></div></div><span class="v">54</span></div>
-          <div class="bar-row"><span>Wrong</span><div class="track"><div class="fill" style="width:2%"></div></div><span class="v">4</span></div>
-          <span class="cap">Sample numbers. Each wrong answer links to the step that caused it.</span>
-        </div>
-      </div>
+  <!-- Coming next -->
+  <section aria-label="Coming next">
+    <div class="frame pad coming">
+      <span class="label">Coming next</span>
+      <span class="item"><span class="state soon">Coming</span>Playbooks and actions</span>
+      <span class="item"><span class="state soon">Coming</span>Copilot for your team</span>
+      <span class="item"><span class="state soon">Coming</span>Suggested articles</span>
+      <span class="item"><span class="state soon">Coming</span>Memories</span>
+      <span class="item"><span class="state soon">Coming</span>Phone calls</span>
     </div>
   </section>
 
-  <section id="trust">
+  <!-- More in MagpieReply -->
+  <section aria-labelledby="more-title">
     <div class="frame">
-      <div class="section-head pad">
-        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-eye"/></svg></span>Quality and safety</span>
-        <h2 class="h2">See how well it works, and stop it any time</h2>
-      </div>
-      <div class="tiles">
-        <div class="tile">
-          <span class="ic"><svg><use href="/assets/icons.svg#i-refresh"/></svg></span>
-          <h3>Replay tests</h3>
-          <p>Run your own past conversations through it before go-live. See solved, wrong and handed-off counts for each playbook.</p>
-        </div>
-        <div class="tile">
-          <span class="ic"><svg><use href="/assets/icons.svg#i-users"/></svg></span>
-          <h3>Simulated customers</h3>
-          <p>Practice runs with angry, vague or tricky customers, built from the cases where it went wrong before.</p>
-        </div>
-        <div class="tile">
-          <span class="ic"><svg><use href="/assets/icons.svg#i-flask"/></svg></span>
-          <h3>Golden tests</h3>
-          <p>A set of must-pass cases for each playbook. Any change that breaks one stays out of Live.</p>
-        </div>
-        <div class="tile">
-          <span class="ic"><svg><use href="/assets/icons.svg#i-gauge"/></svg></span>
-          <h3>Watch</h3>
-          <p>Scores every conversation, by the agent or a person, against checks you write in plain language.</p>
-        </div>
-        <div class="tile">
-          <span class="ic"><svg><use href="/assets/icons.svg#i-chart"/></svg></span>
-          <h3>Monitors</h3>
-          <p>Track a theme like "customers mentioning a competitor" with counts and alerts.</p>
-        </div>
-        <div class="tile">
-          <span class="ic"><svg><use href="/assets/icons.svg#i-list"/></svg></span>
-          <h3>Explain any reply</h3>
-          <p>See each step, rule, lookup, time and cost behind a reply, right in the side panel.</p>
-        </div>
-        <div class="tile">
-          <span class="ic"><svg><use href="/assets/icons.svg#i-shield"/></svg></span>
-          <h3>Guardrails</h3>
-          <p>A fact check and a rule check on every reply. Attack attempts are caught, and personal data is masked in logs.</p>
-        </div>
-        <div class="tile">
-          <span class="ic"><svg><use href="/assets/icons.svg#i-x"/></svg></span>
-          <h3>Kill switches</h3>
-          <p>Turn the agent off for one inbox, for your whole team or everywhere, in one click.</p>
-        </div>
-        <div class="tile">
-          <span class="ic"><svg><use href="/assets/icons.svg#i-alert"/></svg></span>
-          <h3>Spending caps</h3>
-          <p>Set a monthly limit. You get an alert well before you reach it.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Languages and channels -->
-  <section id="languages">
-    <div class="frame">
-      <div class="section-head pad" style="border-top:1px solid var(--line)">
-        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-globe"/></svg></span>Every language and channel</span>
-        <h2 class="h2">Replies that fit the customer and the channel</h2>
-      </div>
-      <div class="rows">
-        <div class="row-item">
-          <div><span class="k">LANGUAGES</span><h3>Answers in the customer's language</h3></div>
-          <div><p>The agent spots the language and replies in it. Your team sees both sides translated, so anyone can step in.</p></div>
-        </div>
-        <div class="row-item">
-          <div><span class="k">CHANNELS</span><h3>Written for where the customer is</h3></div>
-          <div><p>Short for website chat. Formatted for email. Plain for SMS. On WhatsApp it stays within the 24-hour reply window.</p></div>
-        </div>
-        <div class="row-item">
-          <div><span class="k">MODES</span><h3>Draft or Auto, per inbox</h3></div>
-          <div><p>Pick Draft mode, where your team reviews each reply, or Auto mode, where the agent sends on its own. Set business hours for each inbox.</p></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Roadmap -->
-  <section id="roadmap">
-    <div class="frame">
-      <div class="section-head pad">
-        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-clock"/></svg></span>Roadmap</span>
-        <h2 class="h2">What's ready and what's coming</h2>
-        <p class="body">The inbox, channels, help center, automations and reports are live today. The AI agent is rolling out to early access teams in stages.</p>
-      </div>
-      <div class="roadmap">
-        <div class="stage">
-          <div class="stage-head"><span class="label">Now</span><span class="state beta">Early access</span></div>
-          <div class="stage-item"><strong>Answers with sources</strong><span>From your help center, website, PDFs and docs, with a fact check before sending</span></div>
-          <div class="stage-item"><strong>Handoff notes</strong><span>A summary note and the right team, every time it hands off</span></div>
-          <div class="stage-item"><strong>Draft and Auto modes</strong><span>Start with your team reviewing, then let it send</span></div>
-          <div class="stage-item"><strong>Replay tests and traces</strong><span>Test on past tickets and see every step behind a reply</span></div>
-          <div class="stage-item"><strong>Kill switches and spending caps</strong><span>Stop it per inbox or team, and set a monthly limit</span></div>
-          <div class="stage-item"><strong>Lookups in your apps</strong><span>Read-only in Stripe, Shopify, HubSpot and Linear, with identity checks</span></div>
-        </div>
-        <div class="stage">
-          <div class="stage-head"><span class="label">Next</span><span class="state soon">Coming</span></div>
-          <div class="stage-item"><strong>Playbooks and actions</strong><span>Plain-English playbooks, with customer confirms and staff approvals</span></div>
-          <div class="stage-item"><strong>Copilot</strong><span>Draft, improve, translate, Ask Copilot and summaries</span></div>
-          <div class="stage-item"><strong>Investigate</strong><span>Root cause for hard bugs across deploys, errors and team chat</span></div>
-          <div class="stage-item"><strong>Suggested articles</strong><span>Questions with no good answer become drafts for you to approve</span></div>
-          <div class="stage-item"><strong>Memories</strong><span>Short facts about each customer, like "prefers email"</span></div>
-          <div class="stage-item"><strong>Auto-sort and follow-up</strong><span>Topic, priority and routing on every new ticket, and a check on quiet threads</span></div>
-        </div>
-        <div class="stage">
-          <div class="stage-head"><span class="label">Later</span><span class="state soon">Coming</span></div>
-          <div class="stage-item"><strong>Simulated customers</strong><span>Practice runs built from your real hard cases</span></div>
-          <div class="stage-item"><strong>Watch and Monitors</strong><span>Scores on every conversation and alerts on themes</span></div>
-          <div class="stage-item"><strong>Outage detection</strong><span>Groups a burst of similar tickets into one incident</span></div>
-          <div class="stage-item"><strong>The full app list</strong><span>45 and more apps, plus your own in-house tools</span></div>
-          <div class="stage-item"><strong>Closing the loop</strong><span>Tells customers when their bug is fixed</span></div>
-          <div class="stage-item"><strong>MagpieReply for your AI tools</strong><span>Your own AI assistants can read your support data</span></div>
-          <div class="stage-item"><strong>Voice</strong><span>A phone agent with the same playbooks and handoff</span></div>
-        </div>
+      <div class="section-head pad" style="border-top:1px solid var(--line)"><h2 class="h2" id="more-title">More in MagpieReply</h2></div>
+      <div class="more">
+        <a href="/inbox/"><span class="ic"><svg><use href="/assets/icons.svg#i-inbox"/></svg></span><h3>Shared inbox<svg aria-hidden="true"><use href="/assets/icons.svg#i-arrow"/></svg></h3><p>Every channel in one place, with Magpie's drafts beside each conversation.</p></a>
+        <a href="/help-center/"><span class="ic"><svg><use href="/assets/icons.svg#i-book"/></svg></span><h3>Help center<svg aria-hidden="true"><use href="/assets/icons.svg#i-arrow"/></svg></h3><p>Articles your customers can search, and the first thing Magpie learns from.</p></a>
+        <a href="/integrations/"><span class="ic"><svg><use href="/assets/icons.svg#i-plug"/></svg></span><h3>Apps<svg aria-hidden="true"><use href="/assets/icons.svg#i-arrow"/></svg></h3><p>Connect Stripe and Linear in one click. Magpie only reads.</p></a>
       </div>
     </div>
   </section>
@@ -394,47 +374,39 @@
   <!-- FAQ -->
   <section id="faq">
     <div class="frame">
-      <div class="section-head pad" style="border-top:1px solid var(--line)">
-        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-chat"/></svg></span>Questions</span>
-        <h2 class="h2">Common questions</h2>
-      </div>
+      <div class="section-head pad" style="border-top:1px solid var(--line)"><h2 class="h2">Questions about Magpie</h2></div>
       <div class="faq">
-        <details>
-          <summary>Does it make things up?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary>
-          <div class="answer"><p>It answers only from your knowledge and your connected apps. Before a reply goes out, a fact check confirms each claim has a source. If the check fails, the ticket goes to your team.</p></div>
-        </details>
-        <details>
-          <summary>Can it issue refunds?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary>
-          <div class="answer"><p>Yes, if you allow it. Most teams set refunds to need a person's approval, with an amount limit and a daily cap. Each refund is logged on the conversation, and a retry can never run it twice.</p></div>
-        </details>
-        <details>
-          <summary>What happens when it doesn't know the answer?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary>
-          <div class="answer"><p>It hands the ticket to the right team with a short note about what the customer needs and what was tried. The customer is told a person will reply.</p></div>
-        </details>
-        <details>
-          <summary>Which AI model does it use?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary>
-          <div class="answer"><p>Claude, by Anthropic. Quick tasks like sorting and checks use a small, fast model. Replies use a larger one, and hard investigations use the most capable one.</p></div>
-        </details>
-        <details>
-          <summary>Can I try it on past tickets first?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary>
-          <div class="answer"><p>Yes. Replay tests run your past conversations through the agent and show how many it would solve, hand off or get wrong. You can also start in Draft mode, where your team sends every reply.</p></div>
-        </details>
+        <details><summary>What happens if Magpie gets something wrong?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>In Draft mode, a teammate reads every reply before it goes out. The fact check flags any claim it can't find in a source, so your team knows where to look.</p><p>Auto only unlocks once a replay test shows Magpie answering past conversations the way your team did, at least 9 times in 10.</p></div></details>
+        <details><summary>What does it cost?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>Magpie is free while we're in early access. Each team has a monthly spending limit on AI, so there are no surprise bills. See <a href="/pricing/" style="color:var(--brand)">pricing</a> for the plans we're planning.</p></div></details>
+        <details><summary>Can Magpie see other customers' data?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>No. Lookups use the signed-in customer's email, filled in by code, so Magpie can only look up the person it's talking to. It never looks up anyone else, even for someone claiming to be staff.</p></div></details>
+        <details><summary>Which apps can Magpie use?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>Stripe and Linear today, each with one click. HubSpot and Shopify are next. Magpie only reads from your apps.</p></div></details>
+        <details><summary>Can I turn Magpie off?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>Any time. Settings, AI agent has Off, Draft and Auto, and you pick which inboxes Magpie works in.</p></div></details>
       </div>
     </div>
   </section>
 
+  <!-- CTA -->
   <section class="end-cta">
     <div class="mosaic" data-mosaic="cta" aria-hidden="true"><canvas></canvas></div>
     <div class="frame pad">
       <div class="end-cta-inner">
-        <h2 class="h2" style="max-width:18ch">Let the agent take the first reply</h2>
+        <h2 class="h2" style="max-width:18ch">Let Magpie take the first reply</h2>
         <div class="ctas">
-          <a class="btn btn-primary btn-lg" href="mailto:hello@magpiereply.com?subject=Early%20access">Get early access</a>
-          <a class="btn btn-secondary btn-lg" href="/pricing/">See pricing</a>
+          <a class="btn btn-primary btn-lg" href="https://app.magpiereply.com/app/auth/signup">Start free</a>
+          <a class="btn btn-secondary btn-lg" href="mailto:hello@magpiereply.com?subject=Demo">Book a demo</a>
         </div>
       </div>
     </div>
   </section>
+  <nav class="frame pad keep" aria-label="Keep exploring">
+    <span class="label">Keep exploring</span>
+    <a href="/inbox/">Shared inbox</a>
+    <a href="/help-center/">Help center</a>
+    <a href="/integrations/">Apps</a>
+    <a href="/security/">Security</a>
+    <a href="/pricing/">Pricing</a>
+    <a href="/open-source/">Self-host</a>
+  </nav>
 </main>
 
 <!-- footer -->
@@ -447,7 +419,7 @@
       </div>
       <div>
         <h4>Product</h4>
-        <ul><li><a href="/inbox/">Inbox</a></li><li><a href="/ai-agent/">AI agent</a></li><li><a href="/integrations/">Integrations</a></li><li><a href="/pricing/">Pricing</a></li><li><a href="/security/">Security</a></li></ul>
+        <ul><li><a href="/ai-agent/">Magpie</a></li><li><a href="/inbox/">Shared inbox</a></li><li><a href="/help-center/">Help center</a></li><li><a href="/integrations/">Apps</a></li><li><a href="/pricing/">Pricing</a></li><li><a href="/security/">Security</a></li></ul>
       </div>
       <div>
         <h4>Open source</h4>

@@ -9,6 +9,7 @@ The marketing site: plain HTML, CSS and a small script, with no build step. It's
 | `/` | `index.html` |
 | `/inbox/` | `inbox/index.html` |
 | `/ai-agent/` | `ai-agent/index.html` |
+| `/help-center/` | `help-center/index.html` |
 | `/integrations/` | `integrations/index.html` |
 | `/pricing/` | `pricing/index.html` |
 | `/security/` | `security/index.html` |
@@ -23,6 +24,8 @@ The marketing site: plain HTML, CSS and a small script, with no build step. It's
 - `assets/icons.svg`: every icon, used as `<svg><use href="/assets/icons.svg#i-NAME"/></svg>`
 - `partials/nav.html` and `partials/footer.html`: the nav and footer on every page
 - `partials/page-template.html`: start a new page from this
+- `partials/product-template.html`: start a product page from this (hero, capability index, four showcases, proof, coming next, more, FAQ, CTA)
+- The Product menu lives in `partials/nav.html`; its links point at product pages and their section ids
 - `.htaccess`: Hostinger server settings
 
 After editing the nav or footer, copy them into every page:
@@ -41,7 +44,7 @@ Features carry a state tag that matches the build plan in `docs/ai-agent-plan.md
 - `state beta`, "Early access": phases 1 to 3 of Magpie AI
 - `state soon`, "Coming": phases 4 to 9
 
-When a phase ships, change its tags on `/ai-agent/`, `/integrations/` and `/pricing/`, and move it on the roadmap at the bottom of `/ai-agent/`.
+When a phase ships, change its tags on `/ai-agent/`, `/integrations/` and `/pricing/`, and move it out of the "Coming next" row on each product page.
 
 ## Preview
 
