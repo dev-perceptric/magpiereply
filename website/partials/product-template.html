@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Product page template. Copy this file to NAME/index.html, fill in the CAPS parts, then run
+       node tools/sync-chrome.mjs to add the nav and footer. Section order: hero, capability index,
+       four capability showcases, proof, (extra), coming next, more in MagpieReply, FAQ, CTA, keep exploring.
+       Only list what works in the app today; planned features go in "Coming next" with a state soon tag. -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>PRODUCT | MagpieReply</title>
+  <meta name="description" content="ONE SENTENCE">
+  <link rel="canonical" href="https://www.magpiereply.com/PATH/">
+  <meta property="og:title" content="PRODUCT | MagpieReply">
+  <meta property="og:description" content="ONE SENTENCE">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0943b0">
+  <link rel="icon" type="image/svg+xml" href="/assets/logo_thumbnail.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<!-- nav --><!-- /nav -->
+
+<main id="top">
+
+  <!-- 1. Hero: crumb, headline, lede, two buttons, a mock on the right -->
+  <section class="hero hero-magpie product-hero">
+    <div class="mosaic" data-mosaic="hero" aria-hidden="true"><canvas></canvas></div>
+    <div class="frame pad">
+      <div class="hm-grid">
+        <div class="hm-copy">
+          <div class="crumbs"><a href="/">Product</a><span>/</span><span>PRODUCT</span></div>
+          <h1 class="display">HEADLINE with <em>one blue phrase</em></h1>
+          <p class="lede">TWO SENTENCES.</p>
+          <div class="ctas">
+            <a class="btn btn-primary btn-lg" href="https://app.magpiereply.com/app/auth/signup">Start free</a>
+            <a class="btn btn-secondary btn-lg" href="mailto:hello@magpiereply.com?subject=Demo">Book a demo</a>
+          </div>
+        </div>
+        <div class="hm-stage">
+          <div class="mock-card">
+            <div class="mc-bar"><img src="/assets/logo_thumbnail.svg" alt="">MOCK TITLE</div>
+            <div class="mc-body">
+              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-check"/></svg></span>ROW<span class="end ok">STATE</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Capability index: four cards that link to the sections below -->
+  <section aria-label="What PRODUCT does">
+    <div class="frame">
+      <div class="cap-index">
+        <a class="cap-card" href="#one"><span class="num">01</span><h3>TITLE<svg aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></h3><p>ONE LINE.</p></a>
+        <a class="cap-card" href="#two"><span class="num">02</span><h3>TITLE<svg aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></h3><p>ONE LINE.</p></a>
+        <a class="cap-card" href="#three"><span class="num">03</span><h3>TITLE<svg aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></h3><p>ONE LINE.</p></a>
+        <a class="cap-card" href="#four"><span class="num">04</span><h3>TITLE<svg aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></h3><p>ONE LINE.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Four capability sections; add "flip" to every second one -->
+  <section>
+    <div class="frame">
+      <div class="showcase" id="one">
+        <div class="showcase-copy">
+          <span class="k">01 / LABEL</span>
+          <h3>HEADLINE</h3>
+          <p>SHORT PARAGRAPH.</p>
+          <ul>
+            <li><svg><use href="/assets/icons.svg#i-check"/></svg>POINT</li>
+          </ul>
+        </div>
+        <div class="showcase-visual">
+          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
+          <div class="mock-card"><div class="mc-bar">MOCK</div><div class="mc-body"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Proof: four numbers or facts -->
+  <section aria-label="PRODUCT in numbers">
+    <div class="frame">
+      <div class="stats proof">
+        <div><strong>FACT</strong><small>LABEL</small></div>
+        <div><strong>FACT</strong><small>LABEL</small></div>
+        <div><strong>FACT</strong><small>LABEL</small></div>
+        <div><strong>FACT</strong><small>LABEL</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Coming next -->
+  <section aria-label="Coming next">
+    <div class="frame pad coming">
+      <span class="label">Coming next</span>
+      <span class="item"><span class="state soon">Coming</span>FEATURE</span>
+    </div>
+  </section>
+
+  <!-- 6. More in MagpieReply: the other product pages -->
+  <section aria-labelledby="more-title">
+    <div class="frame">
+      <div class="section-head pad" style="border-top:1px solid var(--line)"><h2 class="h2" id="more-title">More in MagpieReply</h2></div>
+      <div class="more">
+        <a href="/PAGE/"><span class="ic"><svg><use href="/assets/icons.svg#i-inbox"/></svg></span><h3>PRODUCT<svg aria-hidden="true"><use href="/assets/icons.svg#i-arrow"/></svg></h3><p>ONE LINE.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. FAQ -->
+  <section id="faq">
+    <div class="frame">
+      <div class="section-head pad" style="border-top:1px solid var(--line)"><h2 class="h2">Questions</h2></div>
+      <div class="faq">
+        <details><summary>QUESTION<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>ANSWER.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. CTA, then keep exploring -->
+  <section class="end-cta">
+    <div class="mosaic" data-mosaic="cta" aria-hidden="true"><canvas></canvas></div>
+    <div class="frame pad">
+      <div class="end-cta-inner">
+        <h2 class="h2" style="max-width:18ch">CLOSING LINE</h2>
+        <div class="ctas">
+          <a class="btn btn-primary btn-lg" href="https://app.magpiereply.com/app/auth/signup">Start free</a>
+          <a class="btn btn-secondary btn-lg" href="mailto:hello@magpiereply.com?subject=Demo">Book a demo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <nav class="frame pad keep" aria-label="Keep exploring">
+    <span class="label">Keep exploring</span>
+    <a href="/PAGE/">LINK</a>
+  </nav>
+</main>
+
+<!-- footer --><!-- /footer -->
+
+<script src="/script.js"></script>
+</body>
+</html>

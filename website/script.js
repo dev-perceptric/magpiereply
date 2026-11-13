@@ -174,12 +174,38 @@
       toggle.setAttribute('aria-expanded', String(open));
       toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     });
-    nav.querySelectorAll('ul a, .actions a').forEach((link) => {
+    nav.querySelectorAll('ul a, .actions a, .mega a').forEach((link) => {
       link.addEventListener('click', () => {
         nav.classList.remove('open');
         toggle.setAttribute('aria-expanded', 'false');
         toggle.setAttribute('aria-label', 'Open menu');
       });
+    });
+  }
+
+  // Product menu: opens on click, closes on Escape, a click outside, or a link.
+  const menuButton = document.querySelector('.menu-btn');
+  const menu = document.getElementById('product-menu');
+  if (menuButton && menu) {
+    const setMenu = (open) => {
+      menu.hidden = !open;
+      menuButton.setAttribute('aria-expanded', String(open));
+    };
+    menuButton.addEventListener('click', (event) => {
+      event.stopPropagation();
+      setMenu(menu.hidden);
+    });
+    menu.addEventListener('click', (event) => {
+      if (event.target.closest('a')) setMenu(false);
+    });
+    document.addEventListener('click', (event) => {
+      if (!menu.hidden && !menu.contains(event.target)) setMenu(false);
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !menu.hidden) {
+        setMenu(false);
+        menuButton.focus();
+      }
     });
   }
 
