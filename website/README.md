@@ -28,7 +28,9 @@ The marketing site: plain HTML, CSS and a small script, with no build step. It's
 - The Product menu lives in `partials/nav.html`; its links point at product pages and their section ids
 - `.htaccess`: Hostinger server settings
 
-After editing the nav or footer, copy them into every page:
+The homepage (`index.html`) has its own styles, nav and footer, built from the study in `samples/humblytics-study/brand.md`; it doesn't load `styles.css`. Keep its Product menu in step with `partials/nav.html` by hand.
+
+After editing the nav or footer, copy them into every other page:
 
 ```bash
 node tools/sync-chrome.mjs

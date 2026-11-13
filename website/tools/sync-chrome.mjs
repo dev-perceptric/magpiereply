@@ -46,6 +46,10 @@ function fill(html, name, block) {
 for (const path of findPages(root)) {
   const url = pageUrl(path);
   let html = readFileSync(path, 'utf8');
+  if (html.includes('<!-- chrome: own')) {
+    console.log('skipped', relative(root, path), '(own nav and footer)');
+    continue;
+  }
   html = fill(html, 'nav', markCurrent(nav, url));
   html = fill(html, 'footer', footer);
   writeFileSync(path, html);
