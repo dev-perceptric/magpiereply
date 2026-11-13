@@ -32,7 +32,9 @@ function pageUrl(path) {
 }
 
 function markCurrent(html, url) {
-  return html.replace(`<a href="${url}">`, `<a href="${url}" aria-current="page">`);
+  return html
+    .replace(`<a href="${url}">`, `<a href="${url}" aria-current="page">`)
+    .replace(`<a class="mega-item" href="${url}">`, `<a class="mega-item" href="${url}" aria-current="page">`);
 }
 
 function fill(html, name, block) {
