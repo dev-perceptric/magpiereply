@@ -242,6 +242,21 @@
     });
   });
 
+  // Blocks fade up as they scroll into view (styles.css: .js-rv).
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    const blocks = document.querySelectorAll('main .section-head, main .showcase, main .tiles, main .cap-index, main .stats, main .faq, main .plans, main .more, main .rows, main .dir, main .compare, main .roadmap, main .risk, main .oss-inner, main .end-cta-inner, main .prose');
+    const seen = new IntersectionObserver((entries) => entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('in');
+      seen.unobserve(entry.target);
+    }), { threshold: 0.12 });
+    blocks.forEach((el) => {
+      if (el.getBoundingClientRect().top < window.innerHeight) return;
+      el.classList.add('js-rv');
+      seen.observe(el);
+    });
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', drawAll);
   } else {
