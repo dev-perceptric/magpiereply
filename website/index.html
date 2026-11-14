@@ -408,8 +408,10 @@ footer { padding: 80px 20px 0; max-width: 1040px; margin: 0 auto; }
 section.pf-outer { padding-top: 120px; }
 .platform { margin: 0 16px; border-radius: 28px; background: #0A0A0B; color: #fff; padding: 72px 0 40px; position: relative; }
 .platform .wrap { max-width: 1120px; }
-.pf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
-.pf-left { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; }
+/* Both columns pin for the whole section; scrolling through the grid's height picks the active step. */
+.pf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; position: relative; height: calc(var(--n, 5) * 70vh + 30vh); }
+.pf-left { position: sticky; top: 0; height: 100vh; align-self: start; display: flex; align-items: center; }
+.pf-right { position: sticky; top: 0; height: 100vh; align-self: start; }
 .pf-title { position: absolute; left: 0; right: 64px; opacity: 0; transform: translateY(18px); filter: blur(4px); transition: opacity .5s var(--ease), transform .5s var(--ease), filter .5s var(--ease); pointer-events: none; }
 .pf-title.on { opacity: 1; transform: none; filter: none; pointer-events: auto; }
 .pf-num { font-family: ui-monospace, Menlo, monospace; font-size: 12.5px; letter-spacing: .08em; color: rgba(255,255,255,.45); }
@@ -418,10 +420,12 @@ section.pf-outer { padding-top: 120px; }
 .pf-title p, .m-title p { margin-top: 16px; font-size: 17px; line-height: 1.6; color: rgba(255,255,255,.72); max-width: 440px; }
 .pf-rail { position: absolute; right: 0; top: 18%; bottom: 18%; width: 1px; background: rgba(255,255,255,.14); }
 .pf-dot { position: absolute; left: -6px; top: 0; width: 13px; height: 13px; border-radius: 50%; background: #7B9BEA; box-shadow: 0 0 0 6px rgba(123,155,234,.18); transition: top .25s linear; }
-.pf-step { min-height: 92vh; display: flex; flex-direction: column; justify-content: center; padding: 40px 0; }
+.pf-step { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); pointer-events: none; }
+.pf-step.on { pointer-events: auto; }
 .m-title { display: none; }
-.pf-visual { position: relative; opacity: .25; transform: translateY(30px) scale(.97); transition: opacity .6s var(--ease), transform .6s var(--ease); }
-.pf-step.on .pf-visual { opacity: 1; transform: none; }
+.pf-visual { position: relative; opacity: 0; transform: translateY(48px) scale(.97); filter: blur(4px); transition: opacity .55s var(--ease), transform .55s var(--ease), filter .55s var(--ease); }
+.pf-step.past .pf-visual { transform: translateY(-48px) scale(.97); }
+.pf-step.on .pf-visual { opacity: 1; transform: none; filter: none; }
 .pf-visual::before { content: ""; position: absolute; inset: 10% 5% -10%; background: radial-gradient(rgba(123,155,234,.35), transparent 70%); filter: blur(40px); z-index: 0; }
 .pcard, .pcard-wrap { position: relative; z-index: 1; }
 .pcard { background: #F4F5F8; color: var(--body); border-radius: 16px; padding: 16px 18px 18px; font-size: 13.5px; box-shadow: 0 30px 60px -30px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.08); }
@@ -460,12 +464,13 @@ section.pf-outer { padding-top: 120px; }
   .slab-stage { height: 420px; overflow: hidden; }
   .slab { width: 320px; height: 260px; }
   .diff-lead { font-size: 24px; }
-  .pf-grid { grid-template-columns: 1fr; }
+  .pf-grid { grid-template-columns: 1fr; height: auto; }
   .pf-left { display: none; }
-  .pf-step { min-height: 0; padding: 32px 0; }
+  .pf-right { position: static; height: auto; }
+  .pf-step { position: static; transform: none; padding: 32px 0; pointer-events: auto; }
   .m-title { display: block; margin-bottom: 24px; }
   .m-title h3 { font-size: 32px; }
-  .pf-visual { opacity: 1; transform: none; }
+  .pf-visual, .pf-step.past .pf-visual { opacity: 1; transform: none; filter: none; }
   .platform { margin: 0 8px; padding: 48px 0 24px; }
 }
 @media (max-width: 480px) {
@@ -969,24 +974,30 @@ section.pf-outer { padding-top: 120px; }
     document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !menu.hidden) { setMenu(false); menuButton.focus(); } });
   }
 
-  // Platform section: the step nearest the middle of the screen is active; the dot follows the scroll.
-  const pfRight = document.querySelector('.pf-right');
-  if (pfRight) {
-    const stepsEls = [...pfRight.querySelectorAll('.pf-step')];
-    const titlesEls = [...document.querySelectorAll('.pf-title')];
-    const dot = document.querySelector('.pf-dot');
-    const rail = document.querySelector('.pf-rail');
+  // Platform section: both columns stay pinned; how far you've scrolled through the grid picks the step.
+  const pfGrid = document.querySelector('.pf-grid');
+  if (pfGrid) {
+    const stepsEls = [...pfGrid.querySelectorAll('.pf-step')];
+    const titlesEls = [...pfGrid.querySelectorAll('.pf-title')];
+    const dot = pfGrid.querySelector('.pf-dot');
+    const rail = pfGrid.querySelector('.pf-rail');
+    const desktop = window.matchMedia('(min-width: 901px)');
+    pfGrid.style.setProperty('--n', stepsEls.length);
     let ticking = false;
     const update = () => {
       ticking = false;
-      const mid = innerHeight / 2;
-      let best = 0, bestDist = Infinity;
-      stepsEls.forEach((el, i) => { const r = el.getBoundingClientRect(); const d = Math.abs(r.top + r.height / 2 - mid); if (d < bestDist) { bestDist = d; best = i; } });
-      stepsEls.forEach((el, i) => el.classList.toggle('on', i === best));
-      titlesEls.forEach((el, i) => el.classList.toggle('on', i === best));
-      const r = pfRight.getBoundingClientRect();
-      const progress = Math.min(1, Math.max(0, (mid - r.top) / r.height));
-      if (dot && rail) dot.style.top = (progress * (rail.offsetHeight - 13)) + 'px';
+      let active;
+      if (desktop.matches) {
+        const r = pfGrid.getBoundingClientRect();
+        const progress = Math.min(1, Math.max(0, -r.top / (r.height - innerHeight)));
+        active = Math.min(stepsEls.length - 1, Math.floor(progress * stepsEls.length));
+        if (dot && rail) dot.style.top = (progress * (rail.offsetHeight - 13)) + 'px';
+      } else {
+        const mid = innerHeight / 2; let bestDist = Infinity; active = 0;
+        stepsEls.forEach((el, i) => { const b = el.getBoundingClientRect(); const d = Math.abs(b.top + b.height / 2 - mid); if (d < bestDist) { bestDist = d; active = i; } });
+      }
+      stepsEls.forEach((el, i) => { el.classList.toggle('on', i === active); el.classList.toggle('past', i < active); });
+      titlesEls.forEach((el, i) => el.classList.toggle('on', i === active));
     };
     addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
     addEventListener('resize', update);
