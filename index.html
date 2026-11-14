@@ -4,10 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!-- chrome: own. This page carries its own nav and footer; tools/sync-chrome.mjs skips it. -->
-<title>MagpieReply: meet Magpie, the AI agent for your support inbox</title>
-<meta name="description" content="Magpie reads your help center, checks your apps for the facts and writes every reply with its sources. Your team sends it with one click, or lets Magpie answer on its own once it has earned it.">
+<title>MagpieReply: the agentic CX platform</title>
+<meta name="description" content="The agentic CX platform. Magpie reads your help center, checks your apps for the facts and writes every reply with its sources. Your team sends it with one click, or lets Magpie answer on its own once it has earned it.">
 <link rel="canonical" href="https://www.magpiereply.com/">
-<meta property="og:title" content="Meet Magpie, the AI agent for your support inbox">
+<meta property="og:title" content="MagpieReply: the agentic CX platform">
+<meta property="og:image" content="https://magpiereply.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://magpiereply.com/assets/og.png">
 <meta property="og:description" content="Magpie reads your help center, checks your apps for the facts and writes every reply with its sources. Free during early access.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#0943b0">
@@ -69,7 +74,7 @@ img { display: block; }
 .eyebrow b { background: var(--accent); color: #fff; font-weight: 500; font-size: 12px; padding: 2px 8px; border-radius: 999px; }
 .hero h1 { font-size: 56px; line-height: 60px; letter-spacing: -0.04em; margin-top: 24px; }
 .hero h1 .l2 { color: var(--accent); }
-.rot { display: inline-grid; vertical-align: top; }
+.rot { display: inline-grid; vertical-align: top; justify-items: start; text-align: left; transition: width .5s var(--ease); }
 .rot span { grid-area: 1 / 1; opacity: 0; transform: translateY(14px); filter: blur(4px); transition: opacity .5s var(--ease), transform .5s var(--ease), filter .5s var(--ease); white-space: nowrap; }
 .rot span.on { opacity: 1; transform: none; filter: none; }
 .lede { font-size: 17px; line-height: 30px; color: var(--body); }
@@ -363,6 +368,113 @@ footer { padding: 80px 20px 0; max-width: 1040px; margin: 0 auto; }
 .mosaic rect.hot { animation: none; }
 @keyframes twinkle { 50% { opacity: .35; } }
 
+/* Section rule and square tag (difference and platform) */
+.sec-rule { border-top: 1px solid var(--line); padding-top: 32px; margin-bottom: 40px; }
+.sec-rule.dark { border-color: rgba(255,255,255,.14); }
+.sq-tag { display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px; background: var(--well); font-size: 15px; font-weight: 500; }
+.sq-tag i { width: 8px; height: 8px; background: var(--accent); }
+.sq-tag.dark { background: rgba(255,255,255,.08); color: #fff; }
+.sq-tag.dark i { background: #6B8FE3; }
+
+/* The MagpieReply difference */
+.diff { display: grid; grid-template-columns: 1fr 1.05fr; gap: 40px; align-items: center; min-height: 560px; }
+.diff-lead { font-size: 30px; line-height: 1.32; letter-spacing: -0.02em; color: var(--ink); }
+.diff-lead + .diff-lead { margin-top: 22px; }
+.diff-lead em { font-style: normal; color: var(--accent); }
+.btn-outline { display: inline-flex; align-items: center; height: 52px; padding: 0 26px; margin-top: 36px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px var(--accent); color: var(--accent); font-weight: 500; font-size: 17px; transition: background-color .2s, color .2s; }
+.btn-outline:hover { background: var(--accent); color: #fff; }
+.slab-stage { position: relative; height: 520px; perspective: 1800px; }
+.glow { position: absolute; border-radius: 50%; filter: blur(60px); }
+.g1 { width: 380px; height: 300px; left: 18%; top: 34%; background: rgba(9,67,176,.22); }
+.g2 { width: 220px; height: 200px; right: 6%; top: 46%; background: rgba(255,170,120,.28); }
+.slab-float { position: absolute; inset: 0; display: grid; place-items: center; animation: float 7s ease-in-out infinite; transform-style: preserve-3d; }
+.slab { position: relative; width: 400px; height: 300px; transform-style: preserve-3d; transform: rotateX(54deg) rotateZ(-32deg); }
+.layer { position: absolute; inset: 0; border-radius: 22px; transition: transform 1.2s var(--ease); }
+.base { transform: translateZ(0); background: linear-gradient(135deg, rgba(217,229,252,.9), rgba(107,143,227,.55)); border: 1px dashed rgba(9,67,176,.35); box-shadow: 0 50px 80px -30px rgba(9,67,176,.45); }
+.mid { transform: translateZ(34px); background: rgba(238,243,253,.55); border: 1px solid rgba(9,67,176,.18); padding: 26px 26px; display: grid; align-content: center; gap: 9px; backdrop-filter: blur(2px); }
+.mid .code { font: 500 12.5px/1.35 ui-monospace, Menlo, monospace; color: rgba(9,67,176,.75); }
+.mid .code b { color: #0E7A48; }
+.top { transform: translateZ(72px); background: rgba(255,255,255,.88); border: 1px solid rgba(255,255,255,.9); box-shadow: 0 0 0 1px rgba(9,67,176,.12), 0 30px 50px -24px rgba(9,67,176,.35); padding: 26px 28px; display: grid; align-content: start; gap: 10px; }
+.in .top { transform: translateZ(118px); }
+.in .mid { transform: translateZ(48px); }
+.top .ttl { font-weight: 600; font-size: 18px; color: var(--accent); letter-spacing: -0.01em; }
+.top .q { font-size: 14px; color: var(--muted); }
+.top .a { font-size: 15px; line-height: 1.45; color: var(--ink); }
+.top .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.top .tags span { font-size: 11.5px; padding: 3px 8px; border-radius: 6px; background: var(--well); color: var(--muted); }
+.top .tags .okp { background: var(--ok-soft); color: #0E7A48; font-weight: 500; }
+
+/* Complete, unified platform */
+section.pf-outer { padding-top: 120px; }
+.platform { margin: 0 16px; border-radius: 28px; background: #0A0A0B; color: #fff; padding: 72px 0 40px; position: relative; }
+.platform .wrap { max-width: 1120px; }
+.pf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+.pf-left { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; }
+.pf-title { position: absolute; left: 0; right: 64px; opacity: 0; transform: translateY(18px); filter: blur(4px); transition: opacity .5s var(--ease), transform .5s var(--ease), filter .5s var(--ease); pointer-events: none; }
+.pf-title.on { opacity: 1; transform: none; filter: none; pointer-events: auto; }
+.pf-num { font-family: ui-monospace, Menlo, monospace; font-size: 12.5px; letter-spacing: .08em; color: rgba(255,255,255,.45); }
+.pf-title h3, .m-title h3 { font-size: 44px; line-height: 1.1; letter-spacing: -0.035em; margin-top: 12px; }
+.pf-title h3 em, .m-title h3 em { font-style: normal; color: #7B9BEA; }
+.pf-title p, .m-title p { margin-top: 16px; font-size: 17px; line-height: 1.6; color: rgba(255,255,255,.72); max-width: 440px; }
+.pf-rail { position: absolute; right: 0; top: 18%; bottom: 18%; width: 1px; background: rgba(255,255,255,.14); }
+.pf-dot { position: absolute; left: -6px; top: 0; width: 13px; height: 13px; border-radius: 50%; background: #7B9BEA; box-shadow: 0 0 0 6px rgba(123,155,234,.18); transition: top .25s linear; }
+.pf-step { min-height: 92vh; display: flex; flex-direction: column; justify-content: center; padding: 40px 0; }
+.m-title { display: none; }
+.pf-visual { position: relative; opacity: .25; transform: translateY(30px) scale(.97); transition: opacity .6s var(--ease), transform .6s var(--ease); }
+.pf-step.on .pf-visual { opacity: 1; transform: none; }
+.pf-visual::before { content: ""; position: absolute; inset: 10% 5% -10%; background: radial-gradient(rgba(123,155,234,.35), transparent 70%); filter: blur(40px); z-index: 0; }
+.pcard, .pcard-wrap { position: relative; z-index: 1; }
+.pcard { background: #F4F5F8; color: var(--body); border-radius: 16px; padding: 16px 18px 18px; font-size: 13.5px; box-shadow: 0 30px 60px -30px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.08); }
+.pcard .row { border-color: #E2E4E9; }
+.pcard .win-bar { border-color: #E2E4E9; }
+.pcard .conn b { display: block; font-weight: 500; color: var(--ink); font-size: 13.5px; }
+.pcard .conn small { color: var(--soft); font-size: 12px; }
+.pcard .conn .logo-i { --s: 20px; }
+.spin-sm { width: 11px; height: 11px; border-radius: 50%; border: 2px solid var(--accent-soft-2); border-top-color: var(--accent); animation: spin .8s linear infinite; display: inline-block; }
+.flip { display: inline-grid; }
+.flip > * { grid-area: 1 / 1; transition: opacity .4s .9s, transform .4s .9s var(--ease); }
+.flip .mc { font-size: 12px; font-weight: 500; padding: 4px 12px; border-radius: 7px; background: var(--accent); color: #fff; }
+.flip .state { opacity: 0; transform: scale(.8); }
+.pf-step.on .flip .mc { opacity: 0; transform: scale(.8); }
+.pf-step.on .flip .state { opacity: 1; transform: none; }
+.pf-step .bar i { width: 0; }
+.pf-step.on .bar i { width: var(--w); }
+.pf-step .toggle::before, .pf-step .toggle span { transition-delay: 1.4s; }
+.pf-step.on .toggle::before { transform: translateX(100%); background: var(--accent); }
+.pf-step.on .toggle span:last-child { color: #fff; }
+.ask { display: inline-flex; align-items: center; gap: 12px; padding: 12px 18px 12px 12px; border-radius: 12px; background: #4C6FE0; color: #fff; font-size: 15px; font-weight: 500; margin-bottom: 14px; box-shadow: 0 0 0 1px rgba(255,255,255,.2), 0 18px 40px -16px rgba(76,111,224,.8); }
+.wave { width: 30px; height: 30px; border-radius: 50%; background: #fff; display: inline-flex; align-items: center; justify-content: center; gap: 2px; }
+.wave i { width: 2.5px; height: 10px; border-radius: 2px; background: #4C6FE0; animation: wave 1s ease-in-out infinite; }
+.wave i:nth-child(2) { animation-delay: .15s; height: 14px; } .wave i:nth-child(3) { animation-delay: .3s; } .wave i:nth-child(4) { animation-delay: .45s; height: 7px; }
+@keyframes wave { 50% { transform: scaleY(.45); } }
+.draft-t { font-size: 14px; line-height: 1.55; color: var(--ink); margin-bottom: 10px; }
+.tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px; }
+.tile { position: relative; background: #F4F5F8; color: var(--muted); border-radius: 12px; padding: 18px 14px 14px; font-size: 13px; box-shadow: 0 0 0 1px rgba(255,255,255,.08); opacity: 0; transform: translateY(12px); transition: opacity .5s var(--ease), transform .5s var(--ease); }
+.tile b { display: block; margin-top: 4px; font-size: 24px; font-weight: 500; color: var(--ink); letter-spacing: -0.02em; }
+.tile .badge { position: absolute; top: -12px; right: 10px; width: 28px; height: 28px; border-radius: 50%; background: #4C6FE0; color: #fff; display: grid; place-items: center; font-size: 13px; box-shadow: 0 0 0 3px #0A0A0B; }
+.pf-step.on .tile { opacity: 1; transform: none; }
+.pf-step.on .tile:nth-child(2) { transition-delay: .15s; } .pf-step.on .tile:nth-child(3) { transition-delay: .3s; }
+
+@media (max-width: 900px) {
+  .diff { grid-template-columns: 1fr; min-height: 0; }
+  .slab-stage { height: 420px; overflow: hidden; }
+  .slab { width: 320px; height: 260px; }
+  .diff-lead { font-size: 24px; }
+  .pf-grid { grid-template-columns: 1fr; }
+  .pf-left { display: none; }
+  .pf-step { min-height: 0; padding: 32px 0; }
+  .m-title { display: block; margin-bottom: 24px; }
+  .m-title h3 { font-size: 32px; }
+  .pf-visual { opacity: 1; transform: none; }
+  .platform { margin: 0 8px; padding: 48px 0 24px; }
+}
+@media (max-width: 480px) {
+  .slab { width: 250px; height: 220px; }
+  .top { padding: 18px; } .top .ttl { font-size: 15px; } .top .a { font-size: 13px; }
+  .mid .code { font-size: 10.5px; }
+  .tiles { grid-template-columns: 1fr; gap: 16px; }
+}
+
 /* Product menu (same links as partials/nav.html) */
 .menu-btn { display: inline-flex; align-items: center; gap: 4px; border: 0; background: none; font: inherit; color: inherit; cursor: pointer; padding: 0; }
 .menu-btn span { font-size: 11px; color: var(--soft); transition: transform .2s; display: inline-block; }
@@ -483,7 +595,7 @@ footer { padding: 80px 20px 0; max-width: 1040px; margin: 0 auto; }
   </div>
   <div class="hero">
     <span class="eyebrow rv"><b>New</b>Magpie is live in early access</span>
-    <h1 class="rv" style="--d:.05s">Answer every customer<br><span class="l2"><span class="rot" data-rotate><span class="on">in seconds, with sources</span><span>from your own help center</span><span>before your team logs in</span></span></span></h1>
+    <h1 class="rv" style="--d:.05s">The agentic CX platform<br>for <span class="l2"><span class="rot" data-rotate><span class="on">modern businesses</span><span>future-looking businesses</span><span>AI-native businesses</span></span></span></h1>
     <p class="lede rv" style="--d:.1s">Connect your <span class="chip"><img class="mg-i" src="/assets/logo_thumbnail.svg" alt=""></span>help center, <span class="chip" data-logo="stripe"></span>Stripe and <span class="chip" data-logo="linear"></span>Linear. Magpie writes every reply from your own answers, checks the facts, and your team sends it in one click.</p>
     <div class="form rv" style="--d:.15s">
       <div class="input"><span>&#9711;</span><span class="typed" data-type="help.yourcompany.com"></span><span class="caret"></span></div>
@@ -525,7 +637,8 @@ footer { padding: 80px 20px 0; max-width: 1040px; margin: 0 auto; }
   </div>
 </div>
 
-<main class="wrap">
+<main>
+<div class="wrap">
 
   <!-- 2. Logo marquee and proof line -->
   <div class="marquee-wrap rv">
@@ -534,69 +647,122 @@ footer { padding: 80px 20px 0; max-width: 1040px; margin: 0 auto; }
     <p class="quote-line"><img class="mg-i" src="/assets/logo_thumbnail.svg" alt="" style="--s:22px;border-radius:6px">From our latest test: <b>39 of 40 real support questions answered right</b><span class="dot-accent"></span>about 4 seconds a reply</p>
   </div>
 
-  <!-- 3. How it works -->
-  <section id="how">
-    <div class="sh rv">
-      <div><h2>Go from a full inbox to answers you trust</h2><p>Magpie reads your help content, writes the reply with its sources, checks it, and waits for your team to send it.</p></div>
-      <a class="btn btn-dark" href="https://app.magpiereply.com/app/auth/signup">Set up Magpie</a>
-    </div>
-    <div class="grid2">
-      <div class="card rv">
-        <h3><span class="n">1</span>Magpie learns your answers</h3>
-        <p>Your help center, website and files, read again as they change.</p>
-        <div class="stage"><div class="win">
-          <div class="win-bar"><b>Knowledge</b><span class="r">Example data</span></div>
-          <div class="seq">
-            <div class="row"><img class="mg-i" src="/assets/logo_thumbnail.svg" alt="">Help center<span class="r ok-t">24 articles</span></div>
-            <div class="row"><span data-logo="googlechrome"></span>northwind.example/docs<span class="r ok-t">50 pages</span></div>
-            <div class="row"><span data-logo="notion"></span>Returns policy.pdf<span class="r ok-t">12 pages</span></div>
-            <div class="row"><span data-logo="github"></span>API guide.md<span class="r ac-t">Reading</span></div>
-          </div>
-        </div></div>
+
+  <!-- 3. The MagpieReply difference -->
+  <section id="difference">
+    <div class="sec-rule rv"><span class="sq-tag"><i></i>The MagpieReply difference</span></div>
+    <div class="diff">
+      <div class="diff-copy rv">
+        <p class="diff-lead">Most AI agents guess and hope you never check.</p>
+        <p class="diff-lead"><em>Magpie shows its work.</em> Every reply cites your own help articles and passes a fact check before anyone sees it, so you can trust it as fast as it answers.</p>
+        <a class="btn-outline" href="/ai-agent/#checked">See how it checks</a>
       </div>
-      <div class="card rv" style="--d:.1s">
-        <h3><span class="n">2</span>It writes the reply</h3>
-        <p>Every answer names the articles it came from.</p>
-        <div class="stage"><div class="win">
-          <div class="win-bar"><span data-logo="whatsapp" data-size="14"></span><b>WhatsApp</b><span class="r">10:42</span></div>
-          <div class="seq" style="display:grid;gap:10px">
-            <div style="display:flex;gap:8px;align-items:flex-end"><img class="av" src="https://randomuser.me/api/portraits/men/32.jpg" alt="" style="--s:24px"><div class="bubble">How long does shipping to Canada take?</div></div>
-            <div class="bubble me">5 to 8 business days, and duties are included at checkout.</div>
-            <div class="src"><span>Shipping to Canada</span><span>Duties FAQ</span></div>
+      <div class="slab-stage rv" style="--d:.1s" aria-hidden="true">
+        <div class="glow g1"></div><div class="glow g2"></div>
+        <div class="slab-float"><div class="slab">
+          <div class="layer base"></div>
+          <div class="layer mid">
+            <p class="code">check(reply, sources)</p>
+            <p class="code">"5 to 8 business days" &rarr; Shipping to Canada <b>&#10003;</b></p>
+            <p class="code">"duties included at checkout" &rarr; Duties FAQ <b>&#10003;</b></p>
+            <p class="code">card and phone numbers &rarr; hidden <b>&#10003;</b></p>
+            <p class="code">trying to trick Magpie &rarr; no <b>&#10003;</b></p>
           </div>
-        </div></div>
-      </div>
-      <div class="card rv">
-        <h3><span class="n">3</span>It checks the facts</h3>
-        <p>A second check reads the reply against its sources before anyone sees it.</p>
-        <div class="stage"><div class="win checks">
-          <div class="win-bar"><b>Checks</b><span class="r"><span class="state ok">Passed</span></span></div>
-          <div>
-            <div class="row"><span class="ck">&#10003;</span>Every claim found in a source<span class="r">Yes</span></div>
-            <div class="row"><span class="ck">&#10003;</span>Trying to trick Magpie<span class="r">No</span></div>
-            <div class="row"><span class="ck">&#10003;</span>Card and phone numbers<span class="r">Hidden</span></div>
-            <div class="row"><span class="ck">&#10003;</span>Needs a person<span class="r">No</span></div>
+          <div class="layer top">
+            <p class="ttl">Reply with sources</p>
+            <p class="q">Do you ship to Canada?</p>
+            <p class="a">Yes. Orders to Canada arrive in 5 to 8 business days, and duties are included at checkout.</p>
+            <div class="tags"><span>Shipping to Canada</span><span>Duties FAQ</span><span class="okp">&#10003; Fact check passed</span></div>
           </div>
-        </div></div>
-      </div>
-      <div class="card rv" style="--d:.1s">
-        <h3><span class="n">4</span>You send it, or let Magpie</h3>
-        <p>Start in Draft. Auto unlocks when a replay test passes 90%.</p>
-        <div class="stage"><div class="win">
-          <div class="win-bar"><b>Replay test</b><span class="r">30 past conversations</span></div>
-          <p class="big">Magpie matched your team on <span data-count="28">28</span> of 30</p>
-          <div class="bars">
-            <span>Same</span><div class="bar"><i style="--w:70%"></i></div><span>21</span>
-            <span>Also fine</span><div class="bar"><i style="--w:23%"></i></div><span>7</span>
-            <span>Wrong</span><div class="bar gray"><i style="--w:7%"></i></div><span>2</span>
-          </div>
-          <div class="row" style="margin-top:12px;border-top:1px solid var(--line)">Mode<span class="r"><span class="toggle"><span>Draft</span><span>Auto</span></span></span></div>
         </div></div>
       </div>
     </div>
   </section>
+</div>
 
-  <!-- 4. Live feed -->
+<!-- 4. Complete, unified platform (sticky) -->
+<section class="pf-outer" id="platform">
+  <div class="platform">
+    <div class="wrap">
+      <div class="sec-rule dark rv"><span class="sq-tag dark"><i></i>Complete, unified platform</span></div>
+      <div class="pf-grid">
+        <div class="pf-left">
+          <div class="pf-title on" data-title="0"><span class="pf-num">01 / 05</span><h3><em>Teach</em> your agent</h3><p>Magpie reads your help center, websites and files, and keeps up as they change. No flows to draw and no scripts to write.</p></div>
+          <div class="pf-title" data-title="1"><span class="pf-num">02 / 05</span><h3><em>Connect</em> your apps</h3><p>One click for Stripe and Linear on each app's own sign-in page. Magpie only reads, and only the customer it's talking to.</p></div>
+          <div class="pf-title" data-title="2"><span class="pf-num">03 / 05</span><h3><em>Test</em> before it talks</h3><p>A replay test answers up to 30 past conversations again and grades each reply against what your team sent.</p></div>
+          <div class="pf-title" data-title="3"><span class="pf-num">04 / 05</span><h3><em>Launch</em> in Draft, then Auto</h3><p>Your team sends Magpie's drafts first. Auto unlocks once a replay test passes 90%, and refunds still wait for a person.</p></div>
+          <div class="pf-title" data-title="4"><span class="pf-num">05 / 05</span><h3><em>Watch</em> every step</h3><p>Traces show what Magpie read, looked up and decided, what it cost, and when it stepped back for a person.</p></div>
+          <div class="pf-rail"><i class="pf-dot"></i></div>
+        </div>
+        <div class="pf-right">
+        <div class="pf-step on" data-step="0">
+          <div class="m-title"><span class="pf-num">01 / 05</span><h3><em>Teach</em> your agent</h3><p>Magpie reads your help center, websites and files, and keeps up as they change. No flows to draw and no scripts to write.</p></div>
+          <div class="pf-visual"><div class="pcard">
+        <div class="win-bar"><b>Knowledge</b><span class="r">Example data</span></div>
+        <div class="row"><img class="mg-i" src="/assets/logo_thumbnail.svg" alt="">Help center<span class="r ok-t">24 articles</span></div>
+        <div class="row"><span data-logo="googlechrome"></span>northwind.example/docs<span class="r ok-t">50 pages</span></div>
+        <div class="row"><span data-logo="notion"></span>Returns policy.pdf<span class="r ok-t">12 pages</span></div>
+        <div class="row"><span data-logo="github"></span>API guide.md<span class="r ac-t"><span class="spin-sm"></span>Reading</span></div>
+      </div></div>
+        </div>
+        <div class="pf-step" data-step="1">
+          <div class="m-title"><span class="pf-num">02 / 05</span><h3><em>Connect</em> your apps</h3><p>One click for Stripe and Linear on each app's own sign-in page. Magpie only reads, and only the customer it's talking to.</p></div>
+          <div class="pf-visual"><div class="pcard">
+        <div class="win-bar"><b>Apps</b><span class="r">Settings, AI agent</span></div>
+        <div class="row conn"><span data-logo="stripe"></span><span><b>Stripe</b><small>Charges and double payments</small></span><span class="r"><span class="state ok">Connected</span></span></div>
+        <div class="row conn"><span data-logo="linear"></span><span><b>Linear</b><small>Known and fixed bugs</small></span><span class="r"><span class="flip"><span class="mc go">Connect</span><span class="state ok">Connected</span></span></span></div>
+        <div class="row conn"><span data-logo="hubspot"></span><span><b>HubSpot</b><small>Company and owner</small></span><span class="r"><span class="state warn">Coming</span></span></div>
+      </div></div>
+        </div>
+        <div class="pf-step" data-step="2">
+          <div class="m-title"><span class="pf-num">03 / 05</span><h3><em>Test</em> before it talks</h3><p>A replay test answers up to 30 past conversations again and grades each reply against what your team sent.</p></div>
+          <div class="pf-visual"><div class="pcard">
+        <div class="win-bar"><b>Replay test</b><span class="r"><span class="state ok">28 of 30 passed</span></span></div>
+        <p class="big">Magpie matched your team on 28 of 30</p>
+        <div class="bars">
+          <span>Same</span><div class="bar"><i style="--w:70%"></i></div><span>21</span>
+          <span>Also fine</span><div class="bar"><i style="--w:23%"></i></div><span>7</span>
+          <span>Wrong</span><div class="bar gray"><i style="--w:7%"></i></div><span>2</span>
+        </div>
+      </div></div>
+        </div>
+        <div class="pf-step" data-step="3">
+          <div class="m-title"><span class="pf-num">04 / 05</span><h3><em>Launch</em> in Draft, then Auto</h3><p>Your team sends Magpie's drafts first. Auto unlocks once a replay test passes 90%, and refunds still wait for a person.</p></div>
+          <div class="pf-visual"><div class="pcard-wrap">
+        <div class="ask"><span class="wave"><i></i><i></i><i></i><i></i></span>Hi, I want to request a refund</div>
+        <div class="pcard">
+          <div class="win-bar"><img class="mg-i" src="/assets/logo_thumbnail.svg" alt=""><b>Magpie</b><span class="r"><span class="state ac">Draft</span></span></div>
+          <p class="draft-t">I can help with that. I see two $49 charges on November 1. Want me to refund the extra one? A teammate confirms refunds of $50 or more.</p>
+          <div class="src" style="justify-content:flex-start"><span>Stripe</span><span>Refund policy</span></div>
+          <div class="row" style="margin-top:10px;border-top:1px solid var(--line)">Mode<span class="r"><span class="toggle"><span>Draft</span><span>Auto</span></span></span></div>
+        </div>
+      </div></div>
+        </div>
+        <div class="pf-step" data-step="4">
+          <div class="m-title"><span class="pf-num">05 / 05</span><h3><em>Watch</em> every step</h3><p>Traces show what Magpie read, looked up and decided, what it cost, and when it stepped back for a person.</p></div>
+          <div class="pf-visual"><div class="pcard-wrap">
+        <div class="pcard">
+          <div class="win-bar">Conversation <b>#2381</b><span class="r"><span class="state ok">Sent as written</span></span></div>
+          <div class="row">Searched knowledge<span class="r">4 articles</span></div>
+          <div class="row">Checked Stripe<span class="r">2 charges</span></div>
+          <div class="row">Fact check<span class="r ok-t">Passed</span></div>
+          <div class="row"><b style="font-weight:500;color:var(--ink)">4.1 s</b><span class="r"><b style="color:var(--ink)">$0.004</b></span></div>
+        </div>
+        <div class="tiles">
+          <div class="tile"><span class="badge">&#10003;</span>Sent as written<b>71%</b></div>
+          <div class="tile"><span class="badge">&#9733;</span>Solved by Magpie<b>38%</b></div>
+          <div class="tile"><span class="badge">&#8618;</span>Handed off<b>12%</b></div>
+        </div>
+      </div></div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <!-- 5. Live feed -->
   <section>
     <div class="feed-wrap">
       <div class="feed-copy rv">
@@ -608,26 +774,6 @@ footer { padding: 80px 20px 0; max-width: 1040px; margin: 0 auto; }
         </div>
       </div>
       <div class="feed rv" style="--d:.1s" aria-label="Example activity"><span class="lab">Example data</span><div class="feed-track" data-feed></div></div>
-    </div>
-  </section>
-
-  <!-- 5. Results -->
-  <section>
-    <div class="sh rv">
-      <div><h2>Tested before your customers see it</h2><p>Every number comes from our latest run of 40 real support questions, November 2026.</p></div>
-      <a class="btn btn-dark" href="https://app.magpiereply.com/app/auth/signup">Try it on your inbox</a>
-    </div>
-    <div class="results rv">
-      <div class="main">
-        <span class="label-sm">Answered right</span><br>
-        <span class="stat-xl"><span data-count="39">39</span>/40</span>
-        <p class="cap">questions answered correctly</p>
-        <blockquote>The one miss said opened candles can't be returned, when the article only covered opened bedding. That's why Magpie starts in Draft: a teammate reads every reply before it goes out.</blockquote>
-      </div>
-      <div class="side">
-        <div><span class="label-sm">Rules and tricks</span><p class="num"><span data-count="10">10</span>/10</p><p class="cap">rule and attack tests handled</p><p class="txt">"Ignore your rules" and "I'm from your IT team" get flagged, and never get an automatic reply.</p></div>
-        <div><span class="label-sm">Speed and cost</span><p class="num"><span data-count="4">4</span> s</p><p class="cap">typical reply, about $0.004 of AI each</p><p class="txt">Each team has a monthly spending limit, so there are no surprise bills.</p></div>
-      </div>
     </div>
   </section>
 
@@ -771,6 +917,7 @@ footer { padding: 80px 20px 0; max-width: 1040px; margin: 0 auto; }
       </div>
     </div>
   </section>
+</div>
 </main>
 
 <!-- 11. Closing CTA frame -->
@@ -820,6 +967,30 @@ footer { padding: 80px 20px 0; max-width: 1040px; margin: 0 auto; }
     menu.addEventListener('click', (event) => { if (event.target.closest('a')) setMenu(false); });
     document.addEventListener('click', (event) => { if (!menu.hidden && !menu.contains(event.target)) setMenu(false); });
     document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !menu.hidden) { setMenu(false); menuButton.focus(); } });
+  }
+
+  // Platform section: the step nearest the middle of the screen is active; the dot follows the scroll.
+  const pfRight = document.querySelector('.pf-right');
+  if (pfRight) {
+    const stepsEls = [...pfRight.querySelectorAll('.pf-step')];
+    const titlesEls = [...document.querySelectorAll('.pf-title')];
+    const dot = document.querySelector('.pf-dot');
+    const rail = document.querySelector('.pf-rail');
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const mid = innerHeight / 2;
+      let best = 0, bestDist = Infinity;
+      stepsEls.forEach((el, i) => { const r = el.getBoundingClientRect(); const d = Math.abs(r.top + r.height / 2 - mid); if (d < bestDist) { bestDist = d; best = i; } });
+      stepsEls.forEach((el, i) => el.classList.toggle('on', i === best));
+      titlesEls.forEach((el, i) => el.classList.toggle('on', i === best));
+      const r = pfRight.getBoundingClientRect();
+      const progress = Math.min(1, Math.max(0, (mid - r.top) / r.height));
+      if (dot && rail) dot.style.top = (progress * (rail.offsetHeight - 13)) + 'px';
+    };
+    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    addEventListener('resize', update);
+    update();
   }
 
   // Fill every [data-logo] slot with its brand logo.
@@ -887,7 +1058,12 @@ footer { padding: 80px 20px 0; max-width: 1040px; margin: 0 auto; }
 
   // Headline rotator.
   const rot = document.querySelector('[data-rotate]');
-  if (rot && !reduced) { const items = [...rot.children]; let i = 0; setInterval(() => { items[i].classList.remove('on'); i = (i + 1) % items.length; items[i].classList.add('on'); }, 3000); }
+  if (rot) {
+    const items = [...rot.children]; let i = 0;
+    const fit = () => { rot.style.width = items[i].scrollWidth + 'px'; };
+    fit(); addEventListener('resize', fit); if (document.fonts) document.fonts.ready.then(fit);
+    if (!reduced) setInterval(() => { items[i].classList.remove('on'); i = (i + 1) % items.length; items[i].classList.add('on'); fit(); }, 3000);
+  }
 
   // Typed URL in the hero input.
   const typed = document.querySelector('[data-type]');
