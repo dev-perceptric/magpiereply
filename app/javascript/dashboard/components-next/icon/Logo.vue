@@ -1,17 +1,23 @@
 <script setup>
-import { useAttrs } from 'vue';
+import { computed, useAttrs } from 'vue';
 import { useMapGetter } from 'dashboard/composables/store';
+
+const DEFAULT_THUMBNAIL = '/brand-assets/logo_thumbnail.svg';
 
 const attrs = useAttrs();
 const globalConfig = useMapGetter('globalConfig/get');
+
+// A custom-branded install shows its own image. The MagpieReply mark is drawn
+// inline so its ring follows the text color and stays visible on the dark sidebar.
+const customThumbnail = computed(() => {
+  const thumbnail = globalConfig.value.logoThumbnail;
+  if (!thumbnail || thumbnail.endsWith(DEFAULT_THUMBNAIL)) return null;
+  return thumbnail;
+});
 </script>
 
 <template>
-  <img
-    v-if="globalConfig.logoThumbnail"
-    v-bind="attrs"
-    :src="globalConfig.logoThumbnail"
-  />
+  <img v-if="customThumbnail" v-bind="attrs" :src="customThumbnail" />
   <svg
     v-else
     v-once
@@ -22,11 +28,16 @@ const globalConfig = useMapGetter('globalConfig/get');
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <rect width="32" height="32" rx="8" fill="#0943b0" />
     <path
-      d="M13 7.5h6a6 6 0 0 1 6 6v1a6 6 0 0 1-6 6h-5.6L6.5 26l1.9-6.9A6 6 0 0 1 7 15v-1.5a6 6 0 0 1 6-6Z"
-      fill="#fff"
+      d="M3.5 28.5V16A12.5 12.5 0 1 1 16 28.5Z"
+      stroke="currentColor"
+      stroke-width="5"
     />
-    <circle cx="19.2" cy="12.6" r="1.7" fill="#0943b0" />
+    <path
+      d="M28.5 16A12.5 12.5 0 0 1 16 28.5"
+      stroke="#2450ff"
+      stroke-width="5"
+    />
+    <circle cx="16" cy="16" r="3.5" fill="currentColor" />
   </svg>
 </template>

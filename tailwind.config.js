@@ -9,7 +9,9 @@ const {
   getIconCollections,
 } = require('@egoist/tailwindcss-icons');
 
+// Geist leads in the dashboard; the widget and portal don't load it, so they fall back to Inter.
 const defaultSansFonts = [
+  'Geist',
   'Inter',
   '-apple-system',
   'system-ui',
@@ -65,7 +67,18 @@ const tailwindConfig = {
       fontFamily: {
         sans: defaultSansFonts,
         inter: defaultSansFonts,
-        interDisplay: ['InterDisplay', ...defaultSansFonts],
+        interDisplay: ['Geist', 'InterDisplay', ...defaultSansFonts],
+        mono: ['"Geist Mono"', ...defaultTheme.fontFamily.mono],
+      },
+      // Square corners, matching the marketing site. Pills (rounded-full) stay round.
+      borderRadius: {
+        sm: '0.125rem',
+        DEFAULT: '0.1875rem',
+        md: '0.25rem',
+        lg: '0.25rem',
+        xl: '0.375rem',
+        '2xl': '0.5rem',
+        '3xl': '0.625rem',
       },
       fontWeight: {
         420: '420',
@@ -82,7 +95,7 @@ const tailwindConfig = {
         'ring-lift':
           'inset 0 0 0 1px rgb(var(--ring-weak)), 0 1px 2px rgb(var(--shadow-tint) / 0.06)',
         'ring-brand': 'inset 0 0 0 1px rgb(var(--blue-5))',
-        card: '0 0 0 1px rgb(var(--ring-weak)), 0 1px 2px rgb(var(--shadow-tint) / 0.04), 0 8px 24px -12px rgb(var(--shadow-tint) / 0.12)',
+        card: '0 0 0 1px rgb(var(--ring-weak))',
         sticker:
           '0 0 0 1.5px rgb(var(--slate-12)), 3px 3px 0 rgb(var(--slate-12))',
       },
