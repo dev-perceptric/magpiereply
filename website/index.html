@@ -58,7 +58,38 @@ h2{font-size:clamp(34px,4.4vw,56px);font-weight:400}
 .announce a{background:var(--bp-2);color:#0b1240;padding:9px 14px;border-radius:2px;font-weight:400;font-size:14px;white-space:nowrap}
 .announce a:hover{background:#fff}
 .nav{position:sticky;top:0;z-index:50;padding:24px var(--pad) 0;margin-bottom:-94px;pointer-events:none}
-.nav-bar{pointer-events:auto;max-width:var(--max);margin:0 auto;height:70px;background:#000;color:#fff;border-radius:8px;display:flex;align-items:center;padding:0 24px}
+.nav-bar{pointer-events:auto;max-width:var(--max);margin:0 auto;background:#000;color:#fff;border-radius:8px;padding:0 24px;max-height:calc(100vh - 48px);overflow-y:auto}
+.nav-row{height:70px;display:flex;align-items:center}
+.nav-links button{display:flex;align-items:center;gap:6px;font-size:15px;color:#fff;opacity:.86;transition:opacity .2s}
+.nav-links button:hover,.nav-links button[aria-expanded=true]{opacity:1}
+.nav-links button[aria-expanded=true]{color:#9a9a9a}
+.nav-links button svg{width:12px;height:12px;transition:transform .25s}
+.nav-links button[aria-expanded=true] svg{transform:rotate(180deg)}
+.menu-btn{display:none;margin-left:12px;width:40px;height:40px;border:1px solid rgba(255,255,255,.4);border-radius:2px;place-items:center;color:#fff}
+.menu-btn svg{width:18px;height:18px}
+/* product mega menu */
+.mega{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:0fr;opacity:0;transition:grid-template-rows .35s cubic-bezier(.2,.8,.2,1),opacity .25s;pointer-events:none}
+.nav.open .mega{grid-template-rows:1fr;opacity:1;pointer-events:auto}
+.mega-col{min-height:0;overflow:hidden;padding:0 32px 0 0;border-right:1px solid #262626}
+.mega-col+.mega-col{padding-left:32px}
+.mega-col:last-child{border-right:0}
+.nav.open .mega-col{padding-top:22px;padding-bottom:30px}
+.mega .lbl{display:block;font:400 12px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:#6b6b6b;margin-bottom:26px}
+.mi{display:flex;align-items:center;gap:16px;padding:10px 0;font-size:20px;font-weight:400;letter-spacing:-.01em;color:#fff;transition:color .2s,transform .2s;transform:translateY(6px);opacity:0}
+.nav.open .mi{transform:none;opacity:1;transition:color .2s,transform .4s cubic-bezier(.2,.8,.2,1) calc(var(--d)*25ms),opacity .4s calc(var(--d)*25ms)}
+.mi:hover{color:var(--bp-2)}
+.mi .bx{width:46px;height:46px;flex:none;background:#1a1a1a;border:1px solid #2b2b2b;border-radius:2px;display:grid;place-items:center;transition:background .2s,border-color .2s}
+.mi:hover .bx{background:var(--brand);border-color:var(--brand)}
+.mi .bx svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:1.3}
+.mi em{font:400 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;font-style:normal;color:var(--bp-2);border:1px solid #3a3a3a;padding:5px 6px;border-radius:2px;margin-left:2px;white-space:nowrap}
+.mi .si{width:20px;height:20px;color:#fff}
+.mega-foot{grid-column:1/-1;min-height:0;overflow:hidden;display:flex;justify-content:space-between;align-items:center;gap:16px;border-top:1px solid #262626}
+.nav.open .mega-foot{padding:16px 0 18px}
+.mega-foot a{display:inline-flex;align-items:center;gap:8px;font-size:15px;color:#cfcfcf}
+.mega-foot a:hover{color:#fff}
+.mega-foot span{font:400 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#6b6b6b}
+.scrim{position:fixed;inset:0;z-index:40;background:rgba(5,10,40,.35);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .3s}
+.nav.open+.scrim{opacity:1;pointer-events:auto}
 .logo{display:flex;align-items:center;gap:10px;font:500 24px/1 var(--sans);letter-spacing:-.04em}
 .logo svg{width:28px;height:28px}
 .nav-links{display:flex;gap:26px;margin:0 auto;font-size:15px}
@@ -357,6 +388,10 @@ h2{font-size:clamp(34px,4.4vw,56px);font-weight:400}
 }
 @media (max-width:1000px){
   .nav-links{display:none}
+  .menu-btn{display:grid}
+  .mega{grid-template-columns:1fr}
+  .mega-col,.mega-col+.mega-col{padding-left:0;padding-right:0;border-right:0;border-bottom:1px solid #262626}
+  .mi{font-size:18px}
   .hero-in,.case,.case.rev,.band-card,.see,.faq{grid-template-columns:1fr}
   .case.rev .photo{order:0}
   .chip{display:none}
@@ -372,6 +407,11 @@ h2{font-size:clamp(34px,4.4vw,56px);font-weight:400}
   .list{display:none}
   .app-top .stat{display:none}
   .nav-act .signin{display:none}
+  .nav-bar{padding:0 14px}
+  .logo{font-size:19px;gap:8px}.logo svg{width:22px;height:22px}
+  .nav-act .btn{height:36px;padding:0 12px;font-size:14px;white-space:nowrap}
+  .menu-btn{width:36px;height:36px;margin-left:8px}
+  .nav-act{margin-left:auto}
   .announce{font-size:13px}
   .band-card{padding:24px}
   .ft-cols{grid-template-columns:1fr 1fr}
@@ -385,13 +425,24 @@ h2{font-size:clamp(34px,4.4vw,56px);font-weight:400}
 
 <div class="announce">Magpie, our AI agent, is live <a href="#demo">Try the demo</a></div>
 
-<header class="nav">
+<header class="nav" id="nav">
   <div class="nav-bar">
-    <a class="logo" href="#"><svg viewBox="0 0 32 32" fill="none"><path d="M3.5 28.5V16A12.5 12.5 0 1 1 16 28.5Z" stroke="#fff" stroke-width="5"/><path d="M28.5 16A12.5 12.5 0 0 1 16 28.5" stroke="#2450ff" stroke-width="5"/><circle cx="16" cy="16" r="3.5" fill="#fff"/></svg>MagpieReply</a>
-    <nav class="nav-links"><a href="#demo">Demo</a><a href="#how">How it works</a><a href="#cases">Use cases</a><a href="#trust">Trust</a><a href="#apps">Integrations</a><a href="/pricing/">Pricing</a></nav>
+    <div class="nav-row">
+    <a class="logo" href="/" aria-label="MagpieReply home"><svg viewBox="0 0 32 32" fill="none"><path d="M3.5 28.5V16A12.5 12.5 0 1 1 16 28.5Z" stroke="#fff" stroke-width="5"/><path d="M28.5 16A12.5 12.5 0 0 1 16 28.5" stroke="#2450ff" stroke-width="5"/><circle cx="16" cy="16" r="3.5" fill="#fff"/></svg>MagpieReply</a>
+    <nav class="nav-links"><button type="button" id="prodBtn" aria-expanded="false" aria-controls="mega">Product<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button><a href="#cases">Use cases</a><a href="#apps">Integrations</a><a href="/open-source/">Open source</a><a href="/pricing/">Pricing</a></nav>
     <div class="nav-act"><a class="signin" href="https://app.magpiereply.com/app/login">Sign in</a><a class="btn" href="https://app.magpiereply.com/app/auth/signup">Get started</a></div>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mega"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+    <div class="mega" id="mega">
+      <div class="mega-col"><span class="lbl">Use cases</span><a class="mi" href="/ai-agent/#ecommerce" style="--d:0">Online stores</a><a class="mi" href="/ai-agent/#b2b" style="--d:1">B2B software</a><a class="mi" href="/open-source/" style="--d:2">Self-hosted teams</a></div>
+      <div class="mega-col"><span class="lbl">Magpie, AI agent</span><a class="mi" href="/ai-agent/" style="--d:3"><span class="bx"><svg viewBox="0 0 24 24"><path d="M4 6h12a3 3 0 0 1 3 3v5a3 3 0 0 1-3 3H9l-5 3Z"/><circle cx="12" cy="11.5" r="1.6"/></svg></span>Magpie agent</a><a class="mi" href="/ai-agent/#checked" style="--d:4"><span class="bx"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/><rect x="2.5" y="2.5" width="19" height="19"/></svg></span>Fact check</a><a class="mi" href="/ai-agent/#knowledge" style="--d:5"><span class="bx"><svg viewBox="0 0 24 24"><path d="M5 4h10l4 4v12H5Z"/><path d="M15 4v4h4M8 12h8M8 15.5h6"/></svg></span>Knowledge</a><a class="mi" href="/ai-agent/" style="--d:6"><span class="bx"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h7"/><circle cx="18" cy="16" r="3"/></svg></span>Guidance<em>Coming soon</em></a><a class="mi" href="/ai-agent/" style="--d:7"><span class="bx"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><path d="M10 6.5h4.5V14"/></svg></span>Playbooks<em>Coming soon</em></a><a class="mi" href="/ai-agent/" style="--d:8"><span class="bx"><svg viewBox="0 0 24 24"><path d="M13 3 5 14h6l-1 7 8-11h-6Z"/></svg></span>Actions<em>Coming soon</em></a><a class="mi" href="/ai-agent/#traces" style="--d:9"><span class="bx"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>Tests and Traces</a></div>
+      <div class="mega-col"><span class="lbl">Platform</span><a class="mi" href="/inbox/" style="--d:10">Shared inbox</a><a class="mi" href="/help-center/" style="--d:11">Help center</a><a class="mi" href="/inbox/#reports" style="--d:12">Reports</a><a class="mi" href="/inbox/#automations" style="--d:13">Automations</a><a class="mi" href="/inbox/" style="--d:14">Contacts and companies</a><a class="mi" href="/inbox/" style="--d:15">Campaigns</a><a class="mi" href="/inbox/" style="--d:16">Surveys (CSAT)</a><a class="mi" href="/security/" style="--d:17">Security and privacy</a></div>
+      <div class="mega-col"><span class="lbl">Channels and apps</span><a class="mi" href="/inbox/#channels" style="--d:18"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="1.6"><path d="M4 5h16v11H9l-5 4Z"/></svg>Website chat</a><a class="mi" href="/inbox/#channels" style="--d:19"><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/gmail.svg);color:#fff"></i>Email</a><a class="mi" href="/inbox/#channels" style="--d:20"><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/whatsapp.svg);color:#fff"></i>WhatsApp</a><a class="mi" href="/inbox/#channels" style="--d:21"><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/instagram.svg);color:#fff"></i>Instagram and Messenger</a><a class="mi" href="/inbox/#channels" style="--d:22"><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/telegram.svg);color:#fff"></i>Telegram and LINE</a><a class="mi" href="/inbox/#channels" style="--d:23"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="1.6"><rect x="7" y="2" width="10" height="20" rx="2"/></svg>SMS</a><a class="mi" href="/integrations/" style="--d:24"><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/stripe.svg);color:#fff"></i>Stripe</a><a class="mi" href="/integrations/" style="--d:25"><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/linear.svg);color:#fff"></i>Linear</a><a class="mi" href="/integrations/" style="--d:26"><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/shopify.svg);color:#fff"></i>Shopify<em>Coming soon</em></a><a class="mi" href="/integrations/" style="--d:27"><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/hubspot.svg);color:#fff"></i>HubSpot<em>Coming soon</em></a><a class="mi" href="/integrations/" style="--d:28"><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/notion.svg);color:#fff"></i>Notion<em>Coming soon</em></a></div>
+      <div class="mega-foot"><a href="#demo">Try the live demo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><span>Open source core, cloud or self-hosted</span></div>
+    </div>
   </div>
 </header>
+<div class="scrim" id="scrim"></div>
 
 <section class="hero">
   <div class="hero-img" role="img" aria-label="Two friends laughing as they walk with shopping bags"></div>
@@ -606,7 +657,7 @@ h2{font-size:clamp(34px,4.4vw,56px);font-weight:400}
   <div class="sec-top rv"><div><h2>One flat price. No fee for each answer.</h2></div></div>
   <div class="price">
     <div class="plan rv"><span class="label">Starter</span><b>Free</b><small>To start, for small teams</small><ul><li>Shared inbox</li><li>Help center</li><li>Magpie in Draft mode</li></ul><a class="btn btn-line" href="https://app.magpiereply.com/app/auth/signup">Get started</a></div>
-    <div class="plan hot rv"><span class="label">Team</span><b>Flat</b><small>For teams that want Magpie answering</small><ul><li>Everything in Starter</li><li>Auto mode with spending caps</li><li>Stripe and Linear lookups</li><li>Replay tests and Traces</li></ul><a class="btn" href="https://app.magpiereply.com/app/auth/signup">Get started</a></div>
+    <div class="plan hot rv"><span class="label">Team</span><b>Flat</b><small>For teams that want Magpie answering</small><ul><li>Everything in Starter</li><li>Auto mode with spending caps</li><li>Stripe and Linear lookups</li><li>Tests and Traces</li></ul><a class="btn" href="https://app.magpiereply.com/app/auth/signup">Get started</a></div>
     <div class="plan rv"><span class="label">Self-hosted</span><b>Free</b><small>Run the open source core yourself</small><ul><li>Your servers, your data</li><li>Community support</li></ul><a class="btn btn-line" href="/open-source/">Read the guide</a></div>
   </div>
 </section>
@@ -807,6 +858,15 @@ $('#mailForm').onsubmit=e=>{e.preventDefault();location.href='https://app.magpie
 /* reveal */
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');e.target.querySelectorAll('[data-h]').forEach(i=>i.style.height=(+i.dataset.h*2.2)+'px');io.unobserve(e.target)}}),{threshold:.15});
 document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+/* product menu */
+(()=>{const nav=document.getElementById('nav'),btns=[document.getElementById('prodBtn'),document.getElementById('menuBtn')];let t;
+ const set=o=>{nav.classList.toggle('open',o);btns.forEach(b=>b.setAttribute('aria-expanded',o))};
+ btns.forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();set(!nav.classList.contains('open'))}));
+ const pb=btns[0];if(matchMedia('(hover:hover)').matches){pb.addEventListener('mouseenter',()=>{clearTimeout(t);set(true)});nav.addEventListener('mouseleave',()=>{t=setTimeout(()=>set(false),180)});nav.addEventListener('mouseenter',()=>clearTimeout(t))}
+ document.getElementById('scrim').addEventListener('click',()=>set(false));
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')set(false)});
+ document.querySelectorAll('.mega a').forEach(a=>a.addEventListener('click',()=>set(false)));})();
 </script>
 </body>
 </html>

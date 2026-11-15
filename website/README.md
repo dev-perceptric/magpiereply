@@ -28,7 +28,7 @@ The marketing site: plain HTML, CSS and a small script, with no build step. It's
 - The Product menu lives in `partials/nav.html`; its links point at product pages and their section ids
 - `.htaccess`: Hostinger server settings
 
-The homepage (`index.html`) has its own styles, nav and footer (Geist, square corners, thin black frames, `#2450ff` accent); it doesn't load `styles.css`. Its working copy is `samples/homepage-full/`. The "Try Magpie yourself" demo runs on prepared answers in the page's script (`WS`), so it never calls the real Magpie. Photos in `assets/` (`hero.jpg`, `phone.jpg`, `office.jpg`) are from Unsplash under the Unsplash License, with a brand color grade.
+The homepage (`index.html`) has its own styles, nav and footer (Geist, square corners, thin black frames, `#2450ff` accent); it doesn't load `styles.css`. Its working copy is `samples/homepage-full/`. Its Product menu matches `partials/nav.html` (the black nav on every other page, styled by the `.bn-*` rules at the end of `styles.css`); keep the two in step by hand. The "Try Magpie yourself" demo runs on prepared answers in the page's script (`WS`), so it never calls the real Magpie. Photos in `assets/` (`hero.jpg`, `phone.jpg`, `office.jpg`) are from Unsplash under the Unsplash License, with a brand color grade.
 
 After editing the nav or footer, copy them into every other page:
 

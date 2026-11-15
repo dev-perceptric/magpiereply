@@ -19,62 +19,24 @@
 <body>
 
 <!-- nav -->
-<header class="nav" id="nav">
-  <div class="frame pad">
-    <a class="logo" href="/" aria-label="MagpieReply home"><img src="/assets/logo.svg" alt="MagpieReply" width="167" height="32"></a>
-    <span class="divider" aria-hidden="true"></span>
-    <ul>
-      <li><button class="menu-btn" type="button" aria-expanded="false" aria-controls="product-menu">Product<svg width="14" height="14" aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></button></li>
-      <li><a href="/pricing/">Pricing</a></li>
-      <li><a href="/open-source/">Open source</a></li>
-      <li><a href="/security/">Security</a></li>
-    </ul>
-    <div class="actions">
-      <a class="signin" href="https://app.magpiereply.com/app/login">Log in</a>
-      <a class="btn btn-secondary" href="mailto:hello@magpiereply.com?subject=Demo">Book a demo</a>
-      <a class="btn btn-primary" href="https://app.magpiereply.com/app/auth/signup">Start free</a>
+<header class="bn" id="bn">
+  <div class="bn-bar">
+    <div class="bn-row">
+    <a class="bn-logo" href="/" aria-label="MagpieReply home"><svg viewBox="0 0 32 32" fill="none"><path d="M3.5 28.5V16A12.5 12.5 0 1 1 16 28.5Z" stroke="#fff" stroke-width="5"/><path d="M28.5 16A12.5 12.5 0 0 1 16 28.5" stroke="#2450ff" stroke-width="5"/><circle cx="16" cy="16" r="3.5" fill="#fff"/></svg>MagpieReply</a>
+    <nav class="bn-links"><button type="button" id="bnProd" aria-expanded="false" aria-controls="bnMega">Product<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button><a href="/ai-agent/#ecommerce">Use cases</a><a href="/integrations/">Integrations</a><a href="/open-source/">Open source</a><a href="/pricing/">Pricing</a></nav>
+    <div class="bn-act"><a class="bn-signin" href="https://app.magpiereply.com/app/login">Sign in</a><a class="bn-btn" href="https://app.magpiereply.com/app/auth/signup">Get started</a></div>
+    <button class="bn-menu" id="bnMenu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="bnMega"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
-    <button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav"><svg width="20" height="20"><use href="/assets/icons.svg#i-menu"/></svg></button>
-  </div>
-  <div class="mega" id="product-menu" hidden>
-    <div class="frame">
-      <div class="mega-cols">
-        <div class="mega-col">
-          <span class="label">Products</span>
-          <a class="mega-item" href="/ai-agent/"><span class="ic"><svg><use href="/assets/icons.svg#i-spark"/></svg></span><span><strong>Magpie <span class="new">New</span></strong><small>AI agent that answers from your help content</small></span></a>
-          <a class="mega-item" href="/inbox/"><span class="ic"><svg><use href="/assets/icons.svg#i-inbox"/></svg></span><span><strong>Shared inbox</strong><small>Every channel in one place</small></span></a>
-          <a class="mega-item" href="/help-center/"><span class="ic"><svg><use href="/assets/icons.svg#i-book"/></svg></span><span><strong>Help center</strong><small>Articles your customers and Magpie both read</small></span></a>
-          <a class="mega-item" href="/integrations/"><span class="ic"><svg><use href="/assets/icons.svg#i-plug"/></svg></span><span><strong>Apps</strong><small>Connect Stripe and Linear in one click</small></span></a>
-          <span class="label mega-sub">Pricing</span>
-          <a class="mega-item" href="/pricing/"><span class="ic"><svg><use href="/assets/icons.svg#i-globe"/></svg></span><span><strong>Cloud</strong><small>We run it for you</small></span></a>
-          <a class="mega-item" href="/open-source/"><span class="ic"><svg><use href="/assets/icons.svg#i-server"/></svg></span><span><strong>Self-hosted</strong><small>Run it on your own servers</small></span></a>
-        </div>
-        <div class="mega-col">
-          <span class="label">Features</span>
-          <a class="mega-item" href="/ai-agent/#draft-auto"><span class="ic"><svg><use href="/assets/icons.svg#i-gauge"/></svg></span><span><strong>Draft and Auto</strong><small>Send Magpie's replies, or let it answer alone</small></span></a>
-          <a class="mega-item" href="/ai-agent/#checked"><span class="ic"><svg><use href="/assets/icons.svg#i-check"/></svg></span><span><strong>Fact check</strong><small>Every reply checked against its sources</small></span></a>
-          <a class="mega-item" href="/ai-agent/#knowledge"><span class="ic"><svg><use href="/assets/icons.svg#i-layers"/></svg></span><span><strong>Knowledge</strong><small>Help center, websites and files</small></span></a>
-          <a class="mega-item" href="/ai-agent/#draft-auto"><span class="ic"><svg><use href="/assets/icons.svg#i-refresh"/></svg></span><span><strong>Replay tests</strong><small>See how Magpie would answer past chats</small></span></a>
-          <a class="mega-item" href="/ai-agent/#traces"><span class="ic"><svg><use href="/assets/icons.svg#i-list"/></svg></span><span><strong>Traces</strong><small>Every step Magpie took, and what it cost</small></span></a>
-          <a class="mega-item" href="/inbox/#channels"><span class="ic"><svg><use href="/assets/icons.svg#i-chat"/></svg></span><span><strong>Channels</strong><small>Chat, email, WhatsApp, Instagram, SMS and more</small></span></a>
-          <a class="mega-item" href="/inbox/#automations"><span class="ic"><svg><use href="/assets/icons.svg#i-bolt"/></svg></span><span><strong>Automations</strong><small>Rules, macros and saved replies</small></span></a>
-          <a class="mega-item" href="/inbox/#reports"><span class="ic"><svg><use href="/assets/icons.svg#i-chart"/></svg></span><span><strong>Reports</strong><small>Reply times, busy hours, what Magpie solved</small></span></a>
-        </div>
-        <div class="mega-col">
-          <span class="label">Use cases</span>
-          <a class="mega-item" href="/ai-agent/#b2b"><span class="ic"><svg><use href="/assets/icons.svg#i-code"/></svg></span><span><strong>B2B software</strong><small>Billing questions and known bugs from Linear</small></span></a>
-          <a class="mega-item" href="/ai-agent/#ecommerce"><span class="ic"><svg><use href="/assets/icons.svg#i-cart"/></svg></span><span><strong>E-commerce</strong><small>Shipping, returns and double charges</small></span></a>
-          <a class="mega-item" href="/security/"><span class="ic"><svg><use href="/assets/icons.svg#i-shield"/></svg></span><span><strong>Security and privacy</strong><small>Hidden card numbers, lookups for the customer's own records</small></span></a>
-          <a class="mega-item" href="/open-source/"><span class="ic"><svg><use href="/assets/icons.svg#i-lock"/></svg></span><span><strong>Own your data</strong><small>Self-host the open source core</small></span></a>
-        </div>
-      </div>
-      <div class="mega-foot">
-        <a class="mega-more" href="/ai-agent/">See all features <svg width="14" height="14" aria-hidden="true"><use href="/assets/icons.svg#i-arrow"/></svg></a>
-        <a class="mega-more" href="/pricing/">Pricing <svg width="14" height="14" aria-hidden="true"><use href="/assets/icons.svg#i-arrow"/></svg></a>
-      </div>
+    <div class="bn-mega" id="bnMega">
+      <div class="bn-col"><span class="bn-lbl">Use cases</span><a class="bn-mi" href="/ai-agent/#ecommerce" style="--d:0">Online stores</a><a class="bn-mi" href="/ai-agent/#b2b" style="--d:1">B2B software</a><a class="bn-mi" href="/open-source/" style="--d:2">Self-hosted teams</a></div>
+      <div class="bn-col"><span class="bn-lbl">Magpie, AI agent</span><a class="bn-mi" href="/ai-agent/" style="--d:3"><span class="bn-bx"><svg viewBox="0 0 24 24"><path d="M4 6h12a3 3 0 0 1 3 3v5a3 3 0 0 1-3 3H9l-5 3Z"/><circle cx="12" cy="11.5" r="1.6"/></svg></span>Magpie agent</a><a class="bn-mi" href="/ai-agent/#checked" style="--d:4"><span class="bn-bx"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/><rect x="2.5" y="2.5" width="19" height="19"/></svg></span>Fact check</a><a class="bn-mi" href="/ai-agent/#knowledge" style="--d:5"><span class="bn-bx"><svg viewBox="0 0 24 24"><path d="M5 4h10l4 4v12H5Z"/><path d="M15 4v4h4M8 12h8M8 15.5h6"/></svg></span>Knowledge</a><a class="bn-mi" href="/ai-agent/" style="--d:6"><span class="bn-bx"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h7"/><circle cx="18" cy="16" r="3"/></svg></span>Guidance<em>Coming soon</em></a><a class="bn-mi" href="/ai-agent/" style="--d:7"><span class="bn-bx"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><path d="M10 6.5h4.5V14"/></svg></span>Playbooks<em>Coming soon</em></a><a class="bn-mi" href="/ai-agent/" style="--d:8"><span class="bn-bx"><svg viewBox="0 0 24 24"><path d="M13 3 5 14h6l-1 7 8-11h-6Z"/></svg></span>Actions<em>Coming soon</em></a><a class="bn-mi" href="/ai-agent/#traces" style="--d:9"><span class="bn-bx"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>Tests and Traces</a></div>
+      <div class="bn-col"><span class="bn-lbl">Platform</span><a class="bn-mi" href="/inbox/" style="--d:10">Shared inbox</a><a class="bn-mi" href="/help-center/" style="--d:11">Help center</a><a class="bn-mi" href="/inbox/#reports" style="--d:12">Reports</a><a class="bn-mi" href="/inbox/#automations" style="--d:13">Automations</a><a class="bn-mi" href="/inbox/" style="--d:14">Contacts and companies</a><a class="bn-mi" href="/inbox/" style="--d:15">Campaigns</a><a class="bn-mi" href="/inbox/" style="--d:16">Surveys (CSAT)</a><a class="bn-mi" href="/security/" style="--d:17">Security and privacy</a></div>
+      <div class="bn-col"><span class="bn-lbl">Channels and apps</span><a class="bn-mi" href="/inbox/#channels" style="--d:18"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="1.6"><path d="M4 5h16v11H9l-5 4Z"/></svg>Website chat</a><a class="bn-mi" href="/inbox/#channels" style="--d:19"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/gmail.svg);color:#fff"></i>Email</a><a class="bn-mi" href="/inbox/#channels" style="--d:20"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/whatsapp.svg);color:#fff"></i>WhatsApp</a><a class="bn-mi" href="/inbox/#channels" style="--d:21"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/instagram.svg);color:#fff"></i>Instagram and Messenger</a><a class="bn-mi" href="/inbox/#channels" style="--d:22"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/telegram.svg);color:#fff"></i>Telegram and LINE</a><a class="bn-mi" href="/inbox/#channels" style="--d:23"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="1.6"><rect x="7" y="2" width="10" height="20" rx="2"/></svg>SMS</a><a class="bn-mi" href="/integrations/" style="--d:24"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/stripe.svg);color:#fff"></i>Stripe</a><a class="bn-mi" href="/integrations/" style="--d:25"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/linear.svg);color:#fff"></i>Linear</a><a class="bn-mi" href="/integrations/" style="--d:26"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/shopify.svg);color:#fff"></i>Shopify<em>Coming soon</em></a><a class="bn-mi" href="/integrations/" style="--d:27"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/hubspot.svg);color:#fff"></i>HubSpot<em>Coming soon</em></a><a class="bn-mi" href="/integrations/" style="--d:28"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/notion.svg);color:#fff"></i>Notion<em>Coming soon</em></a></div>
+      <div class="bn-foot"><a href="/#demo">Try the live demo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><span>Open source core, cloud or self-hosted</span></div>
     </div>
   </div>
 </header>
+<div class="bn-scrim" id="bnScrim"></div>
 <!-- /nav -->
 
 <main id="top">

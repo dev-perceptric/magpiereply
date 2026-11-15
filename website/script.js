@@ -210,6 +210,32 @@
   }
 
 
+
+  // Black nav Product menu (partials/nav.html): hover or click to open; Escape, the scrim or a link closes it.
+  const bn = document.getElementById('bn');
+  if (bn) {
+    const bnButtons = [document.getElementById('bnProd'), document.getElementById('bnMenu')].filter(Boolean);
+    let bnTimer;
+    const setBn = (open) => {
+      bn.classList.toggle('open', open);
+      bnButtons.forEach((button) => button.setAttribute('aria-expanded', String(open)));
+    };
+    bnButtons.forEach((button) => button.addEventListener('click', (event) => {
+      event.stopPropagation();
+      setBn(!bn.classList.contains('open'));
+    }));
+    const productButton = document.getElementById('bnProd');
+    if (productButton && window.matchMedia('(hover: hover)').matches) {
+      productButton.addEventListener('mouseenter', () => { clearTimeout(bnTimer); setBn(true); });
+      bn.addEventListener('mouseleave', () => { bnTimer = setTimeout(() => setBn(false), 180); });
+      bn.addEventListener('mouseenter', () => clearTimeout(bnTimer));
+    }
+    const scrim = document.getElementById('bnScrim');
+    if (scrim) scrim.addEventListener('click', () => setBn(false));
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape') setBn(false); });
+    bn.querySelectorAll('.bn-mega a').forEach((link) => link.addEventListener('click', () => setBn(false)));
+  }
+
   // Pricing period switch: buttons with data-period set the prices in [data-monthly][data-yearly].
   document.querySelectorAll('[data-period-switch]').forEach((group) => {
     const buttons = Array.from(group.querySelectorAll('button[data-period]'));
