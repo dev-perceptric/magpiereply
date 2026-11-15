@@ -1,0 +1,18 @@
+// Geist and Geist Mono variable fonts (SIL Open Font License, see Geist/OFL.txt).
+// The dashboard's type, matching the marketing site.
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('shared/assets/fonts/Geist/Geist-Variable.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('shared/assets/fonts/Geist/GeistMono-Variable.woff2')
+    format('woff2');
+}

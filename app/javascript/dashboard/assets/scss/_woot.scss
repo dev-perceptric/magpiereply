@@ -5,6 +5,7 @@
 
 @import 'shared/assets/fonts/InterDisplay/inter-display';
 @import 'shared/assets/fonts/inter';
+@import 'shared/assets/fonts/geist';
 
 // Typography Utilities
 @import 'typography';
@@ -21,6 +22,7 @@
 html,
 body {
   font-family:
+    'Geist',
     'Inter',
     -apple-system,
     system-ui,
