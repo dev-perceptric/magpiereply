@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MagpieReply: the agentic CX platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#121212; --ink-2:#484848; --ink-3:#a8a8a8; --line:#dfdfdf; --soft:#f2f2f2; --paper:#fff;
+  --brand:#2450ff; --brand-deep:#0943b0; --bp-1:#dbe1ff; --bp-2:#b3bfff; --bp-3:#7f95ff;
+  --sans:"Geist",Arial,sans-serif; --mono:"Geist Mono",ui-monospace,monospace;
+  --pad:24px; --max:1392px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font:300 16px/1.5 var(--sans);letter-spacing:.01em;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{max-width:calc(var(--max) + var(--pad)*2);margin:0 auto;padding:0 var(--pad)}
+.label{font:400 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}
+h1,h2,h3{font-weight:500;letter-spacing:-.045em;line-height:.98}
+h2{font-size:clamp(34px,4.4vw,56px);font-weight:400}
+.lead{font-size:18px;line-height:1.5;color:var(--ink);max-width:560px}
+
+/* buttons: square, thin frames */
+.btn{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 18px;border-radius:2px;font:400 16px/1 var(--sans);letter-spacing:.01em;border:1px solid transparent;transition:background .2s,color .2s,border-color .2s,transform .2s}
+.btn-dark{background:#000;color:#fff}
+.btn-dark:hover{background:var(--brand)}
+.btn-ghost{border-color:rgba(255,255,255,.8);color:#fff}
+.btn-ghost:hover{background:#fff;color:#000}
+.btn-line{border-color:var(--ink);color:var(--ink)}
+.btn-line:hover{background:var(--ink);color:#fff}
+.btn svg{width:16px;height:16px}
+
+/* announcement */
+.announce{height:48px;display:flex;align-items:center;justify-content:center;gap:16px;background:linear-gradient(90deg,#0a2a8a,var(--brand) 50%,#0a2a8a);color:#fff;font:500 15px/1 var(--sans)}
+.announce a{background:var(--bp-2);color:#0b1240;padding:9px 14px;border-radius:2px;font-weight:400;font-size:14px}
+.announce a:hover{background:#fff}
+
+/* nav: floating black bar */
+.nav{position:sticky;top:0;z-index:50;padding:24px var(--pad) 0;margin-bottom:-94px;pointer-events:none}
+.nav-bar{pointer-events:auto;max-width:var(--max);margin:0 auto;height:70px;background:#000;color:#fff;border-radius:8px;display:flex;align-items:center;padding:0 24px}
+.logo{display:flex;align-items:center;gap:10px;font:500 24px/1 var(--sans);letter-spacing:-.04em}
+.logo svg{width:30px;height:30px}
+.nav-links{display:flex;gap:26px;margin:0 auto;font-size:15px;font-weight:300}
+.nav-links a{opacity:.86;transition:opacity .2s}
+.nav-links a:hover{opacity:1}
+.nav-act{display:flex;align-items:center;gap:22px;font-size:15px}
+.nav-act .btn{height:40px;font-size:15px;border-color:rgba(255,255,255,.75)}
+.nav-act .btn:hover{background:#fff;color:#000}
+
+/* hero */
+.hero{position:relative;min-height:max(680px,calc(100vh - 48px));display:flex;align-items:flex-end;color:#fff;overflow:hidden;background:#0b1240}
+.hero-img{position:absolute;inset:0;background:url(hero.jpg) center 30%/cover no-repeat;transform:scale(1.06);animation:drift 18s ease-out forwards}
+@keyframes drift{to{transform:scale(1)}}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;background:
+  linear-gradient(180deg,rgba(150,160,255,.18) 0%,rgba(36,80,255,.08) 35%,rgba(24,52,200,.6) 72%,rgba(18,38,170,.94) 100%),
+  linear-gradient(90deg,rgba(20,40,160,.45),rgba(20,40,160,0) 55%)}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(255,255,255,.05) 0 1px,transparent 1px 7px);mix-blend-mode:overlay}
+.hero-in{position:relative;z-index:2;width:100%;padding-bottom:64px;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:end}
+.hero .label{margin-bottom:28px;display:block;opacity:.92}
+.hero h1{font-size:clamp(52px,7vw,104px)}
+.hero h1 .rot{display:inline-block;position:relative;color:var(--bp-1)}
+.hero-side p{font-size:clamp(18px,1.7vw,23px);line-height:1.32;font-weight:400;letter-spacing:-.01em;margin-bottom:26px}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+.hero-chip{position:absolute;z-index:2;right:7%;top:30%;background:rgba(255,255,255,.94);color:var(--ink);border-radius:4px;padding:12px 14px;width:290px;font-size:14px;line-height:1.4;box-shadow:0 20px 60px rgba(10,20,90,.25);opacity:0;transform:translateY(12px);animation:rise .7s .9s ease-out forwards}
+.hero-chip .who{font:400 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.hero-chip .who i{width:8px;height:8px;border-radius:50%;background:#18b56b;box-shadow:0 0 0 3px rgba(24,181,107,.18)}
+.hero-chip.two{top:46%;right:15%;animation-delay:1.8s;background:var(--brand);color:#fff}
+.hero-chip.two .who{color:rgba(255,255,255,.75)}
+.hero-chip.two .who i{background:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.25)}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* logos strip */
+.trust{padding:72px 0 40px;text-align:center}
+.trust p{font-size:19px;font-weight:400;margin-bottom:34px}
+.marquee{overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.track{display:flex;gap:64px;width:max-content;animation:slide 38s linear infinite}
+.track span{display:flex;align-items:center;gap:12px;font:500 22px/1 var(--sans);letter-spacing:-.03em;color:#9a9a9a;white-space:nowrap}
+.si{width:26px;height:26px;background:currentColor;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat;flex:none}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* work panel */
+.work{padding-top:40px}
+.panel{position:relative;border-radius:2px;overflow:hidden;min-height:540px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 24px;color:#fff;background:var(--brand)}
+.panel::before{content:"";position:absolute;inset:-40%;background:repeating-conic-gradient(from 0deg at 50% 50%,rgba(255,255,255,.0) 0deg 4deg,rgba(255,255,255,.12) 5deg 6deg,rgba(255,255,255,0) 7deg 11deg);animation:spin 90s linear infinite}
+.panel::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,rgba(36,80,255,0) 0,rgba(36,80,255,.55) 45%,var(--brand) 75%)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.panel>*{position:relative;z-index:1}
+.panel h2{font-size:clamp(30px,3.2vw,42px);font-weight:500;letter-spacing:-.03em;margin:14px 0 30px;text-align:center}
+.mark-lg{width:44px;height:44px}
+.ask{width:min(620px,100%);background:#fff;border-radius:2px;display:flex;align-items:center;height:52px;padding:0 8px 0 16px;color:var(--ink);font-size:16px;font-weight:400}
+.ask .typed{flex:1;white-space:nowrap;overflow:hidden}
+.ask .caret{display:inline-block;width:1px;height:20px;background:var(--ink);vertical-align:middle;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.ask button{width:30px;height:30px;border:0;border-radius:3px;background:var(--brand);color:#fff;display:grid;place-items:center;cursor:pointer}
+.answer{width:min(620px,100%);margin-top:14px;min-height:150px}
+.ans{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(6px);border-radius:2px;padding:14px 16px;font-size:15px;line-height:1.5;font-weight:400;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s}
+.ans.show{opacity:1;transform:none}
+.ans .src{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.ans .src span{font:400 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(255,255,255,.5);padding:6px 8px;border-radius:2px}
+.ans .src span.ok{background:#fff;color:var(--brand);border-color:#fff}
+
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:24px 0 96px}
+.tab{cursor:pointer;padding-top:22px;position:relative;border-top:1px solid var(--line);color:var(--ink-3);transition:color .3s}
+.tab::before{content:"";position:absolute;left:0;top:-1px;height:2px;width:0;background:var(--brand)}
+.tab.on{color:var(--ink)}
+.tab.on::before{animation:fill 6s linear forwards}
+.tab h3{font-size:20px;font-weight:400;letter-spacing:-.02em;margin-bottom:10px}
+.tab p{font-size:16px;line-height:1.5;max-height:0;overflow:hidden;opacity:0;transition:max-height .5s,opacity .5s}
+.tab.on p{max-height:140px;opacity:1}
+@keyframes fill{to{width:100%}}
+
+/* cards carousel */
+.sec{padding-top:96px;padding-bottom:96px}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:40px}
+.sec-head .lead{margin-top:24px;font-size:16px}
+.arrows{display:flex;gap:16px}
+.arrows button{width:40px;height:40px;border:1px solid var(--ink);background:#fff;border-radius:2px;display:grid;place-items:center;cursor:pointer;transition:background .2s,color .2s}
+.arrows button:hover{background:var(--ink);color:#fff}
+.cards{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px}
+.cards::-webkit-scrollbar{display:none}
+.card{flex:0 0 min(418px,82vw);scroll-snap-align:start;border:1px solid var(--ink);border-radius:2px;padding:14px;display:flex;flex-direction:column;min-height:400px;transition:transform .3s}
+.card:hover{transform:translateY(-4px)}
+.card-art{height:188px;border-radius:1px;position:relative;overflow:hidden;background:var(--bp-1);display:grid;place-items:center}
+.card-art::before{content:"";position:absolute;inset:-50%;background:repeating-conic-gradient(from 20deg at 30% 120%,rgba(127,149,255,0) 0 5deg,rgba(127,149,255,.35) 6deg 7deg,rgba(127,149,255,0) 8deg 13deg)}
+.card-art svg{position:relative;width:150px;height:110px;stroke:var(--brand);fill:none;stroke-width:1.2}
+.card:hover .card-art svg{animation:bob 1.6s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-5px)}}
+.card-body{margin-top:auto;padding:70px 2px 2px;display:flex;align-items:flex-end;gap:24px}
+.card h3{font-size:24px;font-weight:400;letter-spacing:-.025em;margin-bottom:8px}
+.card p{font-size:16px;line-height:1.5}
+.card .go{flex:none;width:24px;height:24px;transition:transform .25s}
+.card:hover .go{transform:translate(3px,-3px)}
+
+/* story: real photo with captions */
+.story{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center}
+.steps{margin-top:40px}
+.step{border-top:1px solid var(--line);padding:20px 0;color:var(--ink-3);cursor:pointer;transition:color .3s;position:relative}
+.step::before{content:"";position:absolute;left:0;top:-1px;height:2px;width:0;background:var(--brand)}
+.step.on{color:var(--ink)}
+.step.on::before{animation:fill 5s linear forwards}
+.step b{display:block;font-weight:500;font-size:17px;margin-bottom:6px}
+.step span{font-size:16px}
+.photo{position:relative;aspect-ratio:4/3.4;border-radius:2px;overflow:hidden;background:#222}
+.photo img{width:100%;height:100%;object-fit:cover;object-position:35% center;transform:scale(1.04);transition:transform 6s ease-out}
+.photo.live img{transform:scale(1)}
+.photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.55))}
+.cap{position:absolute;z-index:2;left:50%;bottom:44px;transform:translateX(-50%);width:min(440px,86%);text-align:center;color:#fff}
+.cap .tag{display:inline-block;background:#fff;color:var(--ink);font:400 14px/1 var(--sans);padding:9px 12px;border-radius:2px;margin-bottom:14px}
+.cap .tag.magpie{background:var(--brand);color:#fff}
+.cap p{font-size:clamp(18px,1.8vw,24px);font-weight:400;line-height:1.3;letter-spacing:-.01em;text-shadow:0 1px 18px rgba(0,0,0,.35)}
+.cap{transition:opacity .45s,transform .45s}
+.cap.out{opacity:0;transform:translate(-50%,10px)}
+
+/* integrations table */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);column-gap:24px;margin-top:44px;border-top:1px solid var(--line)}
+.row{display:flex;align-items:center;gap:12px;height:44px;border-bottom:1px solid var(--line);font-size:16px;font-weight:400}
+.row .si,.row .ic{width:20px;height:20px}
+.row .ic{stroke:currentColor;fill:none;stroke-width:1.6}
+.row em{margin-left:auto;font:400 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);font-style:normal}
+.row em.soon{color:var(--brand)}
+
+/* open source band */
+.band{position:relative;overflow:hidden;background:var(--bp-1);padding:72px 0}
+.band::before{content:"";position:absolute;inset:-60%;background:repeating-conic-gradient(from 0deg at 50% 100%,rgba(36,80,255,0) 0 3deg,rgba(36,80,255,.5) 3.4deg 3.8deg,rgba(36,80,255,0) 4.2deg 8deg)}
+.band-card{position:relative;background:#fff;border-radius:2px;padding:48px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.band-card h2{font-size:clamp(30px,3.4vw,44px)}
+.code{background:#0b0f1e;color:#cfd8ff;border-radius:2px;padding:22px;font:400 14px/1.8 var(--mono)}
+.code .c{color:#6f7aa8}
+.code .k{color:#8fb0ff}
+
+/* pricing teaser */
+.price{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:44px}
+.plan{border:1px solid var(--ink);border-radius:2px;padding:28px;display:flex;flex-direction:column;gap:14px}
+.plan.hot{background:#000;color:#fff;border-color:#000}
+.plan .label{color:var(--ink-2)}
+.plan.hot .label{color:var(--bp-2)}
+.plan b{font:500 44px/1 var(--sans);letter-spacing:-.04em}
+.plan small{font-size:15px}
+.plan ul{list-style:none;display:grid;gap:8px;font-size:15px;margin:6px 0 10px}
+.plan li::before{content:"";display:inline-block;width:6px;height:6px;background:var(--brand);margin-right:10px;vertical-align:middle}
+.plan.hot li::before{background:var(--bp-2)}
+.plan .btn{margin-top:auto;justify-content:center}
+.plan.hot .btn{background:#fff;color:#000}
+.plan.hot .btn:hover{background:var(--brand);color:#fff}
+
+/* cta */
+.cta{position:relative;overflow:hidden;background:var(--brand);padding:120px 24px;display:grid;place-items:center;color:#fff;text-align:center}
+.cta::before{content:"";position:absolute;inset:0;background:conic-gradient(from 180deg at 50% 38%,#1b3df0,#7f95ff 12%,#2450ff 25%,#0b2bd6 50%,#2450ff 75%,#7f95ff 88%,#1b3df0)}
+.cta::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 38%,rgba(255,255,255,.55),rgba(255,255,255,0) 30%)}
+.cta>*{position:relative;z-index:1}
+.cta h2{font-size:clamp(36px,5vw,64px);margin-bottom:28px}
+.mail{display:flex;width:min(440px,100%);background:#fff;padding:5px;border-radius:2px}
+.mail input{flex:1;border:0;outline:0;font:400 15px var(--sans);padding:0 10px;color:var(--ink);min-width:0}
+.mail .btn{height:40px}
+
+/* footer */
+.ft{background:#000;color:#fff;padding:64px 0 32px}
+.ft-top{display:grid;grid-template-columns:1fr 1.2fr 2.4fr;gap:40px;align-items:start}
+.ft-tag{font:400 26px/1.1 var(--sans);letter-spacing:-.03em;color:#ddd}
+.ft-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.ft-cols h4{font-weight:400;font-size:15px;margin-bottom:16px}
+.ft-cols a{display:block;font-size:14px;color:#b5b5b5;margin-bottom:10px;transition:color .2s}
+.ft-cols a:hover{color:#fff}
+.ft-bot{border-top:1px solid #2a2a2a;margin-top:64px;padding-top:24px;font-size:13px;color:#8a8a8a;display:flex;justify-content:space-between}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+
+@media (max-width:1000px){
+  .nav-links{display:none}
+  .hero-in,.story,.band-card{grid-template-columns:1fr}
+  .hero-chip{display:none}
+  .tabs,.grid3,.price{grid-template-columns:1fr}
+  .ft-top{grid-template-columns:1fr}
+  .sec-head{flex-direction:column;align-items:flex-start}
+}
+@media (max-width:600px){
+  :root{--pad:16px}
+  .nav-act .signin{display:none}
+  .announce{font-size:13px}
+  .band-card{padding:24px}
+  .ft-cols{grid-template-columns:1fr 1fr}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="announce">Magpie, our AI agent, is live <a href="#work">See it answer</a></div>
+
+<header class="nav">
+  <div class="nav-bar">
+    <a class="logo" href="#"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#2450ff"/><path d="M13 7.5h6a6 6 0 0 1 6 6v1a6 6 0 0 1-6 6h-5.6L6.5 26l1.9-6.9A6 6 0 0 1 7 15v-1.5a6 6 0 0 1 6-6Z" fill="#fff"/><circle cx="19.2" cy="12.6" r="1.7" fill="#2450ff"/></svg>MagpieReply</a>
+    <nav class="nav-links"><a href="#work">Magpie</a><a href="#platform">Platform</a><a href="#apps">Integrations</a><a href="#open">Open source</a><a href="#pricing">Pricing</a></nav>
+    <div class="nav-act"><a class="signin" href="https://app.magpiereply.com/app/login">Sign in</a><a class="btn" href="https://app.magpiereply.com/app/auth/signup">Get started</a></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-img" role="img" aria-label="Two friends laughing as they walk with shopping bags"></div>
+  <div class="hero-chip"><div class="who"><i></i>Customer</div>Hi! Can I still return the jacket I bought last week?</div>
+  <div class="hero-chip two"><div class="who"><i></i>Magpie</div>Yes. You have 30 days, and returns are free. Here's the link to start one.</div>
+  <div class="wrap hero-in">
+    <div>
+      <span class="label">The agentic CX platform</span>
+      <h1>Support that answers <span class="rot">itself.</span></h1>
+    </div>
+    <div class="hero-side">
+      <p>Magpie reads your help center, website and files, then answers customers on chat, email and WhatsApp. Every reply is checked against your sources.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-dark" href="https://app.magpiereply.com/app/auth/signup">Get started</a>
+        <a class="btn btn-ghost" href="#work">See it work</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="trust">
+  <p>Answer customers on every channel they use</p>
+  <div class="marquee"><div class="track" id="track"></div></div>
+</section>
+
+<section class="work wrap" id="work">
+  <div class="panel">
+    <svg class="mark-lg" viewBox="0 0 32 32"><path d="M13 7.5h6a6 6 0 0 1 6 6v1a6 6 0 0 1-6 6h-5.6L6.5 26l1.9-6.9A6 6 0 0 1 7 15v-1.5a6 6 0 0 1 6-6Z" fill="#fff"/><circle cx="19.2" cy="12.6" r="1.7" fill="#2450ff"/></svg>
+    <h2>Ask Magpie anything</h2>
+    <div class="ask"><span class="typed"><span id="typed"></span><span class="caret"></span></span><button aria-label="Send"><svg width="14" height="14" viewBox="0 0 16 16"><path d="M3 2l11 6-11 6 2-6-2-6Z" fill="currentColor"/></svg></button></div>
+    <div class="answer"><div class="ans" id="ans"></div></div>
+  </div>
+  <div class="tabs" id="platform">
+    <div class="tab on" data-i="0"><h3>Set up in an afternoon</h3><p>Point Magpie at your help center, websites and files. It reads them in minutes and keeps them fresh.</p></div>
+    <div class="tab" data-i="1"><h3>Answer with proof</h3><p>Magpie drafts replies for your team, or sends them alone in Auto mode. Each one cites its sources and passes a fact check.</p></div>
+    <div class="tab" data-i="2"><h3>Get better every week</h3><p>Replay past chats to see how Magpie would answer, read every step in Traces, and track what it solved in Reports.</p></div>
+  </div>
+</section>
+
+<section class="sec wrap">
+  <div class="sec-head rv">
+    <div><h2>Stop typing the same answer.<br>Start directing Magpie.</h2><p class="lead">Magpie handles the questions your team answers every day. Your people take the chats that need a human touch.</p></div>
+    <div class="arrows"><button id="prev" aria-label="Previous"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg></button><button id="next" aria-label="Next"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg></button></div>
+  </div>
+  <div class="cards" id="cards">
+    <a class="card rv" href="#work"><div class="card-art"><svg viewBox="0 0 150 110"><rect x="30" y="18" width="90" height="56" rx="2"/><path d="M48 74l-10 18 26-18"/><path d="M46 36h58M46 48h44M46 60h30"/><circle cx="112" cy="18" r="9"/><path d="M108 18l3 3 5-6"/></svg></div><div class="card-body"><div><h3>Magpie agent</h3><p>Answers from your help content and hands off to a person when it should.</p></div><svg class="go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M8 7h9v9"/></svg></div></a>
+    <a class="card rv" href="#apps"><div class="card-art"><svg viewBox="0 0 150 110"><rect x="16" y="20" width="118" height="70" rx="2"/><path d="M52 20v70"/><path d="M24 34h20M24 46h20M24 58h20"/><rect x="62" y="30" width="62" height="14" rx="1"/><rect x="62" y="50" width="48" height="14" rx="1"/><rect x="62" y="70" width="56" height="12" rx="1"/></svg></div><div class="card-body"><div><h3>Shared inbox</h3><p>Chat, email, WhatsApp, Instagram and SMS in one place for your whole team.</p></div><svg class="go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M8 7h9v9"/></svg></div></a>
+    <a class="card rv" href="#apps"><div class="card-art"><svg viewBox="0 0 150 110"><rect x="40" y="14" width="70" height="84" rx="2"/><path d="M52 32h46M52 44h46M52 56h30"/><rect x="52" y="68" width="22" height="16"/><path d="M110 34h14v64H54"/></svg></div><div class="card-body"><div><h3>Help center</h3><p>Articles your customers and Magpie both read, on your own domain.</p></div><svg class="go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M8 7h9v9"/></svg></div></a>
+    <a class="card rv" href="#apps"><div class="card-art"><svg viewBox="0 0 150 110"><rect x="18" y="38" width="36" height="36" rx="2"/><rect x="96" y="38" width="36" height="36" rx="2"/><path d="M54 56h42"/><circle cx="75" cy="56" r="6"/><path d="M36 50v12M114 50v12"/></svg></div><div class="card-body"><div><h3>Apps</h3><p>Magpie looks up billing in Stripe and known bugs in Linear before it answers.</p></div><svg class="go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M8 7h9v9"/></svg></div></a>
+    <a class="card rv" href="#platform"><div class="card-art"><svg viewBox="0 0 150 110"><path d="M20 86h110"/><path d="M28 86V60M52 86V44M76 86V52M100 86V30M124 86V40"/><path d="M28 54l24-16 24 8 24-22 24 10"/></svg></div><div class="card-body"><div><h3>Reports and traces</h3><p>See reply times, what Magpie solved, and every step it took.</p></div><svg class="go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M8 7h9v9"/></svg></div></a>
+  </div>
+</section>
+
+<section class="sec wrap" style="padding-top:24px">
+  <div class="story">
+    <div class="rv">
+      <span class="label" style="color:var(--brand)">For online stores</span>
+      <h2 style="margin-top:20px">Answers in seconds, from your own policies</h2>
+      <div class="steps" id="steps">
+        <div class="step on" data-i="0"><b>Order questions</b><span>"Where's my order?" answered with the real status, any hour of the day.</span></div>
+        <div class="step" data-i="1"><b>Billing</b><span>Magpie checks the customer's own charges in Stripe before it says a word.</span></div>
+        <div class="step" data-i="2"><b>Hand off with notes</b><span>When a person should step in, Magpie passes the chat with a short summary.</span></div>
+      </div>
+    </div>
+    <div class="photo rv" id="photo">
+      <img src="phone.jpg" alt="Two friends laughing at a phone in a cafe">
+      <div class="cap" id="cap"><span class="tag">customer</span><p>Hi, where's my order? It was meant to arrive today.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec wrap" id="apps" style="padding-top:24px">
+  <div class="rv" style="max-width:720px"><h2>Works with the tools you already use</h2><p class="lead" style="margin-top:20px;font-size:16px">Connect channels and apps in one click. Magpie only reads what each customer is allowed to see.</p></div>
+  <div class="grid3 rv" id="rows"></div>
+</section>
+
+<section class="band" id="open">
+  <div class="wrap">
+    <div class="band-card rv">
+      <div>
+        <span class="label" style="color:var(--brand)">Open source</span>
+        <h2 style="margin:20px 0 18px">Own your support. Run it anywhere.</h2>
+        <p class="lead" style="font-size:16px;margin-bottom:26px">Use our cloud, or run the open source core on your own servers. Your data stays yours either way.</p>
+        <a class="btn btn-line" href="https://github.com/dev-perceptric/magpiereply">View on GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+      </div>
+      <div class="code"><span class="c"># run MagpieReply on your own server</span><br><span class="k">git</span> clone github.com/dev-perceptric/magpiereply<br><span class="k">cd</span> magpiereply<br><span class="k">docker</span> compose up -d<br><span class="c"># open http://localhost:3000</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec wrap" id="pricing">
+  <div class="rv" style="max-width:720px"><h2>One flat price. No fee for each answer.</h2></div>
+  <div class="price">
+    <div class="plan rv"><span class="label">Starter</span><b>Free</b><small>To start, for small teams</small><ul><li>Shared inbox</li><li>Help center</li><li>Magpie in Draft mode</li></ul><a class="btn btn-line" href="https://app.magpiereply.com/app/auth/signup">Get started</a></div>
+    <div class="plan hot rv"><span class="label">Team</span><b>Flat</b><small>For teams that want Magpie answering</small><ul><li>Everything in Starter</li><li>Auto mode with spending caps</li><li>Stripe and Linear lookups</li><li>Replay tests and traces</li></ul><a class="btn" href="https://app.magpiereply.com/app/auth/signup">Get started</a></div>
+    <div class="plan rv"><span class="label">Self-hosted</span><b>Free</b><small>Run the open source core yourself</small><ul><li>Your servers, your data</li><li>Community support</li></ul><a class="btn btn-line" href="#open">Read the guide</a></div>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>Let Magpie take the first reply</h2>
+  <form class="mail" onsubmit="event.preventDefault();location.href='https://app.magpiereply.com/app/auth/signup'"><input type="email" placeholder="What's your work email?" aria-label="Work email"><button class="btn btn-dark">Get started</button></form>
+</section>
+
+<footer class="ft">
+  <div class="wrap">
+    <div class="ft-top">
+      <a class="logo" href="#"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#2450ff"/><path d="M13 7.5h6a6 6 0 0 1 6 6v1a6 6 0 0 1-6 6h-5.6L6.5 26l1.9-6.9A6 6 0 0 1 7 15v-1.5a6 6 0 0 1 6-6Z" fill="#fff"/><circle cx="19.2" cy="12.6" r="1.7" fill="#2450ff"/></svg>MagpieReply</a>
+      <div class="ft-tag">The agentic<br>CX platform</div>
+      <div class="ft-cols">
+        <div><h4>Product</h4><a href="#">Magpie</a><a href="#">Shared inbox</a><a href="#">Help center</a><a href="#">Apps</a><a href="#">Pricing</a></div>
+        <div><h4>Use cases</h4><a href="#">B2B software</a><a href="#">Online stores</a><a href="#">Security</a><a href="#">Open source</a></div>
+        <div><h4>Company</h4><a href="mailto:hello@magpiereply.com">Contact</a><a href="#">Privacy</a><a href="#">Terms</a><a href="https://app.magpiereply.com/app/login">Sign in</a></div>
+      </div>
+    </div>
+    <div class="ft-bot"><span>© 2026 MagpieReply</span><span>hello@magpiereply.com</span></div>
+  </div>
+</footer>
+
+<script>
+const SI='https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/';
+const si=(n,c)=>`<i class="si" style="--m:url(${SI}${n}.svg)${c?';color:'+c:''}"></i>`;
+const icons={chat:'<svg class="ic" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4Z"/></svg>',book:'<svg class="ic" viewBox="0 0 24 24"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3Z"/><path d="M5 17a3 3 0 0 1 3-3h11"/></svg>',globe:'<svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c3 3 3 13 0 16M12 4c-3 3-3 13 0 16"/></svg>',file:'<svg class="ic" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6Z"/><path d="M14 3v4h4"/></svg>',mail:'<svg class="ic" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14"/><path d="M3 6l9 7 9-7"/></svg>',sms:'<svg class="ic" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M10 18h4"/></svg>'};
+// marquee
+const mq=[['whatsapp','WhatsApp'],['instagram','Instagram'],['messenger','Messenger'],['telegram','Telegram'],['line','LINE'],['gmail','Email'],['stripe','Stripe'],['linear','Linear'],['shopify','Shopify'],['hubspot','HubSpot']];
+const half=mq.map(([n,l])=>`<span>${si(n)}${l}</span>`).join('');
+document.getElementById('track').innerHTML=half+half;
+// integrations table
+const rows=[[icons.chat,'Website chat','Channel'],[si('gmail','#EA4335'),'Email','Channel'],[si('whatsapp','#25D366'),'WhatsApp','Channel'],[si('instagram','#E4405F'),'Instagram','Channel'],[si('messenger','#0866FF'),'Messenger','Channel'],
+ [si('telegram','#26A5E4'),'Telegram','Channel'],[si('line','#00C300'),'LINE','Channel'],[icons.sms,'SMS','Channel'],[si('stripe','#635BFF'),'Stripe','Billing'],[si('linear','#5E6AD2'),'Linear','Issue tracking'],
+ [si('shopify','#7AB55C'),'Shopify','Coming soon',1],[si('hubspot','#FF7A59'),'HubSpot','Coming soon',1],[icons.book,'Help center','Knowledge'],[icons.globe,'Websites','Knowledge'],[icons.file,'PDF and Word files','Knowledge']];
+const per=5;let html='';for(let c=0;c<3;c++){html+='<div>'+rows.slice(c*per,c*per+per).map(r=>`<div class="row">${r[0]}${r[1]}<em class="${r[3]?'soon':''}">${r[2]}</em></div>`).join('')+'</div>'}
+document.getElementById('rows').innerHTML=html;
+
+// ask magpie demo
+const qa=[
+ {q:"Why was I charged twice this month?",a:"I checked your billing in Stripe. The second charge is a hold from a failed card try, and it drops off in 3 to 5 days. You were only billed once.",s:['Stripe: invoices','Billing help','Fact check passed']},
+ {q:"Can I return shoes I already wore outside?",a:"Worn shoes can't be returned, but you can swap them for store credit within 30 days. Here's the link to start a swap.",s:['Returns policy','Store credit','Fact check passed']},
+ {q:"Is the export bug fixed yet?",a:"Not yet. Our team is working on it now, and it's planned for next week's release. You'll see it in the release notes.",s:['Linear: issue','Known issues','Fact check passed']}
+];
+const typed=document.getElementById('typed'),ans=document.getElementById('ans');let qi=0;
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+async function loop(){for(;;){const {q,a,s}=qa[qi%qa.length];ans.classList.remove('show');await sleep(400);typed.textContent='';
+ for(const ch of q){typed.textContent+=ch;await sleep(38)}await sleep(500);
+ ans.innerHTML=a+'<div class="src">'+s.map((x,i)=>`<span class="${i==s.length-1?'ok':''}">${x}</span>`).join('')+'</div>';ans.classList.add('show');
+ await sleep(4200);qi++}}
+// tabs auto-advance
+function cycler(sel,ms,onChange){const els=[...document.querySelectorAll(sel)];let i=0,t;const go=n=>{els.forEach(e=>e.classList.remove('on'));void els[0].offsetWidth;i=n%els.length;els[i].classList.add('on');onChange&&onChange(i);clearTimeout(t);t=setTimeout(()=>go(i+1),ms)};els.forEach((e,n)=>e.addEventListener('click',()=>go(n)));return go}
+cycler('.tab',6000)(0);
+// story captions
+const caps=[{t:'customer',p:"Hi, where's my order? It was meant to arrive today."},{t:'magpie',p:"Your card was charged once. The second line is a hold that drops off in 3 to 5 days."},{t:'magpie',p:"I've passed this to Sam on our team with a short summary. They'll reply here."}];
+const cap=document.getElementById('cap');
+cycler('.step',5000,i=>{cap.classList.add('out');setTimeout(()=>{const c=caps[i];cap.innerHTML=`<span class="tag ${c.t==='magpie'?'magpie':''}">${c.t==='magpie'?'Magpie':'customer'}</span><p>${c.p}</p>`;cap.classList.remove('out')},380)})(0);
+// carousel arrows
+const cards=document.getElementById('cards');const step=()=>cards.querySelector('.card').offsetWidth+24;
+document.getElementById('next').onclick=()=>cards.scrollBy({left:step(),behavior:'smooth'});
+document.getElementById('prev').onclick=()=>cards.scrollBy({left:-step(),behavior:'smooth'});
+// reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');if(e.target.id==='photo')e.target.classList.add('live');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(el.classList.contains('card')||el.classList.contains('plan')?(i%5)*80:0)+'ms';io.observe(el)});
+loop();
+</script>
+</body>
+</html>
