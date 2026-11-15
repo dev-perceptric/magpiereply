@@ -22,11 +22,16 @@ const globalConfig = useMapGetter('globalConfig/get');
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <rect width="32" height="32" rx="8" fill="#0943b0" />
     <path
-      d="M13 7.5h6a6 6 0 0 1 6 6v1a6 6 0 0 1-6 6h-5.6L6.5 26l1.9-6.9A6 6 0 0 1 7 15v-1.5a6 6 0 0 1 6-6Z"
-      fill="#fff"
+      d="M3.5 28.5V16A12.5 12.5 0 1 1 16 28.5Z"
+      stroke="#0B1220"
+      stroke-width="5"
     />
-    <circle cx="19.2" cy="12.6" r="1.7" fill="#0943b0" />
+    <path
+      d="M28.5 16A12.5 12.5 0 0 1 16 28.5"
+      stroke="#2450ff"
+      stroke-width="5"
+    />
+    <circle cx="16" cy="16" r="3.5" fill="#0B1220" />
   </svg>
 </template>

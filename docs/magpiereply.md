@@ -16,7 +16,7 @@ MagpieReply is a fork of Chatwoot's open source core. This page covers what chan
 | CI | Removed workflows that only work in Chatwoot's org (Docker Hub publishing, Linear and Slack syncs, Heroku deploy checks, stale bots), plus `FUNDING.yml` and `CODEOWNERS`. |
 | Name | Installation name and brand name default to MagpieReply (`config/installation_config.yml`). English text (`en.json`, `en.yml`) and server fallbacks say MagpieReply. |
 | White-label | `replaceInstallationName` now swaps both "MagpieReply" and "Chatwoot" for a customer's own installation name. |
-| Logo | New logo, dark logo, thumbnail, every favicon and app icon, the chat launcher bubble and the bot avatar. |
+| Logo | New logo, dark logo, thumbnail, every favicon and app icon, the chat launcher bubble and the bot avatar. The mark is a speech-bubble ring in ink (`#0B1220`) with one blue quarter (`#2450ff`) and a dot in the middle. |
 | Color | The blue scale behind buttons, links and focus rings centers on `#0943b0` in light and dark mode (`_next-colors.scss`, `theme/colors.js`), along with emails, the manifest and default widget and portal colors. |
 | Font | Inter leads the default font stack in the app, widget, help center and emails. |
 | UI style | The app follows the website's look: 1px inner rings and a soft lift on gray buttons, 6px button corners, 4px tags, 8px bubbles and cards with a card shadow, small uppercase group labels, a dot ground behind messages and one sticker on the empty conversation screen. Tokens live in `tailwind.config.js` (`shadow-ring`, `shadow-card`, `shadow-sticker`, `tracking-label`, `bg-dot-grid`) and `_next-colors.scss` (ring and dot colors for light and dark). |
