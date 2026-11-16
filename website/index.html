@@ -100,10 +100,10 @@ h2{font-size:clamp(34px,4.4vw,56px);font-weight:400}
 
 /* hero */
 .hero{position:relative;min-height:max(680px,calc(100vh - 48px));display:flex;align-items:flex-end;color:#fff;overflow:hidden;background:#0b1240}
-.hero-img{position:absolute;inset:0;background:url(/assets/hero.jpg) center 30%/cover no-repeat;transform:scale(1.06);animation:drift 18s ease-out forwards}
+.hero-img{position:absolute;inset:0;background:url(/assets/hero.jpg) center 45%/cover no-repeat;transform:scale(1.06);animation:drift 18s ease-out forwards}
 @keyframes drift{to{transform:scale(1)}}
-.hero::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(150,160,255,.18) 0%,rgba(36,80,255,.08) 35%,rgba(24,52,200,.6) 72%,rgba(18,38,170,.94) 100%),linear-gradient(90deg,rgba(20,40,160,.45),rgba(20,40,160,0) 55%)}
-.hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(255,255,255,.05) 0 1px,transparent 1px 7px);mix-blend-mode:overlay}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(12,16,48,0) 40%,rgba(12,16,48,.35) 70%,rgba(12,16,48,.72) 100%),linear-gradient(90deg,rgba(12,16,48,.35),rgba(12,16,48,0) 55%)}
+.hero::after{content:none}
 .hero-in{position:relative;z-index:2;width:100%;padding-bottom:64px;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:end}
 .hero .label{margin-bottom:28px;display:block;opacity:.92}
 .hero h1{font-size:clamp(52px,7vw,104px)}
@@ -445,7 +445,7 @@ h2{font-size:clamp(34px,4.4vw,56px);font-weight:400}
 <div class="scrim" id="scrim"></div>
 
 <section class="hero">
-  <div class="hero-img" role="img" aria-label="Two friends laughing as they take a selfie with their shopping bags"></div>
+  <div class="hero-img" role="img" aria-label="A woman working on her laptop on a lakeside terrace"></div>
   <div class="chip c1"><div class="who"><i></i>Customer</div>Hi! Can I still return the jacket I bought last week?</div>
   <div class="chip c2"><div class="who"><i></i>Magpie</div>Yes. You have 30 days, and returns are free. Here's the link to start one.</div>
   <div class="chip c3"><b>&#10003;</b> Fact check passed &nbsp;&middot;&nbsp; 1 source</div>
@@ -561,14 +561,14 @@ h2{font-size:clamp(34px,4.4vw,56px);font-weight:400}
       </div>
     </div>
     <div class="photo rv">
-      <img src="/assets/phone.jpg" alt="A woman in a red jacket smiling at her phone by a cafe window">
+      <img src="/assets/phone.jpg" alt="A woman in a long beige coat walking down a city street">
       <div class="cap" id="capA"><span class="tag">customer</span><p>Hi, where's my order? It was meant to arrive today.</p></div>
     </div>
   </div>
 
   <div class="case rev">
     <div class="photo rv" id="saasPhoto">
-      <img src="/assets/office.jpg" alt="A woman working on her laptop, surrounded by plants">
+      <img src="/assets/office.jpg" alt="A man working on his laptop by an airport window at sunrise">
       <div class="code-shot"><span class="c"># Linear, read by Magpie</span><br><span class="k">LED-412</span> Export fails over 10k rows<br>status: <span class="k">In progress</span> &nbsp; due: <span class="k">this week</span><br><br><span class="c"># Stripe, read by Magpie</span><br>invoice <span class="k">Nov</span>: 12 seats &nbsp;<span class="r">was 9</span></div>
       <div class="float f2"><div class="h"><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/linear.svg);color:#5E6AD2"></i>Known bug<em>Linear</em></div><p>"Thanks for flagging it. Our team is fixing this now, and the fix is planned for this week."</p></div>
     </div>
