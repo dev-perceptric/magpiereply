@@ -98,3 +98,7 @@ magpiereply.com is registered elsewhere, so add the DNS records or nameservers h
 ## Running cost
 
 Hostinger web hosting: $0 extra a month at Beta (50 teams) and Growth (500 teams) if it shares a plan already paid for. On its own, a Premium Web Hosting plan is about $3 to $12 a month depending on the term (check). Fonts load from Google Fonts at no cost.
+
+## Product pages
+
+The four product pages (`ai-agent/`, `inbox/`, `help-center/`, `integrations/`) use the homepage's look: `assets/v2.css` for the page and `assets/v2.js` for the scroll reveal, the photo captions and the FAQ. The black nav and footer styles live in `assets/chrome.css`, which `styles.css` imports for the older pages. Photos in `assets/photos/` are from Unsplash under the Unsplash License, with a brand color grade.
