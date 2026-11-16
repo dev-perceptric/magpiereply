@@ -11,13 +11,10 @@
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#0943b0">
   <link rel="icon" type="image/svg+xml" href="/assets/logo_thumbnail.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/assets/chrome.css">
+  <link rel="stylesheet" href="/assets/v2.css">
 </head>
 <body>
-
 <!-- nav -->
 <header class="bn" id="bn">
   <div class="bn-bar">
@@ -38,241 +35,54 @@
 </header>
 <div class="bn-scrim" id="bnScrim"></div>
 <!-- /nav -->
-
 <main id="top">
-
-  <!-- Hero -->
-  <section class="hero hero-magpie product-hero">
-    <div class="mosaic" data-mosaic="hero" aria-hidden="true"><canvas></canvas></div>
-    <div class="frame pad">
-      <div class="hm-grid">
-        <div class="hm-copy">
-          <div class="crumbs"><a href="/">Home</a><span>/</span><span>Product</span><span>/</span><span>Help center</span></div>
-          <h1 class="display">A help center your customers and <em>Magpie</em> both read</h1>
-          <p class="lede">Write an article once. Customers find it on your help site, and Magpie uses it to answer the next person who asks.</p>
-          <div class="ctas">
-            <a class="btn btn-primary btn-lg" href="https://app.magpiereply.com/app/auth/signup">Start free</a>
-            <a class="btn btn-secondary btn-lg" href="mailto:hello@magpiereply.com?subject=Demo">Book a demo</a>
-          </div>
-        </div>
-        <div class="hm-stage">
-          <div class="mock-card">
-            <div class="mc-bar"><img src="/assets/logo_thumbnail.svg" alt="">help.northwind.example<span class="state live">Published</span></div>
-            <div class="mc-body">
-              <div class="mc-search"><svg aria-hidden="true"><use href="/assets/icons.svg#i-search"/></svg>canada shipping</div>
-              <div class="mc-article">
-                <span class="crumb">Shipping and returns</span>
-                <h4>Shipping to Canada</h4>
-                <p>Orders to Canada arrive in 5 to 8 business days. Duties are included at checkout, so there's nothing to pay on delivery.</p>
-              </div>
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-spark"/></svg></span>Magpie cited this article<span class="end ok">12 times this week</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
+<section class="wrap">
+  <div class="ph">
+    <div>
+      <div class="crumb"><a href="/">Home</a><span>/</span><span>Product</span><span>/</span><span>Help center</span></div>
+      <h1>A help center your customers <span>and Magpie</span> both read.</h1>
+      <p class="lead">Write an article once. Customers find it on your help site, and Magpie uses it to answer the next person who asks.</p>
+      <div class="ctas"><a class="btn btn-dark" href="https://app.magpiereply.com/app/auth/signup">Get started</a><a class="btn btn-line" href="/#demo">Try the demo</a></div>
     </div>
-  </section>
-
-  <!-- Capability index -->
-  <section aria-label="What the help center does">
-    <div class="frame">
-      <div class="cap-index">
-        <a class="cap-card" href="#publish"><span class="num">01</span><h3>Write and publish<svg aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></h3><p>A simple editor, categories and your own domain.</p></a>
-        <a class="cap-card" href="#languages"><span class="num">02</span><h3>More than one language<svg aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></h3><p>A version of your help center for each language.</p></a>
-        <a class="cap-card" href="#search"><span class="num">03</span><h3>Found where customers look<svg aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></h3><p>On your help site and inside the chat widget.</p></a>
-        <a class="cap-card" href="#magpie"><span class="num">04</span><h3>Teaches Magpie<svg aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></h3><p>Published articles become Magpie's answers within 15 minutes.</p></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Capabilities -->
-  <section>
-    <div class="frame">
-      <div class="showcase" id="publish">
-        <div class="showcase-copy">
-          <span class="k">01 / PUBLISH</span>
-          <h3>Write it once, publish it on your own domain</h3>
-          <p>Write in a simple editor and sort articles into categories. Keep drafts until they're ready, then publish with one click.</p>
-          <ul>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Your own address, like help.yourcompany.com</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Your own logo and colors</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Keep drafts until they're ready, and archive old articles</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>More than one help center, each with its own brand</li>
-          </ul>
-        </div>
-        <div class="showcase-visual">
-          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
-          <div class="mock-card">
-            <div class="mc-bar"><img src="/assets/logo_thumbnail.svg" alt="">Articles</div>
-            <div class="mc-body">
-              <div class="mc-row"><strong>Shipping to Canada</strong><span class="end"><span class="state live">Published</span></span></div>
-              <div class="mc-row"><strong>Change your billing date</strong><span class="end"><span class="state live">Published</span></span></div>
-              <div class="mc-row"><strong>Return a damaged item</strong><span class="end"><span class="state soon">Draft</span></span></div>
-              <div class="mc-row"><strong>Set up single sign-on</strong><span class="end"><span class="state live">Published</span></span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="showcase flip" id="languages">
-        <div class="showcase-copy">
-          <span class="k">02 / LANGUAGES</span>
-          <h3>Speak your customers' language</h3>
-          <p>Add a language and publish a version of each article in it. Customers pick their language on the help site.</p>
-          <ul>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>One help center, many languages</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Each language has its own address</li>
-                      </ul>
-        </div>
-        <div class="showcase-visual">
-          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
-          <div class="mock-card">
-            <div class="mc-bar"><img src="/assets/logo_thumbnail.svg" alt="">Languages</div>
-            <div class="mc-body">
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-globe"/></svg></span><strong>English</strong><span class="end ok">Default, 24 articles</span></div>
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-globe"/></svg></span><strong>Español</strong><span class="end ok">24 articles</span></div>
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-globe"/></svg></span><strong>Français</strong><span class="end wait">18 of 24</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="showcase" id="search">
-        <div class="showcase-copy">
-          <span class="k">03 / SEARCH</span>
-          <h3>Found where customers already look</h3>
-          <p>Customers can search your help site, or find articles through a search engine. Popular articles also show inside the chat widget.</p>
-          <ul>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Search on every page of your help site</li>
-                        <li><svg><use href="/assets/icons.svg#i-check"/></svg>Popular articles in the chat widget, before a customer types</li>
-          </ul>
-        </div>
-        <div class="showcase-visual">
-          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
-          <div class="mock-card">
-            <div class="mc-bar"><img src="/assets/logo_thumbnail.svg" alt="">Chat widget</div>
-            <div class="mc-body">
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-book"/></svg></span>Shipping to Canada<span class="end"><svg width="14" height="14" style="color:var(--ink-3)" aria-hidden="true"><use href="/assets/icons.svg#i-arrow"/></svg></span></div>
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-book"/></svg></span>Change your billing date<span class="end"><svg width="14" height="14" style="color:var(--ink-3)" aria-hidden="true"><use href="/assets/icons.svg#i-arrow"/></svg></span></div>
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-chat"/></svg></span><strong>Start a conversation</strong><span class="end"><span class="mc-btn go">Chat</span></span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="showcase flip" id="magpie">
-        <div class="showcase-copy">
-          <span class="k">04 / MAGPIE</span>
-          <h3>Every article makes Magpie smarter</h3>
-          <p>Magpie reads your published articles every 15 minutes. Update a policy, and Magpie's answers change with it. Each reply names the articles it used.</p>
-          <ul>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Only published articles, never drafts</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Changed articles are read again on their own</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Every reply lists the articles behind it</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>No article that answers the question? Magpie hands off to your team</li>
-          </ul>
-        </div>
-        <div class="showcase-visual">
-          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
-          <div class="mock-card">
-            <div class="mc-bar"><img src="/assets/logo_thumbnail.svg" alt="">Magpie<span class="state beta">Draft</span></div>
-            <div class="mc-body">
-              <div class="mc-row" style="display:block">You can change your billing date once a month from Settings, Billing. The new date starts with your next invoice.</div>
-              <div class="mp-meta"><span class="src"><svg><use href="/assets/icons.svg#i-book"/></svg>Change your billing date</span><span class="chk ok"><svg><use href="/assets/icons.svg#i-check"/></svg>Fact check passed</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Proof -->
-  <section aria-label="The help center in numbers">
-    <div class="frame">
-      <div class="stats proof">
-        <div><strong>15 min</strong><small>Until Magpie knows it</small></div>
-        <div><strong>Your domain</strong><small>help.yourcompany.com</small></div>
-        <div><strong>Any language</strong><small>One version each</small></div>
-        <div><strong>Included</strong><small>With every plan</small></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Coming next -->
-  <section aria-label="Coming next">
-    <div class="frame pad coming">
-      <span class="label">Coming next</span>
-      <span class="item"><span class="state soon">Coming</span>Articles suggested from solved chats</span>
-      <span class="item"><span class="state soon">Coming</span>Knowledge health: questions with no article</span>
-    </div>
-  </section>
-
-  <!-- More in MagpieReply -->
-  <section aria-labelledby="more-title">
-    <div class="frame">
-      <div class="section-head pad" style="border-top:1px solid var(--line)"><h2 class="h2" id="more-title">More in MagpieReply</h2></div>
-      <div class="more">
-        <a href="/ai-agent/"><span class="ic"><svg><use href="/assets/icons.svg#i-spark"/></svg></span><h3>Magpie<svg aria-hidden="true"><use href="/assets/icons.svg#i-arrow"/></svg></h3><p>The AI agent that answers from these articles.</p></a>
-        <a href="/inbox/"><span class="ic"><svg><use href="/assets/icons.svg#i-inbox"/></svg></span><h3>Shared inbox<svg aria-hidden="true"><use href="/assets/icons.svg#i-arrow"/></svg></h3><p>Every channel in one place, for the questions articles can't answer.</p></a>
-        <a href="/integrations/"><span class="ic"><svg><use href="/assets/icons.svg#i-plug"/></svg></span><h3>Apps<svg aria-hidden="true"><use href="/assets/icons.svg#i-arrow"/></svg></h3><p>Connect Stripe and Linear in one click.</p></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq">
-    <div class="frame">
-      <div class="section-head pad" style="border-top:1px solid var(--line)"><h2 class="h2">Questions about the help center</h2></div>
-      <div class="faq">
-        <details><summary>Can I use my own domain?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>Yes. Point an address like help.yourcompany.com at your help center and it's served there.</p></div></details>
-        <details><summary>Does Magpie read draft articles?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>No. Magpie only reads published articles, so you can work on a draft without it reaching customers.</p></div></details>
-        <details><summary>Can Magpie learn from things outside the help center?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>Yes. Add websites and files in Settings, AI agent, Knowledge. See <a href="/ai-agent/#knowledge" style="color:var(--brand)">how Magpie learns</a>.</p></div></details>
-        <details><summary>Does the help center cost extra?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>No. It's part of every plan, and part of the open source core if you host it yourself.</p></div></details>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="end-cta">
-    <div class="mosaic" data-mosaic="cta" aria-hidden="true"><canvas></canvas></div>
-    <div class="frame pad">
-      <div class="end-cta-inner">
-        <h2 class="h2" style="max-width:18ch">Write it once. Let it answer for you.</h2>
-        <div class="ctas">
-          <a class="btn btn-primary btn-lg" href="https://app.magpiereply.com/app/auth/signup">Start free</a>
-          <a class="btn btn-secondary btn-lg" href="mailto:hello@magpiereply.com?subject=Demo">Book a demo</a>
-        </div>
-      </div>
-    </div>
-  </section>
-  <nav class="frame pad keep" aria-label="Keep exploring">
-    <span class="label">Keep exploring</span>
-    <a href="/ai-agent/">Magpie</a>
-    <a href="/inbox/">Shared inbox</a>
-    <a href="/integrations/">Apps</a>
-    <a href="/security/">Security</a>
-    <a href="/pricing/">Pricing</a>
-    <a href="/open-source/">Self-host</a>
-  </nav>
-</main>
-
-<!-- footer -->
-<footer class="site-ft">
-  <div class="ft">
-    <div class="ft-top"><a class="logo" href="/" aria-label="MagpieReply home"><img src="/assets/logo_thumbnail.svg" alt="" width="30" height="30">MagpieReply</a><p>A shared support inbox with Magpie, the AI agent that answers from your own help content.</p>
-      <div class="social"><a href="https://github.com/dev-perceptric/magpiereply" aria-label="GitHub"><i class="logo-i" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/github.svg)"></i></a></div></div>
-    <div class="ft-cols">
-      <div><b>Product</b><a href="/ai-agent/">Magpie</a><a href="/inbox/">Shared inbox</a><a href="/help-center/">Help center</a><a href="/integrations/">Apps</a></div>
-      <div><b>Features</b><a href="/ai-agent/#draft-auto">Draft and Auto</a><a href="/ai-agent/#checked">Fact check</a><a href="/ai-agent/#knowledge">Knowledge</a><a href="/ai-agent/#traces">Traces</a></div>
-      <div><b>Open source</b><a href="/open-source/">Self-host</a><a href="https://github.com/dev-perceptric/magpiereply">Source code</a><a href="https://app.magpiereply.com/swagger">API docs</a><a href="/security/">Security</a></div>
-      <div><b>Company</b><a href="mailto:hello@magpiereply.com">Contact</a><a href="/pricing/">Pricing</a><a href="mailto:hello@magpiereply.com?subject=Demo">Book a demo</a><a href="https://app.magpiereply.com/app/login">Log in</a></div>
-    </div>
+    <div class="ph-photo"><img src="/assets/photos/help-hero.jpg" alt="Two friends reading something on a laptop in a cafe" width="1400" height="933"><div class="chip c1"><div class="who"><i></i>help.northwind.example</div>Search: <b>canada shipping</b></div><div class="chip c2"><div class="who"><i></i>Shipping to Canada</div>Orders to Canada arrive in 5 to 8 business days. Duties are included at checkout.</div><div class="chip tag c3"><b>&#10003;</b> Magpie cites this article</div></div>
   </div>
-  <div class="ft-bot"><span>&copy; 2026 MagpieReply</span><a href="/pricing/">Pricing</a><a href="/security/">Security</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/open-source/">Open source</a></div>
-  <div class="ft-mosaic" aria-hidden="true"><svg viewBox="0 0 932 68" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="18" width="14" height="14" fill="#EDEDED" style="--d:0.19s"/><rect x="0" y="54" width="14" height="14" fill="#EDEDED" style="--d:0.23s"/><rect x="18" y="18" width="14" height="14" fill="#D4D4D4" style="--d:1.67s"/><rect x="18" y="36" width="14" height="14" fill="#EDEDED" style="--d:1.70s"/><rect x="36" y="0" width="14" height="14" fill="#E5E5E5" style="--d:2.52s"/><rect x="36" y="36" width="14" height="14" fill="#EDEDED" style="--d:1.59s"/><rect x="54" y="0" width="14" height="14" fill="#E5E5E5" style="--d:1.16s"/><rect x="54" y="18" width="14" height="14" fill="#E5E5E5" style="--d:2.28s"/><rect x="72" y="0" width="14" height="14" fill="#EDEDED" style="--d:2.56s"/><rect x="72" y="54" width="14" height="14" fill="#E5E5E5" style="--d:2.48s"/><rect x="90" y="54" width="14" height="14" fill="#D4D4D4" style="--d:1.45s"/><rect x="108" y="18" width="14" height="14" fill="#E5E5E5" style="--d:0.33s"/><rect x="108" y="36" width="14" height="14" fill="#D4D4D4" style="--d:3.50s"/><rect x="126" y="36" width="14" height="14" fill="#D4D4D4" style="--d:0.66s"/><rect x="126" y="54" width="14" height="14" fill="#D4D4D4" style="--d:1.69s"/><rect x="144" y="18" width="14" height="14" fill="#EDEDED" style="--d:2.29s"/><rect x="144" y="54" width="14" height="14" fill="#EDEDED" style="--d:1.40s"/><rect x="162" y="36" width="14" height="14" fill="#E5E5E5" style="--d:3.78s"/><rect x="162" y="54" width="14" height="14" fill="#EDEDED" style="--d:0.26s"/><rect x="198" y="54" width="14" height="14" fill="#D4D4D4" style="--d:1.42s"/><rect x="216" y="36" width="14" height="14" fill="#D4D4D4" style="--d:0.52s"/><rect x="216" y="54" width="14" height="14" fill="#D4D4D4" style="--d:3.67s"/><rect x="234" y="18" width="14" height="14" fill="#D4D4D4" style="--d:2.20s"/><rect x="252" y="18" width="14" height="14" fill="#D4D4D4" style="--d:3.95s"/><rect x="252" y="54" width="14" height="14" fill="#E5E5E5" style="--d:0.60s"/><rect x="270" y="0" width="14" height="14" fill="#E5E5E5" style="--d:2.63s"/><rect x="270" y="18" width="14" height="14" fill="#EDEDED" style="--d:0.73s"/><rect x="270" y="36" width="14" height="14" fill="#E5E5E5" style="--d:1.68s"/><rect x="270" y="54" width="14" height="14" fill="#EDEDED" style="--d:1.27s"/><rect x="288" y="0" width="14" height="14" fill="#EDEDED" style="--d:3.80s"/><rect x="288" y="54" width="14" height="14" fill="#EDEDED" style="--d:3.19s"/><rect x="306" y="36" width="14" height="14" fill="#EDEDED" style="--d:1.60s"/><rect x="306" y="54" width="14" height="14" fill="#E5E5E5" style="--d:1.76s"/><rect x="324" y="0" width="14" height="14" fill="#EDEDED" style="--d:0.21s"/><rect x="324" y="18" width="14" height="14" fill="#E5E5E5" style="--d:2.15s"/><rect x="342" y="0" width="14" height="14" fill="#E5E5E5" style="--d:2.46s"/><rect x="342" y="18" width="14" height="14" fill="#D4D4D4" style="--d:3.82s"/><rect x="342" y="54" width="14" height="14" fill="#E5E5E5" style="--d:3.40s"/><rect x="360" y="54" width="14" height="14" fill="#E5E5E5" style="--d:3.00s"/><rect x="378" y="54" width="14" height="14" fill="#E5E5E5" style="--d:3.80s"/><rect x="396" y="18" width="14" height="14" fill="#EDEDED" style="--d:3.66s"/><rect x="396" y="54" width="14" height="14" fill="#EDEDED" style="--d:3.45s"/><rect x="414" y="18" width="14" height="14" fill="#D4D4D4" style="--d:3.63s"/><rect x="414" y="36" width="14" height="14" fill="#E5E5E5" style="--d:2.13s"/><rect x="432" y="18" width="14" height="14" fill="#E5E5E5" style="--d:3.22s"/><rect x="450" y="36" width="14" height="14" fill="#E5E5E5" style="--d:3.96s"/><rect x="468" y="18" width="14" height="14" fill="#EDEDED" style="--d:3.83s"/><rect x="486" y="36" width="14" height="14" fill="#E5E5E5" style="--d:0.41s"/><rect x="486" y="54" width="14" height="14" fill="#D4D4D4" style="--d:0.82s"/><rect x="504" y="54" width="14" height="14" fill="#EDEDED" style="--d:1.38s"/><rect x="522" y="36" width="14" height="14" fill="#D4D4D4" style="--d:3.13s"/><rect x="540" y="18" width="14" height="14" fill="#EDEDED" style="--d:1.33s"/><rect x="576" y="0" width="14" height="14" fill="#E5E5E5" style="--d:0.11s"/><rect x="612" y="0" width="14" height="14" fill="#EDEDED" style="--d:0.52s"/><rect x="612" y="18" width="14" height="14" fill="#EDEDED" style="--d:2.60s"/><rect x="630" y="54" width="14" height="14" fill="#D4D4D4" style="--d:0.85s"/><rect x="648" y="36" width="14" height="14" fill="#EDEDED" style="--d:1.68s"/><rect x="648" y="54" width="14" height="14" fill="#EDEDED" style="--d:1.42s"/><rect x="666" y="54" width="14" height="14" fill="#EDEDED" style="--d:0.52s"/><rect x="684" y="0" width="14" height="14" fill="#EDEDED" style="--d:0.07s"/><rect x="684" y="36" width="14" height="14" fill="#E5E5E5" style="--d:3.10s"/><rect x="684" y="54" width="14" height="14" fill="#E5E5E5" style="--d:1.89s"/><rect x="702" y="36" width="14" height="14" fill="#EDEDED" style="--d:2.12s"/><rect x="702" y="54" width="14" height="14" fill="#E5E5E5" style="--d:3.53s"/><rect x="720" y="0" width="14" height="14" fill="#E5E5E5" style="--d:1.11s"/><rect x="756" y="54" width="14" height="14" fill="#EDEDED" style="--d:3.23s"/><rect x="774" y="18" width="14" height="14" fill="#EDEDED" style="--d:3.51s"/><rect x="774" y="54" width="14" height="14" fill="#EDEDED" style="--d:3.57s"/><rect x="792" y="36" width="14" height="14" fill="#D4D4D4" style="--d:1.77s"/><rect x="792" y="54" width="14" height="14" fill="#E5E5E5" style="--d:1.71s"/><rect x="810" y="36" width="14" height="14" fill="#E5E5E5" style="--d:3.76s"/><rect x="828" y="18" width="14" height="14" fill="#E5E5E5" style="--d:3.87s"/><rect x="828" y="36" width="14" height="14" fill="#E5E5E5" style="--d:1.59s"/><rect x="828" y="54" width="14" height="14" fill="#EDEDED" style="--d:3.33s"/><rect x="846" y="0" width="14" height="14" fill="#D4D4D4" style="--d:3.98s"/><rect x="846" y="54" width="14" height="14" fill="#E5E5E5" style="--d:2.89s"/><rect x="864" y="0" width="14" height="14" fill="#EDEDED" style="--d:1.83s"/><rect x="864" y="36" width="14" height="14" fill="#EDEDED" style="--d:2.50s"/><rect x="864" y="54" width="14" height="14" fill="#E5E5E5" style="--d:0.45s"/><rect x="882" y="18" width="14" height="14" fill="#E5E5E5" style="--d:0.34s"/><rect x="882" y="36" width="14" height="14" fill="#E5E5E5" style="--d:1.08s"/><rect x="882" y="54" width="14" height="14" fill="#D4D4D4" style="--d:3.40s"/><rect x="900" y="36" width="14" height="14" fill="#EDEDED" style="--d:3.68s"/><rect x="918" y="18" width="14" height="14" fill="#E5E5E5" style="--d:3.20s"/><rect x="918" y="36" width="14" height="14" fill="#E5E5E5" style="--d:1.08s"/><rect x="918" y="54" width="14" height="14" fill="#E5E5E5" style="--d:3.21s"/><rect class="hot" x="720" y="0" width="14" height="14" fill="#0943B0"/></svg></div>
+  <nav class="jumps" aria-label="On this page"><a href="#publish"><span class="label">01</span><b>Write and publish</b><span>A simple editor and your own domain</span></a><a href="#languages"><span class="label">02</span><b>Many languages</b><span>A version for each language</span></a><a href="#search"><span class="label">03</span><b>Found where they look</b><span>Your help site and the chat widget</span></a><a href="#magpie"><span class="label">04</span><b>Teaches Magpie</b><span>Answers update within 15 minutes</span></a></nav>
+</section><section class="wrap"><div class="frow " id="publish">
+    <div class="ftext rv"><span class="label kicker">01 / Publish</span><h2>Write it once, publish it on your own domain</h2><p>Write in a simple editor and sort articles into categories. Keep drafts until they&#x27;re ready, then publish with one click.</p><ul class="checks"><li>Your own address, like help.yourcompany.com</li><li>Your own logo and colors</li><li>Keep drafts until they&#x27;re ready, and archive old articles</li><li>More than one help center, each with its own brand</li></ul></div>
+    <div class="mwrap rv"><div style="position:relative;width:100%;max-width:440px"><div class="mk"><div class="mk-h">Articles<span class="label">Help center</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 3h8l4 4v14H6Z"/><path d="M14 3v4h4"/></svg><span class="grow"><b>Shipping to Canada</b></span><span class="tg ok">Published</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 3h8l4 4v14H6Z"/><path d="M14 3v4h4"/></svg><span class="grow"><b>Change your billing date</b></span><span class="tg ok">Published</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 3h8l4 4v14H6Z"/><path d="M14 3v4h4"/></svg><span class="grow"><b>Return a damaged item</b></span><span class="tg ">Draft</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 3h8l4 4v14H6Z"/><path d="M14 3v4h4"/></svg><span class="grow"><b>Set up single sign-on</b></span><span class="tg ok">Published</span></div></div></div></div>
+  </div><div class="frow rev" id="languages">
+    <div class="ftext rv"><span class="label kicker">02 / Languages</span><h2>Speak your customers&#x27; language</h2><p>Add a language and publish a version of each article in it. Customers pick their language on the help site.</p><ul class="checks"><li>One help center, many languages</li><li>Each language has its own address</li></ul></div>
+    <div class="mwrap rv"><div style="position:relative;width:100%;max-width:440px"><div class="mk"><div class="mk-h">Languages<span class="label">3 live</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c3 3 3 13 0 16M12 4c-3 3-3 13 0 16"/></svg><span class="grow"><b>English</b></span><span class="tg blue">Default, 24 articles</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c3 3 3 13 0 16M12 4c-3 3-3 13 0 16"/></svg><span class="grow"><b>Español</b></span><span class="tg ok">24 articles</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c3 3 3 13 0 16M12 4c-3 3-3 13 0 16"/></svg><span class="grow"><b>Français</b></span><span class="tg ">18 of 24</span></div></div></div></div>
+  </div><div class="frow " id="search">
+    <div class="ftext rv"><span class="label kicker">03 / Search</span><h2>Found where customers already look</h2><p>Customers can search your help site, or find articles through a search engine. Popular articles also show inside the chat widget.</p><ul class="checks"><li>Search on every page of your help site</li><li>Popular articles in the chat widget, before a customer types</li></ul></div>
+    <div class="mwrap rv"><div style="position:relative;width:100%;max-width:440px"><div class="mk"><div class="mk-h">Chat widget<span class="label">Popular articles</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3Z"/><path d="M5 17a3 3 0 0 1 3-3h11"/></svg><span class="grow"><b>Shipping to Canada</b></span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3Z"/><path d="M5 17a3 3 0 0 1 3-3h11"/></svg><span class="grow"><b>Change your billing date</b></span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 5h16v11H9l-5 4Z"/></svg><span class="grow"><b>Start a conversation</b></span><span class="tg dark">Chat</span></div></div></div></div>
+  </div><div class="frow rev" id="magpie">
+    <div class="ftext rv"><span class="label kicker">04 / Magpie</span><h2>Every article makes Magpie smarter</h2><p>Magpie reads your published articles every 15 minutes. Update a policy, and Magpie&#x27;s answers change with it. Each reply names the articles it used.</p><ul class="checks"><li>Only published articles, never drafts</li><li>Changed articles are read again on their own</li><li>Every reply lists the articles behind it</li><li>No article that answers the question? Magpie hands off to your team</li></ul></div>
+    <div class="mwrap rv"><div style="position:relative;width:100%;max-width:440px"><div class="mk"><div class="mk-h">Magpie draft<span class="label">Draft</span></div><div class="mk-msg cus"><span class="meta">Customer</span>How do I change my billing date?</div><div class="mk-msg mp"><span class="meta">Magpie</span>You can change your billing date once a month from Settings, Billing. The new date starts with your next invoice.</div><div class="mk-src"><span class="tg blue">Change your billing date</span><span class="tg ok">Fact check passed</span></div></div></div></div>
+  </div></section><section class="wrap" style="padding-top:24px;padding-bottom:24px"><div class="stats rv"><div><b>15 min</b><span>Until Magpie knows it</span></div><div><b>Your domain</b><span>help.yourcompany.com</span></div><div><b>Any language</b><span>One version each</span></div><div><b>Included</b><span>With every plan</span></div></div></section><section class="sec wrap">
+  <div class="band">
+    <div class="rv"><span class="label kicker">Self-serve</span><h2>Customers help themselves, and Magpie fills the gaps</h2><div class="steps" data-steps="capH"><div class="step" data-who="customer" data-tag="customer" data-say="How do I change my billing date?"><b>Customers find answers</b><span>Search on your help site, or popular articles in the chat.</span></div><div class="step" data-who="magpie" data-tag="Magpie" data-say="Once a month, from Settings, Billing. It starts with your next invoice."><b>Magpie cites the article</b><span>The same article answers in the chat, with its source.</span></div><div class="step" data-who="magpie" data-tag="Note for the team" data-say="No article covers custom contracts yet. Worth writing one."><b>Gaps go to your team</b><span>No article covers it? Magpie hands off with a note.</span></div></div></div>
+    <div class="photo rv"><img src="/assets/photos/help-band.jpg" alt="Three friends laughing around laptops in a cafe" loading="lazy" width="1400" height="933"><div class="cap" id="capH"></div></div>
+  </div>
+</section><section class="wrap" style="padding-bottom:24px"><div class="soon rv"><span class="label">Coming next</span><span>Articles suggested from solved chats</span><span>Knowledge health: questions with no article</span></div></section><section class="sec wrap" style="padding-top:24px"><div class="sec-top rv"><div><h2>More in MagpieReply</h2></div></div><div class="more rv"><a href="/ai-agent/"><h3>Magpie<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></h3><p>The AI agent that answers from these articles.</p></a><a href="/inbox/"><h3>Shared inbox<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></h3><p>Every channel in one place, for the questions articles can&#x27;t answer.</p></a><a href="/integrations/"><h3>Apps<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></h3><p>Connect Stripe and Linear in one click.</p></a></div></section><section class="sec wrap" id="faq" style="padding-top:24px"><div class="faq"><div class="rv"><h2>Questions about the help center</h2><p class="lead" style="margin-top:20px">Something else? Write to <a href="mailto:hello@magpiereply.com" style="text-decoration:underline">hello@magpiereply.com</a>.</p></div><div class="rv"><div class="q open"><button type="button" aria-expanded="true">Can I use my own domain?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><div class="a"><div><p>Yes. Point an address like help.yourcompany.com at your help center and it's served there.</p></div></div></div><div class="q"><button type="button" aria-expanded="false">Does Magpie read draft articles?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><div class="a"><div><p>No. Magpie only reads published articles, so you can work on a draft without it reaching customers.</p></div></div></div><div class="q"><button type="button" aria-expanded="false">Can Magpie learn from things outside the help center?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><div class="a"><div><p>Yes. Add websites and files in Settings, AI agent, Knowledge. See <a href="/ai-agent/#knowledge">how Magpie learns</a>.</p></div></div></div><div class="q"><button type="button" aria-expanded="false">Does the help center cost extra?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><div class="a"><div><p>No. It's part of every plan, and part of the open source core if you host it yourself.</p></div></div></div></div></div></section><section class="cta"><h2>Write it once. Let it answer for you.</h2><div class="ctas" style="justify-content:center"><a class="btn btn-dark" href="https://app.magpiereply.com/app/auth/signup">Get started</a><a class="btn btn-line" href="/#demo">Try the demo</a></div></section>
+</main>
+<!-- footer -->
+<footer class="bf">
+  <div class="bf-in">
+    <div class="bf-top">
+      <a class="bf-logo" href="/" aria-label="MagpieReply home"><svg viewBox="0 0 32 32" fill="none"><path d="M3.5 28.5V16A12.5 12.5 0 1 1 16 28.5Z" stroke="#fff" stroke-width="5"/><path d="M28.5 16A12.5 12.5 0 0 1 16 28.5" stroke="#2450ff" stroke-width="5"/><circle cx="16" cy="16" r="3.5" fill="#fff"/></svg>MagpieReply</a>
+      <div class="bf-tag">The agentic<br>CX platform</div>
+      <div class="bf-cols">
+        <div><h4>Product</h4><a href="/ai-agent/">Magpie</a><a href="/inbox/">Shared inbox</a><a href="/help-center/">Help center</a><a href="/integrations/">Apps</a><a href="/pricing/">Pricing</a></div>
+        <div><h4>Use cases</h4><a href="/ai-agent/#ecommerce">Online stores</a><a href="/ai-agent/#b2b">B2B software</a><a href="/security/">Security</a><a href="/open-source/">Open source</a></div>
+        <div><h4>Company</h4><a href="mailto:hello@magpiereply.com">Contact</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="https://app.magpiereply.com/app/login">Sign in</a></div>
+      </div>
+    </div>
+    <div class="bf-bot"><span>© 2026 MagpieReply</span><a href="mailto:hello@magpiereply.com">hello@magpiereply.com</a></div>
+  </div>
 </footer>
 <!-- /footer -->
-
 <script src="/script.js"></script>
+<script src="/assets/v2.js"></script>
 </body>
 </html>

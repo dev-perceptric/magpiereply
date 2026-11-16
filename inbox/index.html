@@ -11,13 +11,10 @@
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#0943b0">
   <link rel="icon" type="image/svg+xml" href="/assets/logo_thumbnail.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/assets/chrome.css">
+  <link rel="stylesheet" href="/assets/v2.css">
 </head>
 <body>
-
 <!-- nav -->
 <header class="bn" id="bn">
   <div class="bn-bar">
@@ -38,261 +35,54 @@
 </header>
 <div class="bn-scrim" id="bnScrim"></div>
 <!-- /nav -->
-
 <main id="top">
-
-  <!-- Hero -->
-  <section class="hero hero-magpie product-hero">
-    <div class="mosaic" data-mosaic="hero" aria-hidden="true"><canvas></canvas></div>
-    <div class="frame pad">
-      <div class="hm-grid">
-        <div class="hm-copy">
-          <div class="crumbs"><a href="/">Home</a><span>/</span><span>Product</span><span>/</span><span>Shared inbox</span></div>
-          <h1 class="display">Every customer conversation in <em>one inbox</em></h1>
-          <p class="lede">Chat, email, WhatsApp and social messages land in one shared list. Your team sees who owns each one, and Magpie's draft is waiting beside it.</p>
-          <div class="ctas">
-            <a class="btn btn-primary btn-lg" href="https://app.magpiereply.com/app/auth/signup">Start free</a>
-            <a class="btn btn-secondary btn-lg" href="/open-source/">Self-host for free</a>
-          </div>
-        </div>
-        <div class="hm-stage">
-          <div class="mock-card">
-            <div class="mc-bar"><img src="/assets/logo_thumbnail.svg" alt="">All conversations<span class="state beta">23 open</span></div>
-            <div class="mc-body">
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-chat"/></svg></span><span><strong>Maya Alvarez</strong><br>Charged twice for November?</span><span class="end"><span class="state beta">Draft ready</span></span></div>
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-mail"/></svg></span><span><strong>Jonah Okafor</strong><br>Export keeps failing</span><span class="end"><span class="state live">Billing</span></span></div>
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-phone"/></svg></span><span><strong>Lena Petrova</strong><br>Can we add 20 seats?</span><span class="end"><span class="state soon">Unassigned</span></span></div>
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-camera"/></svg></span><span><strong>Ravi Shah</strong><br>Do you ship to Canada?</span><span class="end"><span class="state live">Solved</span></span></div>
-            </div>
-          </div>
-        </div>
-      </div>
+<section class="wrap">
+  <div class="ph">
+    <div>
+      <div class="crumb"><a href="/">Home</a><span>/</span><span>Product</span><span>/</span><span>Shared inbox</span></div>
+      <h1>Every customer conversation in <span>one inbox.</span></h1>
+      <p class="lead">Chat, email, WhatsApp and social messages land in one shared list. Your team sees who owns each one, and Magpie&#x27;s draft is waiting beside it.</p>
+      <div class="ctas"><a class="btn btn-dark" href="https://app.magpiereply.com/app/auth/signup">Get started</a><a class="btn btn-line" href="/open-source/">Self-host for free</a></div>
     </div>
-  </section>
-
-  <!-- Capability index -->
-  <section aria-label="What the shared inbox does">
-    <div class="frame">
-      <div class="cap-index">
-        <a class="cap-card" href="#channels"><span class="num">01</span><h3>Every channel<svg aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></h3><p>Chat, email, WhatsApp, social and SMS in one list.</p></a>
-        <a class="cap-card" href="#teamwork"><span class="num">02</span><h3>Work as a team<svg aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></h3><p>Owners, teams, private notes and mentions.</p></a>
-        <a class="cap-card" href="#automations"><span class="num">03</span><h3>Automations<svg aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></h3><p>Rules sort the inbox. Macros and saved replies save typing.</p></a>
-        <a class="cap-card" href="#reports"><span class="num">04</span><h3>Reports<svg aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></h3><p>Reply times, and how happy your customers are.</p></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Capabilities -->
-  <section>
-    <div class="frame">
-      <div class="showcase" id="channels">
-        <div class="showcase-copy">
-          <span class="k">01 / CHANNELS</span>
-          <h3>Meet customers where they already write</h3>
-          <p>Each channel is an inbox. Every reply goes back out on the channel the customer used, so they never have to switch apps.</p>
-          <ul>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Website chat that matches your colors and greeting</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Email from Google, Microsoft or any mail server</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>WhatsApp, Messenger, Instagram, TikTok, Telegram, LINE, SMS and X</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>An API channel for anything else, with webhooks</li>
-          </ul>
-        </div>
-        <div class="showcase-visual">
-          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
-          <div class="mock-card">
-            <div class="mc-bar"><img src="/assets/logo_thumbnail.svg" alt="">Inboxes</div>
-            <div class="mc-body">
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-chat"/></svg></span><strong>Website chat</strong><span class="end ok">Magpie on</span></div>
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-mail"/></svg></span><strong>support@northwind.example</strong><span class="end ok">Magpie on</span></div>
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-phone"/></svg></span><strong>WhatsApp</strong><span class="end ok">Connected</span></div>
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-camera"/></svg></span><strong>Instagram</strong><span class="end ok">Connected</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="showcase flip" id="teamwork">
-        <div class="showcase-copy">
-          <span class="k">02 / TEAMWORK</span>
-          <h3>Built for a team that shares the load</h3>
-          <p>Everyone works from the same list. Clear owners and statuses mean two people never answer the same customer.</p>
-          <ul>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Open, pending, snoozed and resolved, with priorities</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Teams like Billing, with new chats handed out in turn</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Private notes and @mentions inside the thread</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Business hours with an away message outside them</li>
-          </ul>
-        </div>
-        <div class="showcase-visual">
-          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
-          <div class="mock-card">
-            <div class="mc-bar"><img src="/assets/logo_thumbnail.svg" alt="">Conversation #2381</div>
-            <div class="mc-body">
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-user"/></svg></span>Owner<span class="end"><strong>Sam, Billing</strong></span></div>
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-tag"/></svg></span>Status<span class="end"><span class="state beta">Open</span><span class="state soon">High</span></span></div>
-              <div class="note" style="margin:0">Private note: <strong>@Dana</strong> can you check if this is the same SSO issue from Monday?</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="showcase" id="automations">
-        <div class="showcase-copy">
-          <span class="k">03 / AUTOMATIONS</span>
-          <h3>Let rules handle the sorting</h3>
-          <p>Set a rule once and it runs every time a conversation matches. Saved replies and macros cover the rest.</p>
-          <ul>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Rules start when a conversation is created, updated or gets a message</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Assign, label, set priority, send a message or call a webhook</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Type a slash to drop in a saved reply with the customer's name</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Macros run several steps in one click</li>
-          </ul>
-        </div>
-        <div class="showcase-visual">
-          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
-          <div class="mock-card">
-            <div class="mc-bar"><img src="/assets/logo_thumbnail.svg" alt="">Rule: billing questions<span class="state live">On</span></div>
-            <div class="mc-body">
-              <div class="mini"><span><span class="k">WHEN</span> Message created</span></div>
-              <div class="mini"><span><span class="k">IF</span> Message has "invoice" or "refund"</span></div>
-              <div class="mini"><span><span class="k">THEN</span> Assign to Billing</span></div>
-              <div class="mini"><span><span class="k">THEN</span> Set priority: high</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="showcase flip" id="reports">
-        <div class="showcase-copy">
-          <span class="k">04 / REPORTS</span>
-          <h3>See how fast you reply and how it went</h3>
-          <p>Live and historical reports for your whole team, plus what Magpie solved on its own.</p>
-          <ul>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>First reply time, resolution time and volume</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Reports by agent, inbox, team and label</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Satisfaction surveys after a chat ends</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Magpie's usage: drafts sent, edited, discarded and solved</li>
-          </ul>
-        </div>
-        <div class="showcase-visual">
-          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
-          <div class="mock-card">
-            <div class="mc-bar"><img src="/assets/logo_thumbnail.svg" alt="">This week</div>
-            <div class="mc-body">
-              <div class="mc-row">First reply time<span class="end"><strong>3m 40s</strong></span></div>
-              <div class="mc-row">Resolved<span class="end"><strong>412</strong></span></div>
-              <div class="mc-row">Satisfaction<span class="end"><strong>94%</strong></span></div>
-              <div class="mc-row">Solved by Magpie<span class="end"><strong>38%</strong></span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contacts and widget -->
-  <section aria-labelledby="extra-title">
-    <div class="frame">
-      <div class="section-head pad" style="border-top:1px solid var(--line)">
-        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-user"/></svg></span>Contacts and chat widget</span>
-        <h2 class="h2" id="extra-title">Know who you're talking to</h2>
-      </div>
-      <div class="tiles two">
-        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-users"/></svg></span><h3>Contacts and companies</h3><p>Every person who writes in gets a profile with their past conversations. Add custom fields like plan or region, merge duplicates and import from a CSV file.</p></div>
-        <div class="tile"><span class="ic"><svg><use href="/assets/icons.svg#i-key"/></svg></span><h3>Known visitors</h3><p>Pass in the signed-in user's name and email with an identity check. Chats link to the right contact, and Magpie can look up their records.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Proof -->
-  <section aria-label="The inbox in numbers">
-    <div class="frame">
-      <div class="stats proof">
-        <div><strong>11</strong><small>Channels</small></div>
-        <div><strong>MIT</strong><small>Open source core</small></div>
-        <div><strong>Cloud</strong><small>Or self-host</small></div>
-        <div><strong>API</strong><small>And webhooks</small></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Coming next -->
-  <section aria-label="Coming next">
-    <div class="frame pad coming">
-      <span class="label">Coming next</span>
-      <span class="item"><span class="state soon">Coming</span>Auto-sort by topic</span>
-      <span class="item"><span class="state soon">Coming</span>Copilot in the reply box</span>
-      <span class="item"><span class="state soon">Coming</span>Conversation summaries</span>
-      <span class="item"><span class="state soon">Coming</span>Out-of-office replies</span>
-    </div>
-  </section>
-
-  <!-- More in MagpieReply -->
-  <section aria-labelledby="more-title">
-    <div class="frame">
-      <div class="section-head pad" style="border-top:1px solid var(--line)"><h2 class="h2" id="more-title">More in MagpieReply</h2></div>
-      <div class="more">
-        <a href="/ai-agent/"><span class="ic"><svg><use href="/assets/icons.svg#i-spark"/></svg></span><h3>Magpie<svg aria-hidden="true"><use href="/assets/icons.svg#i-arrow"/></svg></h3><p>The AI agent that answers from your help content.</p></a>
-        <a href="/help-center/"><span class="ic"><svg><use href="/assets/icons.svg#i-book"/></svg></span><h3>Help center<svg aria-hidden="true"><use href="/assets/icons.svg#i-arrow"/></svg></h3><p>Articles your customers can search, on your own domain.</p></a>
-        <a href="/integrations/"><span class="ic"><svg><use href="/assets/icons.svg#i-plug"/></svg></span><h3>Apps<svg aria-hidden="true"><use href="/assets/icons.svg#i-arrow"/></svg></h3><p>Connect Stripe and Linear in one click.</p></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq">
-    <div class="frame">
-      <div class="section-head pad" style="border-top:1px solid var(--line)"><h2 class="h2">Questions about the inbox</h2></div>
-      <div class="faq">
-        <details><summary>Can I bring my existing support email?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>Yes. Sign in with Google or Microsoft, or connect any mail server with IMAP and SMTP. You can also forward your support address to a MagpieReply inbox.</p></div></details>
-        <details><summary>Do I need Magpie to use the inbox?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>No. The inbox works on its own. Turn Magpie on for the inboxes you choose, whenever you're ready.</p></div></details>
-        <details><summary>Can I host it myself?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>Yes. The inbox, channels, help center and reports are open source under the MIT license. See the <a href="/open-source/" style="color:var(--brand)">self-hosting guide</a>.</p></div></details>
-        <details><summary>How many inboxes can I have?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>As many as you need, each with its own team, hours and away message.</p></div></details>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="end-cta">
-    <div class="mosaic" data-mosaic="cta" aria-hidden="true"><canvas></canvas></div>
-    <div class="frame pad">
-      <div class="end-cta-inner">
-        <h2 class="h2" style="max-width:18ch">Bring every channel into one inbox</h2>
-        <div class="ctas">
-          <a class="btn btn-primary btn-lg" href="https://app.magpiereply.com/app/auth/signup">Start free</a>
-          <a class="btn btn-secondary btn-lg" href="mailto:hello@magpiereply.com?subject=Demo">Book a demo</a>
-        </div>
-      </div>
-    </div>
-  </section>
-  <nav class="frame pad keep" aria-label="Keep exploring">
-    <span class="label">Keep exploring</span>
-    <a href="/ai-agent/">Magpie</a>
-    <a href="/help-center/">Help center</a>
-    <a href="/integrations/">Apps</a>
-    <a href="/security/">Security</a>
-    <a href="/pricing/">Pricing</a>
-    <a href="/open-source/">Self-host</a>
-  </nav>
-</main>
-
-<!-- footer -->
-<footer class="site-ft">
-  <div class="ft">
-    <div class="ft-top"><a class="logo" href="/" aria-label="MagpieReply home"><img src="/assets/logo_thumbnail.svg" alt="" width="30" height="30">MagpieReply</a><p>A shared support inbox with Magpie, the AI agent that answers from your own help content.</p>
-      <div class="social"><a href="https://github.com/dev-perceptric/magpiereply" aria-label="GitHub"><i class="logo-i" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/github.svg)"></i></a></div></div>
-    <div class="ft-cols">
-      <div><b>Product</b><a href="/ai-agent/">Magpie</a><a href="/inbox/">Shared inbox</a><a href="/help-center/">Help center</a><a href="/integrations/">Apps</a></div>
-      <div><b>Features</b><a href="/ai-agent/#draft-auto">Draft and Auto</a><a href="/ai-agent/#checked">Fact check</a><a href="/ai-agent/#knowledge">Knowledge</a><a href="/ai-agent/#traces">Traces</a></div>
-      <div><b>Open source</b><a href="/open-source/">Self-host</a><a href="https://github.com/dev-perceptric/magpiereply">Source code</a><a href="https://app.magpiereply.com/swagger">API docs</a><a href="/security/">Security</a></div>
-      <div><b>Company</b><a href="mailto:hello@magpiereply.com">Contact</a><a href="/pricing/">Pricing</a><a href="mailto:hello@magpiereply.com?subject=Demo">Book a demo</a><a href="https://app.magpiereply.com/app/login">Log in</a></div>
-    </div>
+    <div class="ph-photo"><img src="/assets/photos/inbox-hero.jpg" alt="A support team gathered around a laptop, smiling" width="1400" height="933"><div class="chip c1"><div class="who"><i></i>WhatsApp</div>Maya Alvarez: Charged twice for November?</div><div class="chip blue c2"><div class="who"><i></i>Magpie</div>Draft ready, with 2 sources.</div><div class="chip tag c3"><b>&#10003;</b> Assigned to Billing</div></div>
   </div>
-  <div class="ft-bot"><span>&copy; 2026 MagpieReply</span><a href="/pricing/">Pricing</a><a href="/security/">Security</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/open-source/">Open source</a></div>
-  <div class="ft-mosaic" aria-hidden="true"><svg viewBox="0 0 932 68" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="18" width="14" height="14" fill="#EDEDED" style="--d:0.19s"/><rect x="0" y="54" width="14" height="14" fill="#EDEDED" style="--d:0.23s"/><rect x="18" y="18" width="14" height="14" fill="#D4D4D4" style="--d:1.67s"/><rect x="18" y="36" width="14" height="14" fill="#EDEDED" style="--d:1.70s"/><rect x="36" y="0" width="14" height="14" fill="#E5E5E5" style="--d:2.52s"/><rect x="36" y="36" width="14" height="14" fill="#EDEDED" style="--d:1.59s"/><rect x="54" y="0" width="14" height="14" fill="#E5E5E5" style="--d:1.16s"/><rect x="54" y="18" width="14" height="14" fill="#E5E5E5" style="--d:2.28s"/><rect x="72" y="0" width="14" height="14" fill="#EDEDED" style="--d:2.56s"/><rect x="72" y="54" width="14" height="14" fill="#E5E5E5" style="--d:2.48s"/><rect x="90" y="54" width="14" height="14" fill="#D4D4D4" style="--d:1.45s"/><rect x="108" y="18" width="14" height="14" fill="#E5E5E5" style="--d:0.33s"/><rect x="108" y="36" width="14" height="14" fill="#D4D4D4" style="--d:3.50s"/><rect x="126" y="36" width="14" height="14" fill="#D4D4D4" style="--d:0.66s"/><rect x="126" y="54" width="14" height="14" fill="#D4D4D4" style="--d:1.69s"/><rect x="144" y="18" width="14" height="14" fill="#EDEDED" style="--d:2.29s"/><rect x="144" y="54" width="14" height="14" fill="#EDEDED" style="--d:1.40s"/><rect x="162" y="36" width="14" height="14" fill="#E5E5E5" style="--d:3.78s"/><rect x="162" y="54" width="14" height="14" fill="#EDEDED" style="--d:0.26s"/><rect x="198" y="54" width="14" height="14" fill="#D4D4D4" style="--d:1.42s"/><rect x="216" y="36" width="14" height="14" fill="#D4D4D4" style="--d:0.52s"/><rect x="216" y="54" width="14" height="14" fill="#D4D4D4" style="--d:3.67s"/><rect x="234" y="18" width="14" height="14" fill="#D4D4D4" style="--d:2.20s"/><rect x="252" y="18" width="14" height="14" fill="#D4D4D4" style="--d:3.95s"/><rect x="252" y="54" width="14" height="14" fill="#E5E5E5" style="--d:0.60s"/><rect x="270" y="0" width="14" height="14" fill="#E5E5E5" style="--d:2.63s"/><rect x="270" y="18" width="14" height="14" fill="#EDEDED" style="--d:0.73s"/><rect x="270" y="36" width="14" height="14" fill="#E5E5E5" style="--d:1.68s"/><rect x="270" y="54" width="14" height="14" fill="#EDEDED" style="--d:1.27s"/><rect x="288" y="0" width="14" height="14" fill="#EDEDED" style="--d:3.80s"/><rect x="288" y="54" width="14" height="14" fill="#EDEDED" style="--d:3.19s"/><rect x="306" y="36" width="14" height="14" fill="#EDEDED" style="--d:1.60s"/><rect x="306" y="54" width="14" height="14" fill="#E5E5E5" style="--d:1.76s"/><rect x="324" y="0" width="14" height="14" fill="#EDEDED" style="--d:0.21s"/><rect x="324" y="18" width="14" height="14" fill="#E5E5E5" style="--d:2.15s"/><rect x="342" y="0" width="14" height="14" fill="#E5E5E5" style="--d:2.46s"/><rect x="342" y="18" width="14" height="14" fill="#D4D4D4" style="--d:3.82s"/><rect x="342" y="54" width="14" height="14" fill="#E5E5E5" style="--d:3.40s"/><rect x="360" y="54" width="14" height="14" fill="#E5E5E5" style="--d:3.00s"/><rect x="378" y="54" width="14" height="14" fill="#E5E5E5" style="--d:3.80s"/><rect x="396" y="18" width="14" height="14" fill="#EDEDED" style="--d:3.66s"/><rect x="396" y="54" width="14" height="14" fill="#EDEDED" style="--d:3.45s"/><rect x="414" y="18" width="14" height="14" fill="#D4D4D4" style="--d:3.63s"/><rect x="414" y="36" width="14" height="14" fill="#E5E5E5" style="--d:2.13s"/><rect x="432" y="18" width="14" height="14" fill="#E5E5E5" style="--d:3.22s"/><rect x="450" y="36" width="14" height="14" fill="#E5E5E5" style="--d:3.96s"/><rect x="468" y="18" width="14" height="14" fill="#EDEDED" style="--d:3.83s"/><rect x="486" y="36" width="14" height="14" fill="#E5E5E5" style="--d:0.41s"/><rect x="486" y="54" width="14" height="14" fill="#D4D4D4" style="--d:0.82s"/><rect x="504" y="54" width="14" height="14" fill="#EDEDED" style="--d:1.38s"/><rect x="522" y="36" width="14" height="14" fill="#D4D4D4" style="--d:3.13s"/><rect x="540" y="18" width="14" height="14" fill="#EDEDED" style="--d:1.33s"/><rect x="576" y="0" width="14" height="14" fill="#E5E5E5" style="--d:0.11s"/><rect x="612" y="0" width="14" height="14" fill="#EDEDED" style="--d:0.52s"/><rect x="612" y="18" width="14" height="14" fill="#EDEDED" style="--d:2.60s"/><rect x="630" y="54" width="14" height="14" fill="#D4D4D4" style="--d:0.85s"/><rect x="648" y="36" width="14" height="14" fill="#EDEDED" style="--d:1.68s"/><rect x="648" y="54" width="14" height="14" fill="#EDEDED" style="--d:1.42s"/><rect x="666" y="54" width="14" height="14" fill="#EDEDED" style="--d:0.52s"/><rect x="684" y="0" width="14" height="14" fill="#EDEDED" style="--d:0.07s"/><rect x="684" y="36" width="14" height="14" fill="#E5E5E5" style="--d:3.10s"/><rect x="684" y="54" width="14" height="14" fill="#E5E5E5" style="--d:1.89s"/><rect x="702" y="36" width="14" height="14" fill="#EDEDED" style="--d:2.12s"/><rect x="702" y="54" width="14" height="14" fill="#E5E5E5" style="--d:3.53s"/><rect x="720" y="0" width="14" height="14" fill="#E5E5E5" style="--d:1.11s"/><rect x="756" y="54" width="14" height="14" fill="#EDEDED" style="--d:3.23s"/><rect x="774" y="18" width="14" height="14" fill="#EDEDED" style="--d:3.51s"/><rect x="774" y="54" width="14" height="14" fill="#EDEDED" style="--d:3.57s"/><rect x="792" y="36" width="14" height="14" fill="#D4D4D4" style="--d:1.77s"/><rect x="792" y="54" width="14" height="14" fill="#E5E5E5" style="--d:1.71s"/><rect x="810" y="36" width="14" height="14" fill="#E5E5E5" style="--d:3.76s"/><rect x="828" y="18" width="14" height="14" fill="#E5E5E5" style="--d:3.87s"/><rect x="828" y="36" width="14" height="14" fill="#E5E5E5" style="--d:1.59s"/><rect x="828" y="54" width="14" height="14" fill="#EDEDED" style="--d:3.33s"/><rect x="846" y="0" width="14" height="14" fill="#D4D4D4" style="--d:3.98s"/><rect x="846" y="54" width="14" height="14" fill="#E5E5E5" style="--d:2.89s"/><rect x="864" y="0" width="14" height="14" fill="#EDEDED" style="--d:1.83s"/><rect x="864" y="36" width="14" height="14" fill="#EDEDED" style="--d:2.50s"/><rect x="864" y="54" width="14" height="14" fill="#E5E5E5" style="--d:0.45s"/><rect x="882" y="18" width="14" height="14" fill="#E5E5E5" style="--d:0.34s"/><rect x="882" y="36" width="14" height="14" fill="#E5E5E5" style="--d:1.08s"/><rect x="882" y="54" width="14" height="14" fill="#D4D4D4" style="--d:3.40s"/><rect x="900" y="36" width="14" height="14" fill="#EDEDED" style="--d:3.68s"/><rect x="918" y="18" width="14" height="14" fill="#E5E5E5" style="--d:3.20s"/><rect x="918" y="36" width="14" height="14" fill="#E5E5E5" style="--d:1.08s"/><rect x="918" y="54" width="14" height="14" fill="#E5E5E5" style="--d:3.21s"/><rect class="hot" x="720" y="0" width="14" height="14" fill="#0943B0"/></svg></div>
+  <nav class="jumps" aria-label="On this page"><a href="#channels"><span class="label">01</span><b>Every channel</b><span>Chat, email, WhatsApp, social and SMS</span></a><a href="#teamwork"><span class="label">02</span><b>Work as a team</b><span>Owners, teams, notes and mentions</span></a><a href="#automations"><span class="label">03</span><b>Automations</b><span>Rules, macros and saved replies</span></a><a href="#reports"><span class="label">04</span><b>Reports</b><span>Reply times and satisfaction</span></a></nav>
+</section><section class="trust"><p>Every channel your customers use</p><div class="marquee"><div class="track"><span><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/whatsapp.svg)" aria-hidden="true"></i>WhatsApp</span><span><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/instagram.svg)" aria-hidden="true"></i>Instagram</span><span><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/messenger.svg)" aria-hidden="true"></i>Messenger</span><span><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/telegram.svg)" aria-hidden="true"></i>Telegram</span><span><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/line.svg)" aria-hidden="true"></i>LINE</span><span><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/gmail.svg)" aria-hidden="true"></i>Email</span><span><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/tiktok.svg)" aria-hidden="true"></i>TikTok</span><span><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/x.svg)" aria-hidden="true"></i>X</span><span><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/twilio.svg)" aria-hidden="true"></i>SMS</span><span><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/whatsapp.svg)" aria-hidden="true"></i>WhatsApp</span><span><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/instagram.svg)" aria-hidden="true"></i>Instagram</span><span><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/messenger.svg)" aria-hidden="true"></i>Messenger</span><span><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/telegram.svg)" aria-hidden="true"></i>Telegram</span><span><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/line.svg)" aria-hidden="true"></i>LINE</span><span><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/gmail.svg)" aria-hidden="true"></i>Email</span><span><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/tiktok.svg)" aria-hidden="true"></i>TikTok</span><span><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/x.svg)" aria-hidden="true"></i>X</span><span><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/twilio.svg)" aria-hidden="true"></i>SMS</span></div></div></section><section class="wrap"><div class="frow " id="channels">
+    <div class="ftext rv"><span class="label kicker">01 / Channels</span><h2>Meet customers where they already write</h2><p>Each channel is an inbox. Every reply goes back out on the channel the customer used, so they never have to switch apps.</p><ul class="checks"><li>Website chat that matches your colors and greeting</li><li>Email from Google, Microsoft or any mail server</li><li>WhatsApp, Messenger, Instagram, TikTok, Telegram, LINE, SMS and X</li><li>An API channel for anything else, with webhooks</li></ul></div>
+    <div class="mwrap rv"><div style="position:relative;width:100%;max-width:440px"><div class="mk"><div class="mk-h">Inboxes<span class="label">4 connected</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 5h16v11H9l-5 4Z"/></svg><span class="grow"><b>Website chat</b></span><span class="tg blue">Magpie on</span></div><div class="mk-r"><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/gmail.svg);color:#EA4335" aria-hidden="true"></i><span class="grow"><b>support@northwind.example</b></span><span class="tg blue">Magpie on</span></div><div class="mk-r"><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/whatsapp.svg);color:#25D366" aria-hidden="true"></i><span class="grow"><b>WhatsApp</b></span><span class="tg ok">Connected</span></div><div class="mk-r"><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/instagram.svg);color:#E4405F" aria-hidden="true"></i><span class="grow"><b>Instagram</b></span><span class="tg ok">Connected</span></div></div></div></div>
+  </div><div class="frow rev" id="teamwork">
+    <div class="ftext rv"><span class="label kicker">02 / Teamwork</span><h2>Built for a team that shares the load</h2><p>Everyone works from the same list. Clear owners and statuses mean two people never answer the same customer.</p><ul class="checks"><li>Open, pending, snoozed and resolved, with priorities</li><li>Teams like Billing, with new chats handed out in turn</li><li>Private notes and @mentions inside the thread</li><li>Business hours with an away message outside them</li></ul></div>
+    <div class="mwrap rv"><div style="position:relative;width:100%;max-width:440px"><div class="mk"><div class="mk-h">Conversation #2381<span class="label">Open</span></div><div class="mk-r"><span class="av" style="background:#e8590c">S</span><span class="grow"><b>Owner</b></span><span class="tg blue">Sam, Billing</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8Z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg><span class="grow"><b>Priority</b></span><span class="tg warn">High</span></div><div class="mk-msg note"><span class="meta">Private note</span>@Dana can you check if this is the same SSO issue from Monday?</div></div></div></div>
+  </div><div class="frow " id="automations">
+    <div class="ftext rv"><span class="label kicker">03 / Automations</span><h2>Let rules handle the sorting</h2><p>Set a rule once and it runs every time a conversation matches. Saved replies and macros cover the rest.</p><ul class="checks"><li>Rules start when a conversation is created, updated or gets a message</li><li>Assign, label, set priority, send a message or call a webhook</li><li>Type a slash to drop in a saved reply with the customer&#x27;s name</li><li>Macros run several steps in one click</li></ul></div>
+    <div class="mwrap rv"><div style="position:relative;width:100%;max-width:440px"><div class="mk"><div class="mk-h">Rule: billing questions<span class="label">On</span></div><div class="mk-code"><span class="c">WHEN</span> message created<br><span class="c">IF</span> message has <span class="k">"invoice"</span> or <span class="k">"refund"</span><br><span class="c">THEN</span> assign to <span class="k">Billing</span><br><span class="c">THEN</span> set priority <span class="k">high</span></div></div></div></div>
+  </div><div class="frow rev" id="reports">
+    <div class="ftext rv"><span class="label kicker">04 / Reports</span><h2>See how fast you reply and how it went</h2><p>Live and historical reports for your whole team, plus what Magpie solved on its own.</p><ul class="checks"><li>First reply time, resolution time and volume</li><li>Reports by agent, inbox, team and label</li><li>Satisfaction surveys after a chat ends</li><li>Magpie&#x27;s usage: drafts sent, edited, discarded and solved</li></ul></div>
+    <div class="mwrap rv"><div style="position:relative;width:100%;max-width:440px"><div class="mk"><div class="mk-h">This week<span class="label">Example</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span class="grow"><b>First reply time</b></span><span class="tg blue">3m 40s</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg><span class="grow"><b>Resolved</b></span><span class="tg blue">412</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 4l2.5 5 5.5.8-4 3.9 1 5.5L12 16.6 7 19.2l1-5.5-4-3.9 5.5-.8Z"/></svg><span class="grow"><b>Satisfaction</b></span><span class="tg ok">94%</span></div><div class="mk-r"><span class="grow"><b>Solved by Magpie</b></span><span class="bar" style="max-width:160px"><i style="--w:38%"></i></span></div></div></div></div>
+  </div></section><section class="wrap" style="padding-top:24px;padding-bottom:24px"><div class="stats rv"><div><b>11</b><span>Channels</span></div><div><b>MIT</b><span>Open source core</span></div><div><b>Cloud</b><span>Or self-host</span></div><div><b>API</b><span>And webhooks</span></div></div></section><section class="sec wrap">
+  <div class="band">
+    <div class="rv"><span class="label kicker">Teamwork</span><h2>Know who you&#x27;re talking to, and who owns it</h2><div class="steps" data-steps="capI"><div class="step" data-who="customer" data-tag="customer" data-say="Hi, it&#x27;s Lena from Northwind. Can we add 20 seats?"><b>Every contact has a history</b><span>Past conversations, custom fields like plan or region, and merged duplicates.</span></div><div class="step" data-who="magpie" data-tag="Private note" data-say="@Sam this is the Northwind account. Can you take the seats question?"><b>Private notes</b><span>Talk it over inside the thread. Customers never see notes.</span></div><div class="step" data-who="magpie" data-tag="Sam, Billing" data-say="Done, Lena! The 20 seats are added and show on your next invoice."><b>One clear owner</b><span>Two people never answer the same customer.</span></div></div></div>
+    <div class="photo rv"><img src="/assets/photos/inbox-band.jpg" alt="Two coworkers looking at a laptop together" loading="lazy" width="1400" height="933"><div class="cap" id="capI"></div></div>
+  </div>
+</section><section class="sec wrap" style="padding-top:40px"><div class="sec-top rv"><div><h2>Everything else your team needs</h2></div></div><div class="tiles rv"><div class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg><h3>Contacts and companies</h3><p>A profile for everyone who writes in, with custom fields, merging and CSV import.</p></div><div class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><h3>Known visitors</h3><p>Pass in the signed-in user&#x27;s name and email with an identity check, so chats link to the right contact.</p></div><div class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><h3>Business hours</h3><p>Set your hours for each inbox, with an away message outside them.</p></div><div class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l2.5 5 5.5.8-4 3.9 1 5.5L12 16.6 7 19.2l1-5.5-4-3.9 5.5-.8Z"/></svg><h3>Satisfaction surveys</h3><p>Ask customers to rate the chat when it ends, and see the scores in Reports.</p></div><div class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l16-8-6 16-3-6Z"/></svg><h3>Campaigns</h3><p>Start a conversation first, on website chat or SMS.</p></div><div class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4"/></svg><h3>API and webhooks</h3><p>Build on top of the inbox, or connect any channel we don&#x27;t support yet.</p></div></div></section><section class="wrap" style="padding-bottom:24px"><div class="soon rv"><span class="label">Coming next</span><span>Auto-sort by topic</span><span>Copilot in the reply box</span><span>Conversation summaries</span><span>Out-of-office replies</span></div></section><section class="sec wrap" style="padding-top:24px"><div class="sec-top rv"><div><h2>More in MagpieReply</h2></div></div><div class="more rv"><a href="/ai-agent/"><h3>Magpie<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></h3><p>The AI agent that answers from your help content.</p></a><a href="/help-center/"><h3>Help center<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></h3><p>Articles your customers can search, on your own domain.</p></a><a href="/integrations/"><h3>Apps<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></h3><p>Connect Stripe and Linear in one click.</p></a></div></section><section class="sec wrap" id="faq" style="padding-top:24px"><div class="faq"><div class="rv"><h2>Questions about the inbox</h2><p class="lead" style="margin-top:20px">Something else? Write to <a href="mailto:hello@magpiereply.com" style="text-decoration:underline">hello@magpiereply.com</a>.</p></div><div class="rv"><div class="q open"><button type="button" aria-expanded="true">Can I bring my existing support email?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><div class="a"><div><p>Yes. Sign in with Google or Microsoft, or connect any mail server with IMAP and SMTP. You can also forward your support address to a MagpieReply inbox.</p></div></div></div><div class="q"><button type="button" aria-expanded="false">Do I need Magpie to use the inbox?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><div class="a"><div><p>No. The inbox works on its own. Turn Magpie on for the inboxes you choose, whenever you're ready.</p></div></div></div><div class="q"><button type="button" aria-expanded="false">Can I host it myself?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><div class="a"><div><p>Yes. The inbox, channels, help center and reports are open source under the MIT license. See the <a href="/open-source/">self-hosting guide</a>.</p></div></div></div><div class="q"><button type="button" aria-expanded="false">How many inboxes can I have?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><div class="a"><div><p>As many as you need, each with its own team, hours and away message.</p></div></div></div></div></div></section><section class="cta"><h2>Bring every channel into one inbox</h2><div class="ctas" style="justify-content:center"><a class="btn btn-dark" href="https://app.magpiereply.com/app/auth/signup">Get started</a><a class="btn btn-line" href="/open-source/">Self-host for free</a></div></section>
+</main>
+<!-- footer -->
+<footer class="bf">
+  <div class="bf-in">
+    <div class="bf-top">
+      <a class="bf-logo" href="/" aria-label="MagpieReply home"><svg viewBox="0 0 32 32" fill="none"><path d="M3.5 28.5V16A12.5 12.5 0 1 1 16 28.5Z" stroke="#fff" stroke-width="5"/><path d="M28.5 16A12.5 12.5 0 0 1 16 28.5" stroke="#2450ff" stroke-width="5"/><circle cx="16" cy="16" r="3.5" fill="#fff"/></svg>MagpieReply</a>
+      <div class="bf-tag">The agentic<br>CX platform</div>
+      <div class="bf-cols">
+        <div><h4>Product</h4><a href="/ai-agent/">Magpie</a><a href="/inbox/">Shared inbox</a><a href="/help-center/">Help center</a><a href="/integrations/">Apps</a><a href="/pricing/">Pricing</a></div>
+        <div><h4>Use cases</h4><a href="/ai-agent/#ecommerce">Online stores</a><a href="/ai-agent/#b2b">B2B software</a><a href="/security/">Security</a><a href="/open-source/">Open source</a></div>
+        <div><h4>Company</h4><a href="mailto:hello@magpiereply.com">Contact</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="https://app.magpiereply.com/app/login">Sign in</a></div>
+      </div>
+    </div>
+    <div class="bf-bot"><span>© 2026 MagpieReply</span><a href="mailto:hello@magpiereply.com">hello@magpiereply.com</a></div>
+  </div>
 </footer>
 <!-- /footer -->
-
 <script src="/script.js"></script>
+<script src="/assets/v2.js"></script>
 </body>
 </html>
