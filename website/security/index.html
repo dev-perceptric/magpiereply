@@ -11,13 +11,10 @@
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#0943b0">
   <link rel="icon" type="image/svg+xml" href="/assets/logo_thumbnail.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/assets/chrome.css">
+  <link rel="stylesheet" href="/assets/v2.css">
 </head>
 <body>
-
 <!-- nav -->
 <header class="bn" id="bn">
   <div class="bn-bar">
@@ -38,172 +35,19 @@
 </header>
 <div class="bn-scrim" id="bnScrim"></div>
 <!-- /nav -->
-
 <main id="top">
-
-  <section class="page-hero">
-    <div class="mosaic" data-mosaic="hero" aria-hidden="true"><canvas></canvas></div>
-    <div class="frame pad">
-      <div class="page-hero-copy">
-        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-shield"/></svg></span>Security</span>
-        <h1 class="display sm">An AI agent you can <em>trust with your customers</em></h1>
-        <p class="lede">The agent checks who it's talking to, asks before it touches money and shows its work on every reply. You set the limits, and you can switch it off at any time.</p>
-        <div class="ctas">
-          <a class="btn btn-primary btn-lg" href="mailto:hello@magpiereply.com?subject=Security%20questions">Ask a security question</a>
-          <a class="btn btn-secondary btn-lg" href="/open-source/">Read the code</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="how">
-    <div class="frame">
-      <div class="section-head pad">
-        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-lock"/></svg></span>How the agent stays safe</span>
-        <h2 class="h2">Built so a wrong step is hard to take</h2>
-        <p class="body">These rules are part of how the agent works. They apply on every plan.</p>
-      </div>
-      <div class="rows">
-        <div class="row-item">
-          <div><span class="k">01</span><h3>Identity first</h3></div>
-          <div><p>The agent only looks up or changes things for a customer it has verified.</p><ul><li><svg><use href="/assets/icons.svg#i-check"/></svg>A signed identity check in the website chat</li><li><svg><use href="/assets/icons.svg#i-check"/></svg>The sender address on email</li><li><svg><use href="/assets/icons.svg#i-check"/></svg>A one-time code by email before anything sensitive</li><li><svg><use href="/assets/icons.svg#i-check"/></svg>Identity fields are filled in by code. The model never types them.</li></ul></div>
-        </div>
-        <div class="row-item">
-          <div><span class="k">02</span><h3>Risk levels and approvals</h3></div>
-          <div><p>You decide what the agent may do on its own.</p><ul><li><svg><use href="/assets/icons.svg#i-check"/></svg>Safe actions run on their own</li><li><svg><use href="/assets/icons.svg#i-check"/></svg>Some actions wait for the customer to confirm in the chat</li><li><svg><use href="/assets/icons.svg#i-check"/></svg>Money and account changes wait for a person on your team to approve</li></ul></div>
-        </div>
-        <div class="row-item">
-          <div><span class="k">03</span><h3>Limits on every action</h3></div>
-          <div><p>Even an approved action has guardrails.</p><ul><li><svg><use href="/assets/icons.svg#i-check"/></svg>Amount limits, such as refunds up to $50</li><li><svg><use href="/assets/icons.svg#i-check"/></svg>Daily caps per action</li><li><svg><use href="/assets/icons.svg#i-check"/></svg>A unique key on every action, so a retry can't run it twice</li><li><svg><use href="/assets/icons.svg#i-check"/></svg>Every action is logged on the conversation</li></ul></div>
-        </div>
-        <div class="row-item">
-          <div><span class="k">04</span><h3>Personal data stays out of logs</h3></div>
-          <div><p>Names, emails, card numbers and other personal details are masked before traces and logs are saved.</p></div>
-        </div>
-        <div class="row-item">
-          <div><span class="k">05</span><h3>Screening for prompt attacks</h3></div>
-          <div><p>Every customer message is checked for attempts to trick the agent before the agent acts on it.</p></div>
-        </div>
-        <div class="row-item">
-          <div><span class="k">06</span><h3>Keys stored encrypted</h3></div>
-          <div><p>Sign-ins for your apps and the agent's own keys are stored encrypted. They're never saved as plain text.</p></div>
-        </div>
-        <div class="row-item">
-          <div><span class="k">07</span><h3>Teams kept apart</h3></div>
-          <div><p>Each team's data is kept separate on every row, so one team's agent can only see its own conversations, knowledge and apps.</p></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="control">
-    <div class="frame">
-      <div class="section-head pad">
-        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-gauge"/></svg></span>You stay in control</span>
-        <h2 class="h2">See everything and stop anything</h2>
-      </div>
-      <div class="tiles">
-        <div class="tile">
-          <span class="ic"><svg><use href="/assets/icons.svg#i-x"/></svg></span>
-          <h3>Kill switches</h3>
-          <p>Turn the agent off for one inbox, for your whole team or everywhere, in one click.</p>
-        </div>
-        <div class="tile">
-          <span class="ic"><svg><use href="/assets/icons.svg#i-eye"/></svg></span>
-          <h3>Explain any reply</h3>
-          <p>See every step behind a reply: the rules it followed, the sources it read and the tools it called.</p>
-        </div>
-        <div class="tile">
-          <span class="ic"><svg><use href="/assets/icons.svg#i-gauge"/></svg></span>
-          <h3>Spending caps</h3>
-          <p>Set a monthly limit. When it's reached, the agent hands new conversations to your team.</p>
-        </div>
-        <div class="tile">
-          <span class="ic"><svg><use href="/assets/icons.svg#i-flask"/></svg></span>
-          <h3>Tests before going live</h3>
-          <p>Replay your past conversations against the agent before it talks to a real customer.</p>
-        </div>
-        <div class="tile">
-          <span class="ic"><svg><use href="/assets/icons.svg#i-hand"/></svg></span>
-          <h3>Draft mode</h3>
-          <p>Start with the agent writing drafts that your team sends. Switch to Auto when you trust it.</p>
-        </div>
-        <div class="tile">
-          <span class="ic"><svg><use href="/assets/icons.svg#i-server"/></svg></span>
-          <h3>Self-host the inbox</h3>
-          <p>Run the open source inbox on your own servers to keep conversations on your own hardware.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="oss" id="open-core">
-    <div class="mosaic" data-mosaic="oss" aria-hidden="true"><canvas></canvas></div>
-    <div class="frame pad">
-      <div class="oss-inner">
-        <div class="oss-copy">
-          <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-code"/></svg></span>Open source core</span>
-          <h2 class="h2">Read the code behind your inbox</h2>
-          <p>The inbox, channels, help center and reports are open source under the MIT license. You can review how they handle your data, or run them on your own servers.</p>
-          <div class="ctas" style="display:flex;flex-wrap:wrap;gap:12px">
-            <a class="btn btn-primary btn-lg" href="https://github.com/dev-perceptric/magpiereply">View on GitHub</a>
-            <a class="btn btn-secondary btn-lg" href="/open-source/">Self-host</a>
-          </div>
-        </div>
-        <div class="terminal">
-          <div class="bar">Report a security issue</div>
-<pre><span class="c"># Found a problem? Tell us first.</span>
-<span class="p">to:</span> security@magpiereply.com
-<span class="p">include:</span> what you found, how to repeat it
-<span class="p">we reply:</span> as soon as we can
-
-<span class="c"># Please don't share it in public until it's fixed.</span></pre>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="faq">
-    <div class="frame">
-      <div class="section-head pad">
-        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-chat"/></svg></span>Questions</span>
-        <h2 class="h2">Security questions</h2>
-      </div>
-      <div class="faq">
-        <details>
-          <summary>Do you train AI models on our data?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary>
-          <div class="answer"><p>We don't use your conversations to train AI models. The agent uses Claude through Anthropic's API, and Anthropic's commercial terms say API inputs aren't used to train their models.</p></div>
-        </details>
-        <details>
-          <summary>Where is our data stored?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary>
-          <div class="answer"><p>MagpieReply Cloud runs on managed Postgres. If you self-host, everything stays on your own servers.</p></div>
-        </details>
-        <details>
-          <summary>Can we delete our data?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary>
-          <div class="answer"><p>Yes. Delete your account in the app, or <a href="mailto:hello@magpiereply.com?subject=Delete%20our%20data" style="color:var(--brand)">email us</a> and we'll delete it for you.</p></div>
-        </details>
-        <details>
-          <summary>Can we read the code?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary>
-          <div class="answer"><p>Yes. The inbox is open source under the MIT license. <a href="https://github.com/dev-perceptric/magpiereply" style="color:var(--brand)">Read it on GitHub</a>.</p></div>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <section class="end-cta">
-    <div class="mosaic" data-mosaic="cta" aria-hidden="true"><canvas></canvas></div>
-    <div class="frame pad">
-      <div class="end-cta-inner">
-        <h2 class="h2" style="max-width:18ch">Found a security issue? Tell us first.</h2>
-        <div class="ctas">
-          <a class="btn btn-primary btn-lg" href="mailto:security@magpiereply.com">Report an issue</a>
-          <a class="btn btn-secondary btn-lg" href="/pricing/">See pricing</a>
-        </div>
-      </div>
-    </div>
-  </section>
+<section class="wrap"><div class="ph">
+  <div><div class="crumb"><a href="/">Home</a><span>/</span><span>Security</span></div><h1>An AI agent you can <span>trust with your customers.</span></h1><p class="lead">Magpie checks who it&#x27;s talking to, only reads from your apps and shows its work on every reply. You set the limits, and you can switch it off at any time.</p><div class="ctas"><a class="btn btn-dark" href="mailto:security@magpiereply.com">Ask a security question</a><a class="btn btn-line" href="https://github.com/dev-perceptric/magpiereply">Read the code</a></div></div>
+  <div class="ph-mock"><div class="mk"><div class="mk-h">Checks on this reply<span class="label">Passed</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg><span class="grow"><b>maya@brightline.example</b><small>Filled in by code</small></span><span class="tg ok">Verified</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="5" y="11" width="14" height="10"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span class="grow"><b>Card and phone numbers</b></span><span class="tg dark">Hidden</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6Z"/></svg><span class="grow"><b>Trying to trick Magpie</b></span><span class="tg ok">No</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg><span class="grow"><b>Stripe lookup</b></span><span class="tg blue">Read only</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg><span class="grow"><b>Every claim found in a source</b></span><span class="tg ok">Yes</span></div></div></div>
+</div></section><section class="sec wrap" style="padding-top:40px"><div class="sec-top rv"><div><h2>Built so a wrong step is hard to take</h2><p class="lead">These rules are part of how Magpie works, on every plan.</p></div></div><div class="tiles rv"><div class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg><h3>Identity first</h3><p>Magpie only looks things up for a customer it has verified: a signed identity check in chat, the sender on email, or a one-time code. Identity is filled in by code, never typed by the AI.</p></div><div class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg><h3>Read-only apps</h3><p>Magpie only gets the tools an app marks as read-only. Tools that create refunds or change records are never offered to it.</p></div><div class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><h3>Private data hidden</h3><p>Names, emails, card numbers and other personal details are masked before the AI reads a message and before traces and logs are saved.</p></div><div class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6Z"/></svg><h3>Screening for prompt attacks</h3><p>Every customer message is checked for attempts to trick Magpie. Flagged messages never get an automatic reply.</p></div><div class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4"/></svg><h3>Keys stored encrypted</h3><p>Sign-ins for your apps and Magpie&#x27;s own keys are stored encrypted, and refreshed before they expire.</p></div><div class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5Z"/><path d="M3 13l9 5 9-5"/></svg><h3>Teams kept apart</h3><p>Each team&#x27;s data is kept separate on every row, so one team&#x27;s Magpie only sees its own conversations, knowledge and apps.</p></div></div></section><section class="sec wrap" style="padding-top:72px;padding-bottom:72px"><div class="sec-top rv"><div><span class="label kicker">You stay in control</span><h2>See everything and stop anything</h2></div></div><div class="rv"><div class="tiles"><div class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><h3>Kill switches</h3><p>Turn Magpie off for one inbox or your whole team, in one click.</p></div><div class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg><h3>Explain any reply</h3><p>Traces show every step behind a reply: the sources it read, the lookups it made and the checks it passed.</p></div><div class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l2.5 5 5.5.8-4 3.9 1 5.5L12 16.6 7 19.2l1-5.5-4-3.9 5.5-.8Z"/></svg><h3>Spending caps</h3><p>Set a monthly limit. When it&#x27;s reached, Magpie hands new conversations to your team.</p></div><div class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg><h3>Tests before going live</h3><p>Replay your past conversations against Magpie before it talks to a real customer.</p></div><div class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l16-8-6 16-3-6Z"/></svg><h3>Draft mode</h3><p>Start with Magpie writing drafts that your team sends. Switch to Auto when you trust it.</p></div><div class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5Z"/><path d="M3 13l9 5 9-5"/></svg><h3>Self-host the inbox</h3><p>Run the open source inbox on your own servers to keep conversations on your own hardware.</p></div></div></div></section><section class="sec wrap" style="padding-top:40px;padding-bottom:72px"><div class="band" style="grid-template-columns:1fr 1fr">
+<div class="rv"><span class="label kicker">Coming next</span><h2>Actions, with approvals</h2><p class="lead" style="margin-top:20px">When Magpie learns to take actions, like a refund, they will come with the same care: money and account changes wait for a person on your team, every action has amount limits and daily caps, and every step is logged on the conversation.</p></div>
+<div class="rv"><span class="label kicker">Report a security issue</span><div class="code"><span class="c"># Found a problem? Tell us first.</span>
+<span class="k">to:</span>       security@magpiereply.com
+<span class="k">include:</span>  what you found, how to repeat it
+<span class="k">we reply:</span> as soon as we can
+<span class="c"># Please don't share it in public until it's fixed.</span></div></div>
+</div></section><section class="sec wrap" id="faq" style="padding-top:24px"><div class="faq"><div class="rv"><h2>Security questions</h2><p class="lead" style="margin-top:20px">Something else? Write to <a href="mailto:hello@magpiereply.com" style="text-decoration:underline">hello@magpiereply.com</a>.</p></div><div class="rv"><div class="q open"><button type="button" aria-expanded="true">Do you train AI models on our data?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><div class="a"><div><p>We don't use your conversations to train AI models. Magpie uses Claude through Anthropic's API, and Anthropic's commercial terms say API inputs aren't used to train their models.</p></div></div></div><div class="q"><button type="button" aria-expanded="false">Where is our data stored?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><div class="a"><div><p>MagpieReply Cloud runs on our own cloud server, with nightly database backups. If you self-host, everything stays on your own servers.</p></div></div></div><div class="q"><button type="button" aria-expanded="false">Can we delete our data?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><div class="a"><div><p>Yes. Delete your account in the app, or <a href="mailto:hello@magpiereply.com?subject=Delete%20our%20data">email us</a> and we'll delete it for you.</p></div></div></div><div class="q"><button type="button" aria-expanded="false">Can we read the code?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><div class="a"><div><p>Yes. The inbox is open source under the MIT license. <a href="https://github.com/dev-perceptric/magpiereply">Read it on GitHub</a>.</p></div></div></div></div></div></section><section class="cta"><h2>Questions about security?</h2><div class="ctas" style="justify-content:center"><a class="btn btn-dark" href="mailto:security@magpiereply.com">Email security</a><a class="btn btn-line" href="https://github.com/dev-perceptric/magpiereply">Read the code</a></div></section>
 </main>
-
 <!-- footer -->
 <footer class="bf">
   <div class="bf-in">
@@ -220,7 +64,7 @@
   </div>
 </footer>
 <!-- /footer -->
-
 <script src="/script.js"></script>
+<script src="/assets/v2.js"></script>
 </body>
 </html>
