@@ -1,6 +1,6 @@
-# Running MagpieReply on the Hostinger VPS
+# Running MagpieReply on the server
 
-MagpieReply runs on a Hostinger VPS with Docker and Traefik. Today it shares one server with Arrowsterr, Claritia, Omniscient and Capybaroar.
+MagpieReply now runs on the OVH server (149.56.19.140) with Docker and Traefik, next to the other apps. The Hostinger VPS in the table below (45.90.109.7) is gone; the layout under `/docker` carried over, and the rest of this page still describes it.
 
 | Server | Plan | Size | Where |
 |---|---|---|---|
@@ -27,8 +27,17 @@ Each piece is a Docker Compose project in `/docker/<name>/docker-compose.yml`.
 
 1. Push to `claude/brave-mayer-66phgz`.
 2. `.github/workflows/build-images.yml` builds `ghcr.io/dev-perceptric/magpiereply`, `magpie-agent`, `magpie-brain` and `magpie-reader` and tags them `latest`.
-3. Within 5 minutes, `autodeploy` pulls the new images and restarts `web`, `worker`, `agent-api`, `agent-worker`, `brain` and `reader`.
+3. Job `deploy` SSHes to the server and runs `docker/deploy.sh <commit>`: it pulls the images and restarts `web`, `worker`, `agent-api`, `agent-worker`, `brain` and `reader` (found by image, in whichever compose project started them). The newest copy of the script is inside the app image, so a change to it needs nothing done on the server. `autodeploy` also pulls the new images within 5 minutes; until the SSH settings below exist, the job relies on it.
 4. Rails runs its migrations on start (`docker/entrypoints/rails.sh`). The agent runs its own on start of `agent-api` and `agent-worker`.
+5. The job waits until `https://app.magpiereply.com/app/login` shows the commit (`GIT_SHA`), and fails the run if it doesn't within 8 minutes (15 without SSH). A red run means the push is not live.
+
+SSH setup, once:
+
+1. On your computer: `ssh-keygen -t ed25519 -N '' -C github-magpiereply-deploy -f magpiereply-deploy`.
+2. On the server, as the deploy user (`ubuntu`, in the docker group): copy `docker/deploy.sh` to `~/magpiereply/deploy.sh` and `chmod 755` it, then add one line to `~/.ssh/authorized_keys` (the public key from step 1):
+   `command="/home/ubuntu/magpiereply/deploy.sh",no-port-forwarding,no-agent-forwarding,no-X11-forwarding,no-pty ssh-ed25519 AAAA... github-magpiereply-deploy`
+   Run `~/magpiereply/deploy.sh` once by hand and read what it restarts.
+3. In GitHub (Settings, Secrets and variables, Actions): variables `DEPLOY_HOST=149.56.19.140`, `DEPLOY_USER=ubuntu`; secrets `DEPLOY_SSH_KEY` (the private key file) and `DEPLOY_KNOWN_HOSTS` (`ssh-keyscan -t ed25519 149.56.19.140`). Then delete the private key from your computer.
 
 Gatus checks `https://app.magpiereply.com/api` (database and queue both `ok`) and `https://agent.magpiereply.com/health` every 2 minutes and sends an ntfy alert after 3 misses.
 

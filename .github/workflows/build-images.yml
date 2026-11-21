@@ -1,6 +1,16 @@
 # Build the app image (web and Sidekiq), the agent image, the brain image and the reader image on every push and publish them to
-# GitHub's container registry (ghcr.io). The Hostinger VPS pulls these images. GITHUB_TOKEN is the only secret it needs.
-# Only the main branch moves the `latest` tag, which the VPS runs; other branches publish commit tags only.
+# GitHub's container registry (ghcr.io). Only the deploy branch (claude/brave-mayer-66phgz) moves the `latest` tag,
+# which the OVH server (149.56.19.140) runs; other branches publish commit tags only.
+# On the deploy branch, job "deploy" then puts them live and checks they went live: it SSHes in and runs
+# docker/deploy.sh (it pulls the new images and restarts web, worker, agent-api, agent-worker, brain and reader), then
+# waits until app.magpiereply.com shows this commit (GIT_SHA on /app/login). The server's own autodeploy also pulls
+# :latest every 5 minutes, so until the SSH settings below exist, the job skips the SSH step and only waits for that,
+# which still fails the run when the new commit doesn't go live.
+# The SSH step runs only once the repo has the variable DEPLOY_HOST. It needs (Settings, Secrets and variables, Actions):
+#   variables: DEPLOY_HOST (the server's address), DEPLOY_USER (the SSH user), DEPLOY_PORT (optional, default 22),
+#              APP_URL (optional, default https://app.magpiereply.com)
+#   secrets:   DEPLOY_SSH_KEY (a private key made only for this), DEPLOY_KNOWN_HOSTS (the line from ssh-keyscan for the server)
+# Server setup: docs/hostinger.md, How a change goes live.
 name: Build images
 
 on:
@@ -54,3 +64,47 @@ jobs:
             ghcr.io/${{ github.repository_owner }}/${{ matrix.image }}:${{ github.sha }}
           cache-from: type=gha,scope=${{ matrix.image }}
           cache-to: type=gha,mode=max,scope=${{ matrix.image }}
+
+  deploy:
+    needs: build
+    if: ${{ github.ref == 'refs/heads/claude/brave-mayer-66phgz' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+    # One deploy at a time.
+    concurrency:
+      group: deploy-production
+      cancel-in-progress: false
+    steps:
+      - name: Restart the app, agent, brain and reader on the server
+        if: ${{ vars.DEPLOY_HOST != '' }}
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+          HOST: ${{ vars.DEPLOY_HOST }}
+          USER_NAME: ${{ vars.DEPLOY_USER }}
+          PORT: ${{ vars.DEPLOY_PORT || '22' }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          # The server's authorized_keys locks this key to docker/deploy.sh, so the command here is only a fallback.
+          ssh -i ~/.ssh/deploy_key -p "$PORT" -o StrictHostKeyChecking=yes -o BatchMode=yes "$USER_NAME@$HOST" deploy.sh "$GITHUB_SHA"
+      - name: Wait for the app to show this commit
+        env:
+          APP_URL: ${{ vars.APP_URL || 'https://app.magpiereply.com' }}
+          WANT: ${{ github.sha }}
+          # Without the SSH step this waits for the server's autodeploy (every 5 minutes, plus the pull and Rails' start).
+          MINUTES: ${{ vars.DEPLOY_HOST != '' && '8' || '15' }}
+        run: |
+          # The app's pages carry the commit they run (GIT_SHA in window.globalConfig, from /app/.git_sha).
+          for _ in $(seq 1 $((MINUTES * 12))); do
+            got=$(curl -fsS -m 10 "$APP_URL/app/login" | sed -n 's/.*"GIT_SHA":"\([0-9a-f]*\)".*/\1/p' | head -n 1 || true)
+            if [ "$got" = "$WANT" ]; then echo "Live: $got"; exit 0; fi
+            echo "Waiting for $WANT (server has ${got:-nothing yet})"
+            sleep 5
+          done
+          echo "The server didn't switch to $WANT within $MINUTES minutes (it has ${got:-nothing})." >&2
+          exit 1
