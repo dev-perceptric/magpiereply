@@ -28,7 +28,7 @@ The marketing site: plain HTML, CSS and a small script, with no build step. It's
 - The Product menu lives in `partials/nav.html`; its links point at product pages and their section ids
 - `.htaccess`: Hostinger server settings
 
-The homepage (`index.html`) has its own styles, nav and footer (Geist, square corners, thin black frames, `#2450ff` accent); it doesn't load `styles.css`. Its working copy is `samples/homepage-full/`. Its Product menu matches `partials/nav.html` (the black nav on every other page, styled by the `.bn-*` rules at the end of `styles.css`); keep the two in step by hand. The "Try Magpie yourself" demo runs on prepared answers in the page's script (`WS`), so it never calls the real Magpie. The hero and the two use-case panels use inline SVG line drawings in place of photos: thin brand-blue lines on a streaked lavender ground (blue in the hero), drawn in with CSS and with moving dots in SMIL. To change one, edit its `<svg class="art">` markup in `index.html`. The use-case drawings follow the step list: `data-on` on the `<svg>` lights up the matching part.
+The homepage (`index.html`) has its own styles, nav and footer (Geist, square corners, thin black frames, `#2450ff` accent); it doesn't load `styles.css`. Its working copy is `samples/homepage-full/`. Its Product menu matches `partials/nav.html` (the black nav on every other page, styled by the `.bn-*` rules at the end of `styles.css`); keep the two in step by hand. The "Try Magpie yourself" demo runs on prepared answers in the page's script (`WS`), so it never calls the real Magpie. Every page uses inline SVG line drawings in place of photos: thin brand-blue lines on a streaked lavender ground (blue in the homepage hero), drawn in with CSS and with moving dots in SMIL. The homepage keeps its own styles; the other pages share the `.drawn`, `.ground` and `.art` rules at the end of `assets/v2.css`, and `assets/v2.js` starts the dots. To change a drawing, edit its `<svg class="art">` markup in the page. Drawings beside a step list follow it: `data-on` on the `<svg>` lights up the matching part.
 
 After editing the nav or footer, copy them into every other page:
 
@@ -98,3 +98,7 @@ magpiereply.com is registered elsewhere, so add the DNS records or nameservers h
 ## Running cost
 
 Hostinger web hosting: $0 extra a month at Beta (50 teams) and Growth (500 teams) if it shares a plan already paid for. On its own, a Premium Web Hosting plan is about $3 to $12 a month depending on the term (check). Fonts load from Google Fonts at no cost.
+
+## Product pages
+
+The four product pages (`ai-agent/`, `inbox/`, `help-center/`, `integrations/`) use the homepage's look: `assets/v2.css` for the page and `assets/v2.js` for the scroll reveal, the step captions, the line drawing dots and the FAQ. The black nav and footer styles live in `assets/chrome.css`, which `styles.css` imports for the older pages.

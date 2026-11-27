@@ -220,12 +220,18 @@
       bn.classList.toggle('open', open);
       bnButtons.forEach((button) => button.setAttribute('aria-expanded', String(open)));
     };
+    const canHover = window.matchMedia('(hover: hover)').matches;
+    const productButton = document.getElementById('bnProd');
     bnButtons.forEach((button) => button.addEventListener('click', (event) => {
       event.stopPropagation();
+      // With a mouse, hovering already opened the menu, so a click keeps it open.
+      if (canHover && button === productButton) {
+        setBn(true);
+        return;
+      }
       setBn(!bn.classList.contains('open'));
     }));
-    const productButton = document.getElementById('bnProd');
-    if (productButton && window.matchMedia('(hover: hover)').matches) {
+    if (productButton && canHover) {
       productButton.addEventListener('mouseenter', () => { clearTimeout(bnTimer); setBn(true); });
       bn.addEventListener('mouseleave', () => { bnTimer = setTimeout(() => setBn(false), 180); });
       bn.addEventListener('mouseenter', () => clearTimeout(bnTimer));
