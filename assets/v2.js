@@ -1,4 +1,4 @@
-// Product pages: scroll reveal, photo captions that change with the steps, and the FAQ.
+// Product pages: scroll reveal, captions that change with the steps, line drawing dots, and the FAQ.
 (() => {
   const reveal = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -22,6 +22,8 @@
       index = next % steps.length;
       const step = steps[index];
       step.classList.add('on');
+      const drawing = cap.parentElement.querySelector('.art');
+      if (drawing) drawing.dataset.on = String(index);
       cap.classList.add('out');
       setTimeout(() => {
         const magpie = step.dataset.who === 'magpie';
@@ -36,6 +38,26 @@
     steps.forEach((step, n) => step.addEventListener('click', () => show(n)));
     show(0);
   });
+
+  // Line drawings: once one is on screen and drawn, start the dots that run along its lines.
+  const startDots = (drawing) => {
+    drawing.querySelectorAll('.dot').forEach((dot) => {
+      const delay = 1400 + Number(dot.dataset.delay || 0);
+      setTimeout(() => {
+        dot.querySelectorAll('animate, animateMotion').forEach((animation) => animation.beginElement());
+      }, delay);
+    });
+  };
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const onScreen = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        startDots(entry.target);
+        onScreen.unobserve(entry.target);
+      });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('.art').forEach((drawing) => onScreen.observe(drawing));
+  }
 
   document.querySelectorAll('.q button').forEach((button) => {
     button.addEventListener('click', () => {

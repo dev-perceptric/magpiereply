@@ -320,3 +320,54 @@ h2 { font-size: clamp(34px, 4.2vw, 54px); font-weight: 400; }
 .ind-c:hover .ind-img img { transform: scale(1.04); }
 @media (max-width: 1000px) { .ind-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 640px) { .ind-grid { grid-template-columns: 1fr; } }
+
+/* Line drawings in place of photos: thin brand-blue lines on a streaked lavender ground.
+   Lines draw in when the drawing shows, dots run along the connectors (started in v2.js),
+   and band drawings light up the part that matches the active step (data-on). */
+.drawn { background: #dde3ff; box-shadow: inset 0 0 0 1px rgba(36,80,255,.14); }
+.drawn::after { display: none; }
+.ind-img.drawn { position: relative; box-shadow: none; }
+.ground { position: absolute; inset: 0; overflow: hidden; background: radial-gradient(100% 80% at 50% 35%, #f1f3ff, #dde3ff 58%, #c9d2ff); }
+.ground::before { content: ""; position: absolute; inset: -30%; background: repeating-conic-gradient(from 0deg at 50% 40%, rgba(255,255,255,.75) 0deg .6deg, rgba(255,255,255,0) 1.5deg 3.6deg), repeating-conic-gradient(from 1deg at 50% 40%, rgba(127,149,255,.24) 0deg .5deg, rgba(127,149,255,0) 1.3deg 4.4deg); filter: blur(3px); animation: art-sweep 34s ease-in-out infinite alternate; }
+.drawn .art { position: absolute; inset: 0; width: 100%; height: 100%; }
+.drawn .cap { color: var(--ink); }
+.drawn .cap p { text-shadow: none; }
+.ind-img .art { transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+.ind-c:hover .ind-img .art { transform: scale(1.04); }
+.art { display: block; overflow: visible; --art-ink: var(--brand); --art-fill: #e4e9ff; }
+.art .ln { fill: none; stroke: var(--art-ink); stroke-width: var(--sw, 1.3); stroke-linecap: round; stroke-linejoin: round; }
+.art .fl { fill: var(--art-fill); opacity: 0; }
+.art .ib, .art .hl { fill: transparent; transition: fill .5s; }
+.art .jn { fill: var(--art-fill); stroke: var(--art-ink); stroke-width: 1.3; }
+.art .dot { fill: var(--art-ink); opacity: 0; }
+.art .lbl { font: 500 10px var(--mono); letter-spacing: .24em; fill: var(--art-ink); }
+.art .dr { stroke-dasharray: 1 2; stroke-dashoffset: 1; }
+.ph-photo .art .dr, .in .art .dr { animation: art-draw 1.3s cubic-bezier(.65,0,.25,1) forwards; animation-delay: calc(var(--d) * 45ms + .15s); }
+.ph-photo .art .fl, .in .art .fl { animation: art-show .6s ease forwards; animation-delay: calc(var(--d) * 45ms + .15s); }
+.art .pulse { fill: none; stroke: var(--art-ink); stroke-width: 1; transform-box: fill-box; transform-origin: center; opacity: 0; animation: art-pulse 3.2s ease-out 2s infinite; }
+.art .typing { transform-box: fill-box; transform-origin: left; animation: art-typing 2.8s ease-in-out infinite; }
+.art .tick { stroke-dasharray: 1 2; stroke-dashoffset: 1; animation: art-tick 4s ease-in-out infinite; animation-delay: calc(var(--t) * .5s + 2.5s); }
+.art .grow { transform-box: fill-box; transform-origin: bottom; animation: art-grow 3.6s ease-in-out infinite; animation-delay: calc(var(--g) * .15s); }
+.art .star { fill: transparent; animation: art-star 5s ease infinite; animation-delay: calc(var(--s) * .25s + 2s); }
+.art .truck { fill: var(--art-ink); animation: art-truck 4s ease-in-out infinite; }
+.art .mover { animation: art-mover 6s ease-in-out infinite; }
+.art .pick { fill: var(--art-ink); opacity: .5; animation: art-pick 3s ease-in-out infinite; }
+.art .knob { fill: var(--art-ink); animation: art-knob 4s ease-in-out infinite; }
+.art .knob.alt { animation-delay: 2s; }
+.art .nd { opacity: .42; transition: opacity .5s; }
+.art[data-on="0"] .nd[data-n="0"], .art[data-on="1"] .nd[data-n="1"], .art[data-on="2"] .nd[data-n="2"] { opacity: 1; }
+.art[data-on="0"] .nd[data-n="0"] .ib, .art[data-on="1"] .nd[data-n="1"] .ib, .art[data-on="2"] .nd[data-n="2"] .ib, .art .nd .hl { fill: #fff; }
+@keyframes art-sweep { to { transform: rotate(5deg) scale(1.06); } }
+@keyframes art-draw { to { stroke-dashoffset: 0; } }
+@keyframes art-show { to { opacity: 1; } }
+@keyframes art-pulse { 0% { transform: scale(.6); opacity: .7; } 100% { transform: scale(1.9); opacity: 0; } }
+@keyframes art-typing { 0%, 100% { transform: scaleX(.2); } 50% { transform: scaleX(1); } }
+@keyframes art-tick { 0% { stroke-dashoffset: 1; } 25%, 80% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -1; } }
+@keyframes art-grow { 0%, 100% { transform: scaleY(.35); } 50% { transform: scaleY(1); } }
+@keyframes art-star { 0%, 15% { fill: transparent; } 30%, 80% { fill: var(--art-ink); } 100% { fill: transparent; } }
+@keyframes art-truck { 0%, 10% { transform: translateX(0); } 45%, 55% { transform: translateX(calc(var(--tx) / 2)); } 90%, 100% { transform: translateX(var(--tx)); } }
+@keyframes art-mover { 0%, 30% { transform: translateX(0); } 45%, 75% { transform: translateX(var(--mx)); } 90%, 100% { transform: translateX(calc(var(--mx) * 2)); } }
+@keyframes art-pick { 0%, 100% { opacity: .15; } 50% { opacity: .9; } }
+@keyframes art-knob { 0%, 40% { transform: translateX(0); } 50%, 90% { transform: translateX(var(--kx)); } 100% { transform: translateX(0); } }
+@media (max-width: 640px) { .photo.drawn { aspect-ratio: 4 / 4.6; } }
+@media (prefers-reduced-motion: reduce) { .art .dr, .art .tick { stroke-dashoffset: 0; } .art .fl { opacity: 1; } }
