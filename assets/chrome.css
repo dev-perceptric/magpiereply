@@ -19,7 +19,7 @@
 .bn-act .bn-btn:hover { background: #fff; color: #000; }
 .bn-menu { display: none; margin-left: 10px; width: 38px; height: 38px; border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 2px; background: none; color: #fff; place-items: center; cursor: pointer; }
 .bn-menu svg { width: 18px; height: 18px; }
-.bn-mega { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 0fr; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+.bn-mega { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 0fr; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
 .bn.open .bn-mega { grid-auto-rows: auto; opacity: 1; pointer-events: auto; }
 .bn-col { min-height: 0; overflow: hidden; padding: 0 32px 0 0; border-right: 1px solid #262626; }
 .bn-col + .bn-col { padding-left: 32px; }
@@ -38,6 +38,16 @@
 .bn.open .bn-foot { padding: 16px 0 18px; }
 .bn-foot a { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; color: #cfcfcf; text-decoration: none; }
 .bn-foot a:hover { color: #fff; }
+.bn-mi { align-items: flex-start; padding: 8px 0; }
+.bn-mega .bn-bx { width: 40px; height: 40px; }
+.bn-mega .bn-bx svg { width: 20px; height: 20px; }
+.bn-tx { display: flex; flex-direction: column; gap: 4px; min-width: 0; padding-top: 2px; }
+.bn-tx b { display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 400; letter-spacing: -0.01em; }
+.bn-tx small { font-size: 14px; line-height: 1.35; font-weight: 300; letter-spacing: 0; color: #8f8f8f; transition: color 0.2s; }
+.bn-mi:hover .bn-tx small { color: #cfcfcf; }
+.bn-mega .bn-lbl { margin-bottom: 16px; }
+.bn-grp { display: block; height: 24px; }
+.bn-flinks { display: flex; gap: 28px; flex-wrap: wrap; }
 .bn-foot span { font: 400 12px/1 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: #6b6b6b; }
 .bn-scrim { position: fixed; inset: 0; z-index: 50; background: rgba(5, 10, 40, 0.35); backdrop-filter: blur(2px); opacity: 0; pointer-events: none; transition: opacity 0.3s; }
 .bn.open + .bn-scrim { opacity: 1; pointer-events: auto; }
