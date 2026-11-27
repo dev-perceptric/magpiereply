@@ -11,383 +11,85 @@
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#0943b0">
   <link rel="icon" type="image/svg+xml" href="/assets/logo_thumbnail.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/assets/chrome.css">
+  <link rel="stylesheet" href="/assets/v2.css">
 </head>
 <body>
-
 <!-- nav -->
 <header class="bn" id="bn">
   <div class="bn-bar">
     <div class="bn-row">
     <a class="bn-logo" href="/" aria-label="MagpieReply home"><svg viewBox="0 0 32 32" fill="none"><path d="M3.5 28.5V16A12.5 12.5 0 1 1 16 28.5Z" stroke="#fff" stroke-width="5"/><path d="M28.5 16A12.5 12.5 0 0 1 16 28.5" stroke="#2450ff" stroke-width="5"/><circle cx="16" cy="16" r="3.5" fill="#fff"/></svg>MagpieReply</a>
-    <nav class="bn-links"><button type="button" id="bnProd" aria-expanded="false" aria-controls="bnMega">Product<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button><a href="/ai-agent/#ecommerce">Use cases</a><a href="/integrations/">Integrations</a><a href="/open-source/">Open source</a><a href="/pricing/">Pricing</a></nav>
+    <nav class="bn-links"><button type="button" id="bnProd" aria-expanded="false" aria-controls="bnMega">Product<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button><a href="/industries/">Use cases</a><a href="/integrations/">Integrations</a><a href="/open-source/">Open source</a><a href="/pricing/">Pricing</a></nav>
     <div class="bn-act"><a class="bn-signin" href="https://app.magpiereply.com/app/login">Sign in</a><a class="bn-btn" href="https://app.magpiereply.com/app/auth/signup">Get started</a></div>
     <button class="bn-menu" id="bnMenu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="bnMega"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
     <div class="bn-mega" id="bnMega">
-      <div class="bn-col"><span class="bn-lbl">Use cases</span><a class="bn-mi" href="/ai-agent/#ecommerce" style="--d:0">Online stores</a><a class="bn-mi" href="/ai-agent/#b2b" style="--d:1">B2B software</a><a class="bn-mi" href="/open-source/" style="--d:2">Self-hosted teams</a></div>
-      <div class="bn-col"><span class="bn-lbl">Magpie, AI agent</span><a class="bn-mi" aria-current="page" href="/ai-agent/" style="--d:3"><span class="bn-bx"><svg viewBox="0 0 24 24"><path d="M4 6h12a3 3 0 0 1 3 3v5a3 3 0 0 1-3 3H9l-5 3Z"/><circle cx="12" cy="11.5" r="1.6"/></svg></span>Magpie agent</a><a class="bn-mi" href="/ai-agent/#checked" style="--d:4"><span class="bn-bx"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/><rect x="2.5" y="2.5" width="19" height="19"/></svg></span>Fact check</a><a class="bn-mi" href="/ai-agent/#knowledge" style="--d:5"><span class="bn-bx"><svg viewBox="0 0 24 24"><path d="M5 4h10l4 4v12H5Z"/><path d="M15 4v4h4M8 12h8M8 15.5h6"/></svg></span>Knowledge</a><a class="bn-mi" href="/ai-agent/" style="--d:6"><span class="bn-bx"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h7"/><circle cx="18" cy="16" r="3"/></svg></span>Guidance<em>Coming soon</em></a><a class="bn-mi" href="/ai-agent/" style="--d:7"><span class="bn-bx"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><path d="M10 6.5h4.5V14"/></svg></span>Playbooks<em>Coming soon</em></a><a class="bn-mi" href="/ai-agent/" style="--d:8"><span class="bn-bx"><svg viewBox="0 0 24 24"><path d="M13 3 5 14h6l-1 7 8-11h-6Z"/></svg></span>Actions<em>Coming soon</em></a><a class="bn-mi" href="/ai-agent/#traces" style="--d:9"><span class="bn-bx"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>Tests and Traces</a></div>
-      <div class="bn-col"><span class="bn-lbl">Platform</span><a class="bn-mi" href="/inbox/" style="--d:10">Shared inbox</a><a class="bn-mi" href="/help-center/" style="--d:11">Help center</a><a class="bn-mi" href="/inbox/#reports" style="--d:12">Reports</a><a class="bn-mi" href="/inbox/#automations" style="--d:13">Automations</a><a class="bn-mi" href="/inbox/" style="--d:14">Contacts and companies</a><a class="bn-mi" href="/inbox/" style="--d:15">Campaigns</a><a class="bn-mi" href="/inbox/" style="--d:16">Surveys (CSAT)</a><a class="bn-mi" href="/security/" style="--d:17">Security and privacy</a></div>
-      <div class="bn-col"><span class="bn-lbl">Channels and apps</span><a class="bn-mi" href="/inbox/#channels" style="--d:18"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="1.6"><path d="M4 5h16v11H9l-5 4Z"/></svg>Website chat</a><a class="bn-mi" href="/inbox/#channels" style="--d:19"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/gmail.svg);color:#fff"></i>Email</a><a class="bn-mi" href="/inbox/#channels" style="--d:20"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/whatsapp.svg);color:#fff"></i>WhatsApp</a><a class="bn-mi" href="/inbox/#channels" style="--d:21"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/instagram.svg);color:#fff"></i>Instagram and Messenger</a><a class="bn-mi" href="/inbox/#channels" style="--d:22"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/telegram.svg);color:#fff"></i>Telegram and LINE</a><a class="bn-mi" href="/inbox/#channels" style="--d:23"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="1.6"><rect x="7" y="2" width="10" height="20" rx="2"/></svg>SMS</a><a class="bn-mi" href="/integrations/" style="--d:24"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/stripe.svg);color:#fff"></i>Stripe</a><a class="bn-mi" href="/integrations/" style="--d:25"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/linear.svg);color:#fff"></i>Linear</a><a class="bn-mi" href="/integrations/" style="--d:26"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/shopify.svg);color:#fff"></i>Shopify<em>Coming soon</em></a><a class="bn-mi" href="/integrations/" style="--d:27"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/hubspot.svg);color:#fff"></i>HubSpot<em>Coming soon</em></a><a class="bn-mi" href="/integrations/" style="--d:28"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/notion.svg);color:#fff"></i>Notion<em>Coming soon</em></a></div>
+      <div class="bn-col"><span class="bn-lbl">Use cases</span><a class="bn-mi" href="/online-stores/" style="--d:0">Online stores</a><a class="bn-mi" href="/b2b-software/" style="--d:1">B2B software</a><a class="bn-mi" href="/industries/fintech/" style="--d:2">Fintech</a><a class="bn-mi" href="/industries/travel/" style="--d:3">Travel and hospitality</a><a class="bn-mi" href="/industries/education/" style="--d:4">Education</a><a class="bn-mi" href="/industries/marketplaces/" style="--d:5">Marketplaces</a><a class="bn-mi" href="/industries/wellness/" style="--d:6">Health and wellness</a><a class="bn-mi" href="/open-source/" style="--d:7">Self-hosted teams</a><a class="bn-mi" href="/industries/" style="--d:8">All industries</a></div>
+      <div class="bn-col"><span class="bn-lbl">Magpie, AI agent</span><a class="bn-mi" aria-current="page" href="/ai-agent/" style="--d:3"><span class="bn-bx"><svg viewBox="0 0 24 24"><path d="M4 6h12a3 3 0 0 1 3 3v5a3 3 0 0 1-3 3H9l-5 3Z"/><circle cx="12" cy="11.5" r="1.6"/></svg></span>Magpie agent</a><a class="bn-mi" href="/features/fact-check/" style="--d:4"><span class="bn-bx"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/><rect x="2.5" y="2.5" width="19" height="19"/></svg></span>Fact check</a><a class="bn-mi" href="/features/draft-and-auto/" style="--d:4"><span class="bn-bx"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="10" rx="5"/><circle cx="16" cy="12" r="3"/></svg></span>Draft and Auto</a><a class="bn-mi" href="/features/knowledge/" style="--d:5"><span class="bn-bx"><svg viewBox="0 0 24 24"><path d="M5 4h10l4 4v12H5Z"/><path d="M15 4v4h4M8 12h8M8 15.5h6"/></svg></span>Knowledge</a><a class="bn-mi" href="/ai-agent/" style="--d:6"><span class="bn-bx"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h7"/><circle cx="18" cy="16" r="3"/></svg></span>Guidance<em>Coming soon</em></a><a class="bn-mi" href="/ai-agent/" style="--d:7"><span class="bn-bx"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><path d="M10 6.5h4.5V14"/></svg></span>Playbooks<em>Coming soon</em></a><a class="bn-mi" href="/ai-agent/" style="--d:8"><span class="bn-bx"><svg viewBox="0 0 24 24"><path d="M13 3 5 14h6l-1 7 8-11h-6Z"/></svg></span>Actions<em>Coming soon</em></a><a class="bn-mi" href="/features/tests-and-traces/" style="--d:9"><span class="bn-bx"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>Tests and Traces</a></div>
+      <div class="bn-col"><span class="bn-lbl">Platform</span><a class="bn-mi" href="/inbox/" style="--d:10">Shared inbox</a><a class="bn-mi" href="/help-center/" style="--d:11">Help center</a><a class="bn-mi" href="/features/reports/" style="--d:12">Reports</a><a class="bn-mi" href="/features/automations/" style="--d:13">Automations</a><a class="bn-mi" href="/features/contacts/" style="--d:14">Contacts and companies</a><a class="bn-mi" href="/features/campaigns/" style="--d:15">Campaigns</a><a class="bn-mi" href="/features/surveys/" style="--d:16">Surveys (CSAT)</a><a class="bn-mi" href="/security/" style="--d:17">Security and privacy</a></div>
+      <div class="bn-col"><span class="bn-lbl">Channels and apps</span><a class="bn-mi" href="/channels/" style="--d:18"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="1.6"><path d="M4 5h16v11H9l-5 4Z"/></svg>Website chat</a><a class="bn-mi" href="/channels/" style="--d:19"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/gmail.svg);color:#fff"></i>Email</a><a class="bn-mi" href="/channels/" style="--d:20"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/whatsapp.svg);color:#fff"></i>WhatsApp</a><a class="bn-mi" href="/channels/" style="--d:21"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/instagram.svg);color:#fff"></i>Instagram and Messenger</a><a class="bn-mi" href="/channels/" style="--d:22"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/telegram.svg);color:#fff"></i>Telegram and LINE</a><a class="bn-mi" href="/channels/" style="--d:23"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="1.6"><rect x="7" y="2" width="10" height="20" rx="2"/></svg>SMS</a><a class="bn-mi" href="/integrations/" style="--d:24"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/stripe.svg);color:#fff"></i>Stripe</a><a class="bn-mi" href="/integrations/" style="--d:25"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/linear.svg);color:#fff"></i>Linear</a><a class="bn-mi" href="/integrations/" style="--d:26"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/shopify.svg);color:#fff"></i>Shopify<em>Coming soon</em></a><a class="bn-mi" href="/integrations/" style="--d:27"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/hubspot.svg);color:#fff"></i>HubSpot<em>Coming soon</em></a><a class="bn-mi" href="/integrations/" style="--d:28"><i class="bn-si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/notion.svg);color:#fff"></i>Notion<em>Coming soon</em></a></div>
       <div class="bn-foot"><a href="/#demo">Try the live demo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><span>Open source core, cloud or self-hosted</span></div>
     </div>
   </div>
 </header>
 <div class="bn-scrim" id="bnScrim"></div>
 <!-- /nav -->
-
 <main id="top">
-
-  <!-- Hero -->
-  <section class="hero hero-magpie product-hero">
-    <div class="mosaic" data-mosaic="hero" aria-hidden="true"><canvas></canvas></div>
-    <div class="frame pad">
-      <div class="hm-grid">
-        <div class="hm-copy">
-          <div class="crumbs"><a href="/">Home</a><span>/</span><span>Product</span><span>/</span><span>Magpie</span></div>
-          <h1 class="display">Magpie <span class="tag-new">New</span><br>The AI agent for your <em>support inbox</em></h1>
-          <p class="lede">Magpie answers from your own help content and checks your apps for the facts. Every reply comes with its sources and passes a fact check before anyone sees it.</p>
-          <div class="ctas">
-            <a class="btn btn-primary btn-lg" href="https://app.magpiereply.com/app/auth/signup">Start free</a>
-            <a class="btn btn-secondary btn-lg" href="mailto:hello@magpiereply.com?subject=Demo">Book a demo</a>
-          </div>
-          <p class="hm-fine"><svg width="14" height="14" aria-hidden="true"><use href="/assets/icons.svg#i-check"/></svg>Free during early access. No card needed.</p>
-        </div>
-        <div class="hm-stage">
-          <div class="demo" data-demo>
-            <div class="demo-tabs" role="tablist" aria-label="Magpie at work">
-              <button class="demo-tab" role="tab" aria-selected="true" aria-controls="d1" id="dt1">Answers</button>
-              <button class="demo-tab" role="tab" aria-selected="false" aria-controls="d2" id="dt2" tabindex="-1">Looks it up</button>
-              <button class="demo-tab" role="tab" aria-selected="false" aria-controls="d3" id="dt3" tabindex="-1">Hands off</button>
-            </div>
-
-            <!-- Scene 1: an answer from the help center -->
-            <div class="scene" role="tabpanel" id="d1" aria-labelledby="dt1">
-              <div class="chat">
-                <div class="bubble in">Hi! How long does shipping take to Canada?<span class="t">Website chat, 10:42</span></div>
-                <div class="magpie">
-                  <div class="mp-head"><img src="/assets/logo_thumbnail.svg" alt="" width="20" height="20"><strong>Magpie</strong><span class="state beta">Draft</span></div>
-                  <div class="typing" aria-hidden="true"><i></i><i></i><i></i></div>
-                  <p class="mp-reply">Orders to Canada arrive in 5 to 8 business days, and duties are included at checkout. You'll get a tracking link by email once it ships.</p>
-                  <div class="mp-meta">
-                    <span class="src"><svg><use href="/assets/icons.svg#i-book"/></svg>Shipping to Canada</span>
-                    <span class="chk ok"><svg><use href="/assets/icons.svg#i-check"/></svg>Fact check passed</span>
-                  </div>
-                  <div class="mp-acts"><span class="go">Send</span><span>Edit</span><span>Discard</span></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Scene 2: a Stripe lookup -->
-            <div class="scene" role="tabpanel" id="d2" aria-labelledby="dt2" hidden>
-              <div class="chat">
-                <div class="bubble in">I think I got charged twice this month?<span class="t">Signed in as maya@brightline.example</span></div>
-                <div class="magpie">
-                  <div class="mp-head"><img src="/assets/logo_thumbnail.svg" alt="" width="20" height="20"><strong>Magpie</strong><span class="state beta">Draft</span></div>
-                  <div class="mp-tool"><span class="ic"><svg><use href="/assets/icons.svg#i-search"/></svg></span>Checked Stripe for Maya's charges<span class="ok">2 found</span></div>
-                  <div class="typing" aria-hidden="true"><i></i><i></i><i></i></div>
-                  <p class="mp-reply">You're right, Maya. You were charged $49 twice on November 1. Want me to refund the extra charge? Refunds show up in 5 to 10 business days.</p>
-                  <div class="mp-meta">
-                    <span class="src"><svg><use href="/assets/icons.svg#i-plug"/></svg>Stripe</span>
-                    <span class="chk ok"><svg><use href="/assets/icons.svg#i-check"/></svg>Fact check passed</span>
-                  </div>
-                  <div class="mp-acts"><span class="go">Send</span><span>Edit</span><span>Discard</span></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Scene 3: a handoff with a note -->
-            <div class="scene" role="tabpanel" id="d3" aria-labelledby="dt3" hidden>
-              <div class="chat">
-                <div class="bubble in">This is the third time it broke. If it isn't fixed today I'm calling my lawyer.<span class="t">Email, 09:15</span></div>
-                <div class="magpie">
-                  <div class="mp-head"><img src="/assets/logo_thumbnail.svg" alt="" width="20" height="20"><strong>Magpie</strong><span class="state soon">Handed off</span></div>
-                  <div class="typing" aria-hidden="true"><i></i><i></i><i></i></div>
-                  <p class="mp-reply">I'm sorry this keeps happening. A teammate will pick this up.</p>
-                  <div class="mp-note"><strong>Note for Support</strong>Third outage report from this customer. Mentions legal action. Wants a fix today, so reply first thing.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+<section class="wrap">
+  <div class="ph">
+    <div>
+      <div class="crumb"><a href="/">Home</a><span>/</span><span>Product</span><span>/</span><span>Magpie</span></div>
+      <h1>The AI agent that <span>shows its work.</span></h1>
+      <p class="lead">Magpie answers from your help content, checks your apps for the facts and runs a fact check on every reply before anyone sees it.</p>
+      <div class="ctas"><a class="btn btn-dark" href="https://app.magpiereply.com/app/auth/signup">Get started</a><a class="btn btn-line" href="/#demo">Try the demo</a></div>
     </div>
-  </section>
-
-  <!-- Capability index -->
-  <section aria-label="What Magpie does">
-    <div class="frame">
-      <div class="cap-index">
-        <a class="cap-card" href="#knowledge"><span class="num">01</span><h3>Knows your answers<svg aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></h3><p>Learns from your help center, websites and files.</p></a>
-        <a class="cap-card" href="#lookups"><span class="num">02</span><h3>Looks things up<svg aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></h3><p>Checks Stripe and Linear for the customer who's asking.</p></a>
-        <a class="cap-card" href="#checked"><span class="num">03</span><h3>Checks every reply<svg aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></h3><p>Sources and a fact check on every reply.</p></a>
-        <a class="cap-card" href="#draft-auto"><span class="num">04</span><h3>Draft, then Auto<svg aria-hidden="true"><use href="/assets/icons.svg#i-chevron"/></svg></h3><p>Your team sends first. Magpie earns the right to reply alone.</p></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Capabilities -->
-  <section>
-    <div class="frame">
-      <div class="showcase" id="knowledge">
-        <div class="showcase-copy">
-          <span class="k">01 / KNOWLEDGE</span>
-          <h3>Answers from what you've already written</h3>
-          <p>Magpie reads your published help center articles, plus any websites and files you add. It keeps up as they change, so its answers match your latest policy.</p>
-          <ul>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Help center articles, read again every 15 minutes</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Websites up to 50 pages each, read again every day</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>PDF, Word, PowerPoint, Excel, HTML, Markdown or text files up to 20 MB</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Searches by meaning and by keyword, then keeps only the best matches</li>
-          </ul>
-        </div>
-        <div class="showcase-visual">
-          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
-          <div class="mock-card">
-            <div class="mc-bar"><img src="/assets/logo_thumbnail.svg" alt="">Knowledge</div>
-            <div class="mc-body">
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-book"/></svg></span><strong>Help center</strong><span class="end ok">24 articles</span></div>
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-globe"/></svg></span>northwind.example/docs<span class="end ok">50 pages</span></div>
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-doc"/></svg></span>Returns policy.pdf<span class="end ok">12 pages</span></div>
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-doc"/></svg></span>Price list.xlsx<span class="end wait">Reading</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="showcase flip" id="lookups">
-        <div class="showcase-copy">
-          <span class="k">02 / LOOKUPS</span>
-          <h3>Checks your apps for the facts</h3>
-          <p>Connect Stripe or Linear in one click. Magpie looks up charges and known bugs, only ever for the customer in the conversation.</p>
-          <ul>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Stripe: recent charges, and any double payments</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Linear: whether a reported bug is known or fixed, in plain words</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>The customer's email is filled in by code, so Magpie can't look up anyone else</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Visitors who aren't signed in can prove who they are with a 6-digit email code</li>
-          </ul>
-        </div>
-        <div class="showcase-visual">
-          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
-          <div class="mock-card">
-            <div class="mc-bar"><img src="/assets/logo_thumbnail.svg" alt="">Looked up for this reply</div>
-            <div class="mc-body">
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-key"/></svg></span>maya@brightline.example<span class="end ok">Verified</span></div>
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-search"/></svg></span><strong>Stripe</strong> recent charges<span class="end ok">2 found</span></div>
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-code"/></svg></span><strong>Linear</strong> "export fails"<span class="end ok">Fixed Tuesday</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="showcase" id="checked">
-        <div class="showcase-copy">
-          <span class="k">03 / CHECKED</span>
-          <h3>Every reply is checked before anyone sees it</h3>
-          <p>A second model reads each reply against the articles and lookups it used. It also watches for customers trying to trick Magpie.</p>
-          <ul>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Sources listed on every reply</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Claims it can't find in a source are flagged by name</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>"Ignore your rules" or "I'm from IT" gets flagged, and never gets an automatic reply</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Card and phone numbers are hidden before the AI reads a message</li>
-          </ul>
-        </div>
-        <div class="showcase-visual">
-          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
-          <div class="mock-card">
-            <div class="mc-bar"><img src="/assets/logo_thumbnail.svg" alt="">Checks<span class="state live">Passed</span></div>
-            <div class="mc-body">
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-doc"/></svg></span>Sources: Shipping to Canada<span class="end ok">Cited</span></div>
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-check"/></svg></span>Every claim found in a source<span class="end ok">Yes</span></div>
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-alert"/></svg></span>Trying to trick Magpie<span class="end ok">No</span></div>
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-eye"/></svg></span>Card and phone numbers<span class="end ok">Hidden</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="showcase flip" id="draft-auto">
-        <div class="showcase-copy">
-          <span class="k">04 / DRAFT AND AUTO</span>
-          <h3>Your team sends first. Magpie earns Auto.</h3>
-          <p>In Draft mode, Magpie's reply waits in a side panel with Send, Edit and Discard. A replay test answers up to 30 past conversations again and grades each one against what your team sent.</p>
-          <ul>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Auto unlocks after a replay test of at least 10 replies, with 90% passing</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>In Auto, refunds, flagged messages and handoffs still wait for a person</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>After two answers, a customer who still needs help goes to your team</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Off, Draft or Auto, chosen for each inbox</li>
-          </ul>
-        </div>
-        <div class="showcase-visual">
-          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
-          <div class="mock-card">
-            <div class="mc-bar"><img src="/assets/logo_thumbnail.svg" alt="">Replay test<span class="state live">28 of 30 passed</span></div>
-            <div class="mc-body">
-              <div class="mc-row">"Can I pause my plan?"<span class="end"><span class="state live">Same</span></span></div>
-              <div class="mc-row">"Do you ship to Norway?"<span class="end"><span class="state beta">Fine</span></span></div>
-              <div class="mc-row">"Is there a student discount?"<span class="end"><span class="state soon">Wrong</span></span></div>
-              <div class="mc-row"><strong>Mode</strong><span class="end"><span class="mc-btn">Draft</span><span class="mc-btn go">Auto</span></span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="showcase" id="traces">
-        <div class="showcase-copy">
-          <span class="k">05 / TRACES AND USAGE</span>
-          <h3>See every step, and what it cost</h3>
-          <p>The Traces page shows each turn Magpie took: what it read, what it looked up, what it decided and how long it took. Usage shows this month's spend against your limit.</p>
-          <ul>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Outcomes for every draft: sent as written, edited, or discarded</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Conversations Magpie solved alone, and the ones it handed off</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>A monthly spending limit for each team, so there are no surprise bills</li>
-          </ul>
-        </div>
-        <div class="showcase-visual">
-          <div class="mosaic" data-mosaic="corners" aria-hidden="true"><canvas></canvas></div>
-          <div class="mock-card">
-            <div class="mc-bar"><img src="/assets/logo_thumbnail.svg" alt="">Conversation #2381<span class="state live">Sent by a teammate</span></div>
-            <div class="mc-body">
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-search"/></svg></span>Searched knowledge<span class="end ok">4 articles</span></div>
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-chat"/></svg></span>Wrote a reply<span class="end ok">2 sources</span></div>
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-check"/></svg></span>Fact check<span class="end ok">Passed</span></div>
-              <div class="mc-row"><span class="ic"><svg><use href="/assets/icons.svg#i-clock"/></svg></span><strong>4.1 s</strong><span class="end"><strong>$0.004</strong></span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Proof -->
-  <section aria-label="Magpie in numbers">
-    <div class="frame">
-      <div class="proof-head pad" style="border-top:1px solid var(--line)"><h2 class="label">From our latest test: 40 real support questions, November 2026</h2></div>
-      <div class="stats proof">
-        <div><strong>39 of 40</strong><small>Answered right</small></div>
-        <div><strong>10 of 10</strong><small>Tricks and rules handled</small></div>
-        <div><strong>4 s</strong><small>Typical reply time</small></div>
-        <div><strong>$0.004</strong><small>AI cost per reply</small></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Who it's for -->
-  <section aria-labelledby="who-title">
-    <div class="frame">
-      <div class="section-head pad">
-        <span class="sticker"><span class="chip"><svg><use href="/assets/icons.svg#i-users"/></svg></span>Who it's for</span>
-        <h2 class="h2" id="who-title">Built for the questions your customers ask most</h2>
-      </div>
-      <div class="tiles two">
-        <div class="tile" id="b2b">
-          <span class="ic"><svg><use href="/assets/icons.svg#i-code"/></svg></span>
-          <h3>B2B software</h3>
-          <p>Billing questions and bug reports, answered with the facts.</p>
-          <ul>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Spots double charges in Stripe for the signed-in customer</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Tells customers when a bug is known or fixed, from Linear</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Answers how-to questions from your docs site</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Sends bank disputes to Billing and upset customers to Support</li>
-          </ul>
-        </div>
-        <div class="tile" id="ecommerce">
-          <span class="ic"><svg><use href="/assets/icons.svg#i-cart"/></svg></span>
-          <h3>E-commerce</h3>
-          <p>Shipping, returns and payment questions, around the clock.</p>
-          <ul>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Answers shipping and returns questions from your policies</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Finds double charges, and asks before proposing a refund</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Keeps refunds of $50 or more for your team to review</li>
-            <li><svg><use href="/assets/icons.svg#i-check"/></svg>Order tracking from Shopify <span class="state soon" style="vertical-align:1px">Coming</span></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Coming next -->
-  <section aria-label="Coming next">
-    <div class="frame pad coming">
-      <span class="label">Coming next</span>
-      <span class="item"><span class="state soon">Coming</span>Playbooks and actions</span>
-      <span class="item"><span class="state soon">Coming</span>Copilot for your team</span>
-      <span class="item"><span class="state soon">Coming</span>Suggested articles</span>
-      <span class="item"><span class="state soon">Coming</span>Memories</span>
-      <span class="item"><span class="state soon">Coming</span>Phone calls</span>
-    </div>
-  </section>
-
-  <!-- More in MagpieReply -->
-  <section aria-labelledby="more-title">
-    <div class="frame">
-      <div class="section-head pad" style="border-top:1px solid var(--line)"><h2 class="h2" id="more-title">More in MagpieReply</h2></div>
-      <div class="more">
-        <a href="/inbox/"><span class="ic"><svg><use href="/assets/icons.svg#i-inbox"/></svg></span><h3>Shared inbox<svg aria-hidden="true"><use href="/assets/icons.svg#i-arrow"/></svg></h3><p>Every channel in one place, with Magpie's drafts beside each conversation.</p></a>
-        <a href="/help-center/"><span class="ic"><svg><use href="/assets/icons.svg#i-book"/></svg></span><h3>Help center<svg aria-hidden="true"><use href="/assets/icons.svg#i-arrow"/></svg></h3><p>Articles your customers can search, and the first thing Magpie learns from.</p></a>
-        <a href="/integrations/"><span class="ic"><svg><use href="/assets/icons.svg#i-plug"/></svg></span><h3>Apps<svg aria-hidden="true"><use href="/assets/icons.svg#i-arrow"/></svg></h3><p>Connect Stripe and Linear in one click. Magpie only reads.</p></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq">
-    <div class="frame">
-      <div class="section-head pad" style="border-top:1px solid var(--line)"><h2 class="h2">Questions about Magpie</h2></div>
-      <div class="faq">
-        <details><summary>What happens if Magpie gets something wrong?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>In Draft mode, a teammate reads every reply before it goes out. The fact check flags any claim it can't find in a source, so your team knows where to look.</p><p>Auto only unlocks once a replay test shows Magpie answering past conversations the way your team did, at least 9 times in 10.</p></div></details>
-        <details><summary>What does it cost?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>Magpie is free while we're in early access. Each team has a monthly spending limit on AI, so there are no surprise bills. See <a href="/pricing/" style="color:var(--brand)">pricing</a> for the plans we're planning.</p></div></details>
-        <details><summary>Can Magpie see other customers' data?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>No. Lookups use the signed-in customer's email, filled in by code, so Magpie can only look up the person it's talking to. It never looks up anyone else, even for someone claiming to be staff.</p></div></details>
-        <details><summary>Which apps can Magpie use?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>Stripe and Linear today, each with one click. HubSpot and Shopify are next. Magpie only reads from your apps.</p></div></details>
-        <details><summary>Can I turn Magpie off?<svg><use href="/assets/icons.svg#i-chevron"/></svg></summary><div class="answer"><p>Any time. Settings, AI agent has Off, Draft and Auto, and you pick which inboxes Magpie works in.</p></div></details>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="end-cta">
-    <div class="mosaic" data-mosaic="cta" aria-hidden="true"><canvas></canvas></div>
-    <div class="frame pad">
-      <div class="end-cta-inner">
-        <h2 class="h2" style="max-width:18ch">Let Magpie take the first reply</h2>
-        <div class="ctas">
-          <a class="btn btn-primary btn-lg" href="https://app.magpiereply.com/app/auth/signup">Start free</a>
-          <a class="btn btn-secondary btn-lg" href="mailto:hello@magpiereply.com?subject=Demo">Book a demo</a>
-        </div>
-      </div>
-    </div>
-  </section>
-  <nav class="frame pad keep" aria-label="Keep exploring">
-    <span class="label">Keep exploring</span>
-    <a href="/inbox/">Shared inbox</a>
-    <a href="/help-center/">Help center</a>
-    <a href="/integrations/">Apps</a>
-    <a href="/security/">Security</a>
-    <a href="/pricing/">Pricing</a>
-    <a href="/open-source/">Self-host</a>
-  </nav>
-</main>
-
-<!-- footer -->
-<footer class="site-ft">
-  <div class="ft">
-    <div class="ft-top"><a class="logo" href="/" aria-label="MagpieReply home"><img src="/assets/logo_thumbnail.svg" alt="" width="30" height="30">MagpieReply</a><p>A shared support inbox with Magpie, the AI agent that answers from your own help content.</p>
-      <div class="social"><a href="https://github.com/dev-perceptric/magpiereply" aria-label="GitHub"><i class="logo-i" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/github.svg)"></i></a></div></div>
-    <div class="ft-cols">
-      <div><b>Product</b><a href="/ai-agent/">Magpie</a><a href="/inbox/">Shared inbox</a><a href="/help-center/">Help center</a><a href="/integrations/">Apps</a></div>
-      <div><b>Features</b><a href="/ai-agent/#draft-auto">Draft and Auto</a><a href="/ai-agent/#checked">Fact check</a><a href="/ai-agent/#knowledge">Knowledge</a><a href="/ai-agent/#traces">Traces</a></div>
-      <div><b>Open source</b><a href="/open-source/">Self-host</a><a href="https://github.com/dev-perceptric/magpiereply">Source code</a><a href="https://app.magpiereply.com/swagger">API docs</a><a href="/security/">Security</a></div>
-      <div><b>Company</b><a href="mailto:hello@magpiereply.com">Contact</a><a href="/pricing/">Pricing</a><a href="mailto:hello@magpiereply.com?subject=Demo">Book a demo</a><a href="https://app.magpiereply.com/app/login">Log in</a></div>
-    </div>
+    <div class="ph-photo drawn"><div class="ground"></div><svg class="art" viewBox="0 0 600 555" preserveAspectRatio="xMidYMin meet" role="img" aria-label="Drawing: Magpie reads your help content and fact-checks every reply"><path class="ln dr" pathLength="1" style="--d:0" d="M336 54h224v124h-224Z"/><path class="fl" style="--d:1" d="M330 48h224v124h-224Z"/><path class="ln dr" pathLength="1" style="--d:1" d="M330 48h224v124h-224Z"/><path class="ib" d="M342 60h28v28h-28Z"/><path class="ln dr" pathLength="1" style="--d:2" d="M342 60h28v28h-28Z"/><g transform="translate(344 62) scale(1)" style="--sw:1.30"><path class="ln dr" pathLength="1" style="--d:3" d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3ZM5 17a3 3 0 0 1 3-3h11"/></g><path class="ln dr" pathLength="1" style="--d:4" d="M380 68h134M380 80h80"/><path class="ln dr" pathLength="1" style="--d:5" d="M526 68a3 3 0 1 0 6 0a3 3 0 1 0 -6 0M536 68a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path class="ln dr" pathLength="1" style="--d:6" d="M342 102h180"/><path class="ln dr" pathLength="1" style="--d:7" d="M342 114h140"/><path class="ln dr" pathLength="1" style="--d:8" d="M342 126h160"/><path class="ln dr" pathLength="1" style="--d:9" d="M336 346h224v124h-224Z"/><path class="fl" style="--d:10" d="M330 340h224v124h-224Z"/><path class="ln dr" pathLength="1" style="--d:10" d="M330 340h224v124h-224Z"/><path class="ib" d="M342 352h28v28h-28Z"/><path class="ln dr" pathLength="1" style="--d:11" d="M342 352h28v28h-28Z"/><g transform="translate(344 354) scale(1)" style="--sw:1.30"><path class="ln dr" pathLength="1" style="--d:12" d="M12 3l8 3v6c0 5-4 8-8 9c-4-1-8-4-8-9V6ZM8.5 12l2.5 2.5l4.5-5"/></g><path class="ln dr" pathLength="1" style="--d:13" d="M380 360h134M380 372h80"/><path class="ln dr" pathLength="1" style="--d:14" d="M526 360a3 3 0 1 0 6 0a3 3 0 1 0 -6 0M536 360a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path class="ln dr" pathLength="1" style="--d:15" d="M342 390h8v8h-8ZM358 394h140"/><path class="ln tick" pathLength="1" style="--t:0" d="M343.5 394l2 2.5l3.5 -4.5"/><path class="ln dr" pathLength="1" style="--d:16" d="M342 402h8v8h-8ZM358 406h100"/><path class="ln tick" pathLength="1" style="--t:1" d="M343.5 406l2 2.5l3.5 -4.5"/><path class="ln dr" pathLength="1" style="--d:17" d="M342 414h8v8h-8ZM358 418h140"/><path class="ln tick" pathLength="1" style="--t:2" d="M343.5 418l2 2.5l3.5 -4.5"/><path class="ln dr" pathLength="1" style="--d:18" d="M342 426h8v8h-8ZM358 430h100"/><path class="ln tick" pathLength="1" style="--t:3" d="M343.5 430l2 2.5l3.5 -4.5"/><path class="ln dr" pathLength="1" style="--d:19" d="M342 438h8v8h-8ZM358 442h140"/><path class="ln tick" pathLength="1" style="--t:4" d="M343.5 442l2 2.5l3.5 -4.5"/><path class="ln dr" pathLength="1" style="--d:20" d="M220 258H262V110H330"/><path class="ln dr" pathLength="1" style="--d:21" d="M220 302H292V402H330"/><path class="ln dr" pathLength="1" style="--d:22" d="M155 215V182"/><path class="ln dr" pathLength="1" style="--d:23" d="M155 345V380"/><path class="ln dr" pathLength="1" style="--d:24" d="M104 201h130v130h-130Z"/><circle class="pulse" cx="155" cy="274" r="47"/><path class="fl" style="--d:25" d="M90 215h130v130h-130Z"/><path class="ln dr" pathLength="1" style="--d:25" d="M90 215h130v130h-130Z"/><path class="ln dr" pathLength="1" style="--d:26" d="M155 239L185.3 256.5L185.3 291.5L155 309L124.7 291.5L124.7 256.5ZM155 274L155 309M155 274L185.3 256.5M155 274L124.7 256.5M155 259.3L167.7 266.7L167.7 281.4L155 288.7L142.3 281.4L142.3 266.7Z"/><text class="lbl" x="155" y="333" text-anchor="middle">MAGPIE</text><circle class="jn" cx="220" cy="258" r="3"/><circle class="jn" cx="220" cy="302" r="3"/><circle class="jn" cx="155" cy="182" r="3"/><circle class="jn" cx="155" cy="380" r="3"/><circle class="dot" r="3" data-delay="0"><animateMotion begin="indefinite" dur="2.4s" repeatCount="indefinite" path="M220 258H262V110H330"/><animate attributeName="opacity" begin="indefinite" dur="2.4s" repeatCount="indefinite" values="0;1;1;0" keyTimes="0;.12;.85;1"/></circle><circle class="dot" r="3" data-delay="900"><animateMotion begin="indefinite" dur="2.4s" repeatCount="indefinite" path="M220 302H292V402H330"/><animate attributeName="opacity" begin="indefinite" dur="2.4s" repeatCount="indefinite" values="0;1;1;0" keyTimes="0;.12;.85;1"/></circle><circle class="dot" r="3" data-delay="1600"><animateMotion begin="indefinite" dur="1.4s" repeatCount="indefinite" path="M155 182V215"/><animate attributeName="opacity" begin="indefinite" dur="1.4s" repeatCount="indefinite" values="0;1;1;0" keyTimes="0;.12;.85;1"/></circle></svg><div class="chip c1"><div class="who"><i></i>Customer</div>Can I change my billing date?</div><div class="chip blue c2"><div class="who"><i></i>Magpie</div>Yes, once a month from Settings, Billing. It starts with your next invoice.</div><div class="chip tag c3"><b>&#10003;</b> Fact check passed &nbsp;&middot;&nbsp; 1 source</div></div>
   </div>
-  <div class="ft-bot"><span>&copy; 2026 MagpieReply</span><a href="/pricing/">Pricing</a><a href="/security/">Security</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/open-source/">Open source</a></div>
-  <div class="ft-mosaic" aria-hidden="true"><svg viewBox="0 0 932 68" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="18" width="14" height="14" fill="#EDEDED" style="--d:0.19s"/><rect x="0" y="54" width="14" height="14" fill="#EDEDED" style="--d:0.23s"/><rect x="18" y="18" width="14" height="14" fill="#D4D4D4" style="--d:1.67s"/><rect x="18" y="36" width="14" height="14" fill="#EDEDED" style="--d:1.70s"/><rect x="36" y="0" width="14" height="14" fill="#E5E5E5" style="--d:2.52s"/><rect x="36" y="36" width="14" height="14" fill="#EDEDED" style="--d:1.59s"/><rect x="54" y="0" width="14" height="14" fill="#E5E5E5" style="--d:1.16s"/><rect x="54" y="18" width="14" height="14" fill="#E5E5E5" style="--d:2.28s"/><rect x="72" y="0" width="14" height="14" fill="#EDEDED" style="--d:2.56s"/><rect x="72" y="54" width="14" height="14" fill="#E5E5E5" style="--d:2.48s"/><rect x="90" y="54" width="14" height="14" fill="#D4D4D4" style="--d:1.45s"/><rect x="108" y="18" width="14" height="14" fill="#E5E5E5" style="--d:0.33s"/><rect x="108" y="36" width="14" height="14" fill="#D4D4D4" style="--d:3.50s"/><rect x="126" y="36" width="14" height="14" fill="#D4D4D4" style="--d:0.66s"/><rect x="126" y="54" width="14" height="14" fill="#D4D4D4" style="--d:1.69s"/><rect x="144" y="18" width="14" height="14" fill="#EDEDED" style="--d:2.29s"/><rect x="144" y="54" width="14" height="14" fill="#EDEDED" style="--d:1.40s"/><rect x="162" y="36" width="14" height="14" fill="#E5E5E5" style="--d:3.78s"/><rect x="162" y="54" width="14" height="14" fill="#EDEDED" style="--d:0.26s"/><rect x="198" y="54" width="14" height="14" fill="#D4D4D4" style="--d:1.42s"/><rect x="216" y="36" width="14" height="14" fill="#D4D4D4" style="--d:0.52s"/><rect x="216" y="54" width="14" height="14" fill="#D4D4D4" style="--d:3.67s"/><rect x="234" y="18" width="14" height="14" fill="#D4D4D4" style="--d:2.20s"/><rect x="252" y="18" width="14" height="14" fill="#D4D4D4" style="--d:3.95s"/><rect x="252" y="54" width="14" height="14" fill="#E5E5E5" style="--d:0.60s"/><rect x="270" y="0" width="14" height="14" fill="#E5E5E5" style="--d:2.63s"/><rect x="270" y="18" width="14" height="14" fill="#EDEDED" style="--d:0.73s"/><rect x="270" y="36" width="14" height="14" fill="#E5E5E5" style="--d:1.68s"/><rect x="270" y="54" width="14" height="14" fill="#EDEDED" style="--d:1.27s"/><rect x="288" y="0" width="14" height="14" fill="#EDEDED" style="--d:3.80s"/><rect x="288" y="54" width="14" height="14" fill="#EDEDED" style="--d:3.19s"/><rect x="306" y="36" width="14" height="14" fill="#EDEDED" style="--d:1.60s"/><rect x="306" y="54" width="14" height="14" fill="#E5E5E5" style="--d:1.76s"/><rect x="324" y="0" width="14" height="14" fill="#EDEDED" style="--d:0.21s"/><rect x="324" y="18" width="14" height="14" fill="#E5E5E5" style="--d:2.15s"/><rect x="342" y="0" width="14" height="14" fill="#E5E5E5" style="--d:2.46s"/><rect x="342" y="18" width="14" height="14" fill="#D4D4D4" style="--d:3.82s"/><rect x="342" y="54" width="14" height="14" fill="#E5E5E5" style="--d:3.40s"/><rect x="360" y="54" width="14" height="14" fill="#E5E5E5" style="--d:3.00s"/><rect x="378" y="54" width="14" height="14" fill="#E5E5E5" style="--d:3.80s"/><rect x="396" y="18" width="14" height="14" fill="#EDEDED" style="--d:3.66s"/><rect x="396" y="54" width="14" height="14" fill="#EDEDED" style="--d:3.45s"/><rect x="414" y="18" width="14" height="14" fill="#D4D4D4" style="--d:3.63s"/><rect x="414" y="36" width="14" height="14" fill="#E5E5E5" style="--d:2.13s"/><rect x="432" y="18" width="14" height="14" fill="#E5E5E5" style="--d:3.22s"/><rect x="450" y="36" width="14" height="14" fill="#E5E5E5" style="--d:3.96s"/><rect x="468" y="18" width="14" height="14" fill="#EDEDED" style="--d:3.83s"/><rect x="486" y="36" width="14" height="14" fill="#E5E5E5" style="--d:0.41s"/><rect x="486" y="54" width="14" height="14" fill="#D4D4D4" style="--d:0.82s"/><rect x="504" y="54" width="14" height="14" fill="#EDEDED" style="--d:1.38s"/><rect x="522" y="36" width="14" height="14" fill="#D4D4D4" style="--d:3.13s"/><rect x="540" y="18" width="14" height="14" fill="#EDEDED" style="--d:1.33s"/><rect x="576" y="0" width="14" height="14" fill="#E5E5E5" style="--d:0.11s"/><rect x="612" y="0" width="14" height="14" fill="#EDEDED" style="--d:0.52s"/><rect x="612" y="18" width="14" height="14" fill="#EDEDED" style="--d:2.60s"/><rect x="630" y="54" width="14" height="14" fill="#D4D4D4" style="--d:0.85s"/><rect x="648" y="36" width="14" height="14" fill="#EDEDED" style="--d:1.68s"/><rect x="648" y="54" width="14" height="14" fill="#EDEDED" style="--d:1.42s"/><rect x="666" y="54" width="14" height="14" fill="#EDEDED" style="--d:0.52s"/><rect x="684" y="0" width="14" height="14" fill="#EDEDED" style="--d:0.07s"/><rect x="684" y="36" width="14" height="14" fill="#E5E5E5" style="--d:3.10s"/><rect x="684" y="54" width="14" height="14" fill="#E5E5E5" style="--d:1.89s"/><rect x="702" y="36" width="14" height="14" fill="#EDEDED" style="--d:2.12s"/><rect x="702" y="54" width="14" height="14" fill="#E5E5E5" style="--d:3.53s"/><rect x="720" y="0" width="14" height="14" fill="#E5E5E5" style="--d:1.11s"/><rect x="756" y="54" width="14" height="14" fill="#EDEDED" style="--d:3.23s"/><rect x="774" y="18" width="14" height="14" fill="#EDEDED" style="--d:3.51s"/><rect x="774" y="54" width="14" height="14" fill="#EDEDED" style="--d:3.57s"/><rect x="792" y="36" width="14" height="14" fill="#D4D4D4" style="--d:1.77s"/><rect x="792" y="54" width="14" height="14" fill="#E5E5E5" style="--d:1.71s"/><rect x="810" y="36" width="14" height="14" fill="#E5E5E5" style="--d:3.76s"/><rect x="828" y="18" width="14" height="14" fill="#E5E5E5" style="--d:3.87s"/><rect x="828" y="36" width="14" height="14" fill="#E5E5E5" style="--d:1.59s"/><rect x="828" y="54" width="14" height="14" fill="#EDEDED" style="--d:3.33s"/><rect x="846" y="0" width="14" height="14" fill="#D4D4D4" style="--d:3.98s"/><rect x="846" y="54" width="14" height="14" fill="#E5E5E5" style="--d:2.89s"/><rect x="864" y="0" width="14" height="14" fill="#EDEDED" style="--d:1.83s"/><rect x="864" y="36" width="14" height="14" fill="#EDEDED" style="--d:2.50s"/><rect x="864" y="54" width="14" height="14" fill="#E5E5E5" style="--d:0.45s"/><rect x="882" y="18" width="14" height="14" fill="#E5E5E5" style="--d:0.34s"/><rect x="882" y="36" width="14" height="14" fill="#E5E5E5" style="--d:1.08s"/><rect x="882" y="54" width="14" height="14" fill="#D4D4D4" style="--d:3.40s"/><rect x="900" y="36" width="14" height="14" fill="#EDEDED" style="--d:3.68s"/><rect x="918" y="18" width="14" height="14" fill="#E5E5E5" style="--d:3.20s"/><rect x="918" y="36" width="14" height="14" fill="#E5E5E5" style="--d:1.08s"/><rect x="918" y="54" width="14" height="14" fill="#E5E5E5" style="--d:3.21s"/><rect class="hot" x="720" y="0" width="14" height="14" fill="#0943B0"/></svg></div>
+  <nav class="jumps" aria-label="On this page"><a href="#knowledge"><span class="label">01</span><b>Knows your answers</b><span>Your help center, websites and files</span></a><a href="#lookups"><span class="label">02</span><b>Looks things up</b><span>Stripe and Linear, for the customer asking</span></a><a href="#checked"><span class="label">03</span><b>Checks every reply</b><span>Sources and a fact check, every time</span></a><a href="#draft-auto"><span class="label">04</span><b>Draft, then Auto</b><span>Your team sends first</span></a></nav>
+</section><section class="wrap"><div class="frow " id="knowledge">
+    <div class="ftext rv"><span class="label kicker">01 / Knowledge</span><h2>Answers from what you&#x27;ve already written</h2><p>Magpie reads your published help center articles, plus any websites and files you add. It keeps up as they change, so its answers match your latest policy.</p><ul class="checks"><li>Help center articles, read again every 15 minutes</li><li>Websites up to 50 pages each, read again every day</li><li>PDF, Word, PowerPoint, Excel, HTML, Markdown or text files up to 20 MB</li><li>Searches by meaning and by keyword, then keeps only the best matches</li></ul></div>
+    <div class="mwrap rv"><div style="position:relative;width:100%;max-width:440px"><div class="mk"><div class="mk-h">Knowledge<span class="label">Settings, AI agent</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3Z"/><path d="M5 17a3 3 0 0 1 3-3h11"/></svg><span class="grow"><b>Help center</b><small>24 articles</small></span><span class="tg ok">Ready</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c3 3 3 13 0 16M12 4c-3 3-3 13 0 16"/></svg><span class="grow"><b>northwind.example/docs</b><small>50 pages</small></span><span class="tg ok">Ready</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 3h8l4 4v14H6Z"/><path d="M14 3v4h4"/></svg><span class="grow"><b>Returns policy.pdf</b><small>12 pages</small></span><span class="tg ok">Ready</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 3h8l4 4v14H6Z"/><path d="M14 3v4h4"/></svg><span class="grow"><b>Price list.xlsx</b><small>Spreadsheet</small></span><span class="tg blue">Reading</span></div><div class="mk-r"><span class="bar"><i style="--w:68%"></i></span></div></div></div></div>
+  </div><div class="frow rev" id="lookups">
+    <div class="ftext rv"><span class="label kicker">02 / Lookups</span><h2>Checks your apps for the facts</h2><p>Connect Stripe or Linear in one click. Magpie looks up charges and known bugs, only ever for the customer in the conversation.</p><ul class="checks"><li>Stripe: recent charges, and any double payments</li><li>Linear: whether a reported bug is known or fixed, in plain words</li><li>The customer&#x27;s email is filled in by code, so Magpie can&#x27;t look up anyone else</li><li>Visitors who aren&#x27;t signed in can prove who they are with a 6-digit email code</li></ul></div>
+    <div class="mwrap rv"><div style="position:relative;width:100%;max-width:440px"><div class="mk"><div class="mk-h">Looked up for this reply<span class="label">Trace</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg><span class="grow"><b>maya@brightline.example</b><small>Signed in</small></span><span class="tg ok">Verified</span></div><div class="mk-r"><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/stripe.svg);color:#635BFF" aria-hidden="true"></i><span class="grow"><b>Stripe, recent charges</b></span><span class="tg blue">2 found</span></div><div class="mk-r"><i class="si" style="--m:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/linear.svg);color:#5E6AD2" aria-hidden="true"></i><span class="grow"><b>Linear, &quot;export fails&quot;</b></span><span class="tg ok">Fixed Tuesday</span></div></div><div class="mk"><div class="mk-h">Magpie draft<span class="label">Draft</span></div><div class="mk-msg mp"><span class="meta">Magpie</span>You&#x27;re right, Maya: $49 was charged twice on November 1. A teammate will refund the extra charge.</div><div class="mk-src"><span class="tg blue">Stripe</span><span class="tg ok">Fact check passed</span></div></div></div></div>
+  </div><div class="frow " id="checked">
+    <div class="ftext rv"><span class="label kicker">03 / Fact check</span><h2>Every reply is checked before anyone sees it</h2><p>A second model reads each reply against the articles and lookups it used. It also watches for customers trying to trick Magpie.</p><ul class="checks"><li>Sources listed on every reply</li><li>Claims it can&#x27;t find in a source are flagged by name</li><li>&quot;Ignore your rules&quot; or &quot;I&#x27;m from IT&quot; gets flagged, and never gets an automatic reply</li><li>Card and phone numbers are hidden before the AI reads a message</li></ul></div>
+    <div class="mwrap rv"><div style="position:relative;width:100%;max-width:440px"><div class="mk"><div class="mk-h">Checks<span class="label">Passed</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3Z"/><path d="M5 17a3 3 0 0 1 3-3h11"/></svg><span class="grow"><b>Sources: Shipping to Canada</b></span><span class="tg blue">Cited</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg><span class="grow"><b>Every claim found in a source</b></span><span class="tg ok">Yes</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6Z"/></svg><span class="grow"><b>Trying to trick Magpie</b></span><span class="tg ok">No</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="5" y="11" width="14" height="10"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span class="grow"><b>Card and phone numbers</b></span><span class="tg dark">Hidden</span></div></div></div></div>
+  </div><div class="frow rev" id="draft-auto">
+    <div class="ftext rv"><span class="label kicker">04 / Draft and Auto</span><h2>Your team sends first. Magpie earns Auto.</h2><p>In Draft mode, Magpie&#x27;s reply waits in a side panel with Send, Edit and Discard. A replay test answers up to 30 past conversations again and grades each one against what your team sent.</p><ul class="checks"><li>Auto unlocks after a replay test of at least 10 replies, with 90% passing</li><li>In Auto, refunds, flagged messages and handoffs still wait for a person</li><li>After two answers, a customer who still needs help goes to your team</li><li>Off, Draft or Auto, chosen for each inbox</li></ul></div>
+    <div class="mwrap rv"><div style="position:relative;width:100%;max-width:440px"><div class="mk"><div class="mk-h">Replay test<span class="label">28 of 30 passed</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 5h16v11H9l-5 4Z"/></svg><span class="grow"><b>&quot;Can I pause my plan?&quot;</b></span><span class="tg ok">Same</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 5h16v11H9l-5 4Z"/></svg><span class="grow"><b>&quot;Do you ship to Norway?&quot;</b></span><span class="tg ok">Fine</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 5h16v11H9l-5 4Z"/></svg><span class="grow"><b>&quot;Is there a student discount?&quot;</b></span><span class="tg warn">Wrong</span></div><div class="mk-r"><span class="grow"><b>Mode</b></span><span class="tg ">Off</span><span class="tg dark">Draft</span><span class="tg ">Auto</span></div></div></div></div>
+  </div><div class="frow " id="traces">
+    <div class="ftext rv"><span class="label kicker">05 / Traces and usage</span><h2>See every step, and what it cost</h2><p>The Traces page shows each turn Magpie took: what it read, what it looked up, what it decided and how long it took. Usage shows this month&#x27;s spend against your limit.</p><ul class="checks"><li>Outcomes for every draft: sent as written, edited, or discarded</li><li>Conversations Magpie solved alone, and the ones it handed off</li><li>A monthly spending limit for each team, so there are no surprise bills</li></ul></div>
+    <div class="mwrap rv"><div style="position:relative;width:100%;max-width:440px"><div class="mk"><div class="mk-h">Conversation #2381<span class="label">Sent by a teammate</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg><span class="grow"><b>Searched knowledge</b></span><span class="tg blue">4 articles</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12l16-8-6 16-3-6Z"/></svg><span class="grow"><b>Wrote a reply</b></span><span class="tg blue">2 sources</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg><span class="grow"><b>Fact check</b></span><span class="tg ok">Passed</span></div><div class="mk-r"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span class="grow"><b>Total</b></span><span class="tg ">4.1 s  ·  $0.004</span></div></div></div></div>
+  </div></section><section class="wrap" style="padding-top:24px;padding-bottom:24px"><div class="stats rv"><div><b>Every reply</b><span>Checked against its sources</span></div><div><b>10 of 10</b><span>Tricks and rules handled</span></div><div><b>4 s</b><span>Typical reply time</span></div><div><b>$0.004</b><span>AI cost per reply</span></div></div><p class="stats-note">From our latest test: 40 real support questions, November 2026</p></section><section class="sec wrap">
+  <div class="band">
+    <div class="rv"><span class="label kicker">In the chat</span><h2>Fast answers, and a person when it matters</h2><div class="steps" data-steps="capA"><div class="step" data-who="customer" data-tag="customer" data-say="Hi! How long does shipping to Canada take?"><b>Answers in seconds</b><span>Questions your help content covers get a reply right away.</span></div><div class="step" data-who="magpie" data-tag="Magpie" data-say="5 to 8 business days, and duties are included at checkout."><b>From your own policy</b><span>Every answer comes from your articles, with its sources.</span></div><div class="step" data-who="magpie" data-tag="Magpie" data-say="I&#x27;m sorry this keeps happening. A teammate will pick this up."><b>Hands off when it should</b><span>Upset customers and tricky asks go to your team with a note.</span></div></div></div>
+    <div class="photo drawn rv"><div class="ground"></div><svg class="art" data-on="0" viewBox="0 0 600 480" preserveAspectRatio="xMidYMin meet" role="img" aria-label="Drawing: a question comes in, Magpie answers from your policy or hands off to a person"><g class="nd" data-n="0"><path class="ln dr" pathLength="1" style="--d:0" d="M46 76h150v92h-150Z"/><path class="fl" style="--d:1" d="M40 70h150v92h-150Z"/><path class="ln dr" pathLength="1" style="--d:1" d="M40 70h150v92h-150Z"/><path class="ib" d="M52 82h28v28h-28Z"/><path class="ln dr" pathLength="1" style="--d:2" d="M52 82h28v28h-28Z"/><g transform="translate(54 84) scale(1)" style="--sw:1.30"><path class="ln dr" pathLength="1" style="--d:3" d="M4 5h16v11H9l-5 4Z"/></g><path class="ln dr" pathLength="1" style="--d:4" d="M90 90h60M90 102h36"/><path class="ln dr" pathLength="1" style="--d:5" d="M162 90a3 3 0 1 0 6 0a3 3 0 1 0 -6 0M172 90a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path class="ln dr" pathLength="1" style="--d:6" d="M52 120h78v15h-70l-6 5v-5h-2Z"/><path class="fl mp" style="--d:7" d="M90 143h88v15h-88Z"/><path class="ln dr" pathLength="1" style="--d:7" d="M90 143h88v15h-88Z"/><path class="ln dr" pathLength="1" style="--d:8" d="M190 116H215V150H245"/><circle class="dot" r="3" data-delay="0"><animateMotion begin="indefinite" dur="2.4s" repeatCount="indefinite" path="M190 116H215V150H245"/><animate attributeName="opacity" begin="indefinite" dur="2.4s" repeatCount="indefinite" values="0;1;1;0" keyTimes="0;.12;.85;1"/></circle></g><g class="nd" data-n="1"><path class="ln dr" pathLength="1" style="--d:9" d="M416 46h150v92h-150Z"/><path class="fl" style="--d:10" d="M410 40h150v92h-150Z"/><path class="ln dr" pathLength="1" style="--d:10" d="M410 40h150v92h-150Z"/><path class="ib" d="M422 52h28v28h-28Z"/><path class="ln dr" pathLength="1" style="--d:11" d="M422 52h28v28h-28Z"/><g transform="translate(424 54) scale(1)" style="--sw:1.30"><path class="ln dr" pathLength="1" style="--d:12" d="M6 3h8l4 4v14H6ZM14 3v4h4M9 12h6M9 16h4"/></g><path class="ln dr" pathLength="1" style="--d:13" d="M460 60h60M460 72h36"/><path class="ln dr" pathLength="1" style="--d:14" d="M532 60a3 3 0 1 0 6 0a3 3 0 1 0 -6 0M542 60a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path class="ln dr" pathLength="1" style="--d:15" d="M422 94h113"/><path class="ln dr" pathLength="1" style="--d:16" d="M422 106h88"/><path class="ln dr" pathLength="1" style="--d:17" d="M410 86H380V140H355"/><circle class="dot" r="3" data-delay="600"><animateMotion begin="indefinite" dur="2.4s" repeatCount="indefinite" path="M410 86H380V140H355"/><animate attributeName="opacity" begin="indefinite" dur="2.4s" repeatCount="indefinite" values="0;1;1;0" keyTimes="0;.12;.85;1"/></circle></g><g class="nd" data-n="2"><path class="ln dr" pathLength="1" style="--d:18" d="M416 196h150v92h-150Z"/><path class="fl" style="--d:19" d="M410 190h150v92h-150Z"/><path class="ln dr" pathLength="1" style="--d:19" d="M410 190h150v92h-150Z"/><path class="ib" d="M422 202h28v28h-28Z"/><path class="ln dr" pathLength="1" style="--d:20" d="M422 202h28v28h-28Z"/><g transform="translate(424 204) scale(1)" style="--sw:1.30"><path class="ln dr" pathLength="1" style="--d:21" d="M12 4a4 4 0 1 0 .01 0M4 21a8 7 0 0 1 16 0"/></g><path class="ln dr" pathLength="1" style="--d:22" d="M460 210h60M460 222h36"/><path class="ln dr" pathLength="1" style="--d:23" d="M532 210a3 3 0 1 0 6 0a3 3 0 1 0 -6 0M542 210a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path class="ln dr" pathLength="1" style="--d:24" d="M422 244h113"/><path class="ln dr" pathLength="1" style="--d:25" d="M422 256h88"/><path class="ln dr" pathLength="1" style="--d:26" d="M410 236H380V180H355"/><circle class="dot" r="3" data-delay="1200"><animateMotion begin="indefinite" dur="2.4s" repeatCount="indefinite" path="M410 236H380V180H355"/><animate attributeName="opacity" begin="indefinite" dur="2.4s" repeatCount="indefinite" values="0;1;1;0" keyTimes="0;.12;.85;1"/></circle></g><path class="ln dr" pathLength="1" style="--d:27" d="M259 91h110v110h-110Z"/><circle class="pulse" cx="300" cy="154" r="40"/><path class="fl" style="--d:28" d="M245 105h110v110h-110Z"/><path class="ln dr" pathLength="1" style="--d:28" d="M245 105h110v110h-110Z"/><path class="ln dr" pathLength="1" style="--d:29" d="M300 124L326 139L326 169L300 184L274 169L274 139ZM300 154L300 184M300 154L326 139M300 154L274 139M300 141.4L310.9 147.7L310.9 160.3L300 166.6L289.1 160.3L289.1 147.7Z"/><text class="lbl" x="300" y="203" text-anchor="middle">MAGPIE</text><circle class="jn" cx="245" cy="150" r="3"/><circle class="jn" cx="355" cy="140" r="3"/><circle class="jn" cx="355" cy="180" r="3"/><path class="ln dr" pathLength="1" style="--d:30" d="M300 215V300"/><circle class="jn" cx="300" cy="300" r="3"/><circle class="dot" r="3" data-delay="1800"><animateMotion begin="indefinite" dur="1.6s" repeatCount="indefinite" path="M300 215V300"/><animate attributeName="opacity" begin="indefinite" dur="1.6s" repeatCount="indefinite" values="0;1;1;0" keyTimes="0;.12;.85;1"/></circle></svg><div class="cap" id="capA"></div></div>
+  </div>
+</section><section class="sec wrap" style="padding-top:24px"><div class="sec-top rv"><div><span class="label kicker">Who it's for</span><h2>Built for the questions your customers ask most</h2></div></div>
+<div class="uc rv">
+<div class="uc-c" id="b2b"><span class="label kicker" style="margin:0">B2B software</span><h3>Billing questions and bug reports, answered with the facts</h3><p>From your docs, Stripe and Linear.</p><ul class="checks"><li>Spots double charges in Stripe for the signed-in customer</li><li>Tells customers when a bug is known or fixed, from Linear</li><li>Answers how-to questions from your docs site</li><li>Sends bank disputes to Billing and upset customers to Support</li></ul></div>
+<div class="uc-c" id="ecommerce"><span class="label kicker" style="margin:0">Online stores</span><h3>Shipping, returns and payment questions, around the clock</h3><p>From your policies and Stripe.</p><ul class="checks"><li>Answers shipping and returns questions from your policies</li><li>Finds double charges, and asks before proposing a refund</li><li>Keeps refunds of $50 or more for your team to review</li><li>Order tracking from Shopify<em>Coming</em></li></ul></div>
+</div><div class="soon rv"><span class="label">Coming next</span><span>Playbooks and actions</span><span>Copilot for your team</span><span>Suggested articles</span><span>Memories</span><span>Phone calls</span></div></section><section class="sec wrap" style="padding-top:24px"><div class="sec-top rv"><div><h2>More in MagpieReply</h2></div></div><div class="more rv"><a href="/inbox/"><h3>Shared inbox<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></h3><p>Every channel in one place, with Magpie&#x27;s drafts beside each conversation.</p></a><a href="/help-center/"><h3>Help center<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></h3><p>Articles your customers can search, and the first thing Magpie learns from.</p></a><a href="/integrations/"><h3>Apps<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></h3><p>Connect Stripe and Linear in one click. Magpie only reads.</p></a></div></section><section class="sec wrap" id="faq" style="padding-top:24px"><div class="faq"><div class="rv"><h2>Questions about Magpie</h2><p class="lead" style="margin-top:20px">Something else? Write to <a href="mailto:hello@magpiereply.com" style="text-decoration:underline">hello@magpiereply.com</a>.</p></div><div class="rv"><div class="q open"><button type="button" aria-expanded="true">What happens if Magpie gets something wrong?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><div class="a"><div><p>In Draft mode, a teammate reads every reply before it goes out. The fact check flags any claim it can't find in a source, so your team knows where to look. Auto only unlocks once a replay test shows Magpie answering past conversations the way your team did, at least 9 times in 10.</p></div></div></div><div class="q"><button type="button" aria-expanded="false">What does it cost?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><div class="a"><div><p>Magpie is free while we're in early access. Each team has a monthly spending limit on AI, so there are no surprise bills. See <a href="/pricing/">pricing</a> for the plans we're planning.</p></div></div></div><div class="q"><button type="button" aria-expanded="false">Can Magpie see other customers&#x27; data?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><div class="a"><div><p>No. Lookups use the signed-in customer's email, filled in by code, so Magpie can only look up the person it's talking to. It never looks up anyone else, even for someone claiming to be staff.</p></div></div></div><div class="q"><button type="button" aria-expanded="false">Which apps can Magpie use?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><div class="a"><div><p>Stripe and Linear today, each with one click. HubSpot and Shopify are next. Magpie only reads from your apps.</p></div></div></div><div class="q"><button type="button" aria-expanded="false">Can I turn Magpie off?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><div class="a"><div><p>Any time. Settings, AI agent has Off, Draft and Auto, and you pick which inboxes Magpie works in.</p></div></div></div></div></div></section><section class="cta"><h2>Let Magpie take the first reply</h2><div class="ctas" style="justify-content:center"><a class="btn btn-dark" href="https://app.magpiereply.com/app/auth/signup">Get started</a><a class="btn btn-line" href="/#demo">Try the demo</a></div></section>
+</main>
+<!-- footer -->
+<footer class="bf">
+  <div class="bf-in">
+    <div class="bf-top">
+      <a class="bf-logo" href="/" aria-label="MagpieReply home"><svg viewBox="0 0 32 32" fill="none"><path d="M3.5 28.5V16A12.5 12.5 0 1 1 16 28.5Z" stroke="#fff" stroke-width="5"/><path d="M28.5 16A12.5 12.5 0 0 1 16 28.5" stroke="#2450ff" stroke-width="5"/><circle cx="16" cy="16" r="3.5" fill="#fff"/></svg>MagpieReply</a>
+      <div class="bf-tag">The agentic<br>CX platform</div>
+      <div class="bf-cols">
+        <div><h4>Product</h4><a href="/ai-agent/">Magpie</a><a href="/inbox/">Shared inbox</a><a href="/help-center/">Help center</a><a href="/integrations/">Apps</a><a href="/pricing/">Pricing</a></div>
+        <div><h4>Use cases</h4><a href="/online-stores/">Online stores</a><a href="/b2b-software/">B2B software</a><a href="/industries/">All industries</a><a href="/open-source/">Self-hosted</a><a href="/compare/intercom/">vs Intercom</a><a href="/compare/zendesk/">vs Zendesk</a></div>
+        <div><h4>Company</h4><a href="mailto:hello@magpiereply.com">Contact</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="https://app.magpiereply.com/app/login">Sign in</a></div>
+      </div>
+    </div>
+    <div class="bf-bot"><span>© 2026 MagpieReply</span><a href="mailto:hello@magpiereply.com">hello@magpiereply.com</a></div>
+  </div>
 </footer>
 <!-- /footer -->
-
 <script src="/script.js"></script>
+<script src="/assets/v2.js"></script>
 </body>
 </html>
